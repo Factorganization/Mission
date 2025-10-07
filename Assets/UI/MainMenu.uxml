@@ -1,7 +1,10 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <ui:VisualElement name="root" style="flex-grow: 1; background-color: rgb(34, 31, 31);"/>
-    <ui:VisualElement name="task-bar" style="flex-grow: 1; position: absolute; top: 720px; aspect-ratio: auto; height: 50px; width: 1532px; justify-content: flex-end; left: 0; background-color: rgb(237, 223, 245);">
-        <ui:Button text="0
-" style="white-space: pre-wrap; width: 50px; -unity-text-align: middle-center; flex-wrap: nowrap; flex-direction: column; align-self: flex-start; justify-content: flex-start; align-items: stretch; height: 46px;"/>
+    <ui:Template name="ResearchPopUp" src="project://database/Assets/UI/Modals/ResearchPopUp/ResearchPopUp.uxml?fileID=9197481963319205126&amp;guid=b7d3a2701f0c29c469028ba9c5ddae3c&amp;type=3#ResearchPopUp"/>
+    <Style src="project://database/Assets/UI/MainMenu.uss?fileID=7433441132597879392&amp;guid=d49c541b4fc3b8441a7ca4debb09bc65&amp;type=3#MainMenu"/>
+    <ui:VisualElement name="root" style="flex-grow: 1; background-color: rgb(34, 31, 31); justify-content: flex-start; align-items: flex-start;">
+        <ui:Instance template="ResearchPopUp" name="research" class="research" style="visibility: visible; opacity: 1; height: 90%; width: 312px;"/>
+        <ui:VisualElement name="task-bar" style="flex-grow: 1; position: relative; top: 0; aspect-ratio: auto; height: 10%; width: 100%; justify-content: flex-end; left: 0; background-color: rgb(237, 223, 245); align-items: stretch; flex-direction: column; background-size: 100% 90%;">
+            <ui:Button text="0 " name="windows-button" class="windows-button" style="white-space: pre-wrap; width: 50px; -unity-text-align: middle-center; flex-wrap: nowrap; flex-direction: column; align-self: flex-start; justify-content: flex-start; align-items: stretch; height: 46px;"/>
+        </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>
