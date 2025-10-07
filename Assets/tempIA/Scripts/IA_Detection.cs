@@ -9,7 +9,7 @@ public class IA_Detection : MonoBehaviour
     [SerializeField] private float timeToForget = 5f;
 
     [SerializeField] private Transform player;
-
+    
     private float _detectionTimer = 0f;
     private float _forgetTimer = 0f;
     
@@ -37,19 +37,18 @@ public class IA_Detection : MonoBehaviour
         if (angleToPlayer < detectionAngle / 2 && directionToPlayer.magnitude <= detectionDistance)
         {
             RaycastHit hit;
-            if (Physics.Raycast(transform.position, directionToPlayer.normalized, out hit, detectionDistance))
+            if (!Physics.Raycast(transform.position, directionToPlayer.normalized, out hit, detectionDistance))
+                return; 
+            if (hit.transform != player)
+                return;
+                
+            if (_detectionTimer < timeToDetect)
             {
-                if (hit.transform == player)
-                {
-                    if (_detectionTimer < timeToDetect)
-                    {
-                        _detectionTimer += Time.deltaTime;
-                        _forgetTimer = 0;
-                        Debug.Log("Suspicious");
-                    }
-                    else Debug.Log("Player Spotted");
-                }
+                _detectionTimer += Time.deltaTime;
+                _forgetTimer = 0;
+                Debug.Log("Suspicious");
             }
+            else Debug.Log("Player Spotted");
         }
     }
 
