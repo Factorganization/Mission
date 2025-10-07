@@ -5,6 +5,8 @@ namespace GameContent.Player.Controller.LocalMachine.Model
         Idle,
         Move,
         Interact,
-        Possess
+        Possess,
+        Menu,
+        Locked
     }
 }

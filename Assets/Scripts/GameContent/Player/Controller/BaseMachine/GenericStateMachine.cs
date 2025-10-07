@@ -24,7 +24,7 @@ namespace GameContent.Player.Controller.BaseMachine
         #endregion
 
         #region methodes
-
+        
         public void SetCallBacks(byte stateID,
             string stateName,
             Action<GenericStateMachine> init, 
