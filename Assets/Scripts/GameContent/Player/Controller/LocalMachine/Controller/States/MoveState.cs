@@ -1,10 +1,10 @@
 using GameContent.Player.Controller.LocalMachine.Model;
-using GameContent.Player.Controller.BaseMachine;
 using UnityEngine;
+using Utils.BaseMachine;
 
 namespace GameContent.Player.Controller.LocalMachine.Controller.States
 {
-    public class MoveState : BasePlayerState
+    public sealed class MoveState : BasePlayerState
     {
         #region constructors
         
@@ -18,15 +18,15 @@ namespace GameContent.Player.Controller.LocalMachine.Controller.States
 
         public override void OnEnterState()
         {
-            Move(playerModel.currentMoveMultiplier);
+            playerModel.Move(playerModel.currentMoveMultiplier);
             playerModel.isGrounded = true;
             //TODO anims
         }
 
         public override sbyte OnUpdate()
         {
-            HandleInputGather();
-            HandleRotateInputGather();
+            playerModel.HandleInputGather();
+            playerModel.HandleRotateInputGather();
             
             OnFall();
             OnIdle();
@@ -36,13 +36,13 @@ namespace GameContent.Player.Controller.LocalMachine.Controller.States
 
         public override sbyte OnFixedUpdate()
         {
-            HandleGravity();
-            Move(playerModel.currentMoveMultiplier);
+            playerModel.HandleGravity(goRef);
+            playerModel.Move(playerModel.currentMoveMultiplier);
             
             //TODO maybe ranger ca dans une Func d'update graph
             playerModel.graph.transform.rotation = Quaternion.Slerp(playerModel.graph.transform.rotation, Quaternion.LookRotation(playerModel.lastLookDir), playerModel.data.moveData.graphRotationSpeed * Time.fixedDeltaTime);
             
-            Look();
+            playerModel.Look();
             
             return 0;
         }
@@ -55,7 +55,7 @@ namespace GameContent.Player.Controller.LocalMachine.Controller.States
         
         private void OnFall()
         {
-            if (CheckGround())
+            if (playerModel.CheckGround(goRef))
                 return;
             
             stateMachine.SwitchState("fall");

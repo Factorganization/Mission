@@ -1,10 +1,10 @@
 using GameContent.Player.Controller.LocalMachine.Model;
-using GameContent.Player.Controller.BaseMachine;
 using UnityEngine;
+using Utils.BaseMachine;
 
 namespace GameContent.Player.Controller.LocalMachine.Controller.States
 {
-    public class MenuState : BasePlayerState
+    public sealed class MenuState : BasePlayerState
     {
         #region constructors
         

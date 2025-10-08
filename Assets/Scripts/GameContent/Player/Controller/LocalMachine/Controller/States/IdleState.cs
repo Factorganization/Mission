@@ -1,10 +1,10 @@
 using GameContent.Player.Controller.LocalMachine.Model;
-using GameContent.Player.Controller.BaseMachine;
 using UnityEngine;
+using Utils.BaseMachine;
 
 namespace GameContent.Player.Controller.LocalMachine.Controller.States
 {
-    public class IdleState : BasePlayerState
+    public sealed class IdleState : BasePlayerState
     {
         #region constructors
         
@@ -24,8 +24,8 @@ namespace GameContent.Player.Controller.LocalMachine.Controller.States
 
         public override sbyte OnUpdate()
         {
-            HandleInputGather();
-            HandleRotateInputGather();
+            playerModel.HandleInputGather();
+            playerModel.HandleRotateInputGather();
 
             OnMove();
             OnFall();
@@ -35,9 +35,9 @@ namespace GameContent.Player.Controller.LocalMachine.Controller.States
 
         public override sbyte OnFixedUpdate()
         {
-            HandleGravity();
-            Move(playerModel.currentMoveMultiplier);
-            Look();
+            playerModel.HandleGravity(goRef);
+            playerModel.Move(playerModel.currentMoveMultiplier);
+            playerModel.Look();
 
             return 0;
         }
@@ -50,7 +50,7 @@ namespace GameContent.Player.Controller.LocalMachine.Controller.States
         
         private void OnFall()
         {
-            if (CheckGround())
+            if (playerModel.CheckGround(goRef))
                 return;
             
             stateMachine.SwitchState("fall");

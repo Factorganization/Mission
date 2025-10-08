@@ -1,10 +1,10 @@
 using GameContent.Player.Controller.LocalMachine.Model;
-using GameContent.Player.Controller.BaseMachine;
 using UnityEngine;
+using Utils.BaseMachine;
 
 namespace GameContent.Player.Controller.LocalMachine.Controller.States
 {
-    public class LockedState : BasePlayerState
+    public sealed class LockedState : BasePlayerState
     {
         #region constructors
         
