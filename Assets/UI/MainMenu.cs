@@ -18,17 +18,17 @@ namespace UI
         {
             _document = GetComponent<UIDocument>();
             
-            //_mailPage = new MailPage(_document.rootVisualElement.Q<VisualElement>("mail-page"));
+            _mailPage = new MailPage(_document.rootVisualElement.Q<VisualElement>("mail-page"));
             _researchPopUp = new ResearchPopUp(_document.rootVisualElement.Q<VisualElement>("research"));
             
-            //_researchPopUp.SetMailPage(_mailPage);
+            _researchPopUp.SetMailPage(_mailPage);
             
             _windowsButton.RegisterCallback<ClickEvent>(OpenResearchPopUp);
         }
         
         private void OpenResearchPopUp(ClickEvent _ = null)
         {
-            _researchPopUp.Show();
+            _researchPopUp.ShowMailPage();
             Debug.Log("Open Research Pop Up");
         }
     }

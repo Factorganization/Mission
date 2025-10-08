@@ -1,8 +1,8 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI/Modals/ResearchPopUp/ResearchPopUp.uss?fileID=7433441132597879392&amp;guid=cd63e87d66a963348892923a075923ee&amp;type=3#ResearchPopUp"/>
-    <ui:VisualElement name="root" class="hidden" style="visibility: visible; height: 612px;">
-        <ui:VisualElement name="popup" style="flex-grow: 1; background-color: rgb(245, 233, 233); margin-top: 8px; margin-right: 8px; margin-bottom: 8px; margin-left: 8px; position: relative;">
-            <ui:Button text="Mail" name="mail-button" style="white-space: nowrap; -unity-text-align: middle-center; width: 88px; height: 83px; position: absolute; top: 37px; left: 35px;"/>
+    <ui:VisualElement name="root" style="transition-timing-function: ease-in; transition-duration: 0.2s; height: 613px; width: 453px;">
+        <ui:VisualElement name="popup" style="transition-duration: 0.2s; transition-timing-function: ease-in; margin-top: 8px; margin-bottom: 8px; translate: 0 0%; flex-grow: 1; background-color: rgb(245, 228, 219); background-size: 100% 100%; border-top-left-radius: 40px; border-top-right-radius: 40px; border-bottom-left-radius: 40px; border-bottom-right-radius: 40px; margin-right: 8px; margin-left: 8px; padding-top: 60px; padding-right: 60px; padding-bottom: 60px; padding-left: 60px;">
+            <ui:Button text="Mail" name="mail-button" style="white-space: nowrap; -unity-text-align: middle-center; width: 88px; height: 83px; position: relative; top: auto; left: auto;"/>
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

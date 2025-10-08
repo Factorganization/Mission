@@ -1,7 +1,8 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/Modals/MailPage/MailPage.uss?fileID=7433441132597879392&amp;guid=7cc61356d936a3e458d449908ea8bd48&amp;type=3#MailPage"/>
     <ui:VisualElement name="root" style="flex-grow: 1;">
-        <ui:VisualElement name="mailView" style="flex-grow: 1; background-color: rgb(255, 255, 255); background-size: 100% 100%; -unity-background-scale-mode: stretch-to-fill;">
-            <ui:Button text="Close " name="close-button" style="flex-wrap: nowrap; align-self: flex-end;"/>
+        <ui:VisualElement name="mailView" style="flex-grow: 1; background-color: rgb(255, 255, 255); background-size: 100% 100%; -unity-background-scale-mode: stretch-to-fill; flex-direction: row-reverse;">
+            <ui:Button text=" " name="close-button" style="flex-wrap: nowrap; align-self: flex-start; background-color: rgb(255, 255, 255); border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0; background-image: url(&quot;project://database/Assets/UI%20Toolkit/UnityThemes/UnityDefaultRuntimeTheme.tss?fileID=5866165431930342980&amp;guid=4d04c27b1b2cf6548ba8f327870d1d87&amp;type=3#Remove@2x&quot;); justify-content: flex-start; align-items: stretch;"/>
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

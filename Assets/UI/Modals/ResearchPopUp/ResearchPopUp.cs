@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.UIElements;
@@ -12,8 +13,13 @@ namespace UI.Modals.ResearchPopUp
         public ResearchPopUp(VisualElement root) : base(root)
         {
             _hideOnAwake = true;
-            _isOverlay = true;
-            Initialize(root);
+            Root = root ?? throw new ArgumentNullException(nameof(root));
+            SetVisualElements();
+            RegisterButtonCallbacks();
+            if (_hideOnAwake)
+            {
+                HideMailPage();
+            }
         }
         
         public override void Dispose()
@@ -36,9 +42,14 @@ namespace UI.Modals.ResearchPopUp
             _mailButton.UnregisterCallback<ClickEvent>(OpenMailPage);
         }
 
-        private void Hide(ClickEvent clickEvent)
+        public void ShowMailPage()
         {
-            Hide();
+            Root.AddToClassList("research-up");
+        }
+
+        public void HideMailPage()
+        {
+            Root.RemoveFromClassList("research-up");
         }
         
         public void SetMailPage(MailPage.MailPage mailPage)
@@ -51,6 +62,7 @@ namespace UI.Modals.ResearchPopUp
             if (_mailPage != null)
             {
                 _mailPage.Show();
+                HideMailPage();
             }
         }
     }

@@ -1,0 +1,14 @@
+
+
+.visible {
+    opacity: 1;
+    scale: 1;
+    transition: opacity ease-in-out 250ms, scale ease-in-out 250ms;
+}
+
+.hidden {
+    opacity: 0;
+    scale: 0;
+    transition: all ease-in-out 250ms;
+    transition-timing-function: ease-in-out;
+}

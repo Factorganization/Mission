@@ -10,9 +10,7 @@ namespace UI
         public VisualElement Root { get; set; }
         public bool IsHidden => Root.ClassListContains("hidden");
 
-        public UIView()
-        {
-        }
+        public UIView() {}
 
         public UIView(VisualElement root)
         {
@@ -42,13 +40,9 @@ namespace UI
             Root.AddToClassList("hidden");
         }
 
-        protected virtual void RegisterButtonCallbacks()
-        {
-        }
+        protected virtual void RegisterButtonCallbacks() {}
 
-        protected virtual void SetVisualElements()
-        {
-        }
+        protected virtual void SetVisualElements() {}
 
         public abstract void Dispose();
     }
