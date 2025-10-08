@@ -25,7 +25,7 @@ namespace GameContent.Player.Controller.LocalMachine.Model
         
         public InputActionReference wheelInput;
 
-        public InputActionReference actionInput;
+        public InputActionReference interactInput;
 
         public InputActionReference menuInput;
     }
@@ -38,10 +38,9 @@ namespace GameContent.Player.Controller.LocalMachine.Model
         
         public float playerSpeed;
         
-        [Range(1f, 2f)]
-        public float sprintMultiplier;
-        
         public float accelDecelMultiplier;
+
+        public float graphRotationSpeed;
     }
 
     [System.Serializable]
@@ -50,6 +49,7 @@ namespace GameContent.Player.Controller.LocalMachine.Model
         [Range(0f, 1f)]
         public float camSensitivity;
         
+        [Range(0f, 90f)]
         public float maxPitchAngle;
     }
     
@@ -78,7 +78,7 @@ namespace GameContent.Player.Controller.LocalMachine.Model
     [System.Serializable]
     public class DevsData
     {
-        public GroudCheckData groudCheckData;
+        public GroudCheckData groundCheckData;
         
         public GravityData gravityData;
     }
