@@ -1,27 +1,14 @@
 using System;
-using GameContent.Player.Controller.BaseMachine;
 using GameContent.Player.Controller.LocalMachine.Controller.States;
 using GameContent.Player.Controller.LocalMachine.Model;
 using UnityEngine;
+using Utils.BaseMachine;
 
 namespace GameContent.Player.Controller.LocalMachine.View
 {
     [SelectionBase]
     public class PlayerStateMachine : MonoBehaviour
     {
-        #region properties
-        //to refactor, too much old code
-        
-        public PlayerDataSo DataSo => dataSo;
-        
-        public Transform Cam => cam;
-        
-        public Animator Animator => animator;
-
-        public PlayerModel PlayerModel => _playerModel;
-
-        #endregion
-
         #region methodes
 
         private void Awake()

@@ -1,10 +1,10 @@
-using GameContent.Player.Controller.BaseMachine;
 using GameContent.Player.Controller.LocalMachine.Model;
 using UnityEngine;
+using Utils.BaseMachine;
 
 namespace GameContent.Player.Controller.LocalMachine.Controller.States
 {
-    public class FallState : BasePlayerState
+    public sealed class FallState : BasePlayerState
     {
         #region constructors
         
@@ -23,10 +23,8 @@ namespace GameContent.Player.Controller.LocalMachine.Controller.States
         
         public override sbyte OnUpdate()
         {
-            
-            Debug.Log(playerModel.inputDir.sqrMagnitude);
-            HandleInputGather();
-            HandleRotateInputGather();
+            playerModel.HandleInputGather();
+            playerModel.HandleRotateInputGather();
             
             return 0;
         }
@@ -35,16 +33,16 @@ namespace GameContent.Player.Controller.LocalMachine.Controller.States
         {
             OnGrounded();
             
-            HandleGravity();
-            Move(playerModel.currentMoveMultiplier);
-            Look();
+            playerModel.HandleGravity(goRef);
+            playerModel.Move(playerModel.currentMoveMultiplier);
+            playerModel.Look();
             
             return 0;
         }
         
         private void OnGrounded()
         {
-            if (CheckGround())
+            if (playerModel.CheckGround(goRef))
                 stateMachine.SwitchState("move");
         }
 

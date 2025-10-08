@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-namespace GameContent.Player.Controller.BaseMachine
+namespace Utils.BaseMachine
 {
     public abstract class BaseState
     {
