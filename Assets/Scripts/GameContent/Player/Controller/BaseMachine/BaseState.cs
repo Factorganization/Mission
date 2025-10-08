@@ -7,8 +7,9 @@ namespace GameContent.Player.Controller.BaseMachine
     {
         #region constructor
 
-        protected BaseState(GameObject go)
+        protected BaseState(GenericStateMachine machine, GameObject go)
         {
+            stateMachine = machine;
             goRef = go;
         }
         
@@ -32,7 +33,7 @@ namespace GameContent.Player.Controller.BaseMachine
         
         #region fields
 
-        protected GenericStateMachine stateMachine;
+        protected readonly GenericStateMachine stateMachine;
         
         protected readonly GameObject goRef;
 

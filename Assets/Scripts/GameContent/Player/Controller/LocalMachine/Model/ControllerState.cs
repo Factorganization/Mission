@@ -4,6 +4,7 @@ namespace GameContent.Player.Controller.LocalMachine.Model
     {
         Idle,
         Move,
+        Fall,
         Interact,
         Possess,
         Menu,
