@@ -10,6 +10,8 @@ namespace GameContent.Player.Controller.LocalMachine.Model
         
         public MoveData moveData;
         
+        public JumpData jumpData;
+        
         public CameraData cameraData;
         
         [Header("trucs chiants, touchez pas trop au cas ou")]
@@ -22,6 +24,10 @@ namespace GameContent.Player.Controller.LocalMachine.Model
         public InputActionReference moveInput;
         
         public InputActionReference lookInput;
+        
+        public InputActionReference jumpInput;
+        
+        public InputActionReference crouchInput;
         
         public InputActionReference wheelInput;
 
@@ -37,6 +43,11 @@ namespace GameContent.Player.Controller.LocalMachine.Model
         public float playerHeight;
         
         public float playerSpeed;
+
+        public float crouchSpeedMultiplier;
+
+        [Range(0, 2)]
+        public float crouchHeight;
         
         public float accelDecelMultiplier;
 
@@ -51,6 +62,16 @@ namespace GameContent.Player.Controller.LocalMachine.Model
         
         [Range(0f, 90f)]
         public float maxPitchAngle;
+    }
+
+    [System.Serializable]
+    public class JumpData
+    {
+        public float jumpStrength;
+        
+        public float jumpCoyoteTime;
+        
+        public float jumpBufferTime; 
     }
     
     [System.Serializable]

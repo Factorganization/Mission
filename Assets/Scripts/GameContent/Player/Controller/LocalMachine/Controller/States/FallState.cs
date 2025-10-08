@@ -26,6 +26,9 @@ namespace GameContent.Player.Controller.LocalMachine.Controller.States
             playerModel.HandleInputGather();
             playerModel.HandleRotateInputGather();
             
+            playerModel.coyoteTime -= Time.deltaTime;
+            OnJump();
+            
             return 0;
         }
 
@@ -38,6 +41,13 @@ namespace GameContent.Player.Controller.LocalMachine.Controller.States
             playerModel.Look();
             
             return 0;
+        }
+        
+        private void OnJump()
+        {
+            if (playerModel.coyoteTime > 0
+                && playerModel.jumpBufferTime > 0)
+                stateMachine.SwitchState("jump");
         }
         
         private void OnGrounded()

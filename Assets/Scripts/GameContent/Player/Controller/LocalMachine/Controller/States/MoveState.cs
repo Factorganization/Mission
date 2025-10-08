@@ -20,6 +20,7 @@ namespace GameContent.Player.Controller.LocalMachine.Controller.States
         {
             playerModel.Move(playerModel.currentMoveMultiplier);
             playerModel.isGrounded = true;
+            playerModel.coyoteTime = playerModel.data.jumpData.jumpCoyoteTime;
             //TODO anims
         }
 
@@ -28,6 +29,7 @@ namespace GameContent.Player.Controller.LocalMachine.Controller.States
             playerModel.HandleInputGather();
             playerModel.HandleRotateInputGather();
             
+            OnJump();
             OnFall();
             OnIdle();
             
@@ -51,6 +53,12 @@ namespace GameContent.Player.Controller.LocalMachine.Controller.States
         {
             if (playerModel.inputDir.sqrMagnitude < 0.1f)
                 stateMachine.SwitchState("idle");
+        }
+        
+        private void OnJump()
+        {
+            if (playerModel.jumpBufferTime > 0)
+                stateMachine.SwitchState("jump");
         }
         
         private void OnFall()

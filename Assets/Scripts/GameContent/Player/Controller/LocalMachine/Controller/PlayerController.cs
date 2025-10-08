@@ -11,7 +11,23 @@ namespace GameContent.Player.Controller.LocalMachine.Controller
         {
             playerModel.inputDir = playerModel.data.inputData.moveInput.action.ReadValue<Vector2>();
             
-            playerModel.currentHeightTarget = playerModel.data.devsData.groundCheckData.castBaseLength;
+            playerModel.jumpBufferTime -= Time.deltaTime;
+            
+            if (playerModel.data.inputData.jumpInput.action.WasPressedThisFrame())
+                playerModel.jumpBufferTime = playerModel.data.jumpData.jumpBufferTime;
+            
+            if (playerModel.data.inputData.crouchInput.action.IsPressed() && playerModel.currentHeightTarget >= playerModel.data.moveData.crouchHeight - 1)
+            {
+                playerModel.isCrouching = true;
+                playerModel.currentHeightTarget = playerModel.data.moveData.crouchHeight - 1;
+                playerModel.currentMoveMultiplier = playerModel.data.moveData.crouchSpeedMultiplier;
+            }
+            else if (!playerModel.data.inputData.crouchInput.action.IsPressed() && playerModel.currentHeightTarget <= playerModel.data.devsData.groundCheckData.castBaseLength)
+            {
+                playerModel.isCrouching = false;
+                playerModel.currentHeightTarget = playerModel.data.devsData.groundCheckData.castBaseLength;
+                playerModel.currentMoveMultiplier = 1;
+            }
         }
 
         public static void HandleRotateInputGather(this  PlayerModel playerModel)
