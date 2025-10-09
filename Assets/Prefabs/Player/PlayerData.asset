@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7cd6fe8d0211429993e71ebb78a9925b, type: 3}
+  m_Name: PlayerData
+  m_EditorClassIdentifier: Assembly-CSharp::GameContent.Player.Controller.LocalMachine.Model.PlayerDataSo
+  inputData:
+    moveInput: {fileID: -1680190386980627800, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+    lookInput: {fileID: -5630151704836100654, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+    jumpInput: {fileID: -6664636156484392018, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+    crouchInput: {fileID: 1108809239591116816, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+    wheelInput: {fileID: 0}
+    interactInput: {fileID: 1781555164194001046, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+    menuInput: {fileID: 0}
+  moveData:
+    playerHeight: 2
+    playerSpeed: 250
+    crouchSpeedMultiplier: 0.75
+    crouchHeight: 2
+    accelDecelMultiplier: 25
+    graphRotationSpeed: 15
+  jumpData:
+    jumpStrength: 8
+    jumpCoyoteTime: 0.15
+    jumpBufferTime: 0.2
+  cameraData:
+    camSensitivity: 1
+    maxPitchAngle: 89
+  devsData:
+    groundCheckData:
+      groundLayer:
+        serializedVersion: 2
+        m_Bits: 4294967295
+      sphereCastRadius: 0.5
+      castBaseLength: 1
+      additionalCastLength: 0.65
+    gravityData:
+      slopeClosingSpeedMultiplier: 20
+      fallAccelerationMultiplier: 60
+      maxFallSpeed: 30
