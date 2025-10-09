@@ -19,6 +19,7 @@ namespace GameContent.Player.Controller.LocalMachine.Controller.States
         public override void OnEnterState()
         {
             playerModel.isGrounded = true;
+            playerModel.coyoteTime = playerModel.data.jumpData.jumpCoyoteTime;
             //TODO anims
         }
 
@@ -27,8 +28,9 @@ namespace GameContent.Player.Controller.LocalMachine.Controller.States
             playerModel.HandleInputGather();
             playerModel.HandleRotateInputGather();
 
-            OnMove();
+            OnJump();
             OnFall();
+            OnMove();
             
             return 0;
         }
@@ -46,6 +48,12 @@ namespace GameContent.Player.Controller.LocalMachine.Controller.States
         {
             if (playerModel.inputDir.sqrMagnitude > 0.1f)
                 stateMachine.SwitchState("move");
+        }
+        
+        private void OnJump()
+        {
+            if (playerModel.jumpBufferTime > 0)
+                stateMachine.SwitchState("jump");
         }
         
         private void OnFall()

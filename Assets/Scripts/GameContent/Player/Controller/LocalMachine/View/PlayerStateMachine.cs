@@ -18,6 +18,7 @@ namespace GameContent.Player.Controller.LocalMachine.View
 
             var idle = new IdleState(_stateMachine, gameObject, _playerModel, ControllerState.Idle);
             var move = new MoveState(_stateMachine, gameObject, _playerModel, ControllerState.Move);
+            var jump = new JumpState(_stateMachine, gameObject, _playerModel, ControllerState.Jump);
             var fall = new FallState(_stateMachine, gameObject, _playerModel, ControllerState.Fall);
             var interact = new InteractState(_stateMachine, gameObject, _playerModel, ControllerState.Interact);
             var possess =  new PossessState(_stateMachine, gameObject, _playerModel, ControllerState.Possess);
@@ -30,6 +31,9 @@ namespace GameContent.Player.Controller.LocalMachine.View
             _stateMachine.SetCallBacks((byte)ControllerState.Move, "move", move.OnInit, move.OnEnterState,
                 move.OnUpdate, move.OnFixedUpdate, move.OnExitState, move.OnCoroutine);
 
+            _stateMachine.SetCallBacks((byte)ControllerState.Jump, "jump", jump.OnInit, jump.OnEnterState,
+                jump.OnUpdate, jump.OnFixedUpdate, jump.OnExitState, jump.OnCoroutine);
+            
             _stateMachine.SetCallBacks((byte)ControllerState.Fall, "fall", fall.OnInit, fall.OnEnterState,
                 fall.OnUpdate, fall.OnFixedUpdate, fall.OnExitState, fall.OnCoroutine);
             

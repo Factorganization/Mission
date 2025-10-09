@@ -31,6 +31,8 @@ namespace GameContent.Player.Controller.LocalMachine.Model
 
         public bool isGrounded = true;
         
+        public bool isCrouching = false;
+        
         public Vector2 inputDir;
         
         public Vector2 lookDir;
@@ -52,6 +54,10 @@ namespace GameContent.Player.Controller.LocalMachine.Model
         public float currentMoveMultiplier = 1;
         
         public float currentHeightTarget;
+        
+        public float jumpBufferTime = 0;
+        
+        public float coyoteTime = 0;
 
         #endregion
 
