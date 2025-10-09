@@ -1,14 +1,15 @@
 using System.Collections;
 using UnityEngine;
 
-namespace GameContent.Player.Controller.BaseMachine
+namespace Utils.BaseMachine
 {
     public abstract class BaseState
     {
         #region constructor
 
-        protected BaseState(GameObject go)
+        protected BaseState(GenericStateMachine machine, GameObject go)
         {
+            stateMachine = machine;
             goRef = go;
         }
         
@@ -32,7 +33,7 @@ namespace GameContent.Player.Controller.BaseMachine
         
         #region fields
 
-        protected GenericStateMachine stateMachine;
+        protected readonly GenericStateMachine stateMachine;
         
         protected readonly GameObject goRef;
 

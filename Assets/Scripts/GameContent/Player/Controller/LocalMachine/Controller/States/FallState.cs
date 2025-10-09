@@ -4,64 +4,56 @@ using Utils.BaseMachine;
 
 namespace GameContent.Player.Controller.LocalMachine.Controller.States
 {
-    public sealed class IdleState : BasePlayerState
+    public sealed class FallState : BasePlayerState
     {
         #region constructors
         
-        public IdleState(GenericStateMachine machine, GameObject go, PlayerModel model, ControllerState state) : base(machine, go, model, state)
+        public FallState(GenericStateMachine machine, GameObject go, PlayerModel model, ControllerState state) : base(machine, go, model, state)
         {
         }
         
         #endregion
-
+        
         #region methodes
 
         public override void OnEnterState()
         {
-            playerModel.isGrounded = true;
-            playerModel.coyoteTime = playerModel.data.jumpData.jumpCoyoteTime;
-            //TODO anims
+            playerModel.isGrounded = false;
         }
-
+        
         public override sbyte OnUpdate()
         {
             playerModel.HandleInputGather();
             playerModel.HandleRotateInputGather();
-
+            
+            playerModel.coyoteTime -= Time.deltaTime;
             OnJump();
-            OnFall();
-            OnMove();
             
             return 0;
         }
 
         public override sbyte OnFixedUpdate()
         {
+            OnGrounded();
+            
             playerModel.HandleGravity(goRef);
             playerModel.Move(playerModel.currentMoveMultiplier);
             playerModel.Look();
-
+            
             return 0;
-        }
-
-        private void OnMove()
-        {
-            if (playerModel.inputDir.sqrMagnitude > 0.1f)
-                stateMachine.SwitchState("move");
         }
         
         private void OnJump()
         {
-            if (playerModel.jumpBufferTime > 0)
+            if (playerModel.coyoteTime > 0
+                && playerModel.jumpBufferTime > 0)
                 stateMachine.SwitchState("jump");
         }
         
-        private void OnFall()
+        private void OnGrounded()
         {
             if (playerModel.CheckGround(goRef))
-                return;
-            
-            stateMachine.SwitchState("fall");
+                stateMachine.SwitchState("move");
         }
 
         #endregion

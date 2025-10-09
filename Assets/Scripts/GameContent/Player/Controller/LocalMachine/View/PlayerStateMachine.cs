@@ -1,26 +1,14 @@
 using System;
-using GameContent.Player.Controller.BaseMachine;
 using GameContent.Player.Controller.LocalMachine.Controller.States;
 using GameContent.Player.Controller.LocalMachine.Model;
 using UnityEngine;
+using Utils.BaseMachine;
 
-namespace GameContent.Player.Controller.LocalMachine.Controller
+namespace GameContent.Player.Controller.LocalMachine.View
 {
+    [SelectionBase]
     public class PlayerStateMachine : MonoBehaviour
     {
-        #region properties
-        //to refactor, too much old code
-        
-        public PlayerDataSo DataSo => dataSo;
-        
-        public Transform Cam => cam;
-        
-        public Animator Animator => animator;
-
-        public PlayerModel PlayerModel => _playerModel;
-
-        #endregion
-
         #region methodes
 
         private void Awake()
@@ -28,12 +16,14 @@ namespace GameContent.Player.Controller.LocalMachine.Controller
             _playerModel = new PlayerModel(dataSo, rb, graph, cam, animator);
             _stateMachine = new GenericStateMachine(Enum.GetNames(typeof(ControllerState)).Length);
 
-            var idle = new IdleState(gameObject, _playerModel, ControllerState.Idle, this);
-            var move = new MoveState(gameObject, _playerModel, ControllerState.Move, this);
-            var interact = new InteractState(gameObject, _playerModel, ControllerState.Interact, this);
-            var possess =  new PossessState(gameObject, _playerModel, ControllerState.Possess, this);
-            var menu = new MenuState(gameObject, _playerModel, ControllerState.Menu, this);
-            var locked = new LockedState(gameObject, _playerModel, ControllerState.Locked, this);
+            var idle = new IdleState(_stateMachine, gameObject, _playerModel, ControllerState.Idle);
+            var move = new MoveState(_stateMachine, gameObject, _playerModel, ControllerState.Move);
+            var jump = new JumpState(_stateMachine, gameObject, _playerModel, ControllerState.Jump);
+            var fall = new FallState(_stateMachine, gameObject, _playerModel, ControllerState.Fall);
+            var interact = new InteractState(_stateMachine, gameObject, _playerModel, ControllerState.Interact);
+            var possess =  new PossessState(_stateMachine, gameObject, _playerModel, ControllerState.Possess);
+            var menu = new MenuState(_stateMachine, gameObject, _playerModel, ControllerState.Menu);
+            var locked = new LockedState(_stateMachine, gameObject, _playerModel, ControllerState.Locked);
             
             _stateMachine.SetCallBacks((byte)ControllerState.Idle, "idle", idle.OnInit, idle.OnEnterState,
                 idle.OnUpdate, idle.OnFixedUpdate, idle.OnExitState, idle.OnCoroutine);
@@ -41,6 +31,12 @@ namespace GameContent.Player.Controller.LocalMachine.Controller
             _stateMachine.SetCallBacks((byte)ControllerState.Move, "move", move.OnInit, move.OnEnterState,
                 move.OnUpdate, move.OnFixedUpdate, move.OnExitState, move.OnCoroutine);
 
+            _stateMachine.SetCallBacks((byte)ControllerState.Jump, "jump", jump.OnInit, jump.OnEnterState,
+                jump.OnUpdate, jump.OnFixedUpdate, jump.OnExitState, jump.OnCoroutine);
+            
+            _stateMachine.SetCallBacks((byte)ControllerState.Fall, "fall", fall.OnInit, fall.OnEnterState,
+                fall.OnUpdate, fall.OnFixedUpdate, fall.OnExitState, fall.OnCoroutine);
+            
             _stateMachine.SetCallBacks((byte)ControllerState.Interact, "interact", interact.OnInit, interact.OnEnterState,
                 interact.OnUpdate, interact.OnFixedUpdate, interact.OnExitState, interact.OnCoroutine);
 
@@ -65,6 +61,7 @@ namespace GameContent.Player.Controller.LocalMachine.Controller
         private void Update()
         {
             _stateMachine.UpdateMachine();
+            NON = 0;
         }
 
         private void FixedUpdate()
@@ -90,6 +87,19 @@ namespace GameContent.Player.Controller.LocalMachine.Controller
 
         private PlayerModel _playerModel;
 
+        private float NON
+        {
+            set
+            {
+                if (dataSo.cameraData.maxPitchAngle <= 89)
+                    return;
+                
+                var color = Color.red;
+                Debug.LogError(
+                    $"<color=#{(byte)(color.r * 255f):X2}{(byte)(color.g * 255f):X2}{(byte)(color.b * 255f):X2}>par pitié depassez pas 89</color>");
+            }
+        }
+        
         #endregion
     }
 }

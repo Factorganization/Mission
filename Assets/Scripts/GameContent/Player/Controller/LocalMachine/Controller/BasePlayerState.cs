@@ -1,25 +1,17 @@
 using System.Collections;
-using GameContent.Player.Controller.BaseMachine;
 using GameContent.Player.Controller.LocalMachine.Model;
 using UnityEngine;
+using Utils.BaseMachine;
 
 namespace GameContent.Player.Controller.LocalMachine.Controller
 {
     public class BasePlayerState : BaseState
     {
-        #region properties
+        #region
 
-        public ControllerState StateFlag { get; }
-
-        #endregion
-        
-        #region 
-        
-        public BasePlayerState(GameObject go, PlayerModel model, ControllerState state, PlayerStateMachine machine) : base(go)
+        protected BasePlayerState(GenericStateMachine machine, GameObject go, PlayerModel model, ControllerState state) : base(machine, go)
         {
             playerModel = model;
-            StateFlag = state;
-            playerMachine = machine;
         }
         
         #endregion
@@ -28,6 +20,7 @@ namespace GameContent.Player.Controller.LocalMachine.Controller
         
         public override void OnInit(GenericStateMachine machine)
         {
+            playerModel.HandleInputGather();
         }
 
         public override void OnEnterState()
@@ -56,10 +49,8 @@ namespace GameContent.Player.Controller.LocalMachine.Controller
         #endregion
 
         #region fields
-
-        protected readonly PlayerStateMachine playerMachine;
         
-        protected PlayerModel playerModel;
+        protected readonly PlayerModel playerModel;
 
         #endregion
     }

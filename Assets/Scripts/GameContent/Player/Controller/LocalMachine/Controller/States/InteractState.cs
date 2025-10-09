@@ -1,13 +1,14 @@
 using GameContent.Player.Controller.LocalMachine.Model;
 using UnityEngine;
+using Utils.BaseMachine;
 
 namespace GameContent.Player.Controller.LocalMachine.Controller.States
 {
-    public class InteractState : BasePlayerState
+    public sealed class InteractState : BasePlayerState
     {
         #region constructors
         
-        public InteractState(GameObject go, PlayerModel model, ControllerState state, PlayerStateMachine machine) : base(go, model, state, machine)
+        public InteractState(GenericStateMachine machine, GameObject go, PlayerModel model, ControllerState state) : base(machine, go, model, state)
         {
         }
         

@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace GameContent.Player.Controller.BaseMachine
+namespace Utils.BaseMachine
 {
     public sealed class GenericStateMachine
     {
