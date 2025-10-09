@@ -21,6 +21,7 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller.States
             playerModel.rb.linearVelocity = new Vector3(playerModel.rb.linearVelocity.x, 0, playerModel.rb.linearVelocity.z);
             
             playerModel.jumpBufferTime = 0;
+            playerModel.coyoteTime = 0;
             
             playerModel.castAddLength = 0;
             playerModel.rb.AddForce(Vector3.up * playerModel.data.jumpData.jumpStrength, ForceMode.VelocityChange);
@@ -59,13 +60,13 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller.States
         private void OnFall()
         {
             if (playerModel.rb.linearVelocity.y < 0)
-                stateMachine.SwitchState("fall");
+                stateMachine.TrySwitchState("fall", (int)playerModel.data.activeStates);
         }
 
         private void OnGrounded()
         {
             if (playerModel.CheckGround(goRef))
-                stateMachine.SwitchState("move");
+                stateMachine.TrySwitchState("move", (int)playerModel.data.activeStates);
         }
 
         #endregion

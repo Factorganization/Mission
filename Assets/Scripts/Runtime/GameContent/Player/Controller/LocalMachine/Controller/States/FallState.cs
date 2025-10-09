@@ -47,13 +47,13 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller.States
         {
             if (playerModel.coyoteTime > 0
                 && playerModel.jumpBufferTime > 0)
-                stateMachine.SwitchState("jump");
+                stateMachine.TrySwitchState("jump", (int)playerModel.data.activeStates);
         }
         
         private void OnGrounded()
         {
             if (playerModel.CheckGround(goRef))
-                stateMachine.SwitchState("move");
+                stateMachine.TrySwitchState("move", (int)playerModel.data.activeStates);
         }
 
         #endregion

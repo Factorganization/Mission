@@ -52,13 +52,13 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller.States
         private void OnIdle()
         {
             if (playerModel.inputDir.sqrMagnitude < 0.1f)
-                stateMachine.SwitchState("idle");
+                stateMachine.TrySwitchState("idle", (int)playerModel.data.activeStates);
         }
         
         private void OnJump()
         {
             if (playerModel.jumpBufferTime > 0)
-                stateMachine.SwitchState("jump");
+                stateMachine.TrySwitchState("jump", (int)playerModel.data.activeStates);
         }
         
         private void OnFall()
@@ -66,7 +66,7 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller.States
             if (playerModel.CheckGround(goRef))
                 return;
             
-            stateMachine.SwitchState("fall");
+            stateMachine.TrySwitchState("fall", (int)playerModel.data.activeStates);
         }
 
         #endregion

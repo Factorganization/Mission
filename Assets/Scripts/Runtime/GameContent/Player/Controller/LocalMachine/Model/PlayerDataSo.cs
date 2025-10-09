@@ -6,6 +6,8 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Model
     [CreateAssetMenu(fileName = "PlayerData", menuName = "Player/PlayerData")]
     public sealed class PlayerDataSo : ScriptableObject
     {
+        public ControllerState activeStates;
+        
         public InputData inputData;
         
         public MoveData moveData;
