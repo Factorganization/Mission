@@ -28,10 +28,13 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller.States
         {
             playerModel.HandleInputGather();
             playerModel.HandleRotateInputGather();
-            
-            OnJump();
-            OnFall();
-            OnIdle();
+
+            if (OnJump())
+                return 1;
+            if (OnFall())
+                return 1;
+            if (OnIdle())
+                return 1;
             
             return 0;
         }
@@ -49,24 +52,32 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller.States
             return 0;
         }
         
-        private void OnIdle()
+        private bool OnIdle()
         {
-            if (playerModel.inputDir.sqrMagnitude < 0.1f)
-                stateMachine.TrySwitchState("idle", (int)playerModel.data.activeStates);
+            if (playerModel.inputDir.sqrMagnitude >= 0.1f)
+                return false;
+            
+            stateMachine.TrySwitchState("idle", (int)playerModel.data.activeStates);
+            return true;
+
         }
         
-        private void OnJump()
+        private bool OnJump()
         {
-            if (playerModel.jumpBufferTime > 0)
-                stateMachine.TrySwitchState("jump", (int)playerModel.data.activeStates);
+            if (playerModel.jumpBufferTime <= 0)
+                return false;
+            
+            stateMachine.TrySwitchState("jump", (int)playerModel.data.activeStates);
+            return true;
         }
         
-        private void OnFall()
+        private bool OnFall()
         {
             if (playerModel.CheckGround(goRef))
-                return;
+                return false;
             
             stateMachine.TrySwitchState("fall", (int)playerModel.data.activeStates);
+            return true;
         }
 
         #endregion
