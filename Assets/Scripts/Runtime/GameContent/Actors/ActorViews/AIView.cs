@@ -1,7 +1,8 @@
 using Runtime.GameContent.Actors.ActorModels;
+using Runtime.GameContent.Actors.ActorViews;
 using UnityEngine;
 
-public class AIView : MonoBehaviour
+public class AIView : ActorView
 {
     [SerializeField] private IAMovementDataSo iaMovementDataSo;
     
