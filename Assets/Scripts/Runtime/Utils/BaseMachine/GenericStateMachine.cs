@@ -25,7 +25,7 @@ namespace Runtime.Utils.BaseMachine
 
         #region methodes
         
-        public void SetCallBacks(byte stateID,
+        public void SetCallBacks(int stateID,
             string stateName,
             Action<GenericStateMachine> init, 
             Action enter, 
@@ -97,6 +97,26 @@ namespace Runtime.Utils.BaseMachine
             SwitchState(value);
         }
 
+        public bool TrySwitchState(int toState, int flag)
+        {
+            if (((1 << toState) & flag) == 0)
+                return false;
+
+            SwitchState(toState);
+            
+            return true;
+        }
+        
+        public bool TrySwitchState(string toState, int flag)
+        {
+            if (!_stateDict.TryGetValue(toState, out var value))
+                return false;
+
+            TrySwitchState(value,flag);
+            
+            return true;
+        }
+        
         public void ForceState(int toState)
         {
             if (_locked)
@@ -115,6 +135,26 @@ namespace Runtime.Utils.BaseMachine
                 return;
             
             ForceState(value);
+        }
+        
+        public bool TryForceState(int toState, int flag)
+        {
+            if (((1 << toState) & flag) == 0)
+                return false;
+
+            ForceState(toState);
+            
+            return true;
+        }
+        
+        public bool TryForceState(string toState, int flag)
+        {
+            if (!_stateDict.TryGetValue(toState, out var value))
+                return false;
+        
+            TryForceState(value,flag);
+            
+            return true;
         }
         
         public static implicit operator int(GenericStateMachine m) => m._currentState;

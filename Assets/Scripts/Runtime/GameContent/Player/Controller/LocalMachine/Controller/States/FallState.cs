@@ -27,33 +27,45 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller.States
             playerModel.HandleRotateInputGather();
             
             playerModel.coyoteTime -= Time.deltaTime;
-            OnJump();
+            if (OnJump())
+                return 1;
             
             return 0;
         }
 
         public override sbyte OnFixedUpdate()
         {
-            OnGrounded();
+            if (OnGrounded())
+                return 1;
             
             playerModel.HandleGravity(goRef);
             playerModel.Move(playerModel.currentMoveMultiplier);
+            
+            //TODO maybe ranger ca dans une Func d'update graph
+            playerModel.graph.transform.rotation = Quaternion.Slerp(playerModel.graph.transform.rotation, Quaternion.LookRotation(playerModel.lastLookDir), playerModel.data.moveData.graphRotationSpeed * Time.fixedDeltaTime);
+            
             playerModel.Look();
             
             return 0;
         }
         
-        private void OnJump()
+        private bool OnJump()
         {
-            if (playerModel.coyoteTime > 0
-                && playerModel.jumpBufferTime > 0)
-                stateMachine.SwitchState("jump");
+            if (playerModel.coyoteTime <= 0
+                || playerModel.jumpBufferTime <= 0)
+                return false;
+                
+            stateMachine.TrySwitchState("jump", (int)playerModel.data.activeStates);
+            return true;
         }
         
-        private void OnGrounded()
+        private bool OnGrounded()
         {
-            if (playerModel.CheckGround(goRef))
-                stateMachine.SwitchState("move");
+            if (!playerModel.CheckGround(goRef))
+                return false;
+            
+            stateMachine.TrySwitchState("move", (int)playerModel.data.activeStates);
+            return true;
         }
 
         #endregion

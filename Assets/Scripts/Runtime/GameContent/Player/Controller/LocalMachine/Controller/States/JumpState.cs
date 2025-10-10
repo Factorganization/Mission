@@ -21,6 +21,7 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller.States
             playerModel.rb.linearVelocity = new Vector3(playerModel.rb.linearVelocity.x, 0, playerModel.rb.linearVelocity.z);
             
             playerModel.jumpBufferTime = 0;
+            playerModel.coyoteTime = 0;
             
             playerModel.castAddLength = 0;
             playerModel.rb.AddForce(Vector3.up * playerModel.data.jumpData.jumpStrength, ForceMode.VelocityChange);
@@ -33,20 +34,28 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller.States
             
             playerModel.HandleInputGather();
             playerModel.HandleRotateInputGather();
+
+            if (OnFall())
+                return 1;
             
-            OnFall();
             return 0;
         }
 
         public override sbyte OnFixedUpdate()
         {
             playerModel.Move(playerModel.currentMoveMultiplier);
+            
+            //TODO maybe ranger ca dans une Func d'update graph
+            playerModel.graph.transform.rotation = Quaternion.Slerp(playerModel.graph.transform.rotation, Quaternion.LookRotation(playerModel.lastLookDir), playerModel.data.moveData.graphRotationSpeed * Time.fixedDeltaTime);
+            
             playerModel.Look();
             
             if (_jumpCounter < GameConstants.AntiGroundGrabJumpTimer)
                 return 0;
-         
-            OnGrounded();
+
+            if (OnGrounded())
+                return 1;
+            
             playerModel.HandleGravity(goRef);
             return 0;
         }
@@ -56,16 +65,22 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller.States
             _jumpCounter = 0;
         }
         
-        private void OnFall()
+        private bool OnFall()
         {
-            if (playerModel.rb.linearVelocity.y < 0)
-                stateMachine.SwitchState("fall");
+            if (playerModel.rb.linearVelocity.y >= 0)
+                return false;
+            
+            stateMachine.TrySwitchState("fall", (int)playerModel.data.activeStates);
+            return true;
         }
 
-        private void OnGrounded()
+        private bool OnGrounded()
         {
-            if (playerModel.CheckGround(goRef))
-                stateMachine.SwitchState("move");
+            if (!playerModel.CheckGround(goRef))
+                return false;
+            
+            stateMachine.TrySwitchState("move", (int)playerModel.data.activeStates);
+            return true;
         }
 
         #endregion
