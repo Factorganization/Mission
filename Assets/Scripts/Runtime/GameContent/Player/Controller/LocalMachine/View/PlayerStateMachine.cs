@@ -87,7 +87,7 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.View
         [SerializeField] private PlayerDataSo dataSo;
 
         [SerializeField] private ReferenceData referenceData;
-        
+
         private GenericStateMachine _stateMachine;
 
         private PlayerModel _playerModel;
