@@ -2,6 +2,8 @@ namespace Runtime.GameContent.Actors.ActorInterfaces
 {
     public interface IPossessable
     {
-        //TODO
+        public bool Possessed { get; set; }
+        
+        public void Action();
     }
 }

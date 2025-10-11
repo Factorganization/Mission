@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Shared.Utils.Pooling
+namespace Shared.Utils.Listing
 {
     public class ActorPool<T> : IEnumerable<T> where T : MonoBehaviour
     {
@@ -19,32 +19,31 @@ namespace Shared.Utils.Pooling
 
         #region constructors
 
-        public ActorPool()
+        public ActorPool(Transform parentTransform = null)
         {
             ActorQueue = new Queue<T>();
+            
+            _poolParent = parentTransform;
         }
         
         public ActorPool(PoolData<T> poolData, Transform parentTransform = null)
         {
-            _actorPrefab = poolData.actorPrefab;
-            _poolCount = poolData.poolCount;
-            _pooledPosition = poolData.pooledPosition;
             _poolParent = parentTransform;
 
-            Init();
+            Init(poolData.actorPrefab, poolData.poolCount, poolData.pooledPosition);
         }
         
         #endregion
         
         #region methodes
 
-        private void Init()
+        private void Init(T prefab, int count, Vector3 position)
         {
             ActorQueue = new Queue<T>();
 
-            for (var i = 0; i < _poolCount; i++)
+            for (var i = 0; i < count; i++)
             {
-                var o = UnityEngine.Object.Instantiate(_actorPrefab, _pooledPosition, Quaternion.identity, _poolParent);
+                var o = UnityEngine.Object.Instantiate(prefab, position, Quaternion.identity, _poolParent);
                 ActorQueue.Enqueue(o);
             }
         }
@@ -70,12 +69,6 @@ namespace Shared.Utils.Pooling
         #endregion
 
         #region fields
-
-        private readonly T _actorPrefab;
-        
-        private readonly int _poolCount;
-        
-        private readonly Vector3 _pooledPosition;
         
         private readonly Transform _poolParent;
 
@@ -100,9 +93,9 @@ namespace Shared.Utils.Pooling
         
         public T actorPrefab;
         
-        public int poolCount;
-        
         public Vector3 pooledPosition;
+        
+        public int poolCount;
         
         #endregion
     }
