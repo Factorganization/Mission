@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Runtime.GameContent.Actors.ActorViews
 {
     [Pooled]
-    public class ObjectView : ActorView, IPossessable
+    public class DestructiveObjectView : ActorView, IPossessable
     {
         #region properties
 
@@ -19,8 +19,8 @@ namespace Runtime.GameContent.Actors.ActorViews
 
         public bool Action()
         {
-            Debug.Log("Action");
-            return false;
+            Debug.Log("Destructive Action");
+            return true;
         }
 
         #endregion

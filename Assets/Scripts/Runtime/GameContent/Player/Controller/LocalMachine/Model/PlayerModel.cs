@@ -1,3 +1,4 @@
+using Runtime.GameContent.Actors.ActorInterfaces;
 using UnityEngine;
 
 namespace Runtime.GameContent.Player.Controller.LocalMachine.Model
@@ -26,6 +27,10 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Model
         public Rigidbody rb;
 
         public Transform cam;
+
+        public IPossessable currentPossesedObject = null;
+        
+        public bool isVisible = true;
         
         public bool isDead = false;
 

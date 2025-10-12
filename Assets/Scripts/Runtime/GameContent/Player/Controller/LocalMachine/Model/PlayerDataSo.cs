@@ -33,6 +33,8 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Model
         
         public InputActionReference wheelInput;
 
+        public InputActionReference possessInput;
+        
         public InputActionReference interactInput;
 
         public InputActionReference menuInput;

@@ -10,11 +10,21 @@ namespace Runtime.Management.GameManagement
         #region properties
 
         public ActorList<IPossessable> Possessables => _possessables;
+        
+        public static LevelGenerator Generator { get; private set; }
 
         #endregion
         
         #region methodes
 
+        private void Awake()
+        {
+            if (Generator is not null)
+                Debug.LogWarning("LevelGenerator already instantiated");
+            
+            Generator = this;
+        }
+        
         private void Start()
         {
             _possessables = new ActorList<IPossessable>();

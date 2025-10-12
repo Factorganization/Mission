@@ -32,7 +32,7 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller.States
         {
             _jumpCounter += Time.deltaTime;
             
-            playerModel.HandleInputGather();
+            playerModel.HandleContinuousInputGather();
             playerModel.HandleRotateInputGather();
 
             if (OnFall())
@@ -43,6 +43,7 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller.States
 
         public override sbyte OnFixedUpdate()
         {
+            playerModel.SetCameraPivotLocalPos(Vector3.zero);
             playerModel.Move(playerModel.currentMoveMultiplier);
             
             //TODO maybe ranger ca dans une Func d'update graph

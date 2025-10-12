@@ -1,4 +1,5 @@
 using Runtime.GameContent.Player.Controller.LocalMachine.Model;
+using Shared.RapaEngineUtils.Maths;
 using UnityEngine;
 
 namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller
@@ -7,7 +8,7 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller
     {
         private static float ClampSymmetric(float val, float clamper) => Mathf.Clamp(val, -clamper, clamper);
 
-        public static void HandleInputGather(this PlayerModel playerModel)
+        public static void HandleContinuousInputGather(this PlayerModel playerModel)
         {
             playerModel.inputDir = playerModel.data.inputData.moveInput.action.ReadValue<Vector2>();
             
@@ -33,6 +34,17 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller
         public static void HandleRotateInputGather(this  PlayerModel playerModel)
         {
             playerModel.lookDir = playerModel.data.inputData.lookInput.action.ReadValue<Vector2>() / Time.deltaTime;
+        }
+
+        public static byte HandleMonoInputGather(this PlayerModel playerModel)
+        {
+            if (playerModel.data.inputData.possessInput.action.WasPressedThisFrame())
+                return 1;
+
+            if (playerModel.data.inputData.interactInput.action.WasPressedThisFrame())
+                return 2;
+            
+            return 0;
         }
         
         public static void Move(this PlayerModel playerModel, float moveMultiplier)
@@ -117,6 +129,26 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller
                 playerModel.data.devsData.groundCheckData.groundLayer);
             
             return sphereGroundCheck;
+        }
+
+        public static void SetCameraPivotLocalPos(this PlayerModel playerModel, Vector3 targetPos)
+        {
+            if ((playerModel.cam.localPosition - targetPos).sqrMagnitude < 0.005f)
+                return;
+            
+            playerModel.cam.localPosition += Math.EasingFunction.SimpleQuadraticEase.V3SimpleQuadraticEaseOut(playerModel.cam.localPosition, targetPos, 0.1f);
+            if ((playerModel.cam.localPosition - targetPos).sqrMagnitude < 0.01f)
+                playerModel.cam.localPosition = targetPos;
+        }
+        
+        public static void SetCameraPivotPos(this PlayerModel playerModel, Vector3 targetPos)
+        {
+            if ((playerModel.cam.position - targetPos).sqrMagnitude < 0.005f)
+                return;
+            
+            playerModel.cam.position += Math.EasingFunction.SimpleQuadraticEase.V3SimpleQuadraticEaseOut(playerModel.cam.position, targetPos, 0.1f);
+            if ((playerModel.cam.position - targetPos).sqrMagnitude < 0.01f)
+                playerModel.cam.position = targetPos;
         }
     }
 }

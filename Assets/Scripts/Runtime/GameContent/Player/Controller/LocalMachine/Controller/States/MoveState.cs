@@ -1,4 +1,6 @@
+using Runtime.GameContent.Actors.ActorInterfaces;
 using Runtime.GameContent.Player.Controller.LocalMachine.Model;
+using Runtime.Management.GameManagement;
 using Runtime.Utils.BaseMachine;
 using UnityEngine;
 
@@ -26,8 +28,12 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller.States
 
         public override sbyte OnUpdate()
         {
-            playerModel.HandleInputGather();
+            playerModel.HandleContinuousInputGather();
             playerModel.HandleRotateInputGather();
+            
+            if (playerModel.HandleMonoInputGather() == 1)
+                if (OnPossess())
+                    return 1;
 
             if (OnJump())
                 return 1;
@@ -41,6 +47,7 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller.States
 
         public override sbyte OnFixedUpdate()
         {
+            playerModel.SetCameraPivotLocalPos(Vector3.zero);
             playerModel.HandleGravity(goRef);
             playerModel.Move(playerModel.currentMoveMultiplier);
             
@@ -77,6 +84,31 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller.States
                 return false;
             
             stateMachine.TrySwitchState("fall", (int)playerModel.data.activeStates);
+            return true;
+        }
+        
+        private bool OnPossess()
+        {
+            var min = 100f;
+            IPossessable tp = null;
+            
+            foreach (var p in LevelGenerator.Generator.Possessables)
+            {
+                var d = Vector3.Distance(p.Transform.position, playerModel.rb.position);
+
+                if (d >= GameConstants.MaxPossessDistance || d > min)
+                    continue;
+                
+                min = d;
+                tp = p;
+            }
+            
+            if (min > 2)
+                return false;
+            
+            if (stateMachine.TrySwitchState("possess", (int)playerModel.data.activeStates))
+                playerModel.currentPossesedObject = tp;
+            
             return true;
         }
 
