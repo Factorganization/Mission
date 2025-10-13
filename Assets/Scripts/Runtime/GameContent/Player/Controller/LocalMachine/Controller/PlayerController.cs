@@ -11,7 +11,7 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller
         public static void HandleContinuousInputGather(this PlayerModel playerModel)
         {
             playerModel.inputDir = playerModel.data.inputData.moveInput.action.ReadValue<Vector2>();
-            
+             
             playerModel.jumpBufferTime -= Time.deltaTime;
             
             if (playerModel.data.inputData.jumpInput.action.WasPressedThisFrame())

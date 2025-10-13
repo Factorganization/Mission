@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Runtime.GameContent.Actors.ActorViews
 {
     [Pooled]
-    public class ObjectView : ActorView, IPossessable
+    public class ObjectView : ActorView, IPossessable, IGrabbable
     {
         #region properties
 

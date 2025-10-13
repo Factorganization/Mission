@@ -41,7 +41,7 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller.States
 
         public override sbyte OnFixedUpdate()
         {
-            playerModel.SetCameraPivotPos(playerModel.currentPossesedObject.Transform.position);
+            playerModel.SetCameraPivotPos(playerModel.currentPossessedObject.Transform.position);
             playerModel.Look();
             
             return 0;
@@ -49,7 +49,7 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller.States
 
         public override void OnExitState()
         {
-            playerModel.currentPossesedObject = null;
+            playerModel.currentPossessedObject = null;
             playerModel.cam.SetParent(playerModel.rb.transform, true);
             playerModel.isVisible = true;
             playerModel.graph.gameObject.SetActive(true);
@@ -57,7 +57,7 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller.States
 
         private bool OnAction()
         {
-            if (!playerModel.currentPossesedObject.Action())
+            if (!playerModel.currentPossessedObject.Action())
                 return false;
             
             stateMachine.TrySwitchState("idle", (int) playerModel.data.activeStates);

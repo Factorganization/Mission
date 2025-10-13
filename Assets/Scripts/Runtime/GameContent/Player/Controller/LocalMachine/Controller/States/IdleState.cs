@@ -90,7 +90,8 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller.States
             {
                 var d = Vector3.Distance(p.Transform.position, playerModel.rb.position);
 
-                if (d >= GameConstants.MaxPossessDistance || d > min)
+                if (d >= GameConstants.MaxPossessDistance || d > min || Vector3.Angle(playerModel.graph.forward,
+                        ((p.Transform.position - playerModel.rb.position) * GameConstants.VectorUpFilter).normalized) > GameConstants.MaxInteractionAngle)
                     continue;
                 
                 min = d;
@@ -101,7 +102,7 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller.States
                 return false;
 
             if (stateMachine.TrySwitchState("possess", (int)playerModel.data.activeStates))
-                playerModel.currentPossesedObject = tp;
+                playerModel.currentPossessedObject = tp;
             
             return true;
         }
