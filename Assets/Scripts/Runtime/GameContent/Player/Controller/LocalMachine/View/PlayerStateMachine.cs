@@ -9,6 +9,12 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.View
     [SelectionBase]
     public class PlayerStateMachine : MonoBehaviour
     {
+        #region properties
+
+        public bool IsVisible => _playerModel.isVisible;
+
+        #endregion
+        
         #region methodes
 
         private void Awake()

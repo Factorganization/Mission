@@ -23,7 +23,7 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller.States
         
         public override sbyte OnUpdate()
         {
-            playerModel.HandleInputGather();
+            playerModel.HandleContinuousInputGather();
             playerModel.HandleRotateInputGather();
             
             playerModel.coyoteTime -= Time.deltaTime;
@@ -35,6 +35,8 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller.States
 
         public override sbyte OnFixedUpdate()
         {
+            playerModel.SetCameraPivotLocalPos(Vector3.zero);
+            
             if (OnGrounded())
                 return 1;
             

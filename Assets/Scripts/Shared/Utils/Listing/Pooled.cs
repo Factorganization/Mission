@@ -1,6 +1,6 @@
 using System;
 
-namespace Shared.Utils.Pooling
+namespace Shared.Utils.Listing
 {
     public class Pooled : Attribute
     {
