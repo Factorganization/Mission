@@ -43,7 +43,13 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller
 
             if (playerModel.data.inputData.interactInput.action.WasPressedThisFrame())
                 return 2;
-            
+
+            if (playerModel.data.inputData.grabInput.action.WasPressedThisFrame())
+                return 3;
+
+            if (playerModel.data.inputData.throwInput.action.WasPressedThisFrame())
+                return 4;
+
             return 0;
         }
         
