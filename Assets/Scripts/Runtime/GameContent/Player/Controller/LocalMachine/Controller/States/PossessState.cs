@@ -20,7 +20,7 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller.States
         {
             playerModel.targetDir = Vector3.zero;
             playerModel.rb.linearVelocity = Vector3.zero;
-            playerModel.cam.SetParent(null, true);
+            playerModel.cam.SetParent(playerModel.currentPossessedObject.Transform, true);
             playerModel.isVisible = false;
             playerModel.graph.gameObject.SetActive(false);
         }
@@ -29,11 +29,14 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller.States
         {
             playerModel.HandleRotateInputGather();
             if (playerModel.HandleMonoInputGather() == 2)
-                if (OnAction())
+                if (playerModel.OnAction())
+                {
+                    stateMachine.TrySwitchState("idle", (int) playerModel.data.activeStates);
                     return 1;
+                }
             
             if (playerModel.HandleMonoInputGather() == 1)
-                if (OnLeavePossession())
+                if (stateMachine.TrySwitchState("idle", (int) playerModel.data.activeStates))
                     return 1;
             
             return 0;
@@ -41,7 +44,7 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller.States
 
         public override sbyte OnFixedUpdate()
         {
-            playerModel.SetCameraPivotPos(playerModel.currentPossessedObject.Transform.position);
+            playerModel.SetCameraPivotLocalPos(Vector3.zero);
             playerModel.Look();
             
             return 0;
@@ -53,22 +56,6 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller.States
             playerModel.cam.SetParent(playerModel.rb.transform, true);
             playerModel.isVisible = true;
             playerModel.graph.gameObject.SetActive(true);
-        }
-
-        private bool OnAction()
-        {
-            if (!playerModel.currentPossessedObject.Action())
-                return false;
-            
-            stateMachine.TrySwitchState("idle", (int) playerModel.data.activeStates);
-            return true;
-        }
-
-        private bool OnLeavePossession()
-        {
-            stateMachine.TrySwitchState("idle", (int) playerModel.data.activeStates);
-            
-            return true;
         }
 
         #endregion
