@@ -5,9 +5,6 @@ namespace UI.Modals.MailSignet
 {
     public class Mail : UIView
     {
-        private Label mailLabel;
-        private string mailSubject;
-
         public Mail(VisualElement root, string text)
         {
             mailSubject = text;
@@ -27,5 +24,10 @@ namespace UI.Modals.MailSignet
         public override void Dispose()
         {
         }
+        
+        #region Fields
+        private Label mailLabel;
+        private string mailSubject;
+        #endregion
     }
 }

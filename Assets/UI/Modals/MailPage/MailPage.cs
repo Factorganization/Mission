@@ -17,6 +17,9 @@ namespace UI.Modals.MailPage
             Debug.Log(_mailLevel);
             _mailSO = mailSO;
             
+            _popupLevel = new PopupLevel.PopupLevel(
+                root.Q<VisualElement>("popup-level"));
+            
             Initialize(root);
         }
         
@@ -75,7 +78,7 @@ namespace UI.Modals.MailPage
         
         private void HandleMouseMove(MouseMoveEvent evt)
         {
-            if (!IsDragging) return;
+            if (!_isDragging) return;
 
             // ideally we'd use some kind of velocity on this, but this gets us started
             _scrollView.scrollOffset -= evt.mouseDelta;
@@ -86,10 +89,16 @@ namespace UI.Modals.MailPage
             Hide();
             Root.pickingMode = PickingMode.Ignore;
         }
+
+        public void OpenPopupLevel(string title, string sender, string description)
+        {
+            _popupLevel.Show();
+            _popupLevel.SetMissionDetails(title, sender, description);
+        }
         
-        private void HandleLoseMouse(PointerLeaveEvent evt) => IsDragging = false;
-        private void HandleMouseUpDrag(MouseUpEvent evt) => IsDragging = false;
-        private void HandleMouseDownDrag(MouseDownEvent evt) => IsDragging = true;
+        private void HandleLoseMouse(PointerLeaveEvent evt) => _isDragging = false;
+        private void HandleMouseUpDrag(MouseUpEvent evt) => _isDragging = false;
+        private void HandleMouseDownDrag(MouseDownEvent evt) => _isDragging = true;
         
         #endregion
 
@@ -99,8 +108,10 @@ namespace UI.Modals.MailPage
         private Button _closeButton;
         private ScrollView _scrollView;
         private MailLevel[] _mailSO;
-        private bool IsDragging;
-        
+        private PopupLevel.PopupLevel _popupLevel;
+        private bool _isDragging;
+
+        public PopupLevel.PopupLevel PopupLevel => _popupLevel;
         public delegate void MailSelectedEvent(MailLevel mail);
         public event MailSelectedEvent OnMailSelected;
         

@@ -1,4 +1,5 @@
 using UI.Modals.MailPage;
+using UI.Modals.PopupLevel;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -12,8 +13,8 @@ namespace UI
             _document = GetComponent<UIDocument>();
             _mailButton.RegisterCallback<ClickEvent>(OpenMailPage);
             _customizationButton.RegisterCallback<ClickEvent>(OpenCustomizationPage);
-            _optionsButton.RegisterCallback<ClickEvent>(OpenOptionsPage);
-            _quitButton.RegisterCallback<ClickEvent>(QuitPopUP);
+            _optionsButton.RegisterCallback<ClickEvent>(OpenSettingsPage);
+            _quitButton.RegisterCallback<ClickEvent>(QuitPopUp);
             
             if (_levelDataSO._allLevels.Length == 0)
             {
@@ -34,23 +35,30 @@ namespace UI
         
         private void OpenCustomizationPage(ClickEvent _ = null)
         {
-           
+            // _customizationPage.Show();
         }
         
-        private void OpenOptionsPage(ClickEvent _ = null)
+        private void OpenSettingsPage(ClickEvent _ = null)
         {
-           
+            // _settingsPage.Show();
         }
 
-        private void QuitPopUP(ClickEvent _ = null)
+        private void QuitPopUp(ClickEvent _ = null)
         {
-            
+            Application.Quit();
         }
         
         private void OnMailSelected(MailLevel mailSignet)
         {
             _levelDataSO._mailLevel = mailSignet;
-            Debug.Log("Selected mail: " + mailSignet.Subject);
+            
+            if (_mailPage.PopupLevel == null)
+                return;
+            
+            _mailPage.PopupLevel.SetLevelData(_levelDataSO);
+            _mailPage.OpenPopupLevel(_levelDataSO._mailLevel.LevelName,
+                _levelDataSO._mailLevel.Sender,
+                _levelDataSO._mailLevel.Description);
         }
 
         #region Fields
