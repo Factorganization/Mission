@@ -11,6 +11,8 @@ namespace Runtime.Management.GameManagement
 
         public ActorList<IPossessable> Possessables => _possessables;
         
+        public ActorList<IGrabbable> Grabbables => _grabbables;
+        
         public static LevelGenerator Generator { get; private set; }
 
         #endregion
@@ -28,8 +30,12 @@ namespace Runtime.Management.GameManagement
         private void Start()
         {
             _possessables = new ActorList<IPossessable>();
+            _grabbables = new ActorList<IGrabbable>();
+
+            var actors = FindObjectsByType<ActorView>(FindObjectsSortMode.None);
             
-            Pooler.PoolWithAttribute(_possessables, FindObjectsByType<ActorView>(FindObjectsSortMode.None));
+            Pooler.PoolWithAttribute(_possessables, actors);
+            Pooler.PoolWithAttribute(_grabbables, actors);
         }
 
         #endregion
@@ -37,6 +43,8 @@ namespace Runtime.Management.GameManagement
         #region fields
 
         private ActorList<IPossessable> _possessables;
+        
+        private ActorList<IGrabbable> _grabbables;
         
         #endregion
     }

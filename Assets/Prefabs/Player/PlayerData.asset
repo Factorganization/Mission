@@ -18,7 +18,8 @@ MonoBehaviour:
     lookInput: {fileID: -5630151704836100654, guid: 052faaac586de48259a63d0c4782560b, type: 3}
     jumpInput: {fileID: -6664636156484392018, guid: 052faaac586de48259a63d0c4782560b, type: 3}
     crouchInput: {fileID: 1108809239591116816, guid: 052faaac586de48259a63d0c4782560b, type: 3}
-    wheelInput: {fileID: 0}
+    grabInput: {fileID: 7174609838554204774, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+    throwInput: {fileID: 5348693967261421651, guid: 052faaac586de48259a63d0c4782560b, type: 3}
     possessInput: {fileID: 8930604116637505277, guid: 052faaac586de48259a63d0c4782560b, type: 3}
     interactInput: {fileID: 1781555164194001046, guid: 052faaac586de48259a63d0c4782560b, type: 3}
     menuInput: {fileID: 0}
@@ -26,7 +27,7 @@ MonoBehaviour:
     playerHeight: 2
     playerSpeed: 250
     crouchSpeedMultiplier: 0.75
-    crouchHeight: 2
+    crouchHeight: 1.75
     accelDecelMultiplier: 25
     graphRotationSpeed: 15
   jumpData:
@@ -34,7 +35,7 @@ MonoBehaviour:
     jumpCoyoteTime: 0.15
     jumpBufferTime: 0.2
   cameraData:
-    camSensitivity: 1
+    camSensitivity: 0.75
     maxPitchAngle: 89
   devsData:
     groundCheckData:

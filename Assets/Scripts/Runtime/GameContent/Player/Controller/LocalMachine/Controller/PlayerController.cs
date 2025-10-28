@@ -1,17 +1,18 @@
+using Runtime.GameContent.Actors.ActorInterfaces;
 using Runtime.GameContent.Player.Controller.LocalMachine.Model;
 using Shared.RapaEngineUtils.Maths;
 using UnityEngine;
 
 namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller
 {
-    public static class PlayerController
+    internal static class PlayerController
     {
         private static float ClampSymmetric(float val, float clamper) => Mathf.Clamp(val, -clamper, clamper);
 
-        public static void HandleContinuousInputGather(this PlayerModel playerModel)
+        internal static void HandleContinuousInputGather(this PlayerModel playerModel)
         {
             playerModel.inputDir = playerModel.data.inputData.moveInput.action.ReadValue<Vector2>();
-            
+             
             playerModel.jumpBufferTime -= Time.deltaTime;
             
             if (playerModel.data.inputData.jumpInput.action.WasPressedThisFrame())
@@ -31,23 +32,29 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller
             }
         }
 
-        public static void HandleRotateInputGather(this  PlayerModel playerModel)
+        internal static void HandleRotateInputGather(this  PlayerModel playerModel)
         {
             playerModel.lookDir = playerModel.data.inputData.lookInput.action.ReadValue<Vector2>() / Time.deltaTime;
         }
 
-        public static byte HandleMonoInputGather(this PlayerModel playerModel)
+        internal static byte HandleMonoInputGather(this PlayerModel playerModel)
         {
             if (playerModel.data.inputData.possessInput.action.WasPressedThisFrame())
                 return 1;
 
             if (playerModel.data.inputData.interactInput.action.WasPressedThisFrame())
                 return 2;
-            
+
+            if (playerModel.data.inputData.grabInput.action.WasPressedThisFrame())
+                return 3;
+
+            if (playerModel.data.inputData.throwInput.action.WasPressedThisFrame())
+                return 4;
+
             return 0;
         }
         
-        public static void Move(this PlayerModel playerModel, float moveMultiplier)
+        internal static void Move(this PlayerModel playerModel, float moveMultiplier)
         {
             var tempForward = Vector3.ProjectOnPlane(playerModel.cam.forward, Vector3.up).normalized;
             var tempRight = Vector3.ProjectOnPlane(playerModel.cam.right, Vector3.up).normalized;
@@ -68,7 +75,7 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller
             playerModel.rb.AddForce(playerModel.targetDir * playerModel.data.moveData.accelDecelMultiplier, ForceMode.Acceleration);
         }
 
-        public static void Look(this PlayerModel playerModel)
+        internal static void Look(this PlayerModel playerModel)
         {
             playerModel.camYaw += playerModel.lookDir.x * playerModel.data.cameraData.camSensitivity * Time.fixedDeltaTime;
             playerModel.camPitch -= playerModel.lookDir.y * playerModel.data.cameraData.camSensitivity * Time.fixedDeltaTime;
@@ -78,7 +85,7 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller
             playerModel.cam.localRotation = Quaternion.Euler(playerModel.camPitch, playerModel.camYaw, 0);
         }
         
-        public static void HandleGravity(this PlayerModel playerModel, GameObject goRef)
+        internal static void HandleGravity(this PlayerModel playerModel, GameObject goRef)
         {
             var sphereGroundCheck = Physics.SphereCast(goRef.transform.position,
                 playerModel.data.devsData.groundCheckData.sphereCastRadius,
@@ -119,7 +126,7 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller
             }
         }
         
-        public static bool CheckGround(this PlayerModel playerModel, GameObject goRef)
+        internal static bool CheckGround(this PlayerModel playerModel, GameObject goRef)
         {
             var sphereGroundCheck = Physics.SphereCast(goRef.transform.position,
                 playerModel.data.devsData.groundCheckData.sphereCastRadius,
@@ -131,7 +138,7 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller
             return sphereGroundCheck;
         }
 
-        public static void SetCameraPivotLocalPos(this PlayerModel playerModel, Vector3 targetPos)
+        internal static void SetCameraPivotLocalPos(this PlayerModel playerModel, Vector3 targetPos)
         {
             if ((playerModel.cam.localPosition - targetPos).sqrMagnitude < 0.005f)
                 return;
@@ -141,7 +148,7 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller
                 playerModel.cam.localPosition = targetPos;
         }
         
-        public static void SetCameraPivotPos(this PlayerModel playerModel, Vector3 targetPos)
+        internal static void SetCameraPivotPos(this PlayerModel playerModel, Vector3 targetPos)
         {
             if ((playerModel.cam.position - targetPos).sqrMagnitude < 0.005f)
                 return;
@@ -149,6 +156,13 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller
             playerModel.cam.position += Math.EasingFunction.SimpleQuadraticEase.V3SimpleQuadraticEaseOut(playerModel.cam.position, targetPos, 0.1f);
             if ((playerModel.cam.position - targetPos).sqrMagnitude < 0.01f)
                 playerModel.cam.position = targetPos;
+        }
+
+        internal static bool TryGrab(this PlayerModel playerModel, IGrabbable grabbable)
+        {
+            
+            
+            return false;
         }
     }
 }
