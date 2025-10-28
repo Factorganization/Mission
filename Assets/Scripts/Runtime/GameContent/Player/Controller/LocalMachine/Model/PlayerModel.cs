@@ -7,12 +7,13 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Model
     {
         #region constuctors
 
-        public PlayerModel(PlayerDataSo data, Rigidbody rb, Transform graph, Transform cam, Animator animator)
+        public PlayerModel(PlayerDataSo data, Rigidbody rb, Transform graph, Transform cam, Transform grab, Animator animator)
         {
             this.data = data;
             this.rb = rb;
             this.graph = graph;
             this.cam = cam;
+            this.grab = grab;
             this.animator = animator;
         }
 
@@ -28,7 +29,11 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Model
 
         public Transform cam;
 
-        public IPossessable currentPossesedObject = null;
+        public Transform grab;
+
+        public IPossessable currentPossessedObject = null;
+        
+        public IGrabbable currentGrabbedObject = null;
         
         public bool isVisible = true;
         
