@@ -35,11 +35,8 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller.States
             playerModel.HandleContinuousInputGather();
             playerModel.HandleRotateInputGather();
 
-            if (playerModel.OnFall())
-            {
-                stateMachine.TrySwitchState("fall", (int)playerModel.data.activeStates);
+            if (OnFall())
                 return 1;
-            }
             
             return 0;
         }
@@ -57,11 +54,8 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller.States
             if (_jumpCounter < GameConstants.AntiGroundGrabJumpTimer)
                 return 0;
 
-            if (playerModel.CheckGround(goRef))
-            {
-                stateMachine.TrySwitchState("move", (int)playerModel.data.activeStates);
+            if (OnGrounded())
                 return 1;
-            }
             
             playerModel.HandleGravity(goRef);
             return 0;
@@ -70,6 +64,24 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller.States
         public override void OnExitState()
         {
             _jumpCounter = 0;
+        }
+        
+        private bool OnFall()
+        {
+            if (playerModel.rb.linearVelocity.y >= 0)
+                return false;
+            
+            stateMachine.TrySwitchState("fall", (int)playerModel.data.activeStates);
+            return true;
+        }
+
+        private bool OnGrounded()
+        {
+            if (!playerModel.CheckGround(goRef))
+                return false;
+            
+            stateMachine.TrySwitchState("move", (int)playerModel.data.activeStates);
+            return true;
         }
 
         #endregion
