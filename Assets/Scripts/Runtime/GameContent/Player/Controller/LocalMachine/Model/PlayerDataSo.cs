@@ -31,9 +31,7 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Model
         
         public InputActionReference crouchInput;
         
-        public InputActionReference grabInput;
-        
-        public InputActionReference throwInput;
+        public InputActionReference wheelInput;
 
         public InputActionReference possessInput;
         

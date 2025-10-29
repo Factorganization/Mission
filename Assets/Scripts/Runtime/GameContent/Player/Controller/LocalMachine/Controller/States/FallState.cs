@@ -27,11 +27,8 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller.States
             playerModel.HandleRotateInputGather();
             
             playerModel.coyoteTime -= Time.deltaTime;
-            if (playerModel.OnJump())
-            {
-                stateMachine.TrySwitchState("jump", (int)playerModel.data.activeStates);
+            if (OnJump())
                 return 1;
-            }
             
             return 0;
         }
@@ -39,12 +36,9 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller.States
         public override sbyte OnFixedUpdate()
         {
             playerModel.SetCameraPivotLocalPos(Vector3.zero);
-
-            if (playerModel.CheckGround(goRef))
-            {
-                stateMachine.TrySwitchState("move", (int)playerModel.data.activeStates);
+            
+            if (OnGrounded())
                 return 1;
-            }
             
             playerModel.HandleGravity(goRef);
             playerModel.Move(playerModel.currentMoveMultiplier);
@@ -55,6 +49,25 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller.States
             playerModel.Look();
             
             return 0;
+        }
+        
+        private bool OnJump()
+        {
+            if (playerModel.coyoteTime <= 0
+                || playerModel.jumpBufferTime <= 0)
+                return false;
+                
+            stateMachine.TrySwitchState("jump", (int)playerModel.data.activeStates);
+            return true;
+        }
+        
+        private bool OnGrounded()
+        {
+            if (!playerModel.CheckGround(goRef))
+                return false;
+            
+            stateMachine.TrySwitchState("move", (int)playerModel.data.activeStates);
+            return true;
         }
 
         #endregion
