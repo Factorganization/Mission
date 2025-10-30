@@ -34,7 +34,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Possess",
+                    "name": "GP",
                     "type": "Button",
                     "id": "63b52c43-5849-47a1-bcb8-188e9fbb9d92",
                     "expectedControlType": "",
@@ -61,7 +61,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Grab",
+                    "name": "PossessAction",
                     "type": "Button",
                     "id": "bcacd70e-c513-4eda-8cfe-9c0e49e80b32",
                     "expectedControlType": "",
@@ -73,6 +73,15 @@
                     "name": "Throw",
                     "type": "Button",
                     "id": "df8f97ed-2b26-47a9-b7b0-75952aa0485b",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "GrabAction",
+                    "type": "Button",
+                    "id": "6b20bc09-fdc2-444d-a306-d3fd6442e8d0",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -274,7 +283,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
-                    "action": "Possess",
+                    "action": "GP",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -285,7 +294,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
-                    "action": "Possess",
+                    "action": "GP",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -336,11 +345,11 @@
                 {
                     "name": "",
                     "id": "a5ba1617-66d5-42e1-8104-929044e8c551",
-                    "path": "<Gamepad>/rightTrigger",
+                    "path": "<Gamepad>/leftTrigger",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Touch",
-                    "action": "Grab",
+                    "action": "PossessAction",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -352,6 +361,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Throw",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "637ccb3e-595f-4960-9c3e-bf7b1219fe80",
+                    "path": "<Gamepad>/buttonNorth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "GrabAction",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

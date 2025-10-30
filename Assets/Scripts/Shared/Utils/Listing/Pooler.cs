@@ -10,10 +10,10 @@ namespace Shared.Utils.Listing
         {
             foreach (var mono in array)
             {
-                if (!typeof(T).IsAssignableFrom(mono.GetType()))
+                if (mono is not T t)
                     continue;
                 
-                actorPool.Enqueue(mono as T);
+                actorPool.Enqueue(t);
             }
         }
         
@@ -21,10 +21,10 @@ namespace Shared.Utils.Listing
         {
             foreach (var mono in array)
             {
-                if (!typeof(T).IsAssignableFrom(mono.GetType()))
+                if (mono is not T t)
                     return;
                 
-                actorList.Add(mono as T);
+                actorList.Add(t);
             }
             
             actorList.UpdateList();
@@ -39,10 +39,10 @@ namespace Shared.Utils.Listing
                 if (type.GetCustomAttributes(typeof(Pooled), false).Length <= 0)
                     continue;
                 
-                if (!typeof(T).IsAssignableFrom(type))
+                if (mono is not T t)
                     return;
                 
-                actorPool.Enqueue(mono as T);
+                actorPool.Enqueue(t);
             }
         }
         
@@ -55,10 +55,10 @@ namespace Shared.Utils.Listing
                 if (type.GetCustomAttributes(typeof(Pooled), false).Length <= 0)
                     continue;
                 
-                if (!typeof(T).IsAssignableFrom(type))
+                if (mono is not T t)
                     return;
-                
-                actorList.Add(mono as T);
+                Debug.Log(type);
+                actorList.Add(t);
             }
             
             actorList.UpdateList();

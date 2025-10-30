@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 namespace Runtime.GameContent.Player.Controller.LocalMachine.Model
 {
@@ -31,13 +32,13 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Model
         
         public InputActionReference crouchInput;
         
-        public InputActionReference grabInput;
+        public InputActionReference grabPossessInput;
         
         public InputActionReference throwInput;
 
-        public InputActionReference possessInput;
+        public InputActionReference possessInteractInput;
         
-        public InputActionReference interactInput;
+        public InputActionReference grabInteractInput;
 
         public InputActionReference menuInput;
     }
@@ -52,8 +53,8 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Model
 
         public float crouchSpeedMultiplier;
 
-        [Range(0, 2)]
-        public float crouchHeight;
+        [Range(0, 1)]
+        public float crouchDepth;
         
         public float accelDecelMultiplier;
 

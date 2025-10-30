@@ -5,24 +5,26 @@ using UnityEngine;
 namespace Runtime.GameContent.Actors.ActorViews
 {
     [Pooled]
-    public class ObjectView : ActorView, IPossessable, IGrabbable
+    public class GrabbableObjectView : ActorView, IGrabbable
     {
         #region properties
-
+        
         public Transform Transform => transform;
         
-        public bool Possessed { get; set; }
-
+        public Rigidbody Rigidbody => rb;
+        
         #endregion
-
+        
         #region methodes
-
-        public bool Action()
-        {
-            Debug.Log("Action");
-            return false;
-        }
-
+        
+        
+        
+        #endregion
+        
+        #region fields
+        
+        [SerializeField] private Rigidbody rb;
+        
         #endregion
     }
 }
