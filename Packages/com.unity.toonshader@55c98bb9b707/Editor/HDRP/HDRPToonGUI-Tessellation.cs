@@ -3,9 +3,7 @@
 //toshiyuki@unity3d.com (Universal RP/HDRP) 
 
 using UnityEngine;
-using UnityEditor;
 using System;
-using UnityEngine.Rendering;
 
 namespace UnityEditor.Rendering.Toon
 {

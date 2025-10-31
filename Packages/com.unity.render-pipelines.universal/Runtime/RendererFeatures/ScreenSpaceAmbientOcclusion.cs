@@ -1,6 +1,5 @@
 using System;
 #if UNITY_EDITOR
-using ShaderKeywordFilter = UnityEditor.ShaderKeywordFilter;
 #endif
 
 namespace UnityEngine.Rendering.Universal

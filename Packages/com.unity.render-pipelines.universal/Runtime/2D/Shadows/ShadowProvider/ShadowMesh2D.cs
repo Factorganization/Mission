@@ -1,8 +1,4 @@
- using System.Collections.Generic;
-using System.Collections.Specialized;
 using Unity.Collections;
-using UnityEngine;
-using UnityEngine.U2D;
 using System;
 
 namespace UnityEngine.Rendering.Universal

@@ -1,4 +1,3 @@
-using Unity.Mathematics;
 using System.Collections.Generic;
 
 namespace UnityEngine.Rendering.Universal

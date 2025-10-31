@@ -2,7 +2,6 @@ using UnityEngine;
 using UnityEditor.Graphing;
 using UnityEditor.Rendering.Universal.ShaderGraph;
 using UnityEditor.ShaderGraph.Internal;
-using static UnityEditor.PlayerSettings;
 
 namespace UnityEditor.ShaderGraph
 {

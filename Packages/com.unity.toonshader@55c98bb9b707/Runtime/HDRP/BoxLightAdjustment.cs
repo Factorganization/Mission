@@ -1,13 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 #if UNITY_EDITOR
-using UnityEditor;
 #endif
-using UnityEngine.Rendering;
-using UnityEngine.Experimental.Rendering;
-using UnityObject = UnityEngine.Object;
-using System.Linq;
 
 #if HDRP_IS_INSTALLED_FOR_UTS
 using UnityEngine.Rendering.HighDefinition;

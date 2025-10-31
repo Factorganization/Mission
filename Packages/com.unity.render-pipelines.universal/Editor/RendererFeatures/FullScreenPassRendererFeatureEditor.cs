@@ -3,7 +3,6 @@ using UnityEditor.RenderPipelines.Core;
 using UnityEditor.ShaderGraph;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
-using static UnityEditor.Rendering.InspectorCurveEditor;
 
 namespace UnityEditor.Rendering.Universal
 {

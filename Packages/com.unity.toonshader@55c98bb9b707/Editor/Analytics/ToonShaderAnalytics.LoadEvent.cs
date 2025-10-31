@@ -1,5 +1,4 @@
-﻿using System;
-using Unity.FilmInternalUtilities;
+﻿using Unity.FilmInternalUtilities;
 
 namespace UnityEditor.Rendering.Toon
 {

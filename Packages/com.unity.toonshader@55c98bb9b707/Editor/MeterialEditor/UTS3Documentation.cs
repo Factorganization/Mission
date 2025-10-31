@@ -1,12 +1,10 @@
 //#define USE_GITHUB_DOC_LINK
 #define USE_UTS_DOC_LINK
 using System;
-using System.Runtime.CompilerServices;
 using System.Diagnostics;
 using System.Linq;
 using UnityEngine;
 #if UNITY_EDITOR
-using PackageInfo = UnityEditor.PackageManager.PackageInfo;
 #endif
 
 

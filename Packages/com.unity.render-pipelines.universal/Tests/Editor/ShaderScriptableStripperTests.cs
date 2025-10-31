@@ -1,13 +1,10 @@
-using System;
 using System.Collections.Generic;
 using NUnit.Framework;
 using UnityEditor.Rendering;
 using UnityEditor.Rendering.Universal;
-using UnityEditor.VersionControl;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
-using UnityEngine.SocialPlatforms;
 using IShaderScriptableStrippingData = UnityEditor.Rendering.Universal.ShaderScriptableStripper.IShaderScriptableStrippingData;
 
 namespace ShaderStrippingAndPrefiltering

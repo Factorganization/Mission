@@ -1,5 +1,3 @@
-
-using System;
 using Unity.Collections;
 
 namespace UnityEngine.Rendering.Universal

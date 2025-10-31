@@ -1,10 +1,6 @@
-using System;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using Unity.Collections;
-using System.Collections.Generic;
 using UnityEngine.U2D;
-using UnityEngine.Rendering.Universal.UTess;
 using Unity.Collections.LowLevel.Unsafe;
 using Unity.Mathematics;
 using Unity.Burst;

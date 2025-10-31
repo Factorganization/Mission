@@ -6,12 +6,9 @@ using System.Reflection;
 using UnityEditor;
 using UnityEditor.Rendering.Universal;
 #endif
-using UnityEngine.Scripting.APIUpdating;
 using Lightmapping = UnityEngine.Experimental.GlobalIllumination.Lightmapping;
 using UnityEngine.Experimental.Rendering;
 using UnityEngine.Rendering.RenderGraphModule;
-using UnityEngine.Profiling;
-using static UnityEngine.Camera;
 
 namespace UnityEngine.Rendering.Universal
 {

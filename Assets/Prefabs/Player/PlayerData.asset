@@ -12,13 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cd6fe8d0211429993e71ebb78a9925b, type: 3}
   m_Name: PlayerData
   m_EditorClassIdentifier: Assembly-CSharp::GameContent.Player.Controller.LocalMachine.Model.PlayerDataSo
-  activeStates: -1
+  activeStates: 251
   inputData:
     moveInput: {fileID: -1680190386980627800, guid: 052faaac586de48259a63d0c4782560b, type: 3}
     lookInput: {fileID: -5630151704836100654, guid: 052faaac586de48259a63d0c4782560b, type: 3}
     jumpInput: {fileID: -6664636156484392018, guid: 052faaac586de48259a63d0c4782560b, type: 3}
     crouchInput: {fileID: 1108809239591116816, guid: 052faaac586de48259a63d0c4782560b, type: 3}
-    grabPossessInput: {fileID: 8930604116637505277, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+    tryPossessInput: {fileID: 7523295122461503294, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+    tryGrabInput: {fileID: 8930604116637505277, guid: 052faaac586de48259a63d0c4782560b, type: 3}
     throwInput: {fileID: 5348693967261421651, guid: 052faaac586de48259a63d0c4782560b, type: 3}
     possessInteractInput: {fileID: 7174609838554204774, guid: 052faaac586de48259a63d0c4782560b, type: 3}
     grabInteractInput: {fileID: 157453744056913373, guid: 052faaac586de48259a63d0c4782560b, type: 3}
@@ -30,13 +31,16 @@ MonoBehaviour:
     crouchDepth: 0.25
     accelDecelMultiplier: 25
     graphRotationSpeed: 15
+  interactData:
+    throwStrength: {x: 5, y: 3.5}
+    bigPossessActionTimer: 0.5
   jumpData:
     jumpStrength: 8
     jumpCoyoteTime: 0.15
     jumpBufferTime: 0.2
   cameraData:
     camSensitivity: 0.75
-    maxPitchAngle: 89
+    maxPitchAngle: 50
   devsData:
     groundCheckData:
       groundLayer:

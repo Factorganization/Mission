@@ -1,6 +1,4 @@
-using System.Collections.Generic;
 using System.Reflection;
-using UnityEngine;
 using NameAndTooltip = UnityEngine.Rendering.DebugUI.Widget.NameAndTooltip;
 
 namespace UnityEngine.Rendering.Universal

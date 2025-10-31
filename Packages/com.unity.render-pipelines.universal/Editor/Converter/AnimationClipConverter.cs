@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using UnityEditor.Rendering.Universal;
 using UnityEngine.Rendering.Universal;
 using ClipPath = UnityEditor.Rendering.AnimationClipUpgrader.ClipPath;
 using ClipProxy = UnityEditor.Rendering.AnimationClipUpgrader.AnimationClipProxy;

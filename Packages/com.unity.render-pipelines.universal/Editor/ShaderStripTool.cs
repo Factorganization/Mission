@@ -1,5 +1,4 @@
 using System;
-using UnityEngine;
 using UnityEngine.Rendering;
 using System.Runtime.CompilerServices;
 using IShaderScriptableStrippingData = UnityEditor.Rendering.Universal.ShaderScriptableStripper.IShaderScriptableStrippingData;

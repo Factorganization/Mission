@@ -10,7 +10,6 @@ using UnityEngine.Serialization;
 using UnityEngine.Experimental.Rendering;
 using UnityEngine.Rendering.RenderGraphModule;
 using UnityEngine.Assertions;
-using System.Collections.Generic;
 
 namespace UnityEngine.Rendering.Universal
 {

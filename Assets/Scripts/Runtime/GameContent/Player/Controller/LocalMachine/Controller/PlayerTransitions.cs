@@ -40,20 +40,18 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller
         /// <summary>
         /// Object dependant output int
         /// </summary>
-        /// <param name="playerModel"></param>
+        /// <param name="playerModel">self</param>
         /// <returns>
         /// <list type="return case">
         /// <item>0 : nothing happened</item>
         /// <item>1 : object possessed</item>
-        /// <item>2 : object grabbed</item>
         /// </list>
         /// </returns>
-        internal static int OnTryPossessGrab(this PlayerModel playerModel)
+        internal static sbyte OnTryPossess(this PlayerModel playerModel)
         {
             var minDist = 100f;
             var minAngle = 45f;
             IPossessable tp = null;
-            IGrabbable gb = null;
             
             foreach (var p in LevelGenerator.Generator.Possessables)
             {
@@ -68,39 +66,56 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller
                 tp = p;
             }
 
+            if (tp is null)
+                return 0;
+            
+            playerModel.currentPossessedObject = tp;
+            return 1;
+        }
+        
+        /// <summary>
+        /// Object dependant output int
+        /// </summary>
+        /// <param name="playerModel">self</param>
+        /// <returns>
+        /// <list type="return case">
+        /// <item>0 : nothing happened</item>
+        /// <item>1 : object grabbed</item>
+        /// </list>
+        /// </returns>
+        internal static sbyte OnTryGrab(this PlayerModel playerModel)
+        {
+            var minDist = 100f;
+            var minAngle = 45f;
+            IGrabbable gb = null;
+
             foreach (var g in LevelGenerator.Generator.Grabbables)
             {
+                if (playerModel.currentGrabbedObject is not null && playerModel.currentGrabbedObject == g)
+                    continue;
+                
                 var d = Vector3.Distance(g.Transform.position, playerModel.rb.position);
                 var a = Vector3.Angle(playerModel.graph.forward, ((g.Transform.position - playerModel.rb.position) * GameConstants.VectorUpFilter).normalized);
                 
                 if (d >= GameConstants.MaxPossessDistance || a > GameConstants.MaxInteractionAngle || d > minDist || a > minAngle)
                     continue;
                 
-                tp = null;
                 minDist = d;
                 minAngle = a;
                 gb = g;
             }
 
-            if (tp is not null)
+            if (gb is null)
+                return 0;
+            
+            if (playerModel.currentGrabbedObject is not null)
             {
-                playerModel.currentPossessedObject = tp;
-                return 1;
+                playerModel.currentGrabbedObject.Transform.SetParent(null, true);
+                playerModel.currentGrabbedObject.Rigidbody.isKinematic = false;
             }
-
-            if (gb is not null)
-            {
-                if (playerModel.currentGrabbedObject is not null)
-                {
-                    playerModel.currentGrabbedObject.Transform.SetParent(null, true);
-                    playerModel.currentGrabbedObject.Rigidbody.isKinematic = false;
-                }
                 
-                playerModel.currentGrabbedObject = gb;
-                return 2;
-            }
-
-            return 0;
+            playerModel.currentGrabbedObject = gb;
+            return 1;
         }
     }
 }

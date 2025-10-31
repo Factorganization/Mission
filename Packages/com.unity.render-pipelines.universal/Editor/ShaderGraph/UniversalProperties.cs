@@ -1,10 +1,3 @@
-using System;
-using UnityEditor;
-using UnityEditor.ShaderGraph;
-using UnityEditor.ShaderGraph.Internal;
-using UnityEditor.Rendering.Universal.ShaderGraph;
-using UnityEngine.Rendering.Universal;
-
 namespace UnityEditor.Rendering.Universal
 {
     internal static class Property

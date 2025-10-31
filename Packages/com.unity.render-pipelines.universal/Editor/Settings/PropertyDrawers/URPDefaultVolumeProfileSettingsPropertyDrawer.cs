@@ -1,7 +1,4 @@
-using System;
-using UnityEditor.Rendering;
 using UnityEditor.UIElements;
-using UnityEditor.VersionControl;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;

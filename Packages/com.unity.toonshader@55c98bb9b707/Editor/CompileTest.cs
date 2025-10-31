@@ -1,9 +1,6 @@
 
 using UnityEditor;
 using UnityEngine;
-using System.Collections.Generic;
-using System.Reflection;
-using UnityEngine.TestTools;
 
 namespace Unity.Rendering.ToonShader.Tests {
     internal class ShaderCompileTest

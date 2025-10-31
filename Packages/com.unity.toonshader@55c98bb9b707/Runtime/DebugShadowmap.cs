@@ -1,12 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
-using UnityEngine.Rendering;
-using UnityEngine.Experimental.Rendering;
-using UnityObject = UnityEngine.Object;
+
 namespace Unity.Rendering.Toon
 {
     [ExecuteAlways]

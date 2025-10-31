@@ -24,6 +24,13 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller.States
             playerModel.cam.SetParent(playerModel.currentPossessedObject.Transform, true);
             playerModel.isVisible = false;
             playerModel.graph.gameObject.SetActive(false);
+
+            if (playerModel.currentGrabbedObject is null)
+                return;
+            
+            playerModel.currentGrabbedObject.Rigidbody.isKinematic = false;
+            playerModel.currentGrabbedObject.Transform.SetParent(null, true);
+            playerModel.currentGrabbedObject = null;
         }
 
         public override sbyte OnUpdate()
@@ -40,7 +47,7 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller.States
                 
                 case 2:
                     _destructTimer += Time.deltaTime;
-                    if (_destructTimer > GameConstants.DestructiveActionTime)
+                    if (_destructTimer > playerModel.data.interactData.bigPossessActionTimer)
                     {
                         playerModel.OnDestructiveAction();
                         
