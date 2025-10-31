@@ -30,12 +30,33 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller.States
             playerModel.HandleRotateInputGather();
             
             if (playerModel.HandleMonoInputGather() == 1)
-                if (playerModel.OnPossess())
-                    if (!stateMachine.TrySwitchState("possess", (int)playerModel.data.activeStates))
-                    {
-                        playerModel.currentPossessedObject = null;
+            {
+                var pg = playerModel.OnTryPossessGrab();
+                
+                switch (pg)
+                {
+                    case 1:
+                        if (!stateMachine.TrySwitchState("possess", (int)playerModel.data.activeStates))
+                        {
+                            playerModel.currentPossessedObject = null;
+                            return 1;
+                        }
+                        break;
+                    
+                    case 2:
+                        playerModel.currentGrabbedObject.Rigidbody.isKinematic = true;
+                        playerModel.currentGrabbedObject.Transform.SetParent(playerModel.grab, true);
                         return 1;
-                    }
+                    
+                    case 0:
+                        if (playerModel.currentGrabbedObject is not null)
+                        {
+                            playerModel.currentGrabbedObject.Rigidbody.isKinematic = false;
+                            playerModel.currentGrabbedObject.Transform.SetParent(null, true);
+                        }
+                        break;
+                }
+            }
 
             if (playerModel.OnJump())
             {
@@ -58,6 +79,7 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller.States
 
         public override sbyte OnFixedUpdate()
         {
+            playerModel.SetGrabbedObjectLocalPos(); //TODO cleanup callback plutot que verif a la frame
             playerModel.SetCameraPivotLocalPos(Vector3.zero);
             playerModel.HandleGravity(goRef);
             playerModel.Move(playerModel.currentMoveMultiplier);
