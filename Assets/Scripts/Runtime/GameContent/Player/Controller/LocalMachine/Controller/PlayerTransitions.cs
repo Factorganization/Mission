@@ -27,33 +27,80 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller
             return playerModel.rb.linearVelocity.y < 0;
         }
 
-        internal static bool OnAction(this PlayerModel playerModel)
+        internal static void OnAction(this PlayerModel playerModel)
         {
-            return playerModel.currentPossessedObject.Action();
+            playerModel.currentPossessedObject.Action();
         }
 
-        internal static bool OnPossess(this PlayerModel playerModel)
+        internal static void OnDestructiveAction(this PlayerModel playerModel)
         {
-            var min = 100f;
+            playerModel.currentPossessedObject.DestructiveAction();
+        }
+
+        /// <summary>
+        /// Object dependant output int
+        /// </summary>
+        /// <param name="playerModel"></param>
+        /// <returns>
+        /// <list type="return case">
+        /// <item>0 : nothing happened</item>
+        /// <item>1 : object possessed</item>
+        /// <item>2 : object grabbed</item>
+        /// </list>
+        /// </returns>
+        internal static int OnTryPossessGrab(this PlayerModel playerModel)
+        {
+            var minDist = 100f;
+            var minAngle = 45f;
             IPossessable tp = null;
+            IGrabbable gb = null;
             
             foreach (var p in LevelGenerator.Generator.Possessables)
             {
                 var d = Vector3.Distance(p.Transform.position, playerModel.rb.position);
+                var a = Vector3.Angle(playerModel.graph.forward, ((p.Transform.position - playerModel.rb.position) * GameConstants.VectorUpFilter).normalized);
 
-                if (d >= GameConstants.MaxPossessDistance || d > min || Vector3.Angle(playerModel.graph.forward,
-                        ((p.Transform.position - playerModel.rb.position) * GameConstants.VectorUpFilter).normalized) > GameConstants.MaxInteractionAngle)
+                if (d >= GameConstants.MaxPossessDistance || a > GameConstants.MaxInteractionAngle || d > minDist || a > minAngle)
                     continue;
                 
-                min = d;
+                minDist = d;
+                minAngle = a;
                 tp = p;
             }
-            
-            if (min > 2)
-                return false;
-            
-            playerModel.currentPossessedObject = tp;
-            return true;
+
+            foreach (var g in LevelGenerator.Generator.Grabbables)
+            {
+                var d = Vector3.Distance(g.Transform.position, playerModel.rb.position);
+                var a = Vector3.Angle(playerModel.graph.forward, ((g.Transform.position - playerModel.rb.position) * GameConstants.VectorUpFilter).normalized);
+                
+                if (d >= GameConstants.MaxPossessDistance || a > GameConstants.MaxInteractionAngle || d > minDist || a > minAngle)
+                    continue;
+                
+                tp = null;
+                minDist = d;
+                minAngle = a;
+                gb = g;
+            }
+
+            if (tp is not null)
+            {
+                playerModel.currentPossessedObject = tp;
+                return 1;
+            }
+
+            if (gb is not null)
+            {
+                if (playerModel.currentGrabbedObject is not null)
+                {
+                    playerModel.currentGrabbedObject.Transform.SetParent(null, true);
+                    playerModel.currentGrabbedObject.Rigidbody.isKinematic = false;
+                }
+                
+                playerModel.currentGrabbedObject = gb;
+                return 2;
+            }
+
+            return 0;
         }
     }
 }

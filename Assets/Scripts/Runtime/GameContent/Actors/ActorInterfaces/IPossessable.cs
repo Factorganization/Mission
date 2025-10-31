@@ -8,6 +8,8 @@ namespace Runtime.GameContent.Actors.ActorInterfaces
         
         public bool Possessed { get; set; }
         
-        public bool Action();
+        public void Action();
+
+        public void DestructiveAction();
     }
 }
