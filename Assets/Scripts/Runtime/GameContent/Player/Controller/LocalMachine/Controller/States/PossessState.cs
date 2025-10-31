@@ -18,6 +18,7 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller.States
 
         public override void OnEnterState()
         {
+            _destructTimer = 0;
             playerModel.targetDir = Vector3.zero;
             playerModel.rb.linearVelocity = Vector3.zero;
             playerModel.cam.SetParent(playerModel.currentPossessedObject.Transform, true);
@@ -28,16 +29,31 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller.States
         public override sbyte OnUpdate()
         {
             playerModel.HandleRotateInputGather();
-            if (playerModel.HandleMonoInputGather() == 2)
-                if (playerModel.OnAction())
-                {
-                    stateMachine.TrySwitchState("idle", (int) playerModel.data.activeStates);
-                    return 1;
-                }
-            
-            if (playerModel.HandleMonoInputGather() == 1)
-                if (stateMachine.TrySwitchState("idle", (int) playerModel.data.activeStates))
-                    return 1;
+            var mono = playerModel.HandleMonoInputGather();
+
+            switch (mono)
+            {
+                case 1:
+                    if (stateMachine.TrySwitchState("idle", (int) playerModel.data.activeStates))
+                        return 1;
+                    break;
+                
+                case 2:
+                    _destructTimer += Time.deltaTime;
+                    if (_destructTimer > GameConstants.DestructiveActionTime)
+                    {
+                        playerModel.OnDestructiveAction();
+                        
+                        if (stateMachine.TrySwitchState("idle", (int) playerModel.data.activeStates))
+                            return 1;
+                    }
+                    break;
+                
+                case 3:
+                    _destructTimer = 0;
+                    playerModel.OnAction();
+                    break;
+            }
             
             return 0;
         }
@@ -57,6 +73,12 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller.States
             playerModel.isVisible = true;
             playerModel.graph.gameObject.SetActive(true);
         }
+
+        #endregion
+        
+        #region fields
+
+        private float _destructTimer;
 
         #endregion
     }
