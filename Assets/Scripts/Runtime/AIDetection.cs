@@ -1,7 +1,10 @@
 using UnityEditor;
 using UnityEngine;
 
-public class IA_Detection : MonoBehaviour
+namespace Runtime
+{
+    
+public class AIDetection : MonoBehaviour
 {
     //To change later
     
@@ -14,13 +17,16 @@ public class IA_Detection : MonoBehaviour
         //reset sus timer
         if (_detectionTimer > 0)
         {
-            _forgetTimer  += Time.deltaTime;
+            _forgetTimer += Time.deltaTime;
             if (_forgetTimer >= timeToForget) 
             {
                 _detectionTimer = 0;
                 _forgetTimer = 0;
+                IsPlayerSpotted = false;
             }
         }
+
+        IsSuspicious = _detectionTimer > 0;
     }
 
     private void DetectPlayer()
@@ -36,13 +42,20 @@ public class IA_Detection : MonoBehaviour
             if (hit.transform != player)
                 return;
                 
+            _forgetTimer = 0;
+            
             if (_detectionTimer < timeToDetect)
             {
-                _detectionTimer += Time.deltaTime;
-                _forgetTimer = 0;
                 Debug.Log("Suspicious");
+                _detectionTimer += Time.deltaTime;
+                transform.LookAt(player.position);
             }
-            else Debug.Log("Player Spotted");
+            else
+            {
+                Debug.Log("Player Spotted");
+                IsPlayerSpotted = true;
+                LastKnownPlayerPosition = player.position;
+            }
         }
     }
 
@@ -63,6 +76,10 @@ public class IA_Detection : MonoBehaviour
     #endregion
     
     #region fields
+
+    public bool IsSuspicious { private set; get; } = false; 
+    public bool IsPlayerSpotted { private set; get; } = false;
+    public Vector3 LastKnownPlayerPosition { private set; get; } = Vector3.zero;
     
     [SerializeField] private float detectionAngle = 45f;
     [SerializeField] private float detectionDistance = 10f;
@@ -77,3 +94,5 @@ public class IA_Detection : MonoBehaviour
     #endregion
 }
 
+
+}

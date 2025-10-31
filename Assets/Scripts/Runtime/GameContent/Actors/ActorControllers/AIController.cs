@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Runtime.GameContent.Actors.ActorControllers
 {
-    public static class IAController
+    public static class AIController
     {
         #region methodes
         public static void SetCurrentWaypoint(IAModel model, Vector3 waypoint)
