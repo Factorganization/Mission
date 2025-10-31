@@ -81,8 +81,10 @@ public class AIDetection : MonoBehaviour
         Gizmos.color = new Color(1, 1, 0, 0.2f);
         Gizmos.DrawLine(transform.position, transform.position + rightBoundary);
         Gizmos.DrawLine(transform.position, transform.position + leftBoundary);
+#if UNITY_EDITOR
         Handles.color = new Color(1, 1, 0, 0.1f);
         Handles.DrawSolidArc(transform.position, Vector3.up, leftBoundary, detectionAngle, detectionDistance);
+#endif
         if (IsPlayerSpotted)
         {
             Gizmos.color = Color.red;
