@@ -2,7 +2,6 @@ using System;
 using UnityEngine;
 using UnityEngine.Analytics;
 using UnityEngine.Rendering.Universal;
-using static UnityEngine.Analytics.IAnalytic;
 
 namespace UnityEditor.Rendering.Universal.Analytics
 {

@@ -1,8 +1,4 @@
 using UnityEditor.ShaderGraph;
-using UnityEngine;
-using static UnityEditor.Rendering.BuiltIn.ShaderUtils;
-using UnityEditor.Rendering.BuiltIn;
-using System;
 using UnityEditor.Rendering.Fullscreen.ShaderGraph;
 
 namespace UnityEditor.Rendering.Universal.ShaderGraph

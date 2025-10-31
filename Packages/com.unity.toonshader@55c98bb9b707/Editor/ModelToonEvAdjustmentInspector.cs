@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor;
 using Unity.Rendering.Toon;
 namespace UnityEditor.Rendering.Toon
 {

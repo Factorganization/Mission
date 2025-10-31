@@ -6,11 +6,9 @@ using UnityEditor.ShaderGraph;
 using UnityEditor.ShaderGraph.Internal;
 using UnityEditor.ShaderGraph.Legacy;
 using UnityEditor.ShaderGraph.Serialization;
-using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
-using UnityEngine.Rendering.VirtualTexturing;
 using UnityEngine.UIElements;
 #if HAS_VFX_GRAPH
 using UnityEditor.VFX;

@@ -1,7 +1,6 @@
 using System;
 using System.Reflection;
 using UnityEngine;
-using UnityEditor;
 using UnityEngine.Rendering.Universal;
 
 namespace UnityEditor.Rendering.Universal

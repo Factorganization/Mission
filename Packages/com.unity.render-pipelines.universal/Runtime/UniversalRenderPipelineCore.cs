@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using Unity.Collections;
 using Unity.Collections.LowLevel.Unsafe;
-using UnityEngine.Assertions;
 using UnityEngine.Experimental.GlobalIllumination;
 using UnityEngine.Experimental.Rendering;
 using Lightmapping = UnityEngine.Experimental.GlobalIllumination.Lightmapping;

@@ -5,7 +5,6 @@ using System.Reflection;
 #if UNITY_EDITOR
 using System.Linq;
 using UnityEditor;
-using ShaderKeywordFilter = UnityEditor.ShaderKeywordFilter;
 #endif
 
 namespace UnityEngine.Rendering.Universal

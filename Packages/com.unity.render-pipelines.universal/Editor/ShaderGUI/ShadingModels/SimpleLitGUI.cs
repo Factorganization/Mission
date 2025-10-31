@@ -1,7 +1,5 @@
-using System;
 using UnityEngine;
 using UnityEngine.Rendering;
-using UnityEngine.Scripting.APIUpdating;
 
 namespace UnityEditor.Rendering.Universal.ShaderGUI
 {

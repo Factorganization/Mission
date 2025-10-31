@@ -1,7 +1,5 @@
 using NUnit.Framework;
-using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
-using ShaderVariantLogLevel = UnityEngine.Rendering.ShaderVariantLogLevel;
 
 namespace UnityEditor.Rendering.Universal.Test.GlobalSettingsMigration
 {

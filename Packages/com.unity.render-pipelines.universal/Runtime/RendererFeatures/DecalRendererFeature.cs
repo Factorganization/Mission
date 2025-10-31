@@ -1,7 +1,6 @@
 using System.Diagnostics;
 using UnityEngine.Assertions;
 using UnityEngine.Rendering.Universal.Internal;
-using System;
 
 #if UNITY_EDITOR
 using UnityEditor.Rendering;

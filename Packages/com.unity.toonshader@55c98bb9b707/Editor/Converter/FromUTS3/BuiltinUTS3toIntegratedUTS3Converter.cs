@@ -1,8 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UIElements;
-
 namespace UnityEditor.Rendering.Toon
 {
     internal sealed class BuiltinUTS3toIntegratedUTS3Converter : RenderPipelineConverterContainer

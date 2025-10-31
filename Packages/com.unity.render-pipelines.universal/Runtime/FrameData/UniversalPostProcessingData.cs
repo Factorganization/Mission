@@ -1,5 +1,3 @@
-using System;
-
 namespace UnityEngine.Rendering.Universal
 {
     /// <summary>

@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEditor.Rendering.Universal;
 using static Unity.Rendering.Universal.ShaderUtils;
