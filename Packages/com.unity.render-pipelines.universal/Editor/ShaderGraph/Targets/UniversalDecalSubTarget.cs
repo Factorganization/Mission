@@ -1,12 +1,7 @@
 using System;
-using System.Linq;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor.ShaderGraph;
-using Unity.Rendering.Universal;
-using UnityEditor.UIElements;
 using UnityEngine.UIElements;
-using UnityEditor.ShaderGraph.Legacy;
 using UnityEngine.Rendering.Universal;
 using UnityEditor.ShaderGraph.Internal;
 using ShaderUtils = Unity.Rendering.Universal.ShaderUtils;

@@ -1,7 +1,3 @@
-using System.Collections.Generic;
-using Unity.Collections;
-using Unity.Mathematics;
-
 namespace UnityEngine.Rendering.Universal
 {
     internal class DecalDrawErrorSystem : DecalDrawSystem

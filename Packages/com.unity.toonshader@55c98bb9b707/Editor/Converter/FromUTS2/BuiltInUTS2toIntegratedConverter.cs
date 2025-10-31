@@ -1,9 +1,7 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
-using UnityEngine.UIElements;
+
 namespace UnityEditor.Rendering.Toon
 {
     internal sealed class BuiltInUTS2toIntegratedConverter : RenderPipelineConverterContainer
@@ -717,7 +715,7 @@ namespace UnityEditor.Rendering.Toon
             {//When AngelRing is available
                 material.SetFloat(UTS3GUI.ShaderPropIs_LightColor_AR, 1);
             }
-            if (material.HasProperty(UTS3GUI.ShaderPropOutline))//OUTLINEÇ™Ç†ÇÈèÍçá.
+            if (material.HasProperty(UTS3GUI.ShaderPropOutline))//OUTLINEÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÍçá.
             {
                 material.SetFloat(UTS3GUI.ShaderPropIs_LightColor_Outline, 1);
             }

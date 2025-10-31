@@ -28,50 +28,61 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller.States
         {
             playerModel.HandleContinuousInputGather();
             playerModel.HandleRotateInputGather();
-            
-            if (playerModel.HandleMonoInputGather() == 1)
+            var mono = playerModel.HandleMonoInputGather();
+
+            switch (mono)
             {
-                var pg = playerModel.OnTryPossessGrab();
-                
-                switch (pg)
-                {
-                    case 1:
-                        if (!stateMachine.TrySwitchState("possess", (int)playerModel.data.activeStates))
-                        {
-                            playerModel.currentPossessedObject = null;
+                case 1:
+                    if (playerModel.OnTryPossess() == 1)
+                    {
+                        if (stateMachine.TrySwitchState("possess", (int)playerModel.data.activeStates))
                             return 1;
-                        }
-                        break;
-                    
-                    case 2:
-                        playerModel.currentGrabbedObject.Rigidbody.isKinematic = true;
-                        playerModel.currentGrabbedObject.Transform.SetParent(playerModel.grab, true);
-                        return 1;
-                    
-                    case 0:
-                        if (playerModel.currentGrabbedObject is not null)
-                        {
+                        
+                        playerModel.currentPossessedObject = null;
+                    }
+                    break;
+                
+                case 6:
+                    var tg = playerModel.OnTryGrab();
+                    switch (tg)
+                    {
+                        case 1:
+                            //TODO cleanup ces merdes dans le controller
+                            playerModel.currentGrabbedObject.Rigidbody.isKinematic = true;
+                            playerModel.currentGrabbedObject.Transform.SetParent(playerModel.grab, true);
+                            break;
+                        
+                        case 0 when playerModel.currentGrabbedObject is not null:
                             playerModel.currentGrabbedObject.Rigidbody.isKinematic = false;
                             playerModel.currentGrabbedObject.Transform.SetParent(null, true);
-                        }
-                        break;
-                }
+                            playerModel.currentGrabbedObject = null;
+                            break;
+                    }
+                    break;
+                
+                case 4:
+                    //TODO grab interaction, en fait retournement de situation y'en a pas donc faudra retirer et passet en callback de drop item
+                    break;
+                
+                case 5:
+                    playerModel.TryThrowGrabbedObject();
+                    break;
             }
 
             if (playerModel.OnJump())
             {
-                stateMachine.TrySwitchState("jump", (int)playerModel.data.activeStates);
-                return 1;
+                if (stateMachine.TrySwitchState("jump", (int)playerModel.data.activeStates))
+                    return 1;
             }
             if (!playerModel.CheckGround(goRef))
             {
-                stateMachine.TrySwitchState("fall", (int)playerModel.data.activeStates);
-                return 1;
+                if (stateMachine.TrySwitchState("fall", (int)playerModel.data.activeStates))
+                    return 1;
             }
             if (playerModel.OnIdle())
             {
-                stateMachine.TrySwitchState("idle", (int)playerModel.data.activeStates);
-                return 1;
+                if (stateMachine.TrySwitchState("idle", (int)playerModel.data.activeStates))
+                    return 1;
             }
             
             return 0;

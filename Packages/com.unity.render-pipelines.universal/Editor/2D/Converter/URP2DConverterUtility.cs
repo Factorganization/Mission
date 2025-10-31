@@ -4,7 +4,6 @@ using UnityEditor;
 using System.IO;
 using UnityEditor.SceneManagement;
 using UnityEngine.SceneManagement;
-using static UnityEditor.Rendering.AnimationClipUpgrader;
 
 internal static class URP2DConverterUtility
 {

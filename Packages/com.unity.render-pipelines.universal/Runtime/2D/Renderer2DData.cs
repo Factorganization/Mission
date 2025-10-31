@@ -4,8 +4,6 @@ using UnityEngine.Scripting.APIUpdating;
 using UnityEngine.Serialization;
 
 #if UNITY_EDITOR
-using UnityEditor;
-using UnityEditor.ProjectWindowCallback;
 #endif
 
 namespace UnityEngine.Rendering.Universal

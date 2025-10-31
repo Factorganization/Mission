@@ -1,5 +1,3 @@
-using UnityEngine;
-using UnityEngine.Rendering.Universal;
 #if XR_MANAGEMENT_4_0_1_OR_NEWER
 using UnityEditor.XR.Management;
 #endif

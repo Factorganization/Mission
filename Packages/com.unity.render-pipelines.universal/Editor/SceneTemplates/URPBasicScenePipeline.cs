@@ -1,9 +1,6 @@
-using System;
 using UnityEngine;
 using UnityEditor.SceneTemplate;
 using UnityEngine.SceneManagement;
-using System.Collections.Generic;
-using UnityEditor.Rendering.Utilities;
 
 namespace UnityEditor.Rendering.Universal
 {

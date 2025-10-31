@@ -1,6 +1,5 @@
 using System;
 using UnityEngine;
-using UnityEditor.Rendering.Universal;
 
 namespace UnityEditor.Rendering.Universal.ShaderGUI
 {

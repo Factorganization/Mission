@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Serialization;
 
 namespace Runtime.GameContent.Player.Controller.LocalMachine.Model
 {
@@ -12,6 +11,8 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Model
         public InputData inputData;
         
         public MoveData moveData;
+        
+        public InteractData interactData;
         
         public JumpData jumpData;
         
@@ -32,7 +33,9 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Model
         
         public InputActionReference crouchInput;
         
-        public InputActionReference grabPossessInput;
+        public InputActionReference tryPossessInput;
+
+        public InputActionReference tryGrabInput;
         
         public InputActionReference throwInput;
 
@@ -79,6 +82,14 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Model
         public float jumpCoyoteTime;
         
         public float jumpBufferTime; 
+    }
+
+    [System.Serializable]
+    public class InteractData
+    {
+        public Vector2 throwStrength;
+
+        public float bigPossessActionTimer;
     }
     
     [System.Serializable]

@@ -2,7 +2,6 @@ using System;
 using UnityEngine;
 using UnityEditor.ShaderGraph;
 using UnityEngine.UIElements;
-using UnityEngine.Assertions;
 using UnityEngine.Rendering;
 using static UnityEditor.Rendering.Universal.ShaderGraph.SubShaderUtils;
 using UnityEngine.Rendering.Universal;

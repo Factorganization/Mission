@@ -1,5 +1,4 @@
 #if ENABLE_VR && ENABLE_XR_MODULE
-using System;
 using UnityEngine.Rendering.RenderGraphModule;
 using UnityEngine.Experimental.Rendering;
 

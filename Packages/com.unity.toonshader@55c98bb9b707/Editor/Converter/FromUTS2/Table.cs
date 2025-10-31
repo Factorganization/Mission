@@ -1,8 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.IO;
-using UnityEngine;
 namespace UnityEditor.Rendering.Toon
 {
     internal class UTS2Table

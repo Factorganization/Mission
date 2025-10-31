@@ -1,12 +1,7 @@
 using NUnit.Framework;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.Rendering;
-using UnityEngine.Profiling;
 using UnityEngine.Rendering.Universal;
-using UnityEditor.Rendering.Universal.Internal;
-using UnityEngine.Experimental.Rendering;
-using UnityEngine.Experimental.Rendering.Universal;
 using UnityEngine.TestTools;
 
 class EditorTests_URPDisabled

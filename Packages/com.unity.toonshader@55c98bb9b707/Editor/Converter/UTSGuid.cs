@@ -1,12 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEditor;
-using UnityEngine.UIElements;
-using UnityEditor.UIElements;
-using System;
-using System.Linq;
-using System.IO;
 using System.Text;
 
 namespace UnityEditor.Rendering.Toon
