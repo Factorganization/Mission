@@ -4,14 +4,21 @@ namespace Runtime.GameContent.Actors.ActorModels
 {
     public class IAModel : ActorModel
     {
-        public IAMovementDataSo movementData;
-    
-        public Vector3 _currentWaypoint;
-        public float _waitTimer;
-    
+
+        #region methodes
         public IAModel(IAMovementDataSo movementDataSo)
         {
             movementData =  movementDataSo;
         }
+        #endregion
+        
+        #region fields
+        
+        public IAMovementDataSo movementData;
+    
+        public Vector3 _currentWaypoint;
+        public float _waitTimer;
+        
+        #endregion
     }
 }

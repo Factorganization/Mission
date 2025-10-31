@@ -3,15 +3,9 @@ using UnityEngine;
 
 public class IA_Detection : MonoBehaviour
 {
-    [SerializeField] private float detectionAngle = 45f;
-    [SerializeField] private float detectionDistance = 10f;
-    [SerializeField] private float timeToDetect = 3f;
-    [SerializeField] private float timeToForget = 5f;
-
-    [SerializeField] private Transform player;
+    //To change later
     
-    private float _detectionTimer = 0f;
-    private float _forgetTimer = 0f;
+    #region methodes
     
     private void Update()
     {
@@ -65,5 +59,21 @@ public class IA_Detection : MonoBehaviour
         Handles.color = new Color(1, 1, 0, 0.1f);
         Handles.DrawSolidArc(transform.position, Vector3.up, leftBoundary, detectionAngle, detectionDistance);
     }
+    
+    #endregion
+    
+    #region fields
+    
+    [SerializeField] private float detectionAngle = 45f;
+    [SerializeField] private float detectionDistance = 10f;
+    [SerializeField] private float timeToDetect = 3f;
+    [SerializeField] private float timeToForget = 5f;
+
+    [SerializeField] private Transform player;
+    
+    private float _detectionTimer = 0f;
+    private float _forgetTimer = 0f;
+    
+    #endregion
 }
 

@@ -6,10 +6,9 @@ namespace Runtime.GameContent.Actors.ActorViews
 {
     public class AIView : ActorView
     {
-        [SerializeField] private IAMovementDataSo iaMovementDataSo;
-    
-        private IAModel _iaModel;
-    
+        
+        #region methodes
+        
         private void Awake()
         {
             _iaModel = new IAModel(iaMovementDataSo);
@@ -38,5 +37,13 @@ namespace Runtime.GameContent.Actors.ActorViews
             IAController.SelectRandomWaypoint(_iaModel);
             _iaModel._waitTimer = 0;
         }
+        #endregion
+        
+        #region fields
+        
+        [SerializeField] private IAMovementDataSo iaMovementDataSo;
+    
+        private IAModel _iaModel;
+        #endregion
     }
 }

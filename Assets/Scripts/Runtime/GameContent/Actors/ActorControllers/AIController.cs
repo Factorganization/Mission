@@ -5,6 +5,7 @@ namespace Runtime.GameContent.Actors.ActorControllers
 {
     public static class IAController
     {
+        #region methodes
         public static void SetCurrentWaypoint(IAModel model, Vector3 waypoint)
         {
             model._currentWaypoint = waypoint;
@@ -39,5 +40,7 @@ namespace Runtime.GameContent.Actors.ActorControllers
                 return true;
             return false;
         }
+        
+        #endregion
     }
 }
