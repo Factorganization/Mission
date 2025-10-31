@@ -22,7 +22,7 @@ namespace Shared.Utils.Listing
             foreach (var mono in array)
             {
                 if (mono is not T t)
-                    return;
+                    continue;
                 
                 actorList.Add(t);
             }
@@ -40,7 +40,7 @@ namespace Shared.Utils.Listing
                     continue;
                 
                 if (mono is not T t)
-                    return;
+                    continue;
                 
                 actorPool.Enqueue(t);
             }
@@ -56,8 +56,8 @@ namespace Shared.Utils.Listing
                     continue;
                 
                 if (mono is not T t)
-                    return;
-                Debug.Log(type);
+                    continue;
+                
                 actorList.Add(t);
             }
             

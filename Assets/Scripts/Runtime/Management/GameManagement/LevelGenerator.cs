@@ -36,8 +36,6 @@ namespace Runtime.Management.GameManagement
             
             Pooler.PoolWithAttribute(_possessables, actors);
             Pooler.PoolWithAttribute(_grabbables, actors);
-            Debug.Log(Grabbables.Count);
-            Debug.Log(Possessables.Count);
         }
 
         #endregion
@@ -47,7 +45,7 @@ namespace Runtime.Management.GameManagement
         private ActorList<IPossessable> _possessables;
         
         private ActorList<IGrabbable> _grabbables;
-        
+
         #endregion
     }
 }

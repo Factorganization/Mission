@@ -169,12 +169,12 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller
             if (playerModel.currentGrabbedObject is null)
                 return;
             
-            if ((playerModel.currentGrabbedObject.Transform.position - playerModel.grab.position).sqrMagnitude < 0.005f)
+            if ((playerModel.currentGrabbedObject.Transform.localPosition - playerModel.grab.position).sqrMagnitude < 0.005f)
                 return;
             
-            playerModel.currentGrabbedObject.Rigidbody.position += Math.EasingFunction.SimpleQuadraticEase.V3SimpleQuadraticEaseOut(playerModel.cam.localPosition, playerModel.grab.position, 0.1f);
-            if ((playerModel.cam.localPosition - playerModel.grab.position).sqrMagnitude < 0.01f)
-                playerModel.cam.localPosition = playerModel.grab.position;
+            playerModel.currentGrabbedObject.Rigidbody.position += Math.EasingFunction.SimpleQuadraticEase.V3SimpleQuadraticEaseOut(playerModel.currentGrabbedObject.Rigidbody.position, playerModel.grab.position, 0.1f);
+            if (playerModel.currentGrabbedObject.Transform.localPosition.sqrMagnitude < 0.01f)
+                playerModel.currentGrabbedObject.Rigidbody.position = playerModel.grab.position;
         }
         
         internal static void SetCameraPivotPos(this PlayerModel playerModel, Vector3 targetPos)
