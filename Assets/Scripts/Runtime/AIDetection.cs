@@ -57,6 +57,18 @@ public class AIDetection : MonoBehaviour
                 LastKnownPlayerPosition = player.position;
             }
         }
+
+        if (IsPlayerSpotted && Vector3.Distance(transform.position, player.position) <= sixthSensDetectionDistance)
+        {
+            RaycastHit hit;
+            if (!Physics.Raycast(transform.position, directionToPlayer.normalized, out hit, detectionDistance))
+                return;
+            if (hit.transform != player)
+                return;
+            
+            LastKnownPlayerPosition = player.position;
+            IsPlayerSpotted = true;
+        }
     }
 
     private void OnDrawGizmos()
@@ -71,6 +83,11 @@ public class AIDetection : MonoBehaviour
         Gizmos.DrawLine(transform.position, transform.position + leftBoundary);
         Handles.color = new Color(1, 1, 0, 0.1f);
         Handles.DrawSolidArc(transform.position, Vector3.up, leftBoundary, detectionAngle, detectionDistance);
+        if (IsPlayerSpotted)
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(transform.position, sixthSensDetectionDistance);
+        }
     }
     
     #endregion
@@ -83,6 +100,7 @@ public class AIDetection : MonoBehaviour
     
     [SerializeField] private float detectionAngle = 45f;
     [SerializeField] private float detectionDistance = 10f;
+    [SerializeField] private float sixthSensDetectionDistance = 6f;
     [SerializeField] private float timeToDetect = 3f;
     [SerializeField] private float timeToForget = 5f;
 
@@ -93,6 +111,4 @@ public class AIDetection : MonoBehaviour
     
     #endregion
 }
-
-
 }

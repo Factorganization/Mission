@@ -39,7 +39,6 @@ namespace Runtime.GameContent.Actors.ActorViews
                 AIController.RotateToWaypoint(_iaModel);
                 AIController.MoveToWaypoint(_iaModel);
             }
-
         
             transform.position = _iaModel.transform.position;
             transform.rotation = _iaModel.transform.rotation;
