@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 3756383111318210898}
   - component: {fileID: 1659177923053951279}
+  - component: {fileID: 7032207821741179274}
+  - component: {fileID: 112314716662109176}
   m_Layer: 0
   m_Name: PP_Item_Tool_01
   m_TagString: Untagged
@@ -53,7 +55,47 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 0.4, y: 0.02, z: 0.08265275}
-  m_Center: {x: 0, y: 0.0125, z: 0.0000000018626451}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!54 &7032207821741179274
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 33283272711889189}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 80
+  m_CollisionDetection: 0
+--- !u!114 &112314716662109176
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 33283272711889189}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a384f8a6ec044a0b55831ba13494800, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Satanic.Runtime::Runtime.GameContent.Actors.ActorViews.GrabbableObjectView
+  rb: {fileID: 7032207821741179274}
 --- !u!1001 &445286523829170619
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -72,7 +114,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8227085176675014663, guid: 3fae50433ed54934fa73b431c410c7da, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 8227085176675014663, guid: 3fae50433ed54934fa73b431c410c7da, type: 3}
       propertyPath: m_LocalPosition.z
