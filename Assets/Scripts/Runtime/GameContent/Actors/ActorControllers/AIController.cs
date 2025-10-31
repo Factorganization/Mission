@@ -6,17 +6,17 @@ namespace Runtime.GameContent.Actors.ActorControllers
     public static class AIController
     {
         #region methodes
-        public static void SetCurrentWaypoint(IAModel model, Vector3 waypoint)
+        public static void SetCurrentWaypoint(AIModel model, Vector3 waypoint)
         {
             model._currentWaypoint = waypoint;
         }
 
-        public static void SelectRandomWaypoint(IAModel model)
+        public static void SelectRandomWaypoint(AIModel model)
         {
             model._currentWaypoint = model.movementData.waypoints[Random.Range(0, model.movementData.waypoints.Length)];
         }
 
-        public static void MoveToWaypoint(IAModel model)
+        public static void MoveToWaypoint(AIModel model)
         {
             if (model._currentWaypoint == Vector3.zero)
                 return; 
@@ -28,7 +28,7 @@ namespace Runtime.GameContent.Actors.ActorControllers
         
         }
 
-        public static bool RotateToWaypoint(IAModel model)
+        public static bool RotateToWaypoint(AIModel model)
         {
             if (model._currentWaypoint == Vector3.zero)
                 return true;

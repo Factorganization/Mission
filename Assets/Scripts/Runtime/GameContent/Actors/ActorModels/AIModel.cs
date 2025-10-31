@@ -2,10 +2,10 @@ using UnityEngine;
 
 namespace Runtime.GameContent.Actors.ActorModels
 {
-    public class IAModel : ActorModel
+    public class AIModel : ActorModel
     {
         #region methodes
-        public IAModel(AIMovementDataSo movementDataSo)
+        public AIModel(AIMovementDataSo movementDataSo)
         {
             movementData =  movementDataSo;
 
