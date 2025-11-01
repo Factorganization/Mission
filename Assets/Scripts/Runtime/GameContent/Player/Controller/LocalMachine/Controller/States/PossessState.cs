@@ -23,7 +23,8 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller.States
             playerModel.rb.linearVelocity = Vector3.zero;
             playerModel.cam.SetParent(playerModel.currentPossessedObject.Transform, true);
             playerModel.isVisible = false;
-            playerModel.graph.gameObject.SetActive(false);
+            playerModel.graph.gameObject.SetActive(false); 
+            playerModel.currentPossessedObject.Transform.tag = "Player";
 
             if (playerModel.currentGrabbedObject is null)
                 return;
@@ -35,7 +36,6 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller.States
 
         public override sbyte OnUpdate()
         {
-            playerModel.HandleRotateInputGather();
             var mono = playerModel.HandleMonoInputGather();
 
             switch (mono)
@@ -67,6 +67,7 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller.States
 
         public override sbyte OnFixedUpdate()
         {
+            playerModel.HandleRotateInputGather();
             playerModel.SetCameraPivotLocalPos(Vector3.zero);
             playerModel.Look();
             
@@ -75,6 +76,7 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller.States
 
         public override void OnExitState()
         {
+            playerModel.currentPossessedObject.Transform.tag = "Untagged";
             playerModel.currentPossessedObject = null;
             playerModel.cam.SetParent(playerModel.rb.transform, true);
             playerModel.isVisible = true;

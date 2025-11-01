@@ -35,17 +35,11 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Model
         
         public IGrabbable currentGrabbedObject = null;
         
-        public bool isVisible = true;
-        
-        public bool isDead = false;
-
-        public bool isGrounded = true;
-        
-        public bool isCrouching = false;
-        
         public Vector2 inputDir;
         
         public Vector2 lookDir;
+
+        public Vector3 targetLookDir;
         
         public Vector3 targetDir = Vector3.zero;
 
@@ -68,6 +62,16 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Model
         public float jumpBufferTime = 0;
         
         public float coyoteTime = 0;
+        
+        public bool isVisible = true;
+        
+        public bool isDead = false;
+
+        public bool isGrounded = true;
+        
+        public bool isCrouching = false;
+        
+        public bool isUsingMouse = false;
 
         #endregion
 

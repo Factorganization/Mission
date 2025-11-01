@@ -34,6 +34,7 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller
         internal static void HandleRotateInputGather(this  PlayerModel playerModel)
         {
             playerModel.lookDir = playerModel.data.inputData.lookInput.action.ReadValue<Vector2>() / Time.deltaTime;
+            playerModel.isUsingMouse = playerModel.data.inputData.lookInput.action.activeControl?.name == "delta";
         }
 
         /// <summary>
@@ -96,12 +97,16 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller
 
         internal static void Look(this PlayerModel playerModel)
         {
-            playerModel.camYaw += playerModel.lookDir.x * playerModel.data.cameraData.camSensitivity * Time.fixedDeltaTime;
-            playerModel.camPitch -= playerModel.lookDir.y * playerModel.data.cameraData.camSensitivity * Time.fixedDeltaTime;
+            playerModel.camYaw += playerModel.lookDir.x
+                                  * (playerModel.isUsingMouse ? playerModel.data.cameraData.mouseCamSensitivity : playerModel.data.cameraData.gamepadCamSensitivity)
+                                  * Time.fixedDeltaTime;
+            playerModel.camPitch -= playerModel.lookDir.y
+                                    * (playerModel.isUsingMouse ? playerModel.data.cameraData.mouseCamSensitivity : playerModel.data.cameraData.gamepadCamSensitivity)
+                                    * Time.fixedDeltaTime;
             playerModel.camPitch = ClampSymmetric(playerModel.camPitch, playerModel.data.cameraData.maxPitchAngle);
             
-            playerModel.cam.Rotate(new Vector3(-playerModel.lookDir.y * playerModel.data.cameraData.camSensitivity, 0, 0));
-            playerModel.cam.localRotation = Quaternion.Euler(playerModel.camPitch, playerModel.camYaw, 0);
+            playerModel.cam.localEulerAngles = new Vector3(playerModel.camPitch, playerModel.camYaw, 0);
+            //playerModel.cam.localEulerAngles += Math.EasingFunction.SimpleQuadraticEase.V3SimpleQuadraticEaseOut(playerModel.cam.localEulerAngles, playerModel.targetLookDir, 0.1f);
         }
         
         internal static void HandleGravity(this PlayerModel playerModel, GameObject goRef)
