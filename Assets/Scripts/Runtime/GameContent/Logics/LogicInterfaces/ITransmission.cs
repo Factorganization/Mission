@@ -1,6 +1,6 @@
 using Runtime.GameContent.Logics.LogicModels;
 
-namespace Runtime.GameContent.Logics.Interfaces
+namespace Runtime.GameContent.Logics.LogicInterfaces
 {
     public interface ITransmission
     {
