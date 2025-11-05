@@ -1,5 +1,3 @@
-using UnityEngine;
-
 namespace UnityEditor.Rendering.Universal
 {
     static class ContextualMenuDispatcher

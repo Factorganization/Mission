@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEditor.ShaderGraph;
 using UnityEditor.ShaderGraph.Internal;
 using UnityEngine.UIElements;
-using UnityEditor.ShaderGraph.Legacy;
 using UnityEngine.Assertions;
 using static UnityEditor.Rendering.Universal.ShaderGraph.SubShaderUtils;
 using UnityEngine.Rendering.Universal;

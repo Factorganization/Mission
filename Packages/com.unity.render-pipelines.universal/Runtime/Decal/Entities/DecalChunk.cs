@@ -2,7 +2,6 @@ using System;
 using Unity.Collections;
 using Unity.Jobs;
 using UnityEngine.Jobs;
-using UnityEngine.Rendering;
 
 namespace UnityEngine.Rendering.Universal
 {

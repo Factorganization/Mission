@@ -1,8 +1,6 @@
 using System;
-using System.IO;
 using UnityEditor.Search;
 using UnityEngine;
-using Object = UnityEngine.Object;
 
 namespace UnityEditor.Rendering.Universal
 {

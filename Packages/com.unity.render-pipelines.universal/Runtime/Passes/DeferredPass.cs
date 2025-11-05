@@ -1,4 +1,3 @@
-using System;
 using UnityEngine.Rendering.RenderGraphModule;
 
 // cleanup code

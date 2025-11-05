@@ -7,7 +7,6 @@ using UnityEditorInternal;
 using UnityEditor.EditorTools;
 using UnityEditor.Rendering.Utilities;
 using UnityEngine;
-using UnityEngine.Rendering;
 using UnityEditor.RenderPipelines.Core;
 using UnityEngine.Rendering.Universal;
 using static UnityEditorInternal.EditMode;

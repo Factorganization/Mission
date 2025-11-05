@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using UnityEngine.Experimental.Rendering;
 using Unity.Collections;
 
 #if USING_SPRITESHAPE

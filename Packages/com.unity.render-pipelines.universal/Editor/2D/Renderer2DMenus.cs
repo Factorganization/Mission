@@ -5,7 +5,6 @@ using UnityEngine;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.Rendering;
 using System.IO;
-using UnityEngine.Analytics;
 
 
 namespace UnityEditor.Rendering.Universal

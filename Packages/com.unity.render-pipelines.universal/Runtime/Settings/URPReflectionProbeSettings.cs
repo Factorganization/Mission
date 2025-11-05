@@ -1,7 +1,5 @@
 using System;
 #if UNITY_EDITOR
-using UnityEditor;
-using UnityEditor.Rendering.Universal;
 #endif
 using UnityEngine.Rendering.Universal;
 

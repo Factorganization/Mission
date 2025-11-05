@@ -1,12 +1,8 @@
 using NUnit.Framework;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
-using UnityEditor.Rendering.Universal.Internal;
-using UnityEngine.Experimental.Rendering.Universal;
 using UnityEngine.TestTools;
-using UnityEditor.SceneManagement;
 using System.Collections;
 using System.Linq;
 using System.Collections.Generic;

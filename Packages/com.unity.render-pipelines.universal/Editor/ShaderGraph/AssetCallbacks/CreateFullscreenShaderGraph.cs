@@ -1,7 +1,6 @@
 using System;
 using UnityEditor.ShaderGraph;
 using UnityEngine.Rendering;
-using UnityEditor.Rendering.Fullscreen.ShaderGraph;
 
 namespace UnityEditor.Rendering.Universal.ShaderGraph
 {

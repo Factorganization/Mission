@@ -1,7 +1,3 @@
-using System;
-using UnityEngine;
-using UnityEngine.Rendering;
-
 namespace UnityEditor.Rendering.Universal.ShaderGUI
 {
     /// <summary>

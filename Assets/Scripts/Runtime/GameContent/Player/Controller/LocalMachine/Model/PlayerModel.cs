@@ -1,3 +1,4 @@
+using Runtime.GameContent.Actors.ActorInterfaces;
 using UnityEngine;
 
 namespace Runtime.GameContent.Player.Controller.LocalMachine.Model
@@ -6,12 +7,13 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Model
     {
         #region constuctors
 
-        public PlayerModel(PlayerDataSo data, Rigidbody rb, Transform graph, Transform cam, Animator animator)
+        public PlayerModel(PlayerDataSo data, Rigidbody rb, Transform graph, Transform cam, Transform grab, Animator animator)
         {
             this.data = data;
             this.rb = rb;
             this.graph = graph;
             this.cam = cam;
+            this.grab = grab;
             this.animator = animator;
         }
 
@@ -21,11 +23,19 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Model
 
         #region logics
 
-        public PlayerDataSo data;
+        public readonly PlayerDataSo data;
         
-        public Rigidbody rb;
+        public readonly Rigidbody rb;
 
-        public Transform cam;
+        public readonly Transform cam;
+
+        public readonly Transform grab;
+
+        public IPossessable currentPossessedObject = null;
+        
+        public IGrabbable currentGrabbedObject = null;
+        
+        public bool isVisible = true;
         
         public bool isDead = false;
 

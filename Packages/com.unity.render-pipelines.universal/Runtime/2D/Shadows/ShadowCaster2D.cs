@@ -1,13 +1,10 @@
 using System;
-using UnityEngine;
 using UnityEngine.Scripting.APIUpdating;
-using UnityEngine.U2D;
 using Unity.Collections;
 
 #if UNITY_EDITOR
 using System.Linq;
 using UnityEditor;
-using UnityEditor.Rendering.Universal;
 using UnityEditor.EditorTools;
 #endif
 

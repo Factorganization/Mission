@@ -20,7 +20,7 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller
         
         public override void OnInit(GenericStateMachine machine)
         {
-            playerModel.HandleInputGather();
+            playerModel.HandleContinuousInputGather();
         }
 
         public override void OnEnterState()

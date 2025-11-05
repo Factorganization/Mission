@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEditor;
 using UnityEditor.Rendering.Universal;
@@ -6,7 +5,6 @@ using ShaderPathID = UnityEngine.Rendering.Universal.ShaderPathID;
 using UnityEditor.ShaderGraph;
 using UnityEditor.Rendering.Universal.ShaderGraph;
 using UnityEditor.Rendering.Universal.ShaderGUI;
-using UnityEngine.Rendering.Universal;
 using UnityEngine.Rendering;
 
 namespace Unity.Rendering.Universal

@@ -1,14 +1,16 @@
 namespace Runtime.GameContent.Player.Controller.LocalMachine.Model
 {
-    public enum ControllerState : byte
+    [System.Flags]
+    public enum ControllerState
     {
-        Idle,
-        Move,
-        Jump,
-        Fall,
-        Interact,
-        Possess,
-        Menu,
-        Locked
+        None = 0,
+        Idle = 1,
+        Move = 2,
+        Jump = 4,
+        Fall = 8,
+        Interact = 16,
+        Possess = 32,
+        Menu = 64,
+        Locked = 128
     }
 }

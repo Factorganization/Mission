@@ -6,9 +6,13 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Model
     [CreateAssetMenu(fileName = "PlayerData", menuName = "Player/PlayerData")]
     public sealed class PlayerDataSo : ScriptableObject
     {
+        public ControllerState activeStates;
+        
         public InputData inputData;
         
         public MoveData moveData;
+        
+        public InteractData interactData;
         
         public JumpData jumpData;
         
@@ -29,9 +33,15 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Model
         
         public InputActionReference crouchInput;
         
-        public InputActionReference wheelInput;
+        public InputActionReference tryPossessInput;
 
-        public InputActionReference interactInput;
+        public InputActionReference tryGrabInput;
+        
+        public InputActionReference throwInput;
+
+        public InputActionReference possessInteractInput;
+        
+        public InputActionReference grabInteractInput;
 
         public InputActionReference menuInput;
     }
@@ -46,8 +56,8 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Model
 
         public float crouchSpeedMultiplier;
 
-        [Range(0, 2)]
-        public float crouchHeight;
+        [Range(0, 1)]
+        public float crouchDepth;
         
         public float accelDecelMultiplier;
 
@@ -72,6 +82,14 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Model
         public float jumpCoyoteTime;
         
         public float jumpBufferTime; 
+    }
+
+    [System.Serializable]
+    public class InteractData
+    {
+        public Vector2 throwStrength;
+
+        public float bigPossessActionTimer;
     }
     
     [System.Serializable]

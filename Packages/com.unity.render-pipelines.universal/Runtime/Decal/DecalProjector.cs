@@ -1,6 +1,5 @@
 using System;
 using UnityEditor;
-using UnityEngine.Serialization;
 
 namespace UnityEngine.Rendering.Universal
 {
