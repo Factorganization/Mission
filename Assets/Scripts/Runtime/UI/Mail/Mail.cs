@@ -12,12 +12,7 @@ namespace Runtime.UI.Mail
     public class Mail : MonoBehaviour
     {
         #region Functions
-
-        private void Start()
-        {
-            
-        }
-
+        
         public void Bind(MailLevel mailLevel)
         {
             _mailLevel = mailLevel;

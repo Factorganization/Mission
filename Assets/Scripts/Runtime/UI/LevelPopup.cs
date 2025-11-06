@@ -8,11 +8,6 @@ namespace Runtime.UI
     {
         #region Functions
 
-        private void Start()
-        {
-            
-        }
-
         public void Bind(LevelDataSO mailLevel)
         {
             _levelName.text = mailLevel._mailLevel.LevelName;
@@ -26,7 +21,7 @@ namespace Runtime.UI
         private void OpenLevel()
         {
             // SceneManager.LoadScene(_levelData.SceneName);
-            Debug.Log("OpenLevel");
+            Debug.Log("Loading level: " + _levelData.LevelName);
         }
 
         public override void Hide()
