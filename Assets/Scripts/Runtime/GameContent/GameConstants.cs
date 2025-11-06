@@ -9,5 +9,9 @@ namespace Runtime.GameContent
         public const float ConstFixedDeltaTime = 0.02f;
         
         public const float AntiGroundGrabJumpTimer = 0.1f;
+
+        public const float DestructiveActionTime = 0.5f;
+        
+        public static Vector3 VectorUpFilter = new(1, 0, 1);
     }
 }

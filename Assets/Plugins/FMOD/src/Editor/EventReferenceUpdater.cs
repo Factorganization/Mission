@@ -5,12 +5,10 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using UnityEditor;
 using UnityEditor.IMGUI.Controls;
-using UnityEditor.Experimental.SceneManagement;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 #if UNITY_INPUTSYSTEM_EXIST
-using UnityEngine.InputSystem;
 #endif
 
 namespace FMODUnity

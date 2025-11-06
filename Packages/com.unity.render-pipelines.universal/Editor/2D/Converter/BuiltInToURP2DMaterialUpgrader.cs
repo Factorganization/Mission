@@ -1,11 +1,6 @@
 using System;
-using System.IO;
-using System.Collections.Generic;
-using UnityEditor.Rendering.Universal;
 using UnityEngine;
-using UnityEngine.Rendering.Universal;
 using static UnityEditor.AssetDatabase;
-using System.Collections;
 
 namespace UnityEditor.Rendering.Universal
 {

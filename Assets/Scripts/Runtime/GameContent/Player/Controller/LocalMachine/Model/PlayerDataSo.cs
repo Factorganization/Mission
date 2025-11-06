@@ -12,6 +12,8 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Model
         
         public MoveData moveData;
         
+        public InteractData interactData;
+        
         public JumpData jumpData;
         
         public CameraData cameraData;
@@ -31,11 +33,15 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Model
         
         public InputActionReference crouchInput;
         
-        public InputActionReference wheelInput;
+        public InputActionReference tryPossessInput;
 
-        public InputActionReference possessInput;
+        public InputActionReference tryGrabInput;
         
-        public InputActionReference interactInput;
+        public InputActionReference throwInput;
+
+        public InputActionReference possessInteractInput;
+        
+        public InputActionReference grabInteractInput;
 
         public InputActionReference menuInput;
     }
@@ -50,8 +56,8 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Model
 
         public float crouchSpeedMultiplier;
 
-        [Range(0, 2)]
-        public float crouchHeight;
+        [Range(0, 1)]
+        public float crouchDepth;
         
         public float accelDecelMultiplier;
 
@@ -76,6 +82,14 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Model
         public float jumpCoyoteTime;
         
         public float jumpBufferTime; 
+    }
+
+    [System.Serializable]
+    public class InteractData
+    {
+        public Vector2 throwStrength;
+
+        public float bigPossessActionTimer;
     }
     
     [System.Serializable]

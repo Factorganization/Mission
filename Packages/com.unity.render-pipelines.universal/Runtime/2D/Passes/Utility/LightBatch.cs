@@ -1,4 +1,3 @@
-using UnityEngine.Experimental.Rendering;
 using Unity.Collections;
 using Unity.Mathematics;
 using Unity.Collections.LowLevel.Unsafe;

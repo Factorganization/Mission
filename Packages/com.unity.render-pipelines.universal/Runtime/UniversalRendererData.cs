@@ -4,8 +4,6 @@ using UnityEditor.ProjectWindowCallback;
 using ShaderKeywordFilter = UnityEditor.ShaderKeywordFilter;
 #endif
 using System;
-using UnityEngine.Scripting.APIUpdating;
-using UnityEngine.Assertions;
 using UnityEngine.Experimental.Rendering;
 
 namespace UnityEngine.Rendering.Universal

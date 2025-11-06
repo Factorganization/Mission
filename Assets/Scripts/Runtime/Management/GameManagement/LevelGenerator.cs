@@ -38,6 +38,8 @@ namespace Runtime.Management.GameManagement
 
         private ActorList<IPossessable> _possessables;
         
+        private ActorList<IGrabbable> _grabbables;
+
         #endregion
     }
 }

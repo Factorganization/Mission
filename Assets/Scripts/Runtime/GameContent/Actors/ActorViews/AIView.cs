@@ -11,39 +11,55 @@ namespace Runtime.GameContent.Actors.ActorViews
         
         private void Awake()
         {
-            _iaModel = new IAModel(iaMovementDataSo);
-            _iaModel.transform = transform;
+            _aiModel = new AIModel(aiMovementDataSo);
+            _aiModel.transform = transform;
         }
 
         private void Start()
         {
-            IAController.SelectRandomWaypoint(_iaModel);
+            AIController.SelectRandomWaypoint(_aiModel);
         }
 
         private void Update()
         {
-            if (IAController.RotateToWaypoint(_iaModel))
-                IAController.MoveToWaypoint(_iaModel);
+            if (aiDetection && aiDetection.IsSuspicious && !aiDetection.IsPlayerSpotted)
+                return;
+            if (aiDetection.IsSuspicious)
+                AIController.SetCurrentWaypoint(_aiModel, aiDetection.LastKnownPlayerPosition);
+            
+            if (!aiDetection.IsPlayerSpotted)
+            {         
+                //Turn then move
+                if (AIController.RotateToWaypoint(_aiModel))
+                    AIController.MoveToWaypoint(_aiModel);
+            }
+            else
+            {
+                //Turn and move
+                AIController.RotateToWaypoint(_aiModel);
+                AIController.MoveToWaypoint(_aiModel);
+            }
         
-            transform.position = _iaModel.transform.position;
-            transform.rotation = _iaModel.transform.rotation;
+            transform.position = _aiModel.transform.position;
+            transform.rotation = _aiModel.transform.rotation;
         
-            if (_iaModel._currentWaypoint != Vector3.zero)
+            if (_aiModel._currentWaypoint != Vector3.zero)
                 return;
         
-            _iaModel._waitTimer += Time.deltaTime;
-            if (!(_iaModel._waitTimer >= iaMovementDataSo.waitDelay)) return;
+            _aiModel._waitTimer += Time.deltaTime;
+            if (!(_aiModel._waitTimer >= aiMovementDataSo.waitDelay)) return;
         
-            IAController.SelectRandomWaypoint(_iaModel);
-            _iaModel._waitTimer = 0;
+            AIController.SelectRandomWaypoint(_aiModel);
+            _aiModel._waitTimer = 0;
         }
         #endregion
         
         #region fields
         
-        [SerializeField] private IAMovementDataSo iaMovementDataSo;
+        [SerializeField] private AIMovementDataSo aiMovementDataSo;
+        [SerializeField] private AIDetection aiDetection;
     
-        private IAModel _iaModel;
+        private AIModel _aiModel;
         #endregion
     }
 }

@@ -22,13 +22,15 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Model
 
         #region logics
 
-        public PlayerDataSo data;
+        public readonly PlayerDataSo data;
         
-        public Rigidbody rb;
+        public readonly Rigidbody rb;
 
-        public Transform cam;
+        public readonly Transform cam;
 
-        public IPossessable currentPossesedObject = null;
+        public readonly Transform grab;
+
+        public IPossessable currentPossessedObject = null;
         
         public bool isVisible = true;
         

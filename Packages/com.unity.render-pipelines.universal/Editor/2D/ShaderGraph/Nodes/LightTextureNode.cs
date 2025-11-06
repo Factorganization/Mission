@@ -1,4 +1,3 @@
-using System;
 using UnityEditor.Graphing;
 using UnityEditor.Rendering.Universal.ShaderGraph;
 using UnityEditor.ShaderGraph;

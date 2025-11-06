@@ -1,7 +1,4 @@
-using System.Collections.Generic;
 using UnityEngine.Experimental.Rendering;
-using Unity.Collections;
-using System;
 using Unity.Mathematics;
 
 namespace UnityEngine.Rendering.Universal

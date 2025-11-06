@@ -1,12 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Net;
-using System.Text;
-using NUnit.Framework;
-using UnityEditor;
-using UnityEngine;
-using UnityEngine.Rendering.Universal;
-
 namespace Documentation
 {
     // https://jira.unity3d.com/browse/URP-1990

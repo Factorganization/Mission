@@ -5,7 +5,6 @@ using System.IO;
 #if UNITY_EDITOR
 using UnityEditor;
 using UnityEditor.ProjectWindowCallback;
-using System.Reflection;
 #endif
 
 namespace UnityEngine.Rendering.Universal

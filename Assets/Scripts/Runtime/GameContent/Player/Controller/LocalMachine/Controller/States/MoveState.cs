@@ -30,23 +30,69 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller.States
         {
             playerModel.HandleContinuousInputGather();
             playerModel.HandleRotateInputGather();
-            
-            if (playerModel.HandleMonoInputGather() == 1)
-                if (OnPossess())
-                    return 1;
+            var mono = playerModel.HandleMonoInputGather();
 
-            if (OnJump())
-                return 1;
-            if (OnFall())
-                return 1;
-            if (OnIdle())
-                return 1;
+            switch (mono)
+            {
+                case 1:
+                    if (playerModel.OnTryPossess() == 1)
+                    {
+                        if (stateMachine.TrySwitchState("possess", (int)playerModel.data.activeStates))
+                            return 1;
+                        
+                        playerModel.currentPossessedObject = null;
+                    }
+                    break;
+                
+                case 6:
+                    var tg = playerModel.OnTryGrab();
+                    switch (tg)
+                    {
+                        case 1:
+                            //TODO cleanup ces merdes dans le controller
+                            playerModel.currentGrabbedObject.Rigidbody.isKinematic = true;
+                            playerModel.currentGrabbedObject.Transform.SetParent(playerModel.grab, true);
+                            break;
+                        
+                        case 0 when playerModel.currentGrabbedObject is not null:
+                            playerModel.currentGrabbedObject.Rigidbody.isKinematic = false;
+                            playerModel.currentGrabbedObject.Transform.SetParent(null, true);
+                            playerModel.currentGrabbedObject = null;
+                            break;
+                    }
+                    break;
+                
+                case 4:
+                    //TODO grab interaction, en fait retournement de situation y'en a pas donc faudra retirer et passet en callback de drop item
+                    break;
+                
+                case 5:
+                    playerModel.TryThrowGrabbedObject();
+                    break;
+            }
+
+            if (playerModel.OnJump())
+            {
+                if (stateMachine.TrySwitchState("jump", (int)playerModel.data.activeStates))
+                    return 1;
+            }
+            if (!playerModel.CheckGround(goRef))
+            {
+                if (stateMachine.TrySwitchState("fall", (int)playerModel.data.activeStates))
+                    return 1;
+            }
+            if (playerModel.OnIdle())
+            {
+                if (stateMachine.TrySwitchState("idle", (int)playerModel.data.activeStates))
+                    return 1;
+            }
             
             return 0;
         }
 
         public override sbyte OnFixedUpdate()
         {
+            playerModel.SetGrabbedObjectLocalPos(); //TODO cleanup callback plutot que verif a la frame
             playerModel.SetCameraPivotLocalPos(Vector3.zero);
             playerModel.HandleGravity(goRef);
             playerModel.Move(playerModel.currentMoveMultiplier);

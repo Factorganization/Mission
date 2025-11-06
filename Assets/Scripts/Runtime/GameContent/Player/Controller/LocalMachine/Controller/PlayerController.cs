@@ -17,16 +17,16 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller
             if (playerModel.data.inputData.jumpInput.action.WasPressedThisFrame())
                 playerModel.jumpBufferTime = playerModel.data.jumpData.jumpBufferTime;
             
-            if (playerModel.data.inputData.crouchInput.action.IsPressed() && playerModel.currentHeightTarget >= playerModel.data.moveData.crouchHeight - 1)
+            if (playerModel.data.inputData.crouchInput.action.IsPressed() && playerModel.currentHeightTarget >= playerModel.data.moveData.playerHeight - playerModel.data.moveData.crouchDepth - 1)
             {
                 playerModel.isCrouching = true;
-                playerModel.currentHeightTarget = playerModel.data.moveData.crouchHeight - 1;
+                playerModel.currentHeightTarget = playerModel.data.moveData.playerHeight - playerModel.data.moveData.crouchDepth - 1;
                 playerModel.currentMoveMultiplier = playerModel.data.moveData.crouchSpeedMultiplier;
             }
-            else if (!playerModel.data.inputData.crouchInput.action.IsPressed() && playerModel.currentHeightTarget <= playerModel.data.devsData.groundCheckData.castBaseLength)
+            else if (!playerModel.data.inputData.crouchInput.action.IsPressed() && playerModel.currentHeightTarget <= playerModel.data.moveData.playerHeight)
             {
                 playerModel.isCrouching = false;
-                playerModel.currentHeightTarget = playerModel.data.devsData.groundCheckData.castBaseLength;
+                playerModel.currentHeightTarget = playerModel.data.moveData.playerHeight - 1;
                 playerModel.currentMoveMultiplier = 1;
             }
         }
@@ -36,14 +36,40 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller
             playerModel.lookDir = playerModel.data.inputData.lookInput.action.ReadValue<Vector2>() / Time.deltaTime;
         }
 
-        public static byte HandleMonoInputGather(this PlayerModel playerModel)
+        /// <summary>
+        /// Input dependant output int
+        /// </summary>
+        /// <param name="playerModel">self</param>
+        /// <returns>
+        /// <list type="return cases">
+        /// <item>1 : try Possess / Unpossess</item>
+        /// <item>2 : possess action pressed</item>
+        /// <item>3 : possess action released</item>
+        /// <item>4 : interact while grabbing</item>
+        /// <item>5 : throw item</item>
+        /// <item>6 : try Grab / Drop</item>
+        /// </list>
+        /// </returns>
+        internal static byte HandleMonoInputGather(this PlayerModel playerModel)
         {
-            if (playerModel.data.inputData.possessInput.action.WasPressedThisFrame())
+            if (playerModel.data.inputData.tryPossessInput.action.WasPressedThisFrame())
                 return 1;
 
-            if (playerModel.data.inputData.interactInput.action.WasPressedThisFrame())
+            if (playerModel.data.inputData.possessInteractInput.action.IsPressed())
                 return 2;
-            
+
+            if (playerModel.data.inputData.possessInteractInput.action.WasReleasedThisFrame())
+                return 3;
+
+            if (playerModel.data.inputData.grabInteractInput.action.WasPressedThisFrame())
+                return 4;
+
+            if (playerModel.data.inputData.throwInput.action.WasPressedThisFrame())
+                return 5;
+
+            if (playerModel.data.inputData.tryGrabInput.action.WasPressedThisFrame())
+                return 6;
+
             return 0;
         }
         
@@ -104,7 +130,7 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller
                 var pointGroundCheck = Physics.Raycast(goRef.transform.position,
                     Vector3.down,
                     out var hit2,
-                    playerModel.currentHeightTarget + 0.5f + playerModel.castAddLength, // 0.5f pour compenser le sphereCast radius en Rey
+                    playerModel.currentHeightTarget + 0.5f + playerModel.castAddLength, // 0.5f pour compenser le sphereCast radius
                     playerModel.data.devsData.groundCheckData.groundLayer);
                 
                 if (pointGroundCheck)
@@ -137,8 +163,21 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller
                 return;
             
             playerModel.cam.localPosition += Math.EasingFunction.SimpleQuadraticEase.V3SimpleQuadraticEaseOut(playerModel.cam.localPosition, targetPos, 0.1f);
-            if ((playerModel.cam.localPosition - targetPos).sqrMagnitude < 0.01f)
+            if ((playerModel.cam.localPosition - targetPos).sqrMagnitude < 0.005f)
                 playerModel.cam.localPosition = targetPos;
+        }
+
+        internal static void SetGrabbedObjectLocalPos(this PlayerModel playerModel)
+        {
+            if (playerModel.currentGrabbedObject is null)
+                return;
+            
+            if (playerModel.currentGrabbedObject.Transform.localPosition.sqrMagnitude < 0.005f)
+                return;
+            
+            playerModel.currentGrabbedObject.Transform.localPosition += Math.EasingFunction.SimpleQuadraticEase.V3SimpleQuadraticEaseOut(playerModel.currentGrabbedObject.Transform.localPosition, Vector3.zero, 0.1f);
+            if (playerModel.currentGrabbedObject.Transform.localPosition.sqrMagnitude < 0.005f)
+                playerModel.currentGrabbedObject.Transform.localPosition = Vector3.zero;
         }
         
         public static void SetCameraPivotPos(this PlayerModel playerModel, Vector3 targetPos)
@@ -147,8 +186,31 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller
                 return;
             
             playerModel.cam.position += Math.EasingFunction.SimpleQuadraticEase.V3SimpleQuadraticEaseOut(playerModel.cam.position, targetPos, 0.1f);
-            if ((playerModel.cam.position - targetPos).sqrMagnitude < 0.01f)
+            if ((playerModel.cam.position - targetPos).sqrMagnitude < 0.005f)
                 playerModel.cam.position = targetPos;
+        }
+
+        /// <summary>
+        /// try throw currently grabbed item
+        /// </summary>
+        /// <param name="playerModel">self</param>
+        /// <returns>Le bool est au cas ou la state machine loop doit cut si le throw echoue</returns>
+        internal static bool TryThrowGrabbedObject(this PlayerModel playerModel)
+        {
+            if (playerModel.currentGrabbedObject is null)
+                return false;
+
+            playerModel.currentGrabbedObject.Rigidbody.isKinematic = false;
+            playerModel.currentGrabbedObject.Transform.SetParent(null, true);
+            
+            playerModel.currentGrabbedObject.Rigidbody.AddForce(
+                playerModel.graph.forward.normalized * playerModel.data.interactData.throwStrength.x
+                + new Vector3(0, playerModel.data.interactData.throwStrength.y, 0),
+                ForceMode.VelocityChange);
+            
+            playerModel.currentGrabbedObject = null;
+            
+            return true;
         }
     }
 }
