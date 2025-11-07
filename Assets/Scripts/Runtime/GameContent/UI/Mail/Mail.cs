@@ -7,7 +7,7 @@ using UnityEngine.Events;
 [Serializable]
 public class MailSelectedEvent : UnityEvent<MailLevel> { }
 
-namespace Runtime.UI.Mail
+namespace Runtime.GameContent.UI.Mail
 {
     public class Mail : MonoBehaviour
     {

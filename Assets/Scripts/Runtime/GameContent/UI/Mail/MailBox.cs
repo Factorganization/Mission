@@ -1,14 +1,12 @@
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Runtime.UI
+namespace Runtime.GameContent.UI.Mail
 {
     public class MailBox : UIParent
     {
         #region Functions
-
-        // Start is called once before the first execution of Update after the MonoBehaviour is created
+        
         void Start()
         {
             Initialize();
@@ -23,7 +21,7 @@ namespace Runtime.UI
                 var mailGO = Instantiate(_mailPrefab);
                 mailGO.transform.SetParent(_mailContainer, false);
                 
-                if (mailGO.TryGetComponent<UnityEngine.RectTransform>(out var rt))
+                if (mailGO.TryGetComponent<RectTransform>(out var rt))
                 {
                     rt.anchoredPosition3D = Vector3.zero;
                     rt.localScale = Vector3.one;
@@ -34,7 +32,7 @@ namespace Runtime.UI
                     mailGO.transform.localScale = Vector3.one;
                 }
 
-                var mailComponent = mailGO.GetComponent<Mail.Mail>();
+                var mailComponent = mailGO.GetComponent<Mail>();
                 mailComponent.Bind(mail);
                 mailComponent.OnMailSelected.AddListener(OnMailSelected);
             }

@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Runtime.UI
+namespace Runtime.GameContent.UI
 {
     public class MainMenuUI : MonoBehaviour
     {
@@ -22,6 +22,9 @@ namespace Runtime.UI
         
             if (_mailApp != null)
                 _mailApp.onClick.AddListener(() => _mailContainer.Show());
+            
+            if (_quitApp != null)
+                _quitApp.onClick.AddListener(Application.Quit);
             
             _mailContainer.Hide();
             _settingsContainer.Hide();

@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Runtime.UI
+namespace Runtime.GameContent.UI
 {
     public class Settings : UIParent
     {

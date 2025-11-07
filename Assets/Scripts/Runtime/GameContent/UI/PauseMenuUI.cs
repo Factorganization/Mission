@@ -1,7 +1,8 @@
+using Runtime.GameContent.UI;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Runtime.UI
+namespace Runtime.GameContent.UI
 {
     public class PauseMenuUI : UIParent
     {
@@ -14,9 +15,7 @@ namespace Runtime.UI
 
         private void Initialize()
         {
-            Hide();
-            if (_pauseButton != null)
-                _pauseButton.onClick.AddListener(OpenPauseMenu);
+            //Hide();
             if (_resumeButton != null)
                 _resumeButton.onClick.AddListener(Hide);
             if (_settingsButton != null && _settingsUI != null)
@@ -33,8 +32,7 @@ namespace Runtime.UI
         
         private void ReturnToMainMenu()
         {
-            // Implement returning to main menu logic here
-            Debug.Log("Returning to Main Menu...");
+            
         }
 
         public override void Hide()
@@ -48,7 +46,7 @@ namespace Runtime.UI
         
         #region Fields
         
-        [SerializeField] private Button _pauseButton, _resumeButton, _settingsButton, _quitButton;
+        [SerializeField] private Button _resumeButton, _settingsButton, _quitButton;
         [SerializeField] private Settings _settingsUI;
         [SerializeField] private QuestPage _questPage;
         

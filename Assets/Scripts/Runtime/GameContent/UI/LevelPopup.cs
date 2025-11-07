@@ -2,7 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Runtime.UI
+namespace Runtime.GameContent.UI
 {
     public class LevelPopup : UIParent
     {
