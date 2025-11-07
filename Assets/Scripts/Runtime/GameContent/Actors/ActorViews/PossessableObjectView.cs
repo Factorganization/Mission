@@ -7,7 +7,7 @@ using UnityEngine;
 namespace Runtime.GameContent.Actors.ActorViews
 {
     [Pooled]
-    public class PossessableObjectView : ActorView, IPossessable, ISource
+    public class PossessableObjectView : ActorView, IPossessable, IElementHolder
     {
         #region properties
 
@@ -15,9 +15,13 @@ namespace Runtime.GameContent.Actors.ActorViews
         
         public bool Possessed { get; set; }
 
-        public ElementFlag SourceElement => sourceElement;
+        public ElementFlag Flag1 => sourceElement;
 
-        public ElementFlag ReceptorElement => receptorElement;
+        public ElementFlag Flag2
+        {
+            get => receptorElement;
+            set { }
+        }
 
         public bool Active { get; set; }
 
@@ -28,6 +32,14 @@ namespace Runtime.GameContent.Actors.ActorViews
         public void Action()
         {
             Debug.Log("Action");
+            Active = !Active;
+
+            if (!Active)
+                return;
+            
+            //TODO CHANGER CA
+            var r = GetComponentInChildren<MeshRenderer>();
+            r.material.color = Color.red;
         }
 
         public void DestructiveAction()
@@ -35,7 +47,7 @@ namespace Runtime.GameContent.Actors.ActorViews
             Debug.Log("DestructiveAction");
         }
 
-        public void ReactToElement(ElementFlag elementFlag)
+        public void CheckOtherElement(ElementFlag elementFlag)
         {
             
         }

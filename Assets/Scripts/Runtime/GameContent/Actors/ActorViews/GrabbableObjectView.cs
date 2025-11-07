@@ -7,18 +7,26 @@ using UnityEngine;
 namespace Runtime.GameContent.Actors.ActorViews
 {
     [Pooled]
-    public class GrabbableObjectView : ActorView, IGrabbable, ITransmission
+    public class GrabbableObjectView : ActorView, IGrabbable, IElementHolder
     {
         #region properties
-        
+
         public Transform Transform => transform;
-        
+
         public Rigidbody Rigidbody => rb;
 
-        public ElementFlag Element => element;
-        
+        public ElementFlag Flag1 => element;
+
+        public ElementFlag Flag2 { get; set; }
+
+        public bool Active
+        {
+            get => true;
+            set { }
+        }
+
         #endregion
-        
+
         #region methodes
 
         public void Start()
@@ -31,17 +39,12 @@ namespace Runtime.GameContent.Actors.ActorViews
             
         }
 
-        public void SetSelfElement(ElementFlag elementFlag)
-        {
-            
-        }
-
         #endregion
-        
+
         #region fields
-        
+
         [SerializeField] private Rigidbody rb;
-        
+
         [SerializeField] private ElementFlag element;
 
         private MeshRenderer _meshRenderer;
