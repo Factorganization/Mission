@@ -7,15 +7,15 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: MV_PlayerDemon
+  m_Name: MV_DarkBlue_Blank
   m_Shader: {fileID: 4800000, guid: be891319084e9d147b09d89e80ce60e0, type: 3}
-  m_Parent: {fileID: 2100000, guid: ae8bbd3c912135e498edb710f3f595ee, type: 2}
+  m_Parent: {fileID: 2100000, guid: c3b1db79427bd5e499aa8eaf4deab096, type: 2}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - _EMISSIVE_SIMPLE
   - _IS_ANGELRING_OFF
   - _IS_TRANSCLIPPING_OFF
-  - _OUTLINE_NML
+  - _OUTLINE_POS
   - _SHADINGGRADEMAP
   m_InvalidKeywords: []
   m_LightmapFlags: 4
@@ -29,25 +29,21 @@ Material:
   m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
-    m_TexEnvs: []
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _1st_ShadeColor_Step: 0.5
-    - _2nd_ShadeColor_Step: 0.2
-    - _Add_Antipodean_RimLight: 1
-    - _BaseColor_Step: 0.5
-    - _LightDirection_MaskOn: 1
+    - _OUTLINE: 1
     - _Offset_Z: 0
-    - _Outline_Width: 10
-    - _RimLight_FeatherOff: 1
-    - _RimLight_InsideMask: 0.593
-    - _RimLight_Power: 1
-    - _ShadeColor_Step: 0.2
+    - _Use_1stAs2nd: 0
+    - _Use_BaseAs1st: 1
     m_Colors:
-    - _1st_ShadeColor: {r: 0.5566038, g: 0, b: 0.42671192, a: 1}
-    - _Ap_RimLightColor: {r: 0, g: 1, b: 0.9286413, a: 1}
-    - _BaseColor: {r: 1, g: 0, b: 0.4286499, a: 1}
-    - _Color: {r: 1, g: 0, b: 0.42864987, a: 1}
-    - _RimLightColor: {r: 1, g: 1, b: 1, a: 1}
+    - _1st_ShadeColor: {r: 0.2830189, g: 0.2785848, b: 0.24163404, a: 1}
+    - _2nd_ShadeColor: {r: 0.167778, g: 0.16981131, b: 0.14337842, a: 1}
+    - _BaseColor: {r: 0.3773585, g: 0.35773295, b: 0.3008188, a: 1}
+    - _Color: {r: 0.37735847, g: 0.35773292, b: 0.30081877, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
