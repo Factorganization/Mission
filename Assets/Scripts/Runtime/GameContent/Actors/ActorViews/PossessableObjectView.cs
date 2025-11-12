@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Runtime.GameContent.Actors.ActorViews
 {
-    [Pooled]
+    [Pooled, SelectionBase]
     public class PossessableObjectView : ActorView, IPossessable, IElementHolder
     {
         #region properties
@@ -40,12 +40,8 @@ namespace Runtime.GameContent.Actors.ActorViews
 			Debug.Log("Action");
 			Active = !Active;
 
-			if (!Active)
-				return;
-
 			//TODO CHANGER CA
-			var r = GetComponentInChildren<MeshRenderer>();
-			r.material.color = Color.red;
+			transform.localScale = Active ? new Vector3(1, 5, 1) : new Vector3(1, 1, 1);
 		}
 
         public void DestructiveAction()

@@ -1,3 +1,4 @@
+using Runtime.GameContent.Actors.ActorInterfaces;
 using Runtime.GameContent.Player.Controller.LocalMachine.Model;
 using Shared.RapaEngineUtils.Maths;
 using UnityEngine;
@@ -261,16 +262,40 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller
             return true;
         }
 
-        /// <summary>
-        /// When player is grabbing an object, will try to use the object and interact with it on an element source object 
-        /// </summary>
-        /// <param name="playerModel">self</param>
-        /// <returns>True if interaction was performed, False otherwise</returns>
-        internal static bool TryInteractGrabbedObject(this PlayerModel playerModel)
-        {
-            
-            
-            return true;
-        }
+		/// <summary>
+		/// When player is grabbing an object, will try to use the object and interact with it on an element source object 
+		/// </summary>
+		/// <param name="playerModel">self</param>
+		/// <returns>True if interaction was performed, False otherwise</returns>
+		internal static bool TryInteractGrabbedObject(this PlayerModel playerModel)
+		{
+			if (playerModel.currentGrabbedObject.Action())
+				return true;
+
+			return false;
+		}
+
+		/// <summary>
+		/// Set the grabbed object collider and rb to the desired state to get grabbed
+		/// </summary>
+		/// <param name="playerModel">self</param>
+		internal static void SetGrabbedObjectState(this PlayerModel playerModel)
+		{
+			playerModel.currentGrabbedObject.Rigidbody.isKinematic = true;
+			playerModel.currentGrabbedObject.Collider.enabled = false;
+			playerModel.currentGrabbedObject.Transform.SetParent(playerModel.grab, true);
+		}
+
+		/// <summary>
+		/// Reset the grabbed object collier and rb states, reset the parent to null
+		/// </summary>
+		/// <param name="playerModel">self</param>
+		internal static void ResetGrabbedObjectState(this PlayerModel playerModel)
+		{
+			playerModel.currentGrabbedObject.Rigidbody.isKinematic = false;
+			playerModel.currentGrabbedObject.Collider.enabled = true;
+			playerModel.currentGrabbedObject.Transform.SetParent(null, true);
+			playerModel.currentGrabbedObject = null;
+		}
     }
 }

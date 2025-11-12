@@ -6,14 +6,16 @@ using UnityEngine;
 
 namespace Runtime.GameContent.Actors.ActorViews
 {
-    [Pooled]
+    [Pooled, SelectionBase]
     public class GrabbableObjectView : ActorView, IGrabbable, IElementHolder
     {
         #region properties
 
         public Transform Transform => transform;
 
-		public Rigidbody Rigidbody => rb;
+		public Rigidbody Rigidbody => _rb;
+
+		public Collider Collider => _collider;
 
         public ElementFlag Flag1 => element;
 
@@ -30,21 +32,30 @@ namespace Runtime.GameContent.Actors.ActorViews
         public void Start()
         {
 			_meshRenderer = GetComponentInChildren<MeshRenderer>();
+			_rb = GetComponent<Rigidbody>();
+			_collider = GetComponent<Collider>();
 			OriginPos = transform.position;
         }
 
-        public void CheckOtherElement(ElementFlag elementFlag)
-        {
-            
-        }
+		public bool Action()
+		{
+			return false;
+		}
 
-        #endregion
+		public void CheckOtherElement(ElementFlag elementFlag)
+		{
 
-        #region fields
+		}
 
-        [SerializeField] private Rigidbody rb;
+		#endregion
 
-        [SerializeField] private ElementFlag element;
+		#region fields
+
+		[SerializeField] private ElementFlag element;
+
+		private Rigidbody _rb;
+
+		private Collider _collider;
 
         private MeshRenderer _meshRenderer;
 
