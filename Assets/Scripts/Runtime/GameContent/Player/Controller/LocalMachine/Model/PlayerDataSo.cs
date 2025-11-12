@@ -67,8 +67,11 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Model
     [System.Serializable]
     public class CameraData
     {
-        [Range(0f, 1f)]
-        public float camSensitivity;
+        [Range(0f, 10f)]
+        public float gamepadCamSensitivity;
+        
+        [Range(0f, 10f)]
+        public float mouseCamSensitivity;
         
         [Range(0f, 90f)]
         public float maxPitchAngle;
