@@ -12,12 +12,12 @@ namespace Runtime.GameContent.Logics.LogicInterfaces
         /// <summary>
         /// Defines element held by a transmitter or the element that affect a source 
         /// </summary>
-        ElementFlag Flag2 { get; set; }
+        ElementFlag Flag2 { get; }
         
         /// <summary>
         /// Defines if an object is active and can transmit any element
         /// </summary>
-        bool Active { get; set; }
+        bool Active { get; }
         
         /// <summary>
         /// Interact with another object that can hold an element, can call the same function from the other object

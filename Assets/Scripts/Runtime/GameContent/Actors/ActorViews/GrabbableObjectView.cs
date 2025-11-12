@@ -13,17 +13,15 @@ namespace Runtime.GameContent.Actors.ActorViews
 
         public Transform Transform => transform;
 
-        public Rigidbody Rigidbody => rb;
+		public Rigidbody Rigidbody => rb;
 
         public ElementFlag Flag1 => element;
 
-        public ElementFlag Flag2 { get; set; }
+        public ElementFlag Flag2 { get; private set; }
 
-        public bool Active
-        {
-            get => true;
-            set { }
-        }
+		public Vector3 OriginPos { get; private set; }
+
+		public bool Active => true;
 
         #endregion
 
@@ -31,7 +29,8 @@ namespace Runtime.GameContent.Actors.ActorViews
 
         public void Start()
         {
-            _meshRenderer = GetComponentInChildren<MeshRenderer>();
+			_meshRenderer = GetComponentInChildren<MeshRenderer>();
+			OriginPos = transform.position;
         }
 
         public void CheckOtherElement(ElementFlag elementFlag)

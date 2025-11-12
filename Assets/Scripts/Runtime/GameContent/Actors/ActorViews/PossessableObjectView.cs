@@ -12,35 +12,41 @@ namespace Runtime.GameContent.Actors.ActorViews
         #region properties
 
         public Transform Transform => transform;
+
+		public ElementFlag Flag1 => sourceElement;
+
+        public ElementFlag Flag2 => receptorElement;
+        
+
+        public bool Active { get; private set; }
         
         public bool Possessed { get; set; }
 
-        public ElementFlag Flag1 => sourceElement;
+		public bool Destroyed { get; private set; }
 
-        public ElementFlag Flag2
-        {
-            get => receptorElement;
-            set { }
-        }
+		#endregion
 
-        public bool Active { get; set; }
+		#region methodes
 
-        #endregion
+		private void Start()
+		{
+			Possessed = false;
+			Destroyed = false;
+			Active = false;
+		}
 
-        #region methodes
+		public void Action()
+		{
+			Debug.Log("Action");
+			Active = !Active;
 
-        public void Action()
-        {
-            Debug.Log("Action");
-            Active = !Active;
+			if (!Active)
+				return;
 
-            if (!Active)
-                return;
-            
-            //TODO CHANGER CA
-            var r = GetComponentInChildren<MeshRenderer>();
-            r.material.color = Color.red;
-        }
+			//TODO CHANGER CA
+			var r = GetComponentInChildren<MeshRenderer>();
+			r.material.color = Color.red;
+		}
 
         public void DestructiveAction()
         {
