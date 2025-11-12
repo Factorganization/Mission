@@ -28,7 +28,7 @@ namespace Runtime.GameContent.UI
             
             _mailContainer.Hide();
             _settingsContainer.Hide();
-            //_customizeContainer.Hide();
+            _customizeContainer.Hide();
         }
 
         #endregion

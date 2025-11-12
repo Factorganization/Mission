@@ -1,4 +1,5 @@
-using Runtime.GameContent.UI;
+using System;
+using Runtime.GameContent.UI.Quest;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -23,7 +24,7 @@ namespace Runtime.GameContent.UI
             if (_quitButton != null)
                 _quitButton.onClick.AddListener(ReturnToMainMenu);
         }
-        
+
         private void OpenPauseMenu()
         {
             Show();
@@ -32,7 +33,7 @@ namespace Runtime.GameContent.UI
         
         private void ReturnToMainMenu()
         {
-            
+            // SceneManager.LoadScene("MainMenu");
         }
 
         public override void Hide()

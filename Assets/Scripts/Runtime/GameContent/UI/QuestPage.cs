@@ -22,7 +22,14 @@ namespace Runtime.GameContent.UI
                 
                 var questComponent = quest.GetComponent<Quest.Quest>();
                 questComponent.Bind(questData);
+                
+                _quests.Add(questComponent);
             }
+        }
+
+        public override void Hide()
+        {
+            _quests.Clear();
         }
 
         #endregion
@@ -34,6 +41,8 @@ namespace Runtime.GameContent.UI
         
         [SerializeField] private GameObject _questPrefab;
         [SerializeField] private GameObject _questDescription;
+        
+        public List<Quest.Quest> _quests = new List<Quest.Quest>();
         
         #endregion
     }

@@ -11,7 +11,7 @@ namespace Runtime.GameContent.UI
         public void Bind(LevelDataSO mailLevel)
         {
             _levelName.text = mailLevel._mailLevel.LevelName;
-            _levelSender.text = mailLevel._mailLevel.Sender;
+            _levelSender.text = "From : " + mailLevel._mailLevel.Sender;
             _levelDescription.text = mailLevel._mailLevel.Description;
             _levelData = mailLevel._mailLevel;
             _acceptButton.onClick.AddListener(OpenLevel);
