@@ -24,7 +24,6 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller.States
         public override sbyte OnUpdate()
         {
             playerModel.HandleContinuousInputGather();
-            playerModel.HandleRotateInputGather();
             var mono = playerModel.HandleMonoInputGather();
 
             switch (mono)
@@ -74,6 +73,7 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller.States
 
         public override sbyte OnFixedUpdate()
         {
+            playerModel.HandleRotateInputGather();
             playerModel.SetGrabbedObjectLocalPos(); //TODO cleanup callback plutot que verif a la frame
             playerModel.SetCameraPivotLocalPos(Vector3.zero);
             
