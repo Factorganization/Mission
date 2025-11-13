@@ -1505,6 +1505,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1378342337}
   - component: {fileID: 1378342338}
+  - component: {fileID: 1378342340}
   - component: {fileID: 1378342339}
   m_Layer: 0
   m_Name: GameManager
@@ -1554,6 +1555,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: Satanic.Runtime::Runtime.Management.GameManagement.GameManager
   scene1: LVL_01_Layout
   scene2: LVL_01_RoomsPreset
+--- !u!114 &1378342340
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1378342336}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd1b6ccf22b24287bae17f1f720e1df4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Satanic.Runtime::Runtime.Management.GameManagement.ElementManager
 --- !u!1 &1386984665
 GameObject:
   m_ObjectHideFlags: 0

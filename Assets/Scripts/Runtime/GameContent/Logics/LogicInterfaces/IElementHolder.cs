@@ -1,9 +1,15 @@
+using UnityEngine;
 using Runtime.GameContent.Logics.LogicModels;
 
 namespace Runtime.GameContent.Logics.LogicInterfaces
 {
     public interface IElementHolder
     {
+        /// <summary>
+        /// Transform of the Element Holder
+        /// </summary>
+        public Transform Transform { get; }
+        
         /// <summary>
         /// Define element that can affect this object or that type of source
         /// </summary>
