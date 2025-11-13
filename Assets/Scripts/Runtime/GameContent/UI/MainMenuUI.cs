@@ -26,9 +26,9 @@ namespace Runtime.GameContent.UI
             if (_quitApp != null)
                 _quitApp.onClick.AddListener(Application.Quit);
             
-            _mailContainer.Hide();
-            _settingsContainer.Hide();
-            _customizeContainer.Hide();
+            _mailContainer.gameObject.SetActive(false);
+            _settingsContainer.gameObject.SetActive(false);
+            _customizeContainer.gameObject.SetActive(false);
         }
 
         #endregion
