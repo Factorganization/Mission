@@ -25,6 +25,7 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller.States
             playerModel.isVisible = false;
             playerModel.graph.gameObject.SetActive(false); 
             playerModel.currentPossessedObject.Transform.tag = "Player";
+            playerModel.currentPossessedObject.Possessed = true;
 
             if (playerModel.currentGrabbedObject is null)
                 return;
@@ -76,6 +77,7 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller.States
 
         public override void OnExitState()
         {
+            playerModel.currentPossessedObject.Possessed = false;
             playerModel.currentPossessedObject.Transform.tag = "Untagged";
             playerModel.currentPossessedObject = null;
             playerModel.cam.SetParent(playerModel.rb.transform, true);

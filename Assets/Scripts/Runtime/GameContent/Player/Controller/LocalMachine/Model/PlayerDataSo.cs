@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Serialization;
 
 namespace Runtime.GameContent.Player.Controller.LocalMachine.Model
 {
