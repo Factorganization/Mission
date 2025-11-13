@@ -282,7 +282,6 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller
 		internal static void SetGrabbedObjectState(this PlayerModel playerModel)
 		{
 			playerModel.currentGrabbedObject.Rigidbody.isKinematic = true;
-			playerModel.currentGrabbedObject.Collider.enabled = false;
 			playerModel.currentGrabbedObject.Transform.SetParent(playerModel.grab, true);
 		}
 
@@ -293,7 +292,6 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller
 		internal static void ResetGrabbedObjectState(this PlayerModel playerModel)
 		{
 			playerModel.currentGrabbedObject.Rigidbody.isKinematic = false;
-			playerModel.currentGrabbedObject.Collider.enabled = true;
 			playerModel.currentGrabbedObject.Transform.SetParent(null, true);
 			playerModel.currentGrabbedObject = null;
 		}

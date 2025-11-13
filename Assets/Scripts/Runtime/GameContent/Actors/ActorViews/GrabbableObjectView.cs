@@ -1,6 +1,7 @@
 using Runtime.GameContent.Actors.ActorInterfaces;
 using Runtime.GameContent.Logics.LogicInterfaces;
 using Runtime.GameContent.Logics.LogicModels;
+using Runtime.Management.GameManagement;
 using Shared.Utils.Listing;
 using UnityEngine;
 
@@ -14,8 +15,6 @@ namespace Runtime.GameContent.Actors.ActorViews
         public Transform Transform => transform;
 
 		public Rigidbody Rigidbody => _rb;
-
-		public Collider Collider => _collider;
 
         public ElementFlag Flag1 => element;
 
@@ -33,8 +32,15 @@ namespace Runtime.GameContent.Actors.ActorViews
         {
 			_meshRenderer = GetComponentInChildren<MeshRenderer>();
 			_rb = GetComponent<Rigidbody>();
-			_collider = GetComponent<Collider>();
 			OriginPos = transform.position;
+        }
+
+        public void Update()
+        {
+	        foreach (var e in LevelGenerator.Generator.ElementHolders)
+	        {
+		        
+	        }
         }
 
 		public bool Action()
@@ -44,20 +50,56 @@ namespace Runtime.GameContent.Actors.ActorViews
 
 		public void CheckOtherElement(ElementFlag elementFlag)
 		{
+			
+		}
 
+		protected void SetParticle(ElementFlag elementFlag)
+		{
+			if ((elementFlag & ElementFlag.CanBeWet) != 0)
+				vfxReferences.waterParticles.Play();
+			else 
+				vfxReferences.waterParticles.Stop();
+			
+			if ((elementFlag & ElementFlag.CanBurn) != 0)
+				vfxReferences.fireParticles.Play();
+			else 
+				vfxReferences.fireParticles.Stop();
+			
+			if ((elementFlag & ElementFlag.CanConduct) != 0)
+				vfxReferences.electricParticles.Play();
+			else 
+				vfxReferences.electricParticles.Stop();
+			
+			if ((elementFlag & ElementFlag.CanExplode) != 0)
+				vfxReferences.explosionParticles.Play();
+			else 
+				vfxReferences.explosionParticles.Stop();
+			
 		}
 
 		#endregion
 
 		#region fields
 
+		[SerializeField] private VFXReferences vfxReferences;
+		
 		[SerializeField] private ElementFlag element;
-
+		
 		private Rigidbody _rb;
 
-		private Collider _collider;
-
         private MeshRenderer _meshRenderer;
+
+        [System.Serializable]
+        private class VFXReferences
+        {
+	        [SerializeField] internal ParticleSystem fireParticles;
+	        
+	        [SerializeField] internal ParticleSystem waterParticles;
+	        
+	        [SerializeField] internal ParticleSystem electricParticles;
+	        
+	        [SerializeField] internal ParticleSystem explosionParticles;
+        }
 
         #endregion
     }
