@@ -15,8 +15,6 @@ namespace Runtime.GameContent.Actors.ActorViews
 
 		public Rigidbody Rigidbody => _rb;
 
-		public Collider Collider => _collider;
-
         public ElementFlag Flag1 => element;
 
         public ElementFlag Flag2 { get; private set; }
@@ -33,7 +31,6 @@ namespace Runtime.GameContent.Actors.ActorViews
         {
 			_meshRenderer = GetComponentInChildren<MeshRenderer>();
 			_rb = GetComponent<Rigidbody>();
-			_collider = GetComponent<Collider>();
 			OriginPos = transform.position;
         }
 
@@ -54,8 +51,6 @@ namespace Runtime.GameContent.Actors.ActorViews
 		[SerializeField] private ElementFlag element;
 
 		private Rigidbody _rb;
-
-		private Collider _collider;
 
         private MeshRenderer _meshRenderer;
 

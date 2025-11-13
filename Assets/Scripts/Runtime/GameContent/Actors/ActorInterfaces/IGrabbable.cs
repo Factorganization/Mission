@@ -15,11 +15,6 @@ namespace Runtime.GameContent.Actors.ActorInterfaces
         public Rigidbody Rigidbody { get; }
 
 		/// <summary>
-		/// Collider of the grtabbed object
-		/// </summary>
-		public Collider Collider { get; }
-
-		/// <summary>
 		/// Spawn Position of the grabbable obj
 		/// </summary>
 		public Vector3 OriginPos { get; }
