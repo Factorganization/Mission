@@ -33,6 +33,7 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller.States
             _jumpCounter += Time.deltaTime;
             
             playerModel.HandleContinuousInputGather();
+            playerModel.HandleRotateInputGather();
             var mono = playerModel.HandleMonoInputGather();
 
             switch (mono)
@@ -77,14 +78,12 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller.States
             {
                 stateMachine.TrySwitchState("fall", (int)playerModel.data.activeStates);
                 return 1;
-            }
             
             return 0;
         }
 
         public override sbyte OnFixedUpdate()
         {
-            playerModel.HandleRotateInputGather();
             playerModel.SetGrabbedObjectLocalPos(); //TODO cleanup callback plutot que verif a la frame
             playerModel.SetCameraPivotLocalPos(Vector3.zero);
             playerModel.Move(playerModel.currentMoveMultiplier);
@@ -97,11 +96,8 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller.States
             if (_jumpCounter < GameConstants.AntiGroundGrabJumpTimer)
                 return 0;
 
-            if (playerModel.CheckGround(goRef))
-            {
-                stateMachine.TrySwitchState("move", (int)playerModel.data.activeStates);
+            if (OnGrounded())
                 return 1;
-            }
             
             playerModel.HandleGravity(goRef);
             return 0;
@@ -110,6 +106,24 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller.States
         public override void OnExitState()
         {
             _jumpCounter = 0;
+        }
+        
+        private bool OnFall()
+        {
+            if (playerModel.rb.linearVelocity.y >= 0)
+                return false;
+            
+            stateMachine.TrySwitchState("fall", (int)playerModel.data.activeStates);
+            return true;
+        }
+
+        private bool OnGrounded()
+        {
+            if (!playerModel.CheckGround(goRef))
+                return false;
+            
+            stateMachine.TrySwitchState("move", (int)playerModel.data.activeStates);
+            return true;
         }
 
         #endregion

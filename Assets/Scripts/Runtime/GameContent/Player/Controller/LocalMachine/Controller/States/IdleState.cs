@@ -1,4 +1,6 @@
+using Runtime.GameContent.Actors.ActorInterfaces;
 using Runtime.GameContent.Player.Controller.LocalMachine.Model;
+using Runtime.Management.GameManagement;
 using Runtime.Utils.BaseMachine;
 using UnityEngine;
 
@@ -26,6 +28,7 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller.States
         public override sbyte OnUpdate()
         {
             playerModel.HandleContinuousInputGather();
+            playerModel.HandleRotateInputGather();
             var mono = playerModel.HandleMonoInputGather();
 
             switch (mono)
@@ -66,28 +69,18 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller.States
                     break;
             }
 
-            if (playerModel.OnJump())
-            {
-                stateMachine.TrySwitchState("jump", (int)playerModel.data.activeStates);
+            if (OnJump())
                 return 1;
-            }
-            if (!playerModel.CheckGround(goRef))
-            {
-                stateMachine.TrySwitchState("fall", (int)playerModel.data.activeStates);
+            if (OnFall())
                 return 1;
-            }
-            if (playerModel.OnMove())
-            {
-                stateMachine.TrySwitchState("move", (int)playerModel.data.activeStates);
+            if (OnMove())
                 return 1;
-            }
             
             return 0;
         }
 
         public override sbyte OnFixedUpdate()
         {
-            playerModel.HandleRotateInputGather();
             playerModel.SetGrabbedObjectLocalPos(); //TODO cleanup callback plutot que verif a la frame
             playerModel.SetCameraPivotLocalPos(Vector3.zero);
             playerModel.HandleGravity(goRef);
@@ -95,6 +88,58 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller.States
             playerModel.Look();
 
             return 0;
+        }
+
+        private bool OnMove()
+        {
+            if (playerModel.inputDir.sqrMagnitude <= 0.1f)
+                return false;
+            
+            stateMachine.TrySwitchState("move", (int)playerModel.data.activeStates);
+            return true;
+        }
+        
+        private bool OnJump()
+        {
+            if (playerModel.jumpBufferTime <= 0)
+                return false;
+            
+            stateMachine.TrySwitchState("jump", (int)playerModel.data.activeStates);
+            return true;
+        }
+        
+        private bool OnFall()
+        {
+            if (playerModel.CheckGround(goRef))
+                return false;
+            
+            stateMachine.TrySwitchState("fall", (int)playerModel.data.activeStates);
+            return true;
+        }
+
+        private bool OnPossess()
+        {
+            var min = 100f;
+            IPossessable tp = null;
+            
+            foreach (var p in LevelGenerator.Generator.Possessables)
+            {
+                var d = Vector3.Distance(p.Transform.position, playerModel.rb.position);
+
+                if (d >= GameConstants.MaxPossessDistance || d > min)
+                    continue;
+                
+                min = d;
+                tp = p;
+            }
+            
+            if (min > 2)
+                return false;
+
+            if (stateMachine.TrySwitchState("possess", (int)playerModel.data.activeStates))
+                playerModel.currentPossesedObject = tp;
+            
+            return true;
         }
 
         #endregion

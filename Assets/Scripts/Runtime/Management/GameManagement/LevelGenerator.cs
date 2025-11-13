@@ -1,6 +1,5 @@
 using Runtime.GameContent.Actors.ActorInterfaces;
 using Runtime.GameContent.Actors.ActorViews;
-using Runtime.GameContent.Logics.LogicInterfaces;
 using Shared.Utils.Listing;
 using UnityEngine;
 
@@ -11,10 +10,6 @@ namespace Runtime.Management.GameManagement
         #region properties
 
         public ActorList<IPossessable> Possessables => _possessables;
-        
-        public ActorList<IGrabbable> Grabbables => _grabbables;
-        
-        public ActorList<IElementHolder> ElementHolders => _elementHolders;
         
         public static LevelGenerator Generator { get; private set; }
 
@@ -33,14 +28,8 @@ namespace Runtime.Management.GameManagement
         private void Start()
         {
             _possessables = new ActorList<IPossessable>();
-            _grabbables = new ActorList<IGrabbable>();
-            _elementHolders = new ActorList<IElementHolder>();
-
-            var actors = FindObjectsByType<ActorView>(FindObjectsSortMode.None);
             
-            Pooler.PoolWithAttribute(_possessables, actors);
-            Pooler.PoolWithAttribute(_grabbables, actors);
-            Pooler.PoolWithAttribute(_elementHolders, actors);
+            Pooler.PoolWithAttribute(_possessables, FindObjectsByType<ActorView>(FindObjectsSortMode.None));
         }
 
         #endregion
@@ -50,8 +39,6 @@ namespace Runtime.Management.GameManagement
         private ActorList<IPossessable> _possessables;
         
         private ActorList<IGrabbable> _grabbables;
-        
-        private ActorList<IElementHolder> _elementHolders;
 
         #endregion
     }
