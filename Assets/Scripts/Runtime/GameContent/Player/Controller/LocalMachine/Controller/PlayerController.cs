@@ -4,14 +4,18 @@ using UnityEngine;
 
 namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller
 {
-    public static class PlayerController
+    internal static class PlayerController
     {
         private static float ClampSymmetric(float val, float clamper) => Mathf.Clamp(val, -clamper, clamper);
 
-        public static void HandleContinuousInputGather(this PlayerModel playerModel)
+        /// <summary>
+        /// Gather inputs from keyboard or controller buttons
+        /// </summary>
+        /// <param name="playerModel"></param>
+        internal static void HandleContinuousInputGather(this PlayerModel playerModel)
         {
             playerModel.inputDir = playerModel.data.inputData.moveInput.action.ReadValue<Vector2>();
-            
+             
             playerModel.jumpBufferTime -= Time.deltaTime;
             
             if (playerModel.data.inputData.jumpInput.action.WasPressedThisFrame())
@@ -31,9 +35,14 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller
             }
         }
 
-        public static void HandleRotateInputGather(this  PlayerModel playerModel)
+        /// <summary>
+        /// Gather joystick inputs from controller or mouse
+        /// </summary>
+        /// <param name="playerModel"></param>
+        internal static void HandleRotateInputGather(this  PlayerModel playerModel)
         {
             playerModel.lookDir = playerModel.data.inputData.lookInput.action.ReadValue<Vector2>() / Time.deltaTime;
+            playerModel.isUsingMouse = playerModel.data.inputData.lookInput.action.activeControl?.name == "delta";
         }
 
         /// <summary>
@@ -73,7 +82,12 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller
             return 0;
         }
         
-        public static void Move(this PlayerModel playerModel, float moveMultiplier)
+        /// <summary>
+        /// Manage player movement
+        /// </summary>
+        /// <param name="playerModel">self</param>
+        /// <param name="moveMultiplier">linear speed multiplier</param>
+        internal static void Move(this PlayerModel playerModel, float moveMultiplier)
         {
             var tempForward = Vector3.ProjectOnPlane(playerModel.cam.forward, Vector3.up).normalized;
             var tempRight = Vector3.ProjectOnPlane(playerModel.cam.right, Vector3.up).normalized;
@@ -94,17 +108,31 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller
             playerModel.rb.AddForce(playerModel.targetDir * playerModel.data.moveData.accelDecelMultiplier, ForceMode.Acceleration);
         }
 
-        public static void Look(this PlayerModel playerModel)
+        /// <summary>
+        /// Manage camera movement
+        /// </summary>
+        /// <param name="playerModel">self</param>
+        internal static void Look(this PlayerModel playerModel)
         {
-            playerModel.camYaw += playerModel.lookDir.x * playerModel.data.cameraData.camSensitivity * Time.fixedDeltaTime;
-            playerModel.camPitch -= playerModel.lookDir.y * playerModel.data.cameraData.camSensitivity * Time.fixedDeltaTime;
+            playerModel.camYaw += playerModel.lookDir.x
+                                  * (playerModel.isUsingMouse ? playerModel.data.cameraData.mouseCamSensitivity : playerModel.data.cameraData.gamepadCamSensitivity)
+                                  * Time.fixedDeltaTime;
+            playerModel.camPitch -= playerModel.lookDir.y
+                                    * (playerModel.isUsingMouse ? playerModel.data.cameraData.mouseCamSensitivity : playerModel.data.cameraData.gamepadCamSensitivity)
+                                    * Time.fixedDeltaTime;
             playerModel.camPitch = ClampSymmetric(playerModel.camPitch, playerModel.data.cameraData.maxPitchAngle);
             
-            playerModel.cam.Rotate(new Vector3(-playerModel.lookDir.y * playerModel.data.cameraData.camSensitivity, 0, 0));
-            playerModel.cam.localRotation = Quaternion.Euler(playerModel.camPitch, playerModel.camYaw, 0);
+            //playerModel.cam.localEulerAngles = new Vector3(playerModel.camPitch, playerModel.camYaw, 0);
+            playerModel.cam.localEulerAngles = new Vector3(playerModel.cam.localEulerAngles.x, playerModel.camYaw, 0);
+            //playerModel.cam.localEulerAngles += Math.EasingFunction.SimpleQuadraticEase.V3SimpleQuadraticEaseOut(playerModel.cam.localEulerAngles, playerModel.targetLookDir, 0.1f);
         }
         
-        public static void HandleGravity(this PlayerModel playerModel, GameObject goRef)
+        /// <summary>
+        /// Manage gravity, vertical acceleration of the player
+        /// </summary>
+        /// <param name="playerModel">self</param>
+        /// <param name="goRef">ref of the scene game object of the player</param>
+        internal static void HandleGravity(this PlayerModel playerModel, GameObject goRef)
         {
             var sphereGroundCheck = Physics.SphereCast(goRef.transform.position,
                 playerModel.data.devsData.groundCheckData.sphereCastRadius,
@@ -145,7 +173,13 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller
             }
         }
         
-        public static bool CheckGround(this PlayerModel playerModel, GameObject goRef)
+        /// <summary>
+        /// Check if player is grounded
+        /// </summary>
+        /// <param name="playerModel">self</param>
+        /// <param name="goRef">ref of the scene game object of the player</param>
+        /// <returns>True if grounded, False otherwise</returns>
+        internal static bool CheckGround(this PlayerModel playerModel, GameObject goRef)
         {
             var sphereGroundCheck = Physics.SphereCast(goRef.transform.position,
                 playerModel.data.devsData.groundCheckData.sphereCastRadius,
@@ -157,7 +191,12 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller
             return sphereGroundCheck;
         }
 
-        public static void SetCameraPivotLocalPos(this PlayerModel playerModel, Vector3 targetPos)
+        /// <summary>
+        /// Set Camera Local Position SMOOTHLY on a specified target position
+        /// </summary>
+        /// <param name="playerModel">self</param>
+        /// <param name="targetPos">target position for camera</param>
+        internal static void SetCameraPivotLocalPos(this PlayerModel playerModel, Vector3 targetPos)
         {
             if ((playerModel.cam.localPosition - targetPos).sqrMagnitude < 0.005f)
                 return;
@@ -167,6 +206,10 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller
                 playerModel.cam.localPosition = targetPos;
         }
 
+        /// <summary>
+        /// If player is grabbing an object, Set the local position of the object SMOOTHLY on a specified target position
+        /// </summary>
+        /// <param name="playerModel">self</param>
         internal static void SetGrabbedObjectLocalPos(this PlayerModel playerModel)
         {
             if (playerModel.currentGrabbedObject is null)
@@ -180,7 +223,12 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller
                 playerModel.currentGrabbedObject.Transform.localPosition = Vector3.zero;
         }
         
-        public static void SetCameraPivotPos(this PlayerModel playerModel, Vector3 targetPos)
+        /// <summary>
+        /// Set Camera World Position SMOOTHLY on a specified target position
+        /// </summary>
+        /// <param name="playerModel">self</param>
+        /// <param name="targetPos">target position for the camera</param>
+        internal static void SetCameraPivotPos(this PlayerModel playerModel, Vector3 targetPos)
         {
             if ((playerModel.cam.position - targetPos).sqrMagnitude < 0.005f)
                 return;
@@ -209,6 +257,18 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller
                 ForceMode.VelocityChange);
             
             playerModel.currentGrabbedObject = null;
+            
+            return true;
+        }
+
+        /// <summary>
+        /// When player is grabbing an object, will try to use the object and interact with it on an element source object 
+        /// </summary>
+        /// <param name="playerModel">self</param>
+        /// <returns>True if interaction was performed, False otherwise</returns>
+        internal static bool TryInteractGrabbedObject(this PlayerModel playerModel)
+        {
+            
             
             return true;
         }

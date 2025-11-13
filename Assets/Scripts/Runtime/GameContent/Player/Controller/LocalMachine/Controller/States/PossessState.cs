@@ -21,9 +21,11 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller.States
             _destructTimer = 0;
             playerModel.targetDir = Vector3.zero;
             playerModel.rb.linearVelocity = Vector3.zero;
-            playerModel.cam.SetParent(null, true);
+            playerModel.cam.SetParent(playerModel.currentPossessedObject.Transform, true);
             playerModel.isVisible = false;
-            playerModel.graph.gameObject.SetActive(false);
+            playerModel.graph.gameObject.SetActive(false); 
+            playerModel.currentPossessedObject.Transform.tag = "Player";
+            playerModel.currentPossessedObject.Possessed = true;
 
             if (playerModel.currentGrabbedObject is null)
                 return;
@@ -35,7 +37,6 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller.States
 
         public override sbyte OnUpdate()
         {
-            playerModel.HandleRotateInputGather();
             var mono = playerModel.HandleMonoInputGather();
 
             switch (mono)
@@ -67,7 +68,8 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller.States
 
         public override sbyte OnFixedUpdate()
         {
-            playerModel.SetCameraPivotPos(playerModel.currentPossesedObject.Transform.position);
+            playerModel.HandleRotateInputGather();
+            playerModel.SetCameraPivotLocalPos(Vector3.zero);
             playerModel.Look();
             
             return 0;
@@ -75,26 +77,12 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller.States
 
         public override void OnExitState()
         {
-            playerModel.currentPossesedObject = null;
+            playerModel.currentPossessedObject.Possessed = false;
+            playerModel.currentPossessedObject.Transform.tag = "Untagged";
+            playerModel.currentPossessedObject = null;
             playerModel.cam.SetParent(playerModel.rb.transform, true);
             playerModel.isVisible = true;
             playerModel.graph.gameObject.SetActive(true);
-        }
-
-        private bool OnAction()
-        {
-            if (!playerModel.currentPossesedObject.Action())
-                return false;
-            
-            stateMachine.TrySwitchState("idle", (int) playerModel.data.activeStates);
-            return true;
-        }
-
-        private bool OnLeavePossession()
-        {
-            stateMachine.TrySwitchState("idle", (int) playerModel.data.activeStates);
-            
-            return true;
         }
 
         #endregion

@@ -7,12 +7,13 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Model
     {
         #region constuctors
 
-        public PlayerModel(PlayerDataSo data, Rigidbody rb, Transform graph, Transform cam, Animator animator)
+        public PlayerModel(PlayerDataSo data, Rigidbody rb, Transform graph, Transform cam, Transform grab, Animator animator)
         {
             this.data = data;
             this.rb = rb;
             this.graph = graph;
             this.cam = cam;
+            this.grab = grab;
             this.animator = animator;
         }
 
@@ -32,17 +33,13 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Model
 
         public IPossessable currentPossessedObject = null;
         
-        public bool isVisible = true;
-        
-        public bool isDead = false;
-
-        public bool isGrounded = true;
-        
-        public bool isCrouching = false;
+        public IGrabbable currentGrabbedObject = null;
         
         public Vector2 inputDir;
         
         public Vector2 lookDir;
+
+        public Vector3 targetLookDir;
         
         public Vector3 targetDir = Vector3.zero;
 
@@ -65,6 +62,16 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Model
         public float jumpBufferTime = 0;
         
         public float coyoteTime = 0;
+        
+        public bool isVisible = true;
+        
+        public bool isDead = false;
+
+        public bool isGrounded = true;
+        
+        public bool isCrouching = false;
+        
+        public bool isUsingMouse = false;
 
         #endregion
 
