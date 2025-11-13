@@ -52,20 +52,19 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller.States
                     switch (tg)
                     {
                         case 1:
-                            playerModel.currentGrabbedObject.Rigidbody.isKinematic = true;
-                            playerModel.currentGrabbedObject.Transform.SetParent(playerModel.grab, true);
+							playerModel.SetGrabbedObjectState();
                             break;
                         
                         case 0 when playerModel.currentGrabbedObject is not null:
-                            playerModel.currentGrabbedObject.Rigidbody.isKinematic = false;
-                            playerModel.currentGrabbedObject.Transform.SetParent(null, true);
-                            playerModel.currentGrabbedObject = null;
+							playerModel.ResetGrabbedObjectState();
                             break;
                     }
                     break;
                 
                 case 4:
-                    //TODO grab interaction
+                    if (playerModel.TryInteractGrabbedObject())
+						//TODO des feedbacks ?
+						break;
                     break;
                 
                 case 5:
