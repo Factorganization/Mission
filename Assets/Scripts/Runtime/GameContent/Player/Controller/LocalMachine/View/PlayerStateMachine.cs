@@ -14,7 +14,7 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.View
         public bool IsVisible => _playerModel.isVisible;
 
         #endregion
-        
+
         #region methodes
 
         private void Awake()
