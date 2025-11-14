@@ -27,7 +27,6 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller.States
         public override sbyte OnUpdate()
         {
             playerModel.HandleContinuousInputGather();
-            playerModel.HandleRotateInputGather();
             var mono = playerModel.HandleMonoInputGather();
 
             switch (mono)
@@ -47,21 +46,19 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller.States
                     switch (tg)
                     {
                         case 1:
-                            //TODO cleanup ces merdes dans le controller
-                            playerModel.currentGrabbedObject.Rigidbody.isKinematic = true;
-                            playerModel.currentGrabbedObject.Transform.SetParent(playerModel.grab, true);
+							playerModel.SetGrabbedObjectState();
                             break;
                         
                         case 0 when playerModel.currentGrabbedObject is not null:
-                            playerModel.currentGrabbedObject.Rigidbody.isKinematic = false;
-                            playerModel.currentGrabbedObject.Transform.SetParent(null, true);
-                            playerModel.currentGrabbedObject = null;
+							playerModel.ResetGrabbedObjectState();
                             break;
                     }
                     break;
                 
                 case 4:
-                    //TODO grab interaction, en fait retournement de situation y'en a pas donc faudra retirer et passet en callback de drop item
+                    if (playerModel.TryInteractGrabbedObject())
+						//TODO des feedbacks ?
+						break;
                     break;
                 
                 case 5:
@@ -90,6 +87,7 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller.States
 
         public override sbyte OnFixedUpdate()
         {
+            playerModel.HandleRotateInputGather();
             playerModel.SetGrabbedObjectLocalPos(); //TODO cleanup callback plutot que verif a la frame
             playerModel.SetCameraPivotLocalPos(Vector3.zero);
             playerModel.HandleGravity(goRef);

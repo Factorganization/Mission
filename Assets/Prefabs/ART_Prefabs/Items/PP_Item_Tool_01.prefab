@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1659177923053951279}
   - component: {fileID: 7032207821741179274}
   - component: {fileID: 112314716662109176}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: PP_Item_Tool_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,7 +95,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a384f8a6ec044a0b55831ba13494800, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Satanic.Runtime::Runtime.GameContent.Actors.ActorViews.GrabbableObjectView
-  rb: {fileID: 7032207821741179274}
+  element: 0
 --- !u!1001 &445286523829170619
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -107,6 +107,10 @@ PrefabInstance:
     - target: {fileID: 6302271305253162013, guid: 3fae50433ed54934fa73b431c410c7da, type: 3}
       propertyPath: m_Name
       value: PP_Tool_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 6302271305253162013, guid: 3fae50433ed54934fa73b431c410c7da, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 8227085176675014663, guid: 3fae50433ed54934fa73b431c410c7da, type: 3}
       propertyPath: m_LocalPosition.x
@@ -147,6 +151,10 @@ PrefabInstance:
     - target: {fileID: 8227085176675014663, guid: 3fae50433ed54934fa73b431c410c7da, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8722933568139437527, guid: 3fae50433ed54934fa73b431c410c7da, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
