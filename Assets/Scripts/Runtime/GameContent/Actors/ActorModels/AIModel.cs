@@ -1,3 +1,4 @@
+using Runtime.GameContent.Actors.ActorViews;
 using UnityEngine;
 
 namespace Runtime.GameContent.Actors.ActorModels
@@ -18,7 +19,7 @@ namespace Runtime.GameContent.Actors.ActorModels
         
         public AIMovementDataSo movementData;
     
-        public Vector3 _currentWaypoint;
+        public mTransform _currentWaypoint;
         public float _waitTimer;
         
         public bool _isSuspicious;
