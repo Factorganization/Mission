@@ -30,8 +30,11 @@ namespace Runtime.Management.GameManagement
                 {
                     if (Vector3.Distance(LevelGenerator.Generator.ElementHolders[i].Transform.position, LevelGenerator.Generator.ElementHolders[j].Transform.position) > 1.5f)
                         continue;
+
+					if (!LevelGenerator.Generator.ElementHolders[i].Active || !LevelGenerator.Generator.ElementHolders[j].Active)
+						continue;
                     
-                    LevelGenerator.Generator.ElementHolders[i].CheckOtherElement(LevelGenerator.Generator.ElementHolders[j].Flag1);
+                    LevelGenerator.Generator.ElementHolders[i].CheckOtherElement(LevelGenerator.Generator.ElementHolders[j]);
                 }
             }
         }

@@ -11,12 +11,12 @@ namespace Runtime.GameContent.Logics.LogicInterfaces
         public Transform Transform { get; }
         
         /// <summary>
-        /// Define element that can affect this object or that type of source
+        /// Define element that IS affecting this object
         /// </summary>
-        public ElementFlag Flag1 { get; }
+        public ElementFlag Flag1 { get; set; }
         
         /// <summary>
-        /// Defines element held by a transmitter or the element that affect a source 
+        /// Defines element that CAN affect this object
         /// </summary>
         public ElementFlag Flag2 { get; }
         
@@ -29,6 +29,6 @@ namespace Runtime.GameContent.Logics.LogicInterfaces
         /// Interact with another object that can hold an element, can call the same function from the other object
         /// </summary>
         /// <param name="elementFlag">element flags Flag1 from the other object</param>
-        public void CheckOtherElement(ElementFlag elementFlag);
+        public void CheckOtherElement(IElementHolder holder);
     }
 }

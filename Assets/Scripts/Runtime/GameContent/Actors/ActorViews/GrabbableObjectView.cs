@@ -1,12 +1,16 @@
 using Runtime.GameContent.Actors.ActorInterfaces;
+using Runtime.GameContent.Logics.LogicControllers;
 using Runtime.GameContent.Logics.LogicInterfaces;
 using Runtime.GameContent.Logics.LogicModels;
+using Runtime.Management.GameManagement;
 using Shared.Utils.Listing;
+using Unity.Collections;
 using UnityEngine;
+
 
 namespace Runtime.GameContent.Actors.ActorViews
 {
-	[Pooled, SelectionBase]
+	[Pooled, SelectionBase, RequireComponent(typeof(Rigidbody))]
 	public class GrabbableObjectView : ActorView, IGrabbable, IElementHolder
 	{
 		#region properties
@@ -15,13 +19,13 @@ namespace Runtime.GameContent.Actors.ActorViews
 
 		public Rigidbody Rigidbody => _rb;
 
-		public ElementFlag Flag1 => element;
+		public ElementFlag Flag1 { get; set; }
 
-		public ElementFlag Flag2 { get; private set; }
+		public ElementFlag Flag2 => element;
 
 		public Vector3 OriginPos { get; private set; }
 
-		public bool Active => true;
+		public bool Active { get; set; }
 
 		#endregion
 
@@ -36,14 +40,32 @@ namespace Runtime.GameContent.Actors.ActorViews
 
 		public bool Action()
 		{
-			return false;
+			Active = !Active;
+			return true;
 		}
 
-		public void CheckOtherElement(ElementFlag elementFlag)
+		public void CheckOtherElement(IElementHolder holder)
 		{
+			foreach (var i in Interactions)
+			{
+				var key = GetKey(i);
 
+				if (((int)(Flag1 | holder.Flag1) & key) == key)
+					i.callback.Invoke(new(this, holder));
+			}
 
-			SetParticle(Flag2);
+			foreach (var i in Interactions)
+			{
+				var key = GetKey(i);
+
+				if (((int)(Flag1 & holder.Flag2) & key) == key)
+					i.callback.Invoke(new(this, holder));
+
+				if (((int)(Flag2 & holder.Flag1) & key) == key)
+					i.callback.Invoke(new(holder, this));
+			}
+
+			SetParticle(Flag1);
 		}
 
 		protected void SetParticle(ElementFlag elementFlag)
@@ -69,10 +91,77 @@ namespace Runtime.GameContent.Actors.ActorViews
 				vfxReferences.explosionParticles.Stop();
 		}
 
-		private static void A(ElementInteractionData data)
+		private static int GetKey(ElementInteractionDataPair data) => data.flag;
+
+		#region F11 Comparisions
+
+		private static void WetAndBurn(ElementInteractionData data)
 		{
+			data.holder1.Flag1 &= ~ElementFlag.CanBurn;
+			data.holder2.Flag1 &= ~ElementFlag.CanBurn;
 		}
-		
+
+		private static void WetAndElec(ElementInteractionData data)
+		{
+			data.holder1.Flag1 |= ElementFlag.CanConduct;
+			data.holder2.Flag1 |= ElementFlag.CanConduct;
+		}
+
+		#endregion
+
+		#region F12 Comparisons
+
+		private static void BurnToBurn(ElementInteractionData data)
+		{
+			data.holder2.Flag1 |= ElementFlag.CanBurn;
+		}
+
+		private static void BurnToExplode(ElementInteractionData data)
+		{
+			data.holder2.Flag1 |= ElementFlag.CanExplode;
+			Explode(data.holder2);
+		}
+
+		private static void ElectricToBurn(ElementInteractionData data)
+		{
+			data.holder2.Flag1 |= ElementFlag.CanBurn;
+		}
+
+		private static void ElectricToElectric(ElementInteractionData data)
+		{
+			data.holder2.Flag1 |= ElementFlag.CanConduct;
+		}
+
+		private static void ElectricToExplode(ElementInteractionData data)
+		{
+			data.holder2.Flag1 |= ElementFlag.CanExplode;
+			Explode(data.holder2);
+		}
+
+		private static void WetToWet(ElementInteractionData data)
+		{
+			data.holder2.Flag1 |= ElementFlag.CanBeWet;
+		}
+
+		#endregion
+
+		private static void Explode(IElementHolder holder)
+		{
+			//TODO add raycasts
+
+			foreach (var e in LevelGenerator.Generator.ElementHolders)
+			{
+				if (Vector3.Distance(e.Transform.position, holder.Transform.position) > 5f)
+					continue;
+
+				if ((e.Flag2 & ElementFlag.CanBurn) == 0)
+					continue;
+
+				e.Flag1 |= ElementFlag.CanBurn;
+				//TODO, les particles call
+			}
+		}
+
 		#endregion
 
 		#region fields
@@ -83,24 +172,19 @@ namespace Runtime.GameContent.Actors.ActorViews
 
 		private static ElementInteractionDataPair[] Interactions =
 		{
-			new(){ flag =1, callback = A },
+			new(){ flag = 0b0011, callback = WetAndBurn },
+			new(){ flag = 0b0101, callback = WetAndElec },
+			new(){ flag = 0b0010, callback = BurnToBurn },
+			new(){ flag = 0b1010, callback = BurnToExplode },
+			new(){ flag = 0b0110, callback = ElectricToBurn },
+			new(){ flag = 0b0100, callback = ElectricToElectric },
+			new(){ flag = 0b1100, callback = ElectricToExplode },
+			new(){ flag = 0b0001, callback = WetToWet },
 		};
 		
 		private Rigidbody _rb;
 
         private MeshRenderer _meshRenderer;
-
-        [System.Serializable]
-        private class VFXReferences
-        {
-	        [SerializeField] internal ParticleSystem fireParticles;
-	        
-	        [SerializeField] internal ParticleSystem waterParticles;
-	        
-	        [SerializeField] internal ParticleSystem electricParticles;
-	        
-	        [SerializeField] internal ParticleSystem explosionParticles;
-        }
 
         #endregion
     }

@@ -268,10 +268,7 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller
 		/// <returns>True if interaction was performed, False otherwise</returns>
 		internal static bool TryInteractGrabbedObject(this PlayerModel playerModel)
 		{
-			if (playerModel.currentGrabbedObject.Action())
-				return true;
-
-			return false;
+			return playerModel.currentGrabbedObject.Action();
 		}
 
 		/// <summary>
