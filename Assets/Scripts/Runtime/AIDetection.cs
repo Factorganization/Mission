@@ -1,3 +1,4 @@
+using Runtime.Management.GameManagement;
 using UnityEditor;
 using UnityEngine;
 
@@ -71,6 +72,7 @@ public class AIDetection : MonoBehaviour
         }
     }
 
+#if UNITY_EDITOR
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.yellow;
@@ -81,16 +83,15 @@ public class AIDetection : MonoBehaviour
         Gizmos.color = new Color(1, 1, 0, 0.2f);
         Gizmos.DrawLine(transform.position, transform.position + rightBoundary);
         Gizmos.DrawLine(transform.position, transform.position + leftBoundary);
-#if UNITY_EDITOR
         Handles.color = new Color(1, 1, 0, 0.1f);
         Handles.DrawSolidArc(transform.position, Vector3.up, leftBoundary, detectionAngle, detectionDistance);
-#endif
         if (IsPlayerSpotted)
         {
             Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(transform.position, sixthSensDetectionDistance);
         }
     }
+#endif
     
     #endregion
     
@@ -105,9 +106,10 @@ public class AIDetection : MonoBehaviour
     [SerializeField] private float sixthSensDetectionDistance = 6f;
     [SerializeField] private float timeToDetect = 3f;
     [SerializeField] private float timeToForget = 5f;
-
-    [SerializeField] private Transform player;
     
+    [SerializeField] private Transform player;
+    [SerializeField] private LevelGenerator levelGenerator;
+         
     private float _detectionTimer = 0f;
     private float _forgetTimer = 0f;
     
