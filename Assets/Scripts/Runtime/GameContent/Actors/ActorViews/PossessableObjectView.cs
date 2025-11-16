@@ -1,8 +1,10 @@
+using System;
 using Runtime.GameContent.Actors.ActorInterfaces;
 using Runtime.GameContent.Logics.LogicInterfaces;
 using Runtime.GameContent.Logics.LogicModels;
 using Runtime.Management.GameManagement;
 using Shared.Utils.Listing;
+using TMPro;
 using UnityEngine;
 
 namespace Runtime.GameContent.Actors.ActorViews
@@ -21,13 +23,18 @@ namespace Runtime.GameContent.Actors.ActorViews
 		}
 
         public ElementFlag Flag2 => receptorElement;
-        
 
-        public bool Active => _active && !Destroyed;
-        
+        public bool Active
+        {
+	        get => _active && !Destroyed;
+	        set => _active = value;
+        }
+
         public bool Possessed { get; set; }
 
 		public bool Destroyed { get; private set; }
+
+		public VFXReferences VFX => vfxReferences;
 
 		#endregion
 
@@ -39,17 +46,28 @@ namespace Runtime.GameContent.Actors.ActorViews
 			Destroyed = false;
 			_active = false;
 		}
+		
+		public void Update()
+		{
+			text.text = $"{(Active ? "<color=green>Active</color>" : "<color=red>Inactive</color>")}\n {Convert.ToString((int)Flag1, 2).PadLeft(4, '0')} \n {Convert.ToString((int)Flag2, 2).PadLeft(4, '0')}";
+		}
 
-		public void Action() => _active = !_active;
+		public void Action()
+		{
+			_active = !_active;
+
+			SetParticle(this);
+		}
 
 		public void DestructiveAction()
         {
             Debug.Log("DestructiveAction");
+            Destroyed = true;
         }
 
 		public void CheckOtherElement(IElementHolder holder)
 		{
-			foreach (var i in Interactions)
+			foreach (var i in ResolveInteractions)
 			{
 				var key = GetKey(i);
 
@@ -57,41 +75,67 @@ namespace Runtime.GameContent.Actors.ActorViews
 					i.callback.Invoke(new(this, holder));
 			}
 
-			foreach (var i in Interactions)
+			if (Active && holder.Active)
 			{
-				var key = GetKey(i);
-
-				if (((int)(Flag1 & holder.Flag2) & key) == key)
-					i.callback.Invoke(new(this, holder));
-
-				if (((int)(Flag2 & holder.Flag1) & key) == key)
-					i.callback.Invoke(new(holder, this));
+				foreach (var i in NextInteractions)
+				{
+					var key = GetKey(i);
+					var f1M = (int)Flag1 & key;
+					var hf2M = (int)holder.Flag2 & key;
+					var hf1M = (int)holder.Flag1 & key;
+					var f2M = (int)Flag2 & key;
+					
+					if ((f1M | hf2M) == key && f1M != 0 && hf2M != 0)
+						i.callback.Invoke(new(this, holder));
+                
+					if ((hf1M | f2M) == key &&  hf1M != 0 && f2M != 0)
+						i.callback.Invoke(new(holder, this));
+				}
 			}
-
-			SetParticle(Flag1);
+			
+			SetParticle(this);
+			SetParticle(holder);
+			ResetFlags(holder);
 		}
 
-		protected void SetParticle(ElementFlag elementFlag)
+		private static void ResetFlags(IElementHolder holder)
 		{
-			if ((elementFlag & ElementFlag.CanBeWet) != 0)
-				vfxReferences.waterParticles.Play();
-			else
-				vfxReferences.waterParticles.Stop();
+			//TODO separation pour elec et water
+			
+			holder.Flag1 |= ElementFlag.CanExplode;
+			holder.Flag1 &= ~ElementFlag.CanExplode;
+		}
 
-			if ((elementFlag & ElementFlag.CanBurn) != 0)
-				vfxReferences.fireParticles.Play();
-			else
-				vfxReferences.fireParticles.Stop();
+		protected static void SetParticle(IElementHolder holder)
+		{
+			if (!holder.Active)
+			{
+				holder.VFX.waterParticles.Stop();
+				holder.VFX.fireParticles.Stop();
+				holder.VFX.electricParticles.Stop();
+				holder.VFX.explosionParticles.Stop();
+				return;
+			}
+			
+			if ((holder.Flag1 & ElementFlag.CanBeWet) != 0 && !holder.VFX.waterParticles.isPlaying)
+				holder.VFX.waterParticles.Play();
+			else if ((holder.Flag1 & ElementFlag.CanBeWet) == 0)
+				holder.VFX.waterParticles.Stop();
 
-			if ((elementFlag & ElementFlag.CanConduct) != 0)
-				vfxReferences.electricParticles.Play();
-			else
-				vfxReferences.electricParticles.Stop();
+			if ((holder.Flag1 & ElementFlag.CanBurn) != 0 && !holder.VFX.fireParticles.isPlaying)
+				holder.VFX.fireParticles.Play();
+			else if ((holder.Flag1 & ElementFlag.CanBurn) == 0)
+				holder.VFX.fireParticles.Stop();
 
-			if ((elementFlag & ElementFlag.CanExplode) != 0)
-				vfxReferences.explosionParticles.Play();
-			else
-				vfxReferences.explosionParticles.Stop();
+			if ((holder.Flag1 & ElementFlag.CanConduct) != 0 && !holder.VFX.electricParticles.isPlaying)
+				holder.VFX.electricParticles.Play();
+			else if ((holder.Flag1 & ElementFlag.CanConduct) == 0)
+				holder.VFX.electricParticles.Stop();
+
+			if ((holder.Flag1 & ElementFlag.CanExplode) != 0 && !holder.VFX.explosionParticles.isPlaying)
+				holder.VFX.explosionParticles.Play();
+			else if ((holder.Flag1 & ElementFlag.CanExplode) == 0)
+				holder.VFX.explosionParticles.Stop();
 		}
 
 		private static int GetKey(ElementInteractionDataPair data) => data.flag;
@@ -100,9 +144,15 @@ namespace Runtime.GameContent.Actors.ActorViews
 
 		private static void WetAndBurn(ElementInteractionData data)
 		{
+			data.holder1.Flag1 |= ElementFlag.CanBurn;
 			data.holder1.Flag1 &= ~ElementFlag.CanBurn;
+			data.holder2.Flag1 |= ElementFlag.CanBurn;
 			data.holder2.Flag1 &= ~ElementFlag.CanBurn;
 
+			if (data.holder1 is IPossessable && (data.holder1.Flag1 & ElementFlag.CanBurn) != 0)
+				data.holder1.Active = false;
+			if (data.holder2 is IPossessable && (data.holder1.Flag1 & ElementFlag.CanBurn) != 0)
+				data.holder2.Active = false;
 		}
 
 		private static void WetAndElec(ElementInteractionData data)
@@ -113,7 +163,6 @@ namespace Runtime.GameContent.Actors.ActorViews
 
 		#endregion
 
-
 		#region F12 Comparisons
 
 		private static void BurnToBurn(ElementInteractionData data)
@@ -123,6 +172,7 @@ namespace Runtime.GameContent.Actors.ActorViews
 
 		private static void BurnToExplode(ElementInteractionData data)
 		{
+			Debug.Log(data.holder2);
 			data.holder2.Flag1 |= ElementFlag.CanExplode;
 			Explode(data.holder2);
 		}
@@ -163,7 +213,7 @@ namespace Runtime.GameContent.Actors.ActorViews
 					continue;
 
 				e.Flag1 |= ElementFlag.CanBurn;
-				//TODO, les particles call
+				SetParticle(e);
 			}
 		}
 
@@ -177,10 +227,16 @@ namespace Runtime.GameContent.Actors.ActorViews
         
         [SerializeField] private ElementFlag receptorElement;
 
-		private static ElementInteractionDataPair[] Interactions =
+        [SerializeField] private TMP_Text text;
+        
+        private static ElementInteractionDataPair[] ResolveInteractions =
+        {
+	        new(){ flag = 0b0011, callback = WetAndBurn },
+	        new(){ flag = 0b0101, callback = WetAndElec },
+        };
+        
+		private static ElementInteractionDataPair[] NextInteractions =
 		{
-			new(){ flag = 0b0011, callback = WetAndBurn },
-			new(){ flag = 0b0101, callback = WetAndElec },
 			new(){ flag = 0b0010, callback = BurnToBurn },
 			new(){ flag = 0b1010, callback = BurnToExplode },
 			new(){ flag = 0b0110, callback = ElectricToBurn },

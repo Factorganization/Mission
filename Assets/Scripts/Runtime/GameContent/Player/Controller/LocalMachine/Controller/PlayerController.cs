@@ -1,3 +1,5 @@
+using Runtime.GameContent.Actors.ActorInterfaces;
+using Runtime.GameContent.Logics.LogicInterfaces;
 using Runtime.GameContent.Player.Controller.LocalMachine.Model;
 using Shared.RapaEngineUtils.Maths;
 using UnityEngine;
@@ -122,7 +124,6 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller
                                     * Time.fixedDeltaTime;
             playerModel.camPitch = ClampSymmetric(playerModel.camPitch, playerModel.data.cameraData.maxPitchAngle);
             
-            //playerModel.cam.localEulerAngles = new Vector3(playerModel.camPitch, playerModel.camYaw, 0);
             playerModel.cam.localEulerAngles = new Vector3(playerModel.cam.localEulerAngles.x, playerModel.camYaw, 0);
             //playerModel.cam.localEulerAngles += Math.EasingFunction.SimpleQuadraticEase.V3SimpleQuadraticEaseOut(playerModel.cam.localEulerAngles, playerModel.targetLookDir, 0.1f);
         }
@@ -271,14 +272,18 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller
 			return playerModel.currentGrabbedObject.Action();
 		}
 
-		/// <summary>
-		/// Set the grabbed object collider and rb to the desired state to get grabbed
-		/// </summary>
-		/// <param name="playerModel">self</param>
-		internal static void SetGrabbedObjectState(this PlayerModel playerModel)
+        /// <summary>
+        /// Set the grabbed object collider and rb to the desired state to get grabbed
+        /// </summary>
+        /// <param name="playerModel">self</param>
+        /// <param name="gb">the grabbable object that was grabbed</param>
+        internal static void SetGrabbedObjectState(this PlayerModel playerModel, IGrabbable gb)
 		{
+            playerModel.currentGrabbedObject = gb;
 			playerModel.currentGrabbedObject.Rigidbody.isKinematic = true;
 			playerModel.currentGrabbedObject.Transform.SetParent(playerModel.grab, true);
+            if (playerModel.currentGrabbedObject is IElementHolder e)
+                e.Active = false;
 		}
 
 		/// <summary>
@@ -289,6 +294,8 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller
 		{
 			playerModel.currentGrabbedObject.Rigidbody.isKinematic = false;
 			playerModel.currentGrabbedObject.Transform.SetParent(null, true);
+            if (playerModel.currentGrabbedObject is IElementHolder e)
+                e.Active = true;
 			playerModel.currentGrabbedObject = null;
 		}
     }

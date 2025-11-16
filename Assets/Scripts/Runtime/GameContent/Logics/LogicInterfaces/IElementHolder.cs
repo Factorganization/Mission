@@ -23,12 +23,17 @@ namespace Runtime.GameContent.Logics.LogicInterfaces
         /// <summary>
         /// Defines if an object is active and can transmit any element
         /// </summary>
-        public bool Active { get; }
+        public bool Active { get; set; }
+        
+        /// <summary>
+        /// Graph feedbacks of the elements 
+        /// </summary>
+        public VFXReferences VFX { get; }
         
         /// <summary>
         /// Interact with another object that can hold an element, can call the same function from the other object
         /// </summary>
-        /// <param name="elementFlag">element flags Flag1 from the other object</param>
+        /// <param name="holder">other object holding elements</param>
         public void CheckOtherElement(IElementHolder holder);
     }
 }
