@@ -13,12 +13,12 @@ namespace Runtime.GameContent.Logics.LogicModels
 
 		public ParticleSystem explosionParticles;
 
-		public bool firePlaying;
+		[HideInInspector] public bool firePlaying;
 		
-		public bool waterPlaying;
+		[HideInInspector] public bool waterPlaying;
 		
-		public bool elecPlaying;
+		[HideInInspector] public bool elecPlaying;
 		
-		public bool explodePlaying;
+		[HideInInspector] public bool explodePlaying;
 	}
 }
