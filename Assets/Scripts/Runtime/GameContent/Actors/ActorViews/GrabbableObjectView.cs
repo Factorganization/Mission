@@ -23,6 +23,12 @@ namespace Runtime.GameContent.Actors.ActorViews
 
 		public ElementFlag Flag2 => element;
 
+		public ElementFlag Flag3
+		{
+			get => Flag1;
+			set => Flag1 = value;
+		}
+
 		public Vector3 OriginPos { get; private set; }
 
 		public bool Active { get; set; }
@@ -58,7 +64,7 @@ namespace Runtime.GameContent.Actors.ActorViews
 			{
 				var key = GetKey(i);
 
-				if (((int)(Flag1 | holder.Flag1) & key) == key)
+				if (((int)(Flag3 | holder.Flag3) & key) == key)
 					i.callback.Invoke(new(this, holder));
 			}
 
@@ -67,15 +73,11 @@ namespace Runtime.GameContent.Actors.ActorViews
 				foreach (var i in NextInteractions)
 				{
 					var key = GetKey(i);
-					var f1M = (int)Flag1 & key;
-					var hf2M = (int)holder.Flag2 & key;
-					var hf1M = (int)holder.Flag1 & key;
-					var f2M = (int)Flag2 & key;
 					
-					if ((f1M | hf2M) == key && f1M != 0 && hf2M != 0)
+					if (((((int)Flag3 << 4) | (int)holder.Flag2) & key) == key)
 						i.callback.Invoke(new(this, holder));
                 
-					if ((hf1M | f2M) == key &&  hf1M != 0 && f2M != 0)
+					if (((((int)holder.Flag3 << 4) | (int)Flag2) & key) == key)
 						i.callback.Invoke(new(holder, this));
 				}
 			}
@@ -90,30 +92,53 @@ namespace Runtime.GameContent.Actors.ActorViews
 		{
 			//TODO separation pour elec et water
 			
-			holder.Flag1 |= ElementFlag.CanExplode;
-			holder.Flag1 &= ~ElementFlag.CanExplode;
+			holder.Flag3 |= ElementFlag.CanExplode;
+			holder.Flag3 &= ~ElementFlag.CanExplode;
 		}
 
 		protected static void SetParticle(IElementHolder holder)
 		{
-			if ((holder.Flag1 & ElementFlag.CanBeWet) != 0 && !holder.VFX.waterParticles.isPlaying)
+			if ((holder.Flag3 & ElementFlag.CanBeWet) != 0 && !holder.VFX.waterParticles.isPlaying)
 				holder.VFX.waterParticles.Play();
-			else if ((holder.Flag1 & ElementFlag.CanBeWet) == 0)
+			else if ((holder.Flag3 & ElementFlag.CanBeWet) == 0)
 				holder.VFX.waterParticles.Stop();
 
-			if ((holder.Flag1 & ElementFlag.CanBurn) != 0 && !holder.VFX.fireParticles.isPlaying)
+			if ((holder.Flag3 & ElementFlag.CanBurn) != 0 && !holder.VFX.fireParticles.isPlaying)
 				holder.VFX.fireParticles.Play();
-			else if ((holder.Flag1 & ElementFlag.CanBurn) == 0)
+			else if ((holder.Flag3 & ElementFlag.CanBurn) == 0)
 				holder.VFX.fireParticles.Stop();
 
-			if ((holder.Flag1 & ElementFlag.CanConduct) != 0 && !holder.VFX.electricParticles.isPlaying)
+			if ((holder.Flag3 & ElementFlag.CanConduct) != 0 && !holder.VFX.electricParticles.isPlaying)
 				holder.VFX.electricParticles.Play();
-			else if ((holder.Flag1 & ElementFlag.CanConduct) == 0)
+			else if ((holder.Flag3 & ElementFlag.CanConduct) == 0)
 				holder.VFX.electricParticles.Stop();
 
-			if ((holder.Flag1 & ElementFlag.CanExplode) != 0 && !holder.VFX.explosionParticles.isPlaying)
+			if ((holder.Flag3 & ElementFlag.CanExplode) != 0 && !holder.VFX.explosionParticles.isPlaying)
 				holder.VFX.explosionParticles.Play();
-			else if ((holder.Flag1 & ElementFlag.CanExplode) == 0)
+			else if ((holder.Flag3 & ElementFlag.CanExplode) == 0)
+				holder.VFX.explosionParticles.Stop();
+		}
+		
+		protected static void SetParticleOverride(IElementHolder holder, ElementFlag flag, bool active)
+		{
+			if (flag == ElementFlag.CanBeWet && active)
+				holder.VFX.waterParticles.Play();
+			else if (flag == ElementFlag.CanBeWet && !active)
+				holder.VFX.waterParticles.Stop();
+			
+			if (flag == ElementFlag.CanBurn && active)
+				holder.VFX.fireParticles.Play();
+			else if (flag == ElementFlag.CanBurn && !active)
+				holder.VFX.fireParticles.Stop();
+			
+			if (flag == ElementFlag.CanConduct && active)
+				holder.VFX.electricParticles.Play();
+			else if (flag == ElementFlag.CanConduct && !active)
+				holder.VFX.electricParticles.Stop();
+			
+			if (flag == ElementFlag.CanExplode && active)
+				holder.VFX.explosionParticles.Play();
+			else if (flag == ElementFlag.CanExplode && !active)
 				holder.VFX.explosionParticles.Stop();
 		}
 
@@ -123,21 +148,21 @@ namespace Runtime.GameContent.Actors.ActorViews
 
 		private static void WetAndBurn(ElementInteractionData data)
 		{
-			data.holder1.Flag1 |= ElementFlag.CanBurn;
-			data.holder1.Flag1 &= ~ElementFlag.CanBurn;
-			data.holder2.Flag1 |= ElementFlag.CanBurn;
-			data.holder2.Flag1 &= ~ElementFlag.CanBurn;
+			data.holder1.Flag3 |= ElementFlag.CanBurn;
+			data.holder1.Flag3 &= ~ElementFlag.CanBurn;
+			data.holder2.Flag3 |= ElementFlag.CanBurn;
+			data.holder2.Flag3 &= ~ElementFlag.CanBurn;
 			
-			if (data.holder1 is IPossessable && (data.holder1.Flag1 & ElementFlag.CanBurn) != 0)
+			if (data.holder1 is IPossessable && (data.holder1.Flag3 & ElementFlag.CanBurn) != 0)
 				data.holder1.Active = false;
-			if (data.holder2 is IPossessable && (data.holder1.Flag1 & ElementFlag.CanBurn) != 0)
+			if (data.holder2 is IPossessable && (data.holder1.Flag3 & ElementFlag.CanBurn) != 0)
 				data.holder2.Active = false;
 		}
 
 		private static void WetAndElec(ElementInteractionData data)
 		{
-			data.holder1.Flag1 |= ElementFlag.CanConduct;
-			data.holder2.Flag1 |= ElementFlag.CanConduct;
+			data.holder1.Flag3 |= ElementFlag.CanConduct;
+			data.holder2.Flag3 |= ElementFlag.CanConduct;
 		}
 
 		#endregion
@@ -146,35 +171,34 @@ namespace Runtime.GameContent.Actors.ActorViews
 
 		private static void BurnToBurn(ElementInteractionData data)
 		{
-			data.holder2.Flag1 |= ElementFlag.CanBurn;
+			data.holder2.Flag3 |= ElementFlag.CanBurn;
 		}
 
 		private static void BurnToExplode(ElementInteractionData data)
 		{
-			Debug.Log(data.holder2);
-			data.holder2.Flag1 |= ElementFlag.CanExplode;
+			data.holder2.Flag3 |= ElementFlag.CanExplode;
 			Explode(data.holder2);
 		}
 
 		private static void ElectricToBurn(ElementInteractionData data)
 		{
-			data.holder2.Flag1 |= ElementFlag.CanBurn;
+			data.holder2.Flag3 |= ElementFlag.CanBurn;
 		}
 
 		private static void ElectricToElectric(ElementInteractionData data)
 		{
-			data.holder2.Flag1 |= ElementFlag.CanConduct;
+			data.holder2.Flag3 |= ElementFlag.CanConduct;
 		}
 
 		private static void ElectricToExplode(ElementInteractionData data)
 		{
-			data.holder2.Flag1 |= ElementFlag.CanExplode;
+			data.holder2.Flag3 |= ElementFlag.CanExplode;
 			Explode(data.holder2);
 		}
 
 		private static void WetToWet(ElementInteractionData data)
 		{
-			data.holder2.Flag1 |= ElementFlag.CanBeWet;
+			data.holder2.Flag3 |= ElementFlag.CanBeWet;
 		}
 
 		#endregion
@@ -191,8 +215,8 @@ namespace Runtime.GameContent.Actors.ActorViews
 				if ((e.Flag2 & ElementFlag.CanBurn) == 0)
 					continue;
 
-				e.Flag1 |= ElementFlag.CanBurn;
-				SetParticle(e);
+				e.Flag3 |= ElementFlag.CanBurn;
+				SetParticleOverride(e, ElementFlag.CanBurn, true);
 			}
 		}
 
@@ -214,12 +238,12 @@ namespace Runtime.GameContent.Actors.ActorViews
 		
 		private static ElementInteractionDataPair[] NextInteractions =
 		{
-			new(){ flag = 0b0010, callback = BurnToBurn },
-			new(){ flag = 0b1010, callback = BurnToExplode },
-			new(){ flag = 0b0110, callback = ElectricToBurn },
-			new(){ flag = 0b0100, callback = ElectricToElectric },
-			new(){ flag = 0b1100, callback = ElectricToExplode },
-			new(){ flag = 0b0001, callback = WetToWet },
+			new(){ flag = 0b00100010, callback = BurnToBurn },
+			new(){ flag = 0b00101000, callback = BurnToExplode },
+			new(){ flag = 0b01000010, callback = ElectricToBurn },
+			new(){ flag = 0b01000100, callback = ElectricToElectric },
+			new(){ flag = 0b01001000, callback = ElectricToExplode },
+			new(){ flag = 0b00010001, callback = WetToWet },
 		};
 		
 		private Rigidbody _rb;

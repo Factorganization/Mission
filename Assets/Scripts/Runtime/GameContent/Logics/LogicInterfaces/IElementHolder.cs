@@ -21,6 +21,11 @@ namespace Runtime.GameContent.Logics.LogicInterfaces
         public ElementFlag Flag2 { get; }
         
         /// <summary>
+        /// Hidden supplementary Flag that can store temporary IS data
+        /// </summary>
+        public ElementFlag Flag3 { get; set; }
+        
+        /// <summary>
         /// Defines if an object is active and can transmit any element
         /// </summary>
         public bool Active { get; set; }
