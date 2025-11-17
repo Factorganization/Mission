@@ -72,22 +72,23 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller
             playerModel.currentPossessedObject = tp;
             return 1;
         }
-        
+
         /// <summary>
         /// Object dependant output int
         /// </summary>
         /// <param name="playerModel">self</param>
+        /// <param name="gb">the grabbable object possibly grabbed</param>
         /// <returns>
         /// <list type="return case">
         /// <item>0 : nothing happened</item>
         /// <item>1 : object grabbed</item>
         /// </list>
         /// </returns>
-        internal static sbyte OnTryGrab(this PlayerModel playerModel)
+        internal static sbyte OnTryGrab(this PlayerModel playerModel, out IGrabbable gb)
         {
             var minDist = 100f;
             var minAngle = 45f;
-            IGrabbable gb = null;
+            gb = null;
 
             foreach (var g in LevelGenerator.Generator.Grabbables)
             {
@@ -105,17 +106,7 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller
                 gb = g;
             }
 
-            if (gb is null)
-                return 0;
-            
-            if (playerModel.currentGrabbedObject is not null)
-            {
-                playerModel.currentGrabbedObject.Transform.SetParent(null, true);
-                playerModel.currentGrabbedObject.Rigidbody.isKinematic = false;
-            }
-                
-            playerModel.currentGrabbedObject = gb;
-            return 1;
+            return gb is null ? (sbyte)0 : (sbyte)1;
         }
     }
 }
