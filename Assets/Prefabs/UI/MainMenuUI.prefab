@@ -950,6 +950,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8403354922701357600}
   - component: {fileID: 5441309796906231811}
+  - component: {fileID: 6180686284990789398}
   m_Layer: 0
   m_Name: GlobalSoundSlider
   m_TagString: Untagged
@@ -1030,6 +1031,19 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &6180686284990789398
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1282229564684680425}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06ac1241f96630841ade490bdbdf8b66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Satanic.Runtime::Runtime.GameContent.UI.VolumeSlider
+  volumeType: 1
 --- !u!1 &1332759628443888775
 GameObject:
   m_ObjectHideFlags: 0
@@ -3989,10 +4003,10 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 4203590473681304614}
   m_HandleRect: {fileID: 0}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 1.0000004
   m_Size: 0.75539076
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -5575,6 +5589,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3344654473089063998}
   - component: {fileID: 7355362893336518664}
+  - component: {fileID: 7200560631431237415}
   m_Layer: 0
   m_Name: GlobalSoundSlider
   m_TagString: Untagged
@@ -5655,6 +5670,19 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &7200560631431237415
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5002627381890751570}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06ac1241f96630841ade490bdbdf8b66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Satanic.Runtime::Runtime.GameContent.UI.VolumeSlider
+  volumeType: 0
 --- !u!1 &5062767091189219809
 GameObject:
   m_ObjectHideFlags: 0
@@ -6441,10 +6469,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 7822830084981103290}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 159, y: -42.5}
-  m_SizeDelta: {x: 85, y: 85}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5022814768526648004
 CanvasRenderer:
@@ -6510,6 +6538,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2198975695563152297}
   - component: {fileID: 3067193679535599448}
+  - component: {fileID: 3974184409432919836}
   m_Layer: 0
   m_Name: GlobalSoundSlider
   m_TagString: Untagged
@@ -6590,6 +6619,19 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &3974184409432919836
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5790844936440887412}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06ac1241f96630841ade490bdbdf8b66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Satanic.Runtime::Runtime.GameContent.UI.VolumeSlider
+  volumeType: 2
 --- !u!1 &5810003998548245147
 GameObject:
   m_ObjectHideFlags: 0
@@ -10221,7 +10263,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1659454551124389335, guid: 488ff9aca9bc09741b6ec52d2f8c2073, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1659454551124389335, guid: 488ff9aca9bc09741b6ec52d2f8c2073, type: 3}
       propertyPath: m_AnchorMin.x
@@ -10229,15 +10271,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1659454551124389335, guid: 488ff9aca9bc09741b6ec52d2f8c2073, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1659454551124389335, guid: 488ff9aca9bc09741b6ec52d2f8c2073, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 85
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1659454551124389335, guid: 488ff9aca9bc09741b6ec52d2f8c2073, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 85
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1659454551124389335, guid: 488ff9aca9bc09741b6ec52d2f8c2073, type: 3}
       propertyPath: m_LocalPosition.x
@@ -10269,11 +10311,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1659454551124389335, guid: 488ff9aca9bc09741b6ec52d2f8c2073, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 59
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1659454551124389335, guid: 488ff9aca9bc09741b6ec52d2f8c2073, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -42.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1659454551124389335, guid: 488ff9aca9bc09741b6ec52d2f8c2073, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

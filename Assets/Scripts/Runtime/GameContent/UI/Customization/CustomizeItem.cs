@@ -20,6 +20,7 @@ namespace Runtime.GameContent.UI.Customization
         public Sprite ItemIcon;
         public GameObject ItemPrefab;
         public Category ItemCategory;
+        public bool Locked;
 
         #endregion
     }

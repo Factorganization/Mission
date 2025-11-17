@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,21 +15,41 @@ namespace Runtime.GameContent.UI.Customization
 
         private void Initialize()
         {
+            _headButton.onClick.AddListener(() =>
+            {
+                _customizationPooler.Populate(_headItems);
+            });
             
-        }
-
-        private void UpdateShop(Category category)
-        {
+            _tailButton.onClick.AddListener(() =>
+            {
+                _customizationPooler.Populate(_tailItems);
+            });
             
+            _eyesButton.onClick.AddListener(() =>
+            {
+                _customizationPooler.Populate(_eyesItems);
+            });
+            
+            _bodyButton.onClick.AddListener(() =>
+            {
+                _customizationPooler.Populate(_bodyItems);
+            });
+            
+            _hornsButton.onClick.AddListener(() =>
+            {
+                _customizationPooler.Populate(_hornsItems);
+            });
         }
-
+        
         #endregion
 
         #region Fields
 
         [SerializeField] private Button _headButton, _tailButton, _eyesButton, _bodyButton, _hornsButton;
         [SerializeField] private GameObject _contentArea; 
-        [SerializeField] private GameObject _customizeButtonPrefab;
+        
+        [SerializeField] List<CustomizeItem> _headItems, _tailItems, _eyesItems, _bodyItems, _hornsItems;
+        [SerializeField] CustomizationPooler _customizationPooler;
         
         #endregion
 
