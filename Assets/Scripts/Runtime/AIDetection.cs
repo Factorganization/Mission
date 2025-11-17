@@ -1,3 +1,4 @@
+using Runtime.GameContent.Actors.ActorInterfaces;
 using Runtime.Management.GameManagement;
 using UnityEditor;
 using UnityEngine;
@@ -14,6 +15,18 @@ public class AIDetection : MonoBehaviour
     private void Update()
     {
         DetectPlayer();
+        
+        if (!IsPlayerSpotted && CurrentObject == null)
+            DetectObject();
+        else
+        {
+            //Move object
+            if (CurrentObject != null)
+            {
+                CurrentObject.Transform.position = transform.position + transform.forward;
+                CurrentObject.Rigidbody.isKinematic = true;
+            }
+        }
         
         //reset sus timer
         if (_detectionTimer > 0)
@@ -32,8 +45,8 @@ public class AIDetection : MonoBehaviour
 
     private void DetectPlayer()
     {
-        Vector3 directionToPlayer = player.position - transform.position;
-        float angleToPlayer = Vector3.Angle(transform.forward, directionToPlayer);
+        Vector3 directionToPlayer = (player.position - transform.position);
+        float angleToPlayer = Vector3.Angle(transform.forward, directionToPlayer.normalized);
 
         if (angleToPlayer < detectionAngle / 2 && directionToPlayer.magnitude <= detectionDistance)
         {
@@ -71,6 +84,43 @@ public class AIDetection : MonoBehaviour
             IsPlayerSpotted = true;
         }
     }
+    
+    private void DetectObject()
+    {
+        if (CurrentObject != null)
+            return;
+        
+        Debug.Log(CurrentObject);
+        
+        foreach (IGrabbable grabbable in levelGenerator.Grabbables)
+        {
+            var directionToGrabbable = (grabbable.Transform.position - transform.position);
+            float  angleToGrabbable = Vector3.Angle(transform.forward, directionToGrabbable.normalized);
+
+            if (angleToGrabbable < detectionAngle / 2 && directionToGrabbable.magnitude <= detectionDistance)
+            {
+                RaycastHit hit;
+                if (!Physics.Raycast(transform.position, directionToGrabbable.normalized, out hit))
+                    continue;
+                if (hit.transform != grabbable.Transform)
+                    continue;
+
+                if (Vector3.Distance(grabbable.OriginPos, grabbable.Transform.position) > 0.1f)
+                {
+                    CurrentObject = grabbable;
+                    return;
+                }
+            }
+        }  
+    }
+
+    public void DropObject()
+    {
+        if (CurrentObject == null)
+            return;
+        CurrentObject.Rigidbody.isKinematic = false;
+        CurrentObject = null;
+    }
 
 #if UNITY_EDITOR
     private void OnDrawGizmos()
@@ -100,6 +150,7 @@ public class AIDetection : MonoBehaviour
     public bool IsSuspicious { private set; get; } = false; 
     public bool IsPlayerSpotted { private set; get; } = false;
     public Vector3 LastKnownPlayerPosition { private set; get; } = Vector3.zero;
+    public IGrabbable CurrentObject { private set; get; } = null;
     
     [SerializeField] private float detectionAngle = 45f;
     [SerializeField] private float detectionDistance = 10f;
@@ -112,6 +163,7 @@ public class AIDetection : MonoBehaviour
          
     private float _detectionTimer = 0f;
     private float _forgetTimer = 0f;
+    
     
     #endregion
 }

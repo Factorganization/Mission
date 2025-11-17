@@ -25,17 +25,31 @@ namespace Runtime.GameContent.Actors.ActorViews
 
         private void Update()
         {
+            //Drop Object
+            if (aiDetection.CurrentObject != null)
+                if (Vector3.Distance(transform.position, aiDetection.CurrentObject.OriginPos) < 0.6f)
+                {
+                    aiDetection.DropObject();
+                    AIController.SelectRandomWaypoint(_aiModel);
+                }
+            
+            // Must put AI Detection into MVC
+            if (aiDetection.CurrentObject != null)
+                AIController.SetCurrentWaypoint(_aiModel,  aiDetection.CurrentObject.OriginPos);
+            
             if (aiDetection.IsSuspicious)
                 AIController.SetCurrentWaypoint(_aiModel, aiDetection.LastKnownPlayerPosition);
             
             agent.isStopped = aiDetection.IsSuspicious;
             
-            // Must put AI Detection into MVC
             if (aiDetection && aiDetection.IsSuspicious && !aiDetection.IsPlayerSpotted)
                 return;
 
             if (aiDetection && aiDetection.IsPlayerSpotted)
+            {
                 agent.isStopped = false;
+                aiDetection.DropObject();
+            }
             
             _aiUpdateSetPositionDelay = aiDetection.IsPlayerSpotted ? 0.01f : 0.2f;
 
@@ -45,11 +59,11 @@ namespace Runtime.GameContent.Actors.ActorViews
             _updateAgentTimer +=  Time.deltaTime;
             if (_updateAgentTimer >= _aiUpdateSetPositionDelay)
             {
+                _updateAgentTimer = 0;
+                
                 if (_aiModel._currentWaypoint.position != Vector3.zero)
-                {
                     agent.SetDestination(_aiModel._currentWaypoint.position);
-                    _updateAgentTimer = 0;
-                }
+                
             }
         
             transform.position = _aiModel.transform.position;
