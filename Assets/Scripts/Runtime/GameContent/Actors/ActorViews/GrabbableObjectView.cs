@@ -98,25 +98,49 @@ namespace Runtime.GameContent.Actors.ActorViews
 
 		protected static void SetParticle(IElementHolder holder)
 		{
-			if ((holder.Flag3 & ElementFlag.CanBeWet) != 0 && !holder.VFX.waterParticles.isPlaying)
+			if ((holder.Flag3 & ElementFlag.CanBeWet) != 0 && !holder.VFX.waterPlaying)
+			{
 				holder.VFX.waterParticles.Play();
+				holder.VFX.waterPlaying = true;
+			}
 			else if ((holder.Flag3 & ElementFlag.CanBeWet) == 0)
+			{
 				holder.VFX.waterParticles.Stop();
+				holder.VFX.waterPlaying = false;
+			}
 
-			if ((holder.Flag3 & ElementFlag.CanBurn) != 0 && !holder.VFX.fireParticles.isPlaying)
+			if ((holder.Flag3 & ElementFlag.CanBurn) != 0 && !holder.VFX.firePlaying)
+			{
 				holder.VFX.fireParticles.Play();
+				holder.VFX.firePlaying = true;
+			}
 			else if ((holder.Flag3 & ElementFlag.CanBurn) == 0)
+			{
 				holder.VFX.fireParticles.Stop();
+				holder.VFX.firePlaying = false;
+			}
 
-			if ((holder.Flag3 & ElementFlag.CanConduct) != 0 && !holder.VFX.electricParticles.isPlaying)
+			if ((holder.Flag3 & ElementFlag.CanConduct) != 0 && !holder.VFX.elecPlaying)
+			{
 				holder.VFX.electricParticles.Play();
+				holder.VFX.elecPlaying = true;
+			}
 			else if ((holder.Flag3 & ElementFlag.CanConduct) == 0)
+			{
 				holder.VFX.electricParticles.Stop();
+				holder.VFX.elecPlaying = false;
+			}
 
-			if ((holder.Flag3 & ElementFlag.CanExplode) != 0 && !holder.VFX.explosionParticles.isPlaying)
+			if ((holder.Flag3 & ElementFlag.CanExplode) != 0 && !holder.VFX.explodePlaying)
+			{
 				holder.VFX.explosionParticles.Play();
+				holder.VFX.explodePlaying = true;
+			}
 			else if ((holder.Flag3 & ElementFlag.CanExplode) == 0)
+			{
 				holder.VFX.explosionParticles.Stop();
+				holder.VFX.explodePlaying = false;
+			}
 		}
 		
 		protected static void SetParticleOverride(IElementHolder holder, ElementFlag flag, bool active)
