@@ -1,3 +1,5 @@
+using Runtime.GameContent.Actors.ActorInterfaces;
+using Runtime.GameContent.Logics.LogicInterfaces;
 using Runtime.GameContent.Player.Controller.LocalMachine.Model;
 using Shared.RapaEngineUtils.Maths;
 using UnityEngine;
@@ -122,7 +124,6 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller
                                     * Time.fixedDeltaTime;
             playerModel.camPitch = ClampSymmetric(playerModel.camPitch, playerModel.data.cameraData.maxPitchAngle);
             
-            //playerModel.cam.localEulerAngles = new Vector3(playerModel.camPitch, playerModel.camYaw, 0);
             playerModel.cam.localEulerAngles = new Vector3(playerModel.cam.localEulerAngles.x, playerModel.camYaw, 0);
             //playerModel.cam.localEulerAngles += Math.EasingFunction.SimpleQuadraticEase.V3SimpleQuadraticEaseOut(playerModel.cam.localEulerAngles, playerModel.targetLookDir, 0.1f);
         }
@@ -261,16 +262,41 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller
             return true;
         }
 
+		/// <summary>
+		/// When player is grabbing an object, will try to use the object and interact with it on an element source object 
+		/// </summary>
+		/// <param name="playerModel">self</param>
+		/// <returns>True if interaction was performed, False otherwise</returns>
+		internal static bool TryInteractGrabbedObject(this PlayerModel playerModel)
+		{
+			return playerModel.currentGrabbedObject.Action();
+		}
+
         /// <summary>
-        /// When player is grabbing an object, will try to use the object and interact with it on an element source object 
+        /// Set the grabbed object collider and rb to the desired state to get grabbed
         /// </summary>
         /// <param name="playerModel">self</param>
-        /// <returns>True if interaction was performed, False otherwise</returns>
-        internal static bool TryInteractGrabbedObject(this PlayerModel playerModel)
-        {
-            
-            
-            return true;
-        }
+        /// <param name="gb">the grabbable object that was grabbed</param>
+        internal static void SetGrabbedObjectState(this PlayerModel playerModel, IGrabbable gb)
+		{
+            playerModel.currentGrabbedObject = gb;
+			playerModel.currentGrabbedObject.Rigidbody.isKinematic = true;
+			playerModel.currentGrabbedObject.Transform.SetParent(playerModel.grab, true);
+            if (playerModel.currentGrabbedObject is IElementHolder e)
+                e.Active = false;
+		}
+
+		/// <summary>
+		/// Reset the grabbed object collier and rb states, reset the parent to null
+		/// </summary>
+		/// <param name="playerModel">self</param>
+		internal static void ResetGrabbedObjectState(this PlayerModel playerModel)
+		{
+			playerModel.currentGrabbedObject.Rigidbody.isKinematic = false;
+			playerModel.currentGrabbedObject.Transform.SetParent(null, true);
+            if (playerModel.currentGrabbedObject is IElementHolder e)
+                e.Active = true;
+			playerModel.currentGrabbedObject = null;
+		}
     }
 }

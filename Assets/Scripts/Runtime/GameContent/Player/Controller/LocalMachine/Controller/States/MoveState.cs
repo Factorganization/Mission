@@ -42,25 +42,28 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller.States
                     break;
                 
                 case 6:
-                    var tg = playerModel.OnTryGrab();
+                    var tg = playerModel.OnTryGrab(out var gb);
                     switch (tg)
                     {
+                        case 1 when playerModel.currentGrabbedObject is not null:
+                            playerModel.ResetGrabbedObjectState();
+                            playerModel.SetGrabbedObjectState(gb);
+                            break;
+                        
                         case 1:
-                            //TODO cleanup ces merdes dans le controller
-                            playerModel.currentGrabbedObject.Rigidbody.isKinematic = true;
-                            playerModel.currentGrabbedObject.Transform.SetParent(playerModel.grab, true);
+							playerModel.SetGrabbedObjectState(gb);
                             break;
                         
                         case 0 when playerModel.currentGrabbedObject is not null:
-                            playerModel.currentGrabbedObject.Rigidbody.isKinematic = false;
-                            playerModel.currentGrabbedObject.Transform.SetParent(null, true);
-                            playerModel.currentGrabbedObject = null;
+							playerModel.ResetGrabbedObjectState();
                             break;
                     }
                     break;
                 
                 case 4:
-                    //TODO grab interaction, en fait retournement de situation y'en a pas donc faudra retirer et passet en callback de drop item
+                    if (playerModel.TryInteractGrabbedObject())
+						//TODO des feedbacks ?
+						break;
                     break;
                 
                 case 5:
