@@ -65,7 +65,7 @@ namespace Runtime.GameContent.Actors.ActorViews
 				var key = GetKey(i);
 
 				if (((int)(Flag3 | holder.Flag3) & key) == key)
-					i.callback.Invoke(new(this, holder));
+					i.callback.Invoke(new ElementInteractionData(this, holder));
 			}
 
 			if (Active && holder.Active)
@@ -75,17 +75,17 @@ namespace Runtime.GameContent.Actors.ActorViews
 					var key = GetKey(i);
 					
 					if (((((int)Flag3 << 4) | (int)holder.Flag2) & key) == key)
-						i.callback.Invoke(new(this, holder));
+						i.callback.Invoke(new ElementInteractionData(this, holder));
                 
 					if (((((int)holder.Flag3 << 4) | (int)Flag2) & key) == key)
-						i.callback.Invoke(new(holder, this));
+						i.callback.Invoke(new ElementInteractionData(holder, this));
 				}
 			}
 			
 			SetParticle(this);
 			SetParticle(holder);
-			ResetFlags(this);
-			ResetFlags(holder);
+			//ResetFlags(this);
+			//ResetFlags(holder);
 		}
 
 		private static void ResetFlags(IElementHolder holder)
