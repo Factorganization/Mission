@@ -20,10 +20,17 @@ namespace Runtime.Management.GameManagement
             Element = this;
         }
 
-        private void Update()
+        private void FixedUpdate()
         {
             var c = LevelGenerator.Generator.ElementHolders.Count;
 
+            _delay += Time.fixedDeltaTime;
+            
+            if (_delay < 0.25f)
+                return;
+
+            _delay = 0;
+            
             for (var i = 0; i < c - 1; i++)
             {
                 for (var j = i + 1; j < c; j++)
@@ -38,6 +45,12 @@ namespace Runtime.Management.GameManagement
                 }
             }
         }
+
+        #endregion
+
+        #region fields
+
+        private float _delay;
 
         #endregion
     }
