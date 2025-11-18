@@ -1,90 +1,40 @@
-using System;
 using Runtime.GameContent.Actors.ActorInterfaces;
 using Runtime.GameContent.Logics.LogicInterfaces;
 using Runtime.GameContent.Logics.LogicModels;
 using Runtime.Management.GameManagement;
 using Shared.Utils.Listing;
-using TMPro;
 using UnityEngine;
 
 namespace Runtime.GameContent.Actors.ActorViews
 {
-    [Pooled, SelectionBase]
-    public class PossessableObjectView : ActorView, IPossessable, IElementHolder
+    [Pooled]
+    public class NoInteractObjectView : ActorView, INoInteract
     {
-        #region properties
-
-        public Transform Transform => transform;
-
-		public ElementFlag Flag1
-		{
-			get => sourceElement;
-			set { }
-		}
-
-        public ElementFlag Flag2 => receptorElement;
+        #region proprties
         
-        public ElementFlag Flag3 { get; set; }
+        public Transform Transform => transform;
+        
+        public ElementFlag Flag1 { get; set; }
 
+        public ElementFlag Flag2 => flag;
+
+        public ElementFlag Flag3
+        {
+	        get => Flag1;
+	        set => Flag1 = value;
+        }
+        
         public bool Active
         {
-	        get => _active && !Destroyed;
-	        set => _active = value;
+            get => true;
+            set { }
         }
 
-        public bool Possessed { get; set; }
-
-		public bool Destroyed { get; private set; }
-
-		public VFXReferences VFX => vfxReferences;
-
-		#endregion
-
-		#region methodes
-
-		private void Start()
-		{
-			Possessed = false;
-			Destroyed = false;
-			_active = false;
-			Flag3 = Flag1;
-		}
-		
-		public void Update()
-		{
-			text.text = $"{(Active ? "<color=green>Active</color>" : "<color=red>Inactive</color>")}\n {Convert.ToString((int)Flag1, 2).PadLeft(4, '0')} \n {Convert.ToString((int)Flag2, 2).PadLeft(4, '0')}";
-		}
-
-		public void Action()
-		{
-			_active = !_active;
-
-			if (!_active)
-			{
-				Flag3 = Flag1;
-				vfxReferences.waterParticles.Stop();
-				vfxReferences.waterPlaying = false;
-				vfxReferences.fireParticles.Stop();
-				vfxReferences.firePlaying = false;
-				vfxReferences.electricParticles.Stop();
-				vfxReferences.elecPlaying = false;
-				vfxReferences.explosionParticles.Stop();
-				vfxReferences.explodePlaying = false;
-				return;
-			}
-
-			SetParticle(this);
-		}
-
-		public void DestructiveAction()
+        public VFXReferences VFX => vfxReferences;
+        
+        public void CheckOtherElement(IElementHolder holder)
         {
-            Debug.Log("DestructiveAction");
-            Destroyed = true;
-        }
-
-		public void CheckOtherElement(IElementHolder holder)
-		{
-			foreach (var i in ResolveInteractions)
+            foreach (var i in ResolveInteractions)
 			{
 				var key = GetKey(i);
 
@@ -108,16 +58,6 @@ namespace Runtime.GameContent.Actors.ActorViews
 			
 			SetParticle(this);
 			SetParticle(holder);
-			//ResetFlags(this);
-			//ResetFlags(holder);
-		}
-
-		private static void ResetFlags(IElementHolder holder)
-		{
-			//TODO separation pour elec et water
-			
-			holder.Flag3 |= ElementFlag.CanExplode;
-			holder.Flag3 &= ~ElementFlag.CanExplode;
 		}
 
 		protected static void SetParticle(IElementHolder holder)
@@ -272,14 +212,6 @@ namespace Runtime.GameContent.Actors.ActorViews
 
         #region fields
 
-		[SerializeField] private VFXReferences vfxReferences;
-
-        [SerializeField] private ElementFlag sourceElement;
-
-        [SerializeField] private ElementFlag receptorElement;
-
-        [SerializeField] private TMP_Text text;
-
         private static ElementInteractionDataPair[] ResolveInteractions =
         {
 	        new(){ flag = 0b0011, callback = WetAndBurn },
@@ -296,7 +228,9 @@ namespace Runtime.GameContent.Actors.ActorViews
 			new(){ flag = 0b00010001, callback = WetToWet },
 		};
 
-		private bool _active;
+        [SerializeField] private ElementFlag flag;
+        
+        [SerializeField] private VFXReferences vfxReferences;
 
         #endregion
     }
