@@ -32,8 +32,8 @@ namespace Runtime.Management.GameManagement.AudioManager
         {
             // Initialize ambience and music here with appropriate event references
             // Example:
-            InitializeAmbience(FMODEvents.Instance.MasterVolume);
-            InitializeMusic(FMODEvents.Instance.MusicVolume);
+            //InitializeAmbience(FMODEvents.Instance.MasterVolume);
+            //InitializeMusic(FMODEvents.Instance.MusicVolume);
         }
 
         private void Update()
