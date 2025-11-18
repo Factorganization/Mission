@@ -5,8 +5,14 @@ namespace Runtime.GameContent.AudioManager
 {
     public class FMODEvents : MonoBehaviour
     {
-        [field : Header("Ambience Music")]
+        [field : Header("MasterVolume")]
         [field: SerializeField] public EventReference MasterVolume { get; private set; }
+        
+        [field : Header("MusicVolume")]
+        [field: SerializeField] public EventReference MusicVolume { get; private set; }
+        
+        [field : Header("SFXVolume")]
+        [field: SerializeField] public EventReference SFXVolume { get; private set; }
     
         public static FMODEvents Instance { get; private set; }
 

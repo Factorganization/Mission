@@ -1,9 +1,10 @@
+using Runtime.Utils.UI;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Runtime.GameContent.UI.Mail
 {
-    public class MailBox : UIParent
+    public class MailBox : UIParent, IDraggeable
     {
         #region Functions
         

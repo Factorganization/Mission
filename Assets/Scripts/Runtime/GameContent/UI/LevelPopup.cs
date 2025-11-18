@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace Runtime.GameContent.UI
@@ -21,8 +22,7 @@ namespace Runtime.GameContent.UI
 
         private void OpenLevel()
         {
-            // SceneManager.LoadScene(_levelData.SceneName);
-            Debug.Log("Loading level: " + _levelData.LevelName);
+            SceneManager.LoadScene(_levelData.LevelName, LoadSceneMode.Single);
         }
 
         public override void Hide()

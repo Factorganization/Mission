@@ -29,7 +29,7 @@ namespace Runtime.Utils
 
                 return instance;
             }
-        }
+        } 
 
         protected virtual void Awake() => InitializeSingleton();
 

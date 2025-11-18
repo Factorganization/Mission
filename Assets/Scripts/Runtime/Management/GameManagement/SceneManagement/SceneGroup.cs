@@ -33,7 +33,6 @@ namespace Runtime.Management.GameManagement.SceneManagement
         UserInterface,
         HUD,
         Cinematic,
-        Environment,
-        Tooling
+        Environment
     }
 }

@@ -119,6 +119,54 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &108437264
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 108437265}
+  - component: {fileID: 108437266}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &108437265
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 108437264}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.07633, y: 1.24261, z: 0.89213}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1807325904}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &108437266
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 108437264}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a81f89a50ff5274481b79b3f2fddec0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Satanic.Runtime::Runtime.Management.GameManagement.AudioManager.AudioManager
+  masterVolume: 1
+  musicVolume: 1
+  SFXVolume: 1
 --- !u!1 &160960405
 GameObject:
   m_ObjectHideFlags: 0
@@ -150,108 +198,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &382867729
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 1146987008}
-    m_Modifications:
-    - target: {fileID: 1659454551124389335, guid: 488ff9aca9bc09741b6ec52d2f8c2073, type: 3}
-      propertyPath: m_Pivot.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1659454551124389335, guid: 488ff9aca9bc09741b6ec52d2f8c2073, type: 3}
-      propertyPath: m_Pivot.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1659454551124389335, guid: 488ff9aca9bc09741b6ec52d2f8c2073, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1659454551124389335, guid: 488ff9aca9bc09741b6ec52d2f8c2073, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1659454551124389335, guid: 488ff9aca9bc09741b6ec52d2f8c2073, type: 3}
-      propertyPath: m_AnchorMin.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1659454551124389335, guid: 488ff9aca9bc09741b6ec52d2f8c2073, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1659454551124389335, guid: 488ff9aca9bc09741b6ec52d2f8c2073, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1659454551124389335, guid: 488ff9aca9bc09741b6ec52d2f8c2073, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1659454551124389335, guid: 488ff9aca9bc09741b6ec52d2f8c2073, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1659454551124389335, guid: 488ff9aca9bc09741b6ec52d2f8c2073, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1659454551124389335, guid: 488ff9aca9bc09741b6ec52d2f8c2073, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1659454551124389335, guid: 488ff9aca9bc09741b6ec52d2f8c2073, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1659454551124389335, guid: 488ff9aca9bc09741b6ec52d2f8c2073, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1659454551124389335, guid: 488ff9aca9bc09741b6ec52d2f8c2073, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1659454551124389335, guid: 488ff9aca9bc09741b6ec52d2f8c2073, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1659454551124389335, guid: 488ff9aca9bc09741b6ec52d2f8c2073, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1659454551124389335, guid: 488ff9aca9bc09741b6ec52d2f8c2073, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1659454551124389335, guid: 488ff9aca9bc09741b6ec52d2f8c2073, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1659454551124389335, guid: 488ff9aca9bc09741b6ec52d2f8c2073, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1659454551124389335, guid: 488ff9aca9bc09741b6ec52d2f8c2073, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2341289633976060826, guid: 488ff9aca9bc09741b6ec52d2f8c2073, type: 3}
-      propertyPath: m_Name
-      value: CustomItem
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 488ff9aca9bc09741b6ec52d2f8c2073, type: 3}
---- !u!224 &391229098 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 1659454551124389335, guid: 488ff9aca9bc09741b6ec52d2f8c2073, type: 3}
-  m_PrefabInstance: {fileID: 382867729}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &419967981
 GameObject:
   m_ObjectHideFlags: 0
@@ -509,13 +455,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 579612462}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -0.3, y: 1.1791823, z: 0.86820316}
+  m_LocalRotation: {x: 0.051171795, y: 0.70525277, z: -0.051171795, w: 0.70525277}
+  m_LocalPosition: {x: -0.547, y: 1.235, z: 0.898}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 8.3, y: 90, z: 0}
 --- !u!1 &751735949
 GameObject:
   m_ObjectHideFlags: 0
@@ -547,6 +493,28 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &904968357 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6180686284990789398, guid: 136f3dccbd0eacd4eb0ccebb0a56466d, type: 3}
+  m_PrefabInstance: {fileID: 1146987002}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06ac1241f96630841ade490bdbdf8b66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Satanic.Runtime::Runtime.GameContent.UI.VolumeSlider
+--- !u!114 &952420021 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3974184409432919836, guid: 136f3dccbd0eacd4eb0ccebb0a56466d, type: 3}
+  m_PrefabInstance: {fileID: 1146987002}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06ac1241f96630841ade490bdbdf8b66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Satanic.Runtime::Runtime.GameContent.UI.VolumeSlider
 --- !u!1001 &1146987002
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -759,6 +727,34 @@ PrefabInstance:
       propertyPath: '_hornsItems.Array.data[0]'
       value: 
       objectReference: {fileID: 11400000, guid: b506699e3169df04fb95ee96cc5ac715, type: 2}
+    - target: {fileID: 3067193679535599448, guid: 136f3dccbd0eacd4eb0ccebb0a56466d, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3067193679535599448, guid: 136f3dccbd0eacd4eb0ccebb0a56466d, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3067193679535599448, guid: 136f3dccbd0eacd4eb0ccebb0a56466d, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 952420021}
+    - target: {fileID: 3067193679535599448, guid: 136f3dccbd0eacd4eb0ccebb0a56466d, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3067193679535599448, guid: 136f3dccbd0eacd4eb0ccebb0a56466d, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnSliderValueChanged
+      objectReference: {fileID: 0}
+    - target: {fileID: 3067193679535599448, guid: 136f3dccbd0eacd4eb0ccebb0a56466d, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Runtime.GameContent.UI.VolumeSlider, Satanic.Runtime
+      objectReference: {fileID: 0}
+    - target: {fileID: 3067193679535599448, guid: 136f3dccbd0eacd4eb0ccebb0a56466d, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 3297451222587609645, guid: 136f3dccbd0eacd4eb0ccebb0a56466d, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -895,6 +891,34 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 579612465}
+    - target: {fileID: 5441309796906231811, guid: 136f3dccbd0eacd4eb0ccebb0a56466d, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5441309796906231811, guid: 136f3dccbd0eacd4eb0ccebb0a56466d, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5441309796906231811, guid: 136f3dccbd0eacd4eb0ccebb0a56466d, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 904968357}
+    - target: {fileID: 5441309796906231811, guid: 136f3dccbd0eacd4eb0ccebb0a56466d, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5441309796906231811, guid: 136f3dccbd0eacd4eb0ccebb0a56466d, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnSliderValueChanged
+      objectReference: {fileID: 0}
+    - target: {fileID: 5441309796906231811, guid: 136f3dccbd0eacd4eb0ccebb0a56466d, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Runtime.GameContent.UI.VolumeSlider, Satanic.Runtime
+      objectReference: {fileID: 0}
+    - target: {fileID: 5441309796906231811, guid: 136f3dccbd0eacd4eb0ccebb0a56466d, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 5622083887663952621, guid: 136f3dccbd0eacd4eb0ccebb0a56466d, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -994,6 +1018,38 @@ PrefabInstance:
     - target: {fileID: 7217032198868399830, guid: 136f3dccbd0eacd4eb0ccebb0a56466d, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7355362893336518664, guid: 136f3dccbd0eacd4eb0ccebb0a56466d, type: 3}
+      propertyPath: m_Value
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7355362893336518664, guid: 136f3dccbd0eacd4eb0ccebb0a56466d, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7355362893336518664, guid: 136f3dccbd0eacd4eb0ccebb0a56466d, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7355362893336518664, guid: 136f3dccbd0eacd4eb0ccebb0a56466d, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1788614113}
+    - target: {fileID: 7355362893336518664, guid: 136f3dccbd0eacd4eb0ccebb0a56466d, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7355362893336518664, guid: 136f3dccbd0eacd4eb0ccebb0a56466d, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnSliderValueChanged
+      objectReference: {fileID: 0}
+    - target: {fileID: 7355362893336518664, guid: 136f3dccbd0eacd4eb0ccebb0a56466d, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Runtime.GameContent.UI.VolumeSlider, Satanic.Runtime
+      objectReference: {fileID: 0}
+    - target: {fileID: 7355362893336518664, guid: 136f3dccbd0eacd4eb0ccebb0a56466d, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 7380092623188640221, guid: 136f3dccbd0eacd4eb0ccebb0a56466d, type: 3}
       propertyPath: m_AnchorMax.y
@@ -1107,10 +1163,7 @@ PrefabInstance:
     m_RemovedGameObjects:
     - {fileID: 5774933368847371138, guid: 136f3dccbd0eacd4eb0ccebb0a56466d, type: 3}
     - {fileID: 7687514457674514958, guid: 136f3dccbd0eacd4eb0ccebb0a56466d, type: 3}
-    m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 7822830084981103290, guid: 136f3dccbd0eacd4eb0ccebb0a56466d, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 391229098}
+    m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 8051319658358554603, guid: 136f3dccbd0eacd4eb0ccebb0a56466d, type: 3}
       insertIndex: -1
@@ -1146,11 +1199,82 @@ MonoBehaviour:
   _customizeButtonPrefab: {fileID: 2341289633976060826, guid: 488ff9aca9bc09741b6ec52d2f8c2073, type: 3}
   _contentArea: {fileID: 1146987004}
   _initialPoolSize: 20
---- !u!224 &1146987008 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 7822830084981103290, guid: 136f3dccbd0eacd4eb0ccebb0a56466d, type: 3}
+--- !u!114 &1788614113 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7200560631431237415, guid: 136f3dccbd0eacd4eb0ccebb0a56466d, type: 3}
   m_PrefabInstance: {fileID: 1146987002}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06ac1241f96630841ade490bdbdf8b66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Satanic.Runtime::Runtime.GameContent.UI.VolumeSlider
+--- !u!1 &1807325903
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1807325904}
+  - component: {fileID: 1807325905}
+  m_Layer: 0
+  m_Name: FMODEvents
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1807325904
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1807325903}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 108437265}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1807325905
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1807325903}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4cfc4a827bece047b84d77e3096591b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Satanic.Runtime::Runtime.GameContent.AudioManager.FMODEvents
+  <MasterVolume>k__BackingField:
+    Guid:
+      Data1: 202733564
+      Data2: 1203744823
+      Data3: 281580973
+      Data4: -658308982
+    Path: "event:/Ambiance/For\xEAt"
+  <MusicVolume>k__BackingField:
+    Guid:
+      Data1: -1805981034
+      Data2: 1165421858
+      Data3: -2145313134
+      Data4: -2007869815
+    Path: "event:/Ambiance/For\xEAtPostMort"
+  <SFXVolume>k__BackingField:
+    Guid:
+      Data1: -1543676055
+      Data2: 1087335726
+      Data3: -573164631
+      Data4: -847377312
+    Path: "event:/Ambiance/Rivi\xE8re"
 --- !u!1 &2124226892
 GameObject:
   m_ObjectHideFlags: 0
@@ -1308,3 +1432,4 @@ SceneRoots:
   - {fileID: 160960406}
   - {fileID: 751735950}
   - {fileID: 2124226895}
+  - {fileID: 108437265}
