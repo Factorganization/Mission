@@ -257,6 +257,8 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller
                 + new Vector3(0, playerModel.data.interactData.throwStrength.y, 0),
                 ForceMode.VelocityChange);
             
+            if (playerModel.currentGrabbedObject is IElementHolder e)
+                e.Active = true; //TODO a corriger apres refonte archi
             playerModel.currentGrabbedObject = null;
             
             return true;
@@ -268,9 +270,9 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller
 		/// <param name="playerModel">self</param>
 		/// <returns>True if interaction was performed, False otherwise</returns>
 		internal static bool TryInteractGrabbedObject(this PlayerModel playerModel)
-		{
-			return playerModel.currentGrabbedObject.Action();
-		}
+        {
+            return playerModel.currentGrabbedObject is not null && playerModel.currentGrabbedObject.Action();
+        }
 
         /// <summary>
         /// Set the grabbed object collider and rb to the desired state to get grabbed
@@ -283,7 +285,7 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller
 			playerModel.currentGrabbedObject.Rigidbody.isKinematic = true;
 			playerModel.currentGrabbedObject.Transform.SetParent(playerModel.grab, true);
             if (playerModel.currentGrabbedObject is IElementHolder e)
-                e.Active = false;
+                e.Active = false; //TODO a corriger apres refonte archi
 		}
 
 		/// <summary>
@@ -295,7 +297,7 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller
 			playerModel.currentGrabbedObject.Rigidbody.isKinematic = false;
 			playerModel.currentGrabbedObject.Transform.SetParent(null, true);
             if (playerModel.currentGrabbedObject is IElementHolder e)
-                e.Active = true;
+                e.Active = true; //TODO a corriger apres refonte archi
 			playerModel.currentGrabbedObject = null;
 		}
     }
