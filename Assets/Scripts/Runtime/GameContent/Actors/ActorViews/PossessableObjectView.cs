@@ -28,13 +28,33 @@ namespace Runtime.GameContent.Actors.ActorViews
 
         public bool Active
         {
-	        get => _active && !Destroyed;
+	        get => _active /*&& !Destroyed*/;
 	        set => _active = value;
         }
 
         public bool Possessed { get; set; }
 
-		public bool Destroyed { get; private set; }
+        public bool Destroyed
+        {
+	        get => _destroyed;
+	        set
+	        {
+		        _destroyed = value;
+		        if (_destroyed)
+			        return;
+		        
+		        _active = false;
+		        Flag3 = Flag1;
+		        vfxReferences.waterParticles.Stop();
+		        vfxReferences.waterPlaying = false;
+		        vfxReferences.fireParticles.Stop();
+		        vfxReferences.firePlaying = false;
+		        vfxReferences.electricParticles.Stop();
+		        vfxReferences.elecPlaying = false;
+		        vfxReferences.explosionParticles.Stop();
+		        vfxReferences.explodePlaying = false;
+	        }
+        }
 
 		public VFXReferences VFX => vfxReferences;
 
@@ -78,8 +98,12 @@ namespace Runtime.GameContent.Actors.ActorViews
 
 		public void DestructiveAction()
         {
-            Debug.Log("DestructiveAction");
             Destroyed = true;
+            
+            _active = true;
+            Flag3 = Flag2;
+            
+            SetParticle(this);
         }
 
 		public void CheckOtherElement(IElementHolder holder)
@@ -297,6 +321,8 @@ namespace Runtime.GameContent.Actors.ActorViews
 		};
 
 		private bool _active;
+		
+		private bool _destroyed;
 
         #endregion
     }
