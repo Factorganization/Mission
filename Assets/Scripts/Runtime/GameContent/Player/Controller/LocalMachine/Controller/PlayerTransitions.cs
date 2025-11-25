@@ -55,6 +55,9 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller
             
             foreach (var p in LevelGenerator.Generator.Possessables)
             {
+                if (p.Destroyed)
+                    continue;
+                
                 var d = Vector3.Distance(p.Transform.position, playerModel.rb.position);
                 var a = Vector3.Angle(playerModel.graph.forward, ((p.Transform.position - playerModel.rb.position) * GameConstants.VectorUpFilter).normalized);
 

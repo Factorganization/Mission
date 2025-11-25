@@ -72,7 +72,8 @@ namespace Runtime.GameContent.Actors.ActorViews
 		
 		public void Update()
 		{
-			text.text = $"{(Active ? "<color=green>Active</color>" : "<color=red>Inactive</color>")}\n {Convert.ToString((int)Flag1, 2).PadLeft(4, '0')} \n {Convert.ToString((int)Flag2, 2).PadLeft(4, '0')}";
+			if (debug)
+				text.text = $"{(Active ? "<color=green>Active</color>" : "<color=red>Inactive</color>")}\n {Convert.ToString((int)Flag1, 2).PadLeft(4, '0')} \n {Convert.ToString((int)Flag2, 2).PadLeft(4, '0')}";
 		}
 
 		public void Action()
@@ -97,11 +98,11 @@ namespace Runtime.GameContent.Actors.ActorViews
 		}
 
 		public void DestructiveAction()
-        {
+		{
             Destroyed = true;
             
             _active = true;
-            Flag3 = Flag2;
+            Flag3 = Flag1;
             
             SetParticle(this);
         }
@@ -304,6 +305,8 @@ namespace Runtime.GameContent.Actors.ActorViews
 
         [SerializeField] private TMP_Text text;
 
+        [SerializeField] private bool debug;
+        
         private static ElementInteractionDataPair[] ResolveInteractions =
         {
 	        new(){ flag = 0b0011, callback = WetAndBurn },
