@@ -54,32 +54,36 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller
         /// <returns>
         /// <list type="return cases">
         /// <item>1 : try Possess / Unpossess</item>
-        /// <item>2 : possess action pressed</item>
-        /// <item>3 : possess action released</item>
+        /// <item>2 : interact pressed</item>
+        /// <item>3 : interact released</item>
         /// <item>4 : interact while grabbing</item>
-        /// <item>5 : throw item</item>
+        /// <item>5 : prep throw item</item>
         /// <item>6 : try Grab / Drop</item>
+        /// <item>7 : cancel throw</item>
         /// </list>
         /// </returns>
         internal static byte HandleMonoInputGather(this PlayerModel playerModel)
         {
             if (playerModel.data.inputData.tryPossessInput.action.WasPressedThisFrame())
                 return 1;
-
-            if (playerModel.data.inputData.possessInteractInput.action.IsPressed())
-                return 2;
-
-            if (playerModel.data.inputData.possessInteractInput.action.WasReleasedThisFrame())
-                return 3;
-
-            if (playerModel.data.inputData.grabInteractInput.action.WasPressedThisFrame())
+            
+            if (playerModel.data.inputData.interactInput.action.WasPressedThisFrame())
                 return 4;
 
-            if (playerModel.data.inputData.throwInput.action.WasPressedThisFrame())
-                return 5;
+            if (playerModel.data.inputData.interactInput.action.IsPressed())
+                return 2;
+
+            if (playerModel.data.inputData.interactInput.action.WasReleasedThisFrame())
+                return 3;
 
             if (playerModel.data.inputData.tryGrabInput.action.WasPressedThisFrame())
                 return 6;
+
+            if (playerModel.data.inputData.throwInput.action.IsPressed())
+                return 5;
+
+            if (playerModel.data.inputData.throwInput.action.WasReleasedThisFrame())
+                return 7; //not that useful
 
             return 0;
         }
