@@ -100,10 +100,10 @@ namespace Runtime.GameContent.Actors.ActorViews
 		public void DestructiveAction()
 		{
             Destroyed = true;
-            
+            //TODO how ?
             _active = true;
             Flag3 = Flag1;
-            
+            //TODO what ?
             SetParticle(this);
         }
 
