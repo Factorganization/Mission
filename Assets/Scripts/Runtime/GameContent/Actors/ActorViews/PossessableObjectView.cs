@@ -66,7 +66,7 @@ namespace Runtime.GameContent.Actors.ActorViews
 		private void Start()
 		{
 			Possessed = false;
-			Destroyed = false;
+			Destroyed = destroyedAtStart;
 			_active = false;
 			Flag3 = Flag1;
 		}
@@ -307,6 +307,8 @@ namespace Runtime.GameContent.Actors.ActorViews
         [SerializeField] private TMP_Text text;
 
         [SerializeField] private bool debug;
+
+        [SerializeField] private bool destroyedAtStart;
         
         private static ElementInteractionDataPair[] ResolveInteractions =
         {
