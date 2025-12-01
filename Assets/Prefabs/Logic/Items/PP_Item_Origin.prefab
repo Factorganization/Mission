@@ -290,10 +290,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Satanic.Runtime::Runtime.GameContent.Actors.ActorViews.GrabbableObjectView
   vfxReferences:
-    fireParticles: {fileID: 983198383896707026}
-    waterParticles: {fileID: 2283352821506890452, guid: 88391a10c70b9f9478b4ddc8f1337677, type: 3}
-    electricParticles: {fileID: 7029047249477323594, guid: 088c57eda3d0c9a4e8c47e897074772b, type: 3}
-    explosionParticles: {fileID: 3092458821620890477, guid: e83fec1a4d3f34445b89d82522fa04b0, type: 3}
+    fireParticles:
+    - {fileID: 983198383896707026}
+    waterParticles:
+    - {fileID: 5399806921017633922}
+    electricParticles:
+    - {fileID: 3013675905585378385}
+    explosionParticles:
+    - {fileID: 5893193186080528281}
     firePlaying: 0
     waterPlaying: 0
     elecPlaying: 0
@@ -363,6 +367,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1163098585992900492, guid: 088c57eda3d0c9a4e8c47e897074772b, type: 3}
   m_PrefabInstance: {fileID: 3126561310494156744}
   m_PrefabAsset: {fileID: 0}
+--- !u!198 &5399806921017633922 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 7029047249477323594, guid: 088c57eda3d0c9a4e8c47e897074772b, type: 3}
+  m_PrefabInstance: {fileID: 3126561310494156744}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3918873913846410885
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -420,6 +429,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 88391a10c70b9f9478b4ddc8f1337677, type: 3}
+--- !u!198 &3013675905585378385 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 2283352821506890452, guid: 88391a10c70b9f9478b4ddc8f1337677, type: 3}
+  m_PrefabInstance: {fileID: 3918873913846410885}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8230652977629886048 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4925676069672966373, guid: 88391a10c70b9f9478b4ddc8f1337677, type: 3}
@@ -552,5 +566,10 @@ PrefabInstance:
 --- !u!4 &1071164843753720130 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8502734332161074614, guid: e83fec1a4d3f34445b89d82522fa04b0, type: 3}
+  m_PrefabInstance: {fileID: 8872738961352125684}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &5893193186080528281 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 3092458821620890477, guid: e83fec1a4d3f34445b89d82522fa04b0, type: 3}
   m_PrefabInstance: {fileID: 8872738961352125684}
   m_PrefabAsset: {fileID: 0}

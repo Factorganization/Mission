@@ -5,13 +5,13 @@ namespace Runtime.GameContent.Logics.LogicModels
 	[System.Serializable]
 	public class VFXReferences
 	{
-		public ParticleSystem fireParticles;
+		public ParticleSystem[] fireParticles;
 
-		public ParticleSystem waterParticles;
+		public ParticleSystem[] waterParticles;
 
-		public ParticleSystem electricParticles;
+		public ParticleSystem[] electricParticles;
 
-		public ParticleSystem explosionParticles;
+		public ParticleSystem[] explosionParticles;
 
 		[HideInInspector] public bool firePlaying;
 		
