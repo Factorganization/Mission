@@ -37,6 +37,9 @@ namespace Runtime.GameContent.Actors.ActorViews
             if (aiDetection.CurrentObject != null)
                 AIController.SetCurrentWaypoint(_aiModel,  aiDetection.CurrentObject.OriginPos);
             
+            if (aiDetection.CurrentPossessable != null)
+                AIController.SetCurrentWaypoint(_aiModel, aiDetection.CurrentPossessable.Transform.position - ((transform.position - aiDetection.CurrentPossessable.Transform.position).normalized)*2);
+            
             if (aiDetection.IsSuspicious)
                 AIController.SetCurrentWaypoint(_aiModel, aiDetection.LastKnownPlayerPosition);
             
