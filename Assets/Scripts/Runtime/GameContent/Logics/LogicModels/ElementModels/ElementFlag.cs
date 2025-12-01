@@ -1,4 +1,4 @@
-namespace Runtime.GameContent.Logics.LogicModels
+namespace Runtime.GameContent.Logics.LogicModels.ElementModels
 {
     /// <summary>
     /// BitMask element descriptor that can be held by objects
