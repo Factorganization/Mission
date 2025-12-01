@@ -2,11 +2,11 @@ using System;
 using Runtime.GameContent.Actors.ActorInterfaces;
 using Runtime.GameContent.Logics.LogicInterfaces;
 using Runtime.GameContent.Logics.LogicModels;
+using Runtime.GameContent.Logics.LogicModels.ElementModels;
 using Runtime.Management.GameManagement;
 using Shared.Utils.Listing;
 using TMPro;
 using UnityEngine;
-
 
 namespace Runtime.GameContent.Actors.ActorViews
 {
@@ -101,45 +101,53 @@ namespace Runtime.GameContent.Actors.ActorViews
 		{
 			if ((holder.Flag3 & ElementFlag.CanBeWet) != 0 && !holder.VFX.waterPlaying)
 			{
-				holder.VFX.waterParticles.Play();
+				foreach (var p in holder.VFX.waterParticles)
+					p.Play();
 				holder.VFX.waterPlaying = true;
 			}
 			else if ((holder.Flag3 & ElementFlag.CanBeWet) == 0)
 			{
-				holder.VFX.waterParticles.Stop();
+				foreach (var p in holder.VFX.waterParticles)
+					p.Stop();
 				holder.VFX.waterPlaying = false;
 			}
 
 			if ((holder.Flag3 & ElementFlag.CanBurn) != 0 && !holder.VFX.firePlaying)
 			{
-				holder.VFX.fireParticles.Play();
+				foreach (var p in holder.VFX.fireParticles)
+					p.Play();
 				holder.VFX.firePlaying = true;
 			}
 			else if ((holder.Flag3 & ElementFlag.CanBurn) == 0)
 			{
-				holder.VFX.fireParticles.Stop();
+				foreach (var p in holder.VFX.fireParticles)
+					p.Stop();
 				holder.VFX.firePlaying = false;
 			}
 
 			if ((holder.Flag3 & ElementFlag.CanConduct) != 0 && !holder.VFX.elecPlaying)
 			{
-				holder.VFX.electricParticles.Play();
+				foreach (var p in holder.VFX.electricParticles)
+					p.Play();
 				holder.VFX.elecPlaying = true;
 			}
 			else if ((holder.Flag3 & ElementFlag.CanConduct) == 0)
 			{
-				holder.VFX.electricParticles.Stop();
+				foreach (var p in holder.VFX.electricParticles)
+					p.Stop();
 				holder.VFX.elecPlaying = false;
 			}
 
 			if ((holder.Flag3 & ElementFlag.CanExplode) != 0 && !holder.VFX.explodePlaying)
 			{
-				holder.VFX.explosionParticles.Play();
+				foreach (var p in holder.VFX.explosionParticles)
+					p.Play();
 				holder.VFX.explodePlaying = true;
 			}
 			else if ((holder.Flag3 & ElementFlag.CanExplode) == 0)
 			{
-				holder.VFX.explosionParticles.Stop();
+				foreach (var p in holder.VFX.explosionParticles)
+					p.Stop();
 				holder.VFX.explodePlaying = false;
 			}
 		}
@@ -147,24 +155,32 @@ namespace Runtime.GameContent.Actors.ActorViews
 		protected static void SetParticleOverride(IElementHolder holder, ElementFlag flag, bool active)
 		{
 			if (flag == ElementFlag.CanBeWet && active)
-				holder.VFX.waterParticles.Play();
+				foreach (var p in holder.VFX.waterParticles)
+					p.Play();
 			else if (flag == ElementFlag.CanBeWet && !active)
-				holder.VFX.waterParticles.Stop();
+				foreach (var p in holder.VFX.waterParticles)
+					p.Stop();
 			
 			if (flag == ElementFlag.CanBurn && active)
-				holder.VFX.fireParticles.Play();
+				foreach (var p in holder.VFX.fireParticles)
+					p.Play();
 			else if (flag == ElementFlag.CanBurn && !active)
-				holder.VFX.fireParticles.Stop();
+				foreach (var p in holder.VFX.fireParticles)
+					p.Stop();
 			
 			if (flag == ElementFlag.CanConduct && active)
-				holder.VFX.electricParticles.Play();
+				foreach (var p in holder.VFX.electricParticles)
+					p.Play();
 			else if (flag == ElementFlag.CanConduct && !active)
-				holder.VFX.electricParticles.Stop();
+				foreach (var p in holder.VFX.electricParticles)
+					p.Stop();
 			
 			if (flag == ElementFlag.CanExplode && active)
-				holder.VFX.explosionParticles.Play();
+				foreach (var p in holder.VFX.explosionParticles)
+					p.Play();
 			else if (flag == ElementFlag.CanExplode && !active)
-				holder.VFX.explosionParticles.Stop();
+				foreach (var p in holder.VFX.explosionParticles)
+					p.Stop();
 		}
 
 		private static int GetKey(ElementInteractionDataPair data) => data.flag;

@@ -128,7 +128,7 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller
                                     * Time.fixedDeltaTime;
             playerModel.camPitch = ClampSymmetric(playerModel.camPitch, playerModel.data.cameraData.maxPitchAngle);
             
-            playerModel.cam.localEulerAngles = new Vector3(playerModel.cam.localEulerAngles.x, playerModel.camYaw, 0);
+            playerModel.cam.localEulerAngles = new Vector3(playerModel.data.cameraData.freeCam ? playerModel.camPitch : playerModel.cam.localEulerAngles.x, playerModel.camYaw, 0);
             //playerModel.cam.localEulerAngles += Math.EasingFunction.SimpleQuadraticEase.V3SimpleQuadraticEaseOut(playerModel.cam.localEulerAngles, playerModel.targetLookDir, 0.1f);
         }
         

@@ -1,5 +1,5 @@
 using Runtime.GameContent.Player.Controller.LocalMachine.Model;
-using Runtime.Utils.BaseMachine;
+using Shared.Utils.BaseMachine;
 using UnityEngine;
 
 namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller.States
