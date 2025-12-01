@@ -73,6 +73,8 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Model
         
         [Range(0f, 90f)]
         public float maxPitchAngle;
+
+        public bool freeCam;
     }
 
     [System.Serializable]

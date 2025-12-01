@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-namespace Runtime.Utils.BaseMachine
+namespace Shared.Utils.BaseMachine
 {
     public abstract class BaseState
     {

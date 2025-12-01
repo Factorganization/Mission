@@ -1,5 +1,6 @@
 using UnityEngine;
 using Runtime.GameContent.Logics.LogicModels;
+using Runtime.GameContent.Logics.LogicModels.ElementModels;
 
 namespace Runtime.GameContent.Logics.LogicInterfaces
 {

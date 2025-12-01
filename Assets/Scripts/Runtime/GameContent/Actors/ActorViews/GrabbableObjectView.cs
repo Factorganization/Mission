@@ -2,11 +2,11 @@ using System;
 using Runtime.GameContent.Actors.ActorInterfaces;
 using Runtime.GameContent.Logics.LogicInterfaces;
 using Runtime.GameContent.Logics.LogicModels;
+using Runtime.GameContent.Logics.LogicModels.ElementModels;
 using Runtime.Management.GameManagement;
 using Shared.Utils.Listing;
 using TMPro;
 using UnityEngine;
-
 
 namespace Runtime.GameContent.Actors.ActorViews
 {

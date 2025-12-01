@@ -1,6 +1,6 @@
 using Runtime.GameContent.Logics.LogicInterfaces;
 
-namespace Runtime.GameContent.Logics.LogicModels
+namespace Runtime.GameContent.Logics.LogicModels.ElementModels
 {
     public struct ElementInteractionData
     {
