@@ -47,10 +47,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: Satanic.Runtime::Runtime.GameContent.Actors.ActorViews.NoInteractObjectView
   flag: 0
   vfxReferences:
-    fireParticles: {fileID: 28199998175857285}
-    waterParticles: {fileID: 6271851989606467555}
-    electricParticles: {fileID: 6271851989606467555}
-    explosionParticles: {fileID: 3958296061441024720}
+    fireParticles:
+    - {fileID: 28199998175857285}
+    waterParticles:
+    - {fileID: 3806352130326892216}
+    electricParticles:
+    - {fileID: 6271851989606467555}
+    explosionParticles:
+    - {fileID: 3958296061441024720}
     firePlaying: 0
     waterPlaying: 0
     elecPlaying: 0
@@ -238,6 +242,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 284d4157cef2d6d44a1040b99b8e571d, type: 3}
+--- !u!198 &3806352130326892216 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 8131190251256277087, guid: 284d4157cef2d6d44a1040b99b8e571d, type: 3}
+  m_PrefabInstance: {fileID: 4901371510793463527}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4792338107607788289 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 469752554353839590, guid: 284d4157cef2d6d44a1040b99b8e571d, type: 3}

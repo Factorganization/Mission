@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace Runtime.Utils.BaseMachine
+namespace Shared.Utils.BaseMachine
 {
     public sealed class GenericStateMachine
     {
