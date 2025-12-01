@@ -1,10 +1,9 @@
-using Runtime.Utils.UI;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Runtime.GameContent.UI.Customization
 {
-    public class CustomizationPage : UIParent, IDraggeable
+    public class CustomizationPage : UIParent
     {
        #region Functions
 

@@ -28,9 +28,7 @@ public static class ReverseAnimationContext
         {
             var keys = curve.curve.keys;
             int keyCount = keys.Length;
-            var postWrapmode = curve.curve.postWrapMode;
-            curve.curve.postWrapMode = curve.curve.preWrapMode;
-            curve.curve.preWrapMode = postWrapmode;
+            (curve.curve.postWrapMode, curve.curve.preWrapMode) = (curve.curve.preWrapMode, curve.curve.postWrapMode);
             for (int i = 0; i < keyCount; i++)
             {
                 Keyframe K = keys[i];

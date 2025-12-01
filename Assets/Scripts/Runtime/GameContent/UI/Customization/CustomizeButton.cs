@@ -48,7 +48,6 @@ namespace Runtime.GameContent.UI.Customization
         
         public void ResetForPool()
         {
-            // remove listeners and clear data
             OnChangeSkin.RemoveAllListeners();
             _customizeItem = null;
             _locked = false;

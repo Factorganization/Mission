@@ -44,7 +44,6 @@ namespace Runtime.GameContent.UI.Customization
             
             for (int i = 0; i < items.Count; i++)
             {
-                Debug.Log("Populating item: " + items[i].ItemName);
                 var btn = _pool[i];
                 btn.gameObject.SetActive(true);
                 btn.ResetForPool();
