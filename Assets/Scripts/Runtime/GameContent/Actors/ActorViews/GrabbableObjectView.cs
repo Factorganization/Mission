@@ -49,7 +49,8 @@ namespace Runtime.GameContent.Actors.ActorViews
 
 		public void Update()
 		{
-			text.text = $"{(Active ? "<color=green>Active</color>" : "<color=red>Inactive</color>")}\n {Convert.ToString((int)Flag1, 2).PadLeft(4, '0')} \n {Convert.ToString((int)Flag2, 2).PadLeft(4, '0')}";
+			if (debug)
+				text.text = $"{(Active ? "<color=green>Active</color>" : "<color=red>Inactive</color>")}\n {Convert.ToString((int)Flag1, 2).PadLeft(4, '0')} \n {Convert.ToString((int)Flag2, 2).PadLeft(4, '0')}";
 		}
 
 		public bool Action()
@@ -254,6 +255,8 @@ namespace Runtime.GameContent.Actors.ActorViews
 		
 		[SerializeField] private TMP_Text text;
 
+		[SerializeField] private bool debug;
+		
 		private static ElementInteractionDataPair[] ResolveInteractions =
 		{
 			new(){ flag = 0b0011, callback = WetAndBurn },

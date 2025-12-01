@@ -66,7 +66,16 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller.States
                     break;
                 
                 case 5:
-                    playerModel.TryThrowGrabbedObject();
+                    playerModel.throwTimer += Time.deltaTime;
+                    if (playerModel.throwTimer > playerModel.data.interactData.throwTimer)
+                    {
+                        playerModel.throwTimer = 0;
+                        playerModel.TryThrowGrabbedObject();
+                    }
+                    break;
+                
+                case 7:
+                    playerModel.throwTimer = 0;
                     break;
             }
 

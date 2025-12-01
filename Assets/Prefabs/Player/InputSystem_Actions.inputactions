@@ -25,15 +25,6 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Interact",
-                    "type": "Button",
-                    "id": "852140f2-7766-474d-8707-702459ba45f3",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "Hold",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "TryGrab",
                     "type": "Button",
                     "id": "63b52c43-5849-47a1-bcb8-188e9fbb9d92",
@@ -70,7 +61,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "PossessAction",
+                    "name": "Action",
                     "type": "Button",
                     "id": "bcacd70e-c513-4eda-8cfe-9c0e49e80b32",
                     "expectedControlType": "",
@@ -79,18 +70,9 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Throw",
+                    "name": "TryThow",
                     "type": "Button",
-                    "id": "df8f97ed-2b26-47a9-b7b0-75952aa0485b",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "GrabAction",
-                    "type": "Button",
-                    "id": "6b20bc09-fdc2-444d-a306-d3fd6442e8d0",
+                    "id": "e306894f-f0c0-4035-b3dc-6a9289c52efd",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -265,28 +247,6 @@
                 },
                 {
                     "name": "",
-                    "id": "1c04ea5f-b012-41d1-a6f7-02e963b52893",
-                    "path": "<Keyboard>/e",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard&Mouse",
-                    "action": "Interact",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "b3f66d0b-7751-423f-908b-a11c5bd95930",
-                    "path": "<Gamepad>/buttonNorth",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "Interact",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "a64b5017-b8e2-45cc-878f-cf1fa2989ded",
                     "path": "<Keyboard>/e",
                     "interactions": "",
@@ -331,17 +291,6 @@
                 },
                 {
                     "name": "",
-                    "id": "6e0c65a3-9e97-4d00-b3cc-30e72569a5d6",
-                    "path": "<Gamepad>/buttonWest",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "TryPossess",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "c9533638-a868-486f-84d4-417068c4db6b",
                     "path": "<Keyboard>/space",
                     "interactions": "",
@@ -376,11 +325,11 @@
                 {
                     "name": "",
                     "id": "a5ba1617-66d5-42e1-8104-929044e8c551",
-                    "path": "<Gamepad>/leftTrigger",
+                    "path": "<Gamepad>/rightTrigger",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Touch",
-                    "action": "PossessAction",
+                    "action": "Action",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -391,51 +340,29 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "PossessAction",
+                    "action": "Action",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "75e562a4-2adf-4cba-b58f-bc7a54008a95",
-                    "path": "<Gamepad>/rightTrigger",
+                    "id": "d2120a64-0521-4332-936d-1f2fcfa2fbaf",
+                    "path": "<Gamepad>/buttonWest",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Throw",
+                    "action": "TryThow",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "83660dbb-05d5-4fe9-99f4-9fa7738dc534",
+                    "id": "5b80d690-6c6d-4e76-b973-df684f0557cf",
                     "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Throw",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "637ccb3e-595f-4960-9c3e-bf7b1219fe80",
-                    "path": "<Gamepad>/buttonNorth",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "GrabAction",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "bf68886f-023e-48f0-9ad4-374f90adb2ae",
-                    "path": "<Keyboard>/tab",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "GrabAction",
+                    "action": "TryThow",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

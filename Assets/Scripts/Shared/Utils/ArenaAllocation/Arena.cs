@@ -4,11 +4,11 @@ using Unity.Collections.LowLevel.Unsafe;
 
 namespace Shared.Utils.ArenaAllocation
 {
-    public unsafe class ArenaAllocator : IDisposable
+    public unsafe class Arena : IDisposable
     {
         #region constructors
 
-        public ArenaAllocator(int byteSize)
+        public Arena(int byteSize)
         {
             _buffer = (byte*)UnsafeUtility.Malloc(byteSize, 16, Allocator.Persistent);
             _offset = 0;
@@ -16,7 +16,7 @@ namespace Shared.Utils.ArenaAllocation
         }
 
         #endregion
-        
+
         #region methodes
 
         public T* Alloc<T>(int count = 1) where T : unmanaged
