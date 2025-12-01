@@ -49,9 +49,13 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller
         /// </returns>
         internal static sbyte OnTryPossess(this PlayerModel playerModel)
         {
+            IPossessable tp = null;
+
+            if (LevelGenerator.Generator is null)
+                return 0;
+            
             var minDist = 100f;
             var minAngle = 45f;
-            IPossessable tp = null;
             
             foreach (var p in LevelGenerator.Generator.Possessables)
             {
@@ -89,9 +93,13 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller
         /// </returns>
         internal static sbyte OnTryGrab(this PlayerModel playerModel, out IGrabbable gb)
         {
+            gb = null;
+            
+            if (LevelGenerator.Generator is null)
+                return 0;
+            
             var minDist = 100f;
             var minAngle = 45f;
-            gb = null;
 
             foreach (var g in LevelGenerator.Generator.Grabbables)
             {
