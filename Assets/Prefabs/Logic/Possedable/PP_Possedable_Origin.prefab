@@ -262,10 +262,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Satanic.Runtime::Runtime.GameContent.Actors.ActorViews.PossessableObjectView
   vfxReferences:
-    fireParticles: {fileID: 1913773069877097176}
-    waterParticles: {fileID: 2416390676881422045}
-    electricParticles: {fileID: 3059786950515919632}
-    explosionParticles: {fileID: 3009414924847345972}
+    fireParticles:
+    - {fileID: 1913773069877097176}
+    waterParticles:
+    - {fileID: 2416390676881422045}
+    electricParticles:
+    - {fileID: 3059786950515919632}
+    explosionParticles:
+    - {fileID: 3009414924847345972}
     firePlaying: 0
     waterPlaying: 0
     elecPlaying: 0
@@ -274,6 +278,7 @@ MonoBehaviour:
   receptorElement: 0
   text: {fileID: 8287148556315684837}
   debug: 0
+  destroyedAtStart: 0
 --- !u!1001 &227722069707885145
 PrefabInstance:
   m_ObjectHideFlags: 0
