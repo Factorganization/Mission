@@ -33,7 +33,7 @@ namespace Runtime.GameContent.UI.Customization
             if (_locked) return;
             OnChangeSkin.Invoke(this);
         }
-        
+        /*
         public void SetData(CustomizeItem item, bool locked)
         {
             _customizeItem = item;
@@ -41,6 +41,22 @@ namespace Runtime.GameContent.UI.Customization
 
             if (item.ItemIcon != null)
                 _image.sprite = item != null ? item.ItemIcon : null;
+
+            if (_lockImage != null)
+                _lockImage.gameObject.SetActive(_locked);
+            
+            SelectedMesh = item != null ? item.ItemMesh : null;
+        }*/
+        
+        public void SetData(Mesh mesh, Sprite icon, bool locked, int index)
+        {
+            _customizeItem = null;
+            SelectedMesh = mesh;
+            ItemIndex = index;
+            _locked = locked;
+
+            if (_image != null)
+                _image.sprite = icon;
 
             if (_lockImage != null)
                 _lockImage.gameObject.SetActive(_locked);
@@ -65,7 +81,10 @@ namespace Runtime.GameContent.UI.Customization
         [SerializeField] private CustomizeItem _customizeItem;
         [SerializeField] private bool _locked;
         
-        public ChangeSkin OnChangeSkin = new ChangeSkin(); 
+        public ChangeSkin OnChangeSkin = new ChangeSkin();
+
+        public Mesh SelectedMesh { get; private set; }
+        public int ItemIndex { get; private set; }
 
         #endregion
     }

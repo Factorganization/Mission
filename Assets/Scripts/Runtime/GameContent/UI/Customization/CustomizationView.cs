@@ -17,27 +17,47 @@ namespace Runtime.GameContent.UI.Customization
         {
             _headButton.onClick.AddListener(() =>
             {
-                _customizationPooler.Populate(_headItems);
+                var meshes = _characterPreview.GetMeshes(CustomizationPlayer.BodyPartType.Head);
+                _customizationPooler.PopulateMeshes(meshes, null, (btn) =>
+                {
+                    _characterPreview.SetBodyPartMesh(CustomizationPlayer.BodyPartType.Head, btn.ItemIndex);
+                });
             });
             
             _tailButton.onClick.AddListener(() =>
             {
-                _customizationPooler.Populate(_tailItems);
+                var meshes = _characterPreview.GetMeshes(CustomizationPlayer.BodyPartType.Tail);
+                _customizationPooler.PopulateMeshes(meshes, null, (btn) =>
+                {
+                    _characterPreview.SetBodyPartMesh(CustomizationPlayer.BodyPartType.Tail, btn.ItemIndex);
+                });
             });
             
             _eyesButton.onClick.AddListener(() =>
             {
-                _customizationPooler.Populate(_eyesItems);
+                var meshes = _characterPreview.GetMeshes(CustomizationPlayer.BodyPartType.Eyes);
+                _customizationPooler.PopulateMeshes(meshes, null, (btn) =>
+                {
+                    _characterPreview.SetBodyPartMesh(CustomizationPlayer.BodyPartType.Eyes, btn.ItemIndex);
+                });
             });
             
             _bodyButton.onClick.AddListener(() =>
             {
-                _customizationPooler.Populate(_bodyItems);
+                var meshes = _characterPreview.GetMeshes(CustomizationPlayer.BodyPartType.Body);
+                _customizationPooler.PopulateMeshes(meshes, null, (btn) =>
+                {
+                    _characterPreview.SetBodyPartMesh(CustomizationPlayer.BodyPartType.Body, btn.ItemIndex);
+                });
             });
             
             _hornsButton.onClick.AddListener(() =>
             {
-                _customizationPooler.Populate(_hornsItems);
+                var meshes = _characterPreview.GetMeshes(CustomizationPlayer.BodyPartType.Horns);
+                _customizationPooler.PopulateMeshes(meshes, null, (btn) =>
+                {
+                    _characterPreview.SetBodyPartMesh(CustomizationPlayer.BodyPartType.Horns, btn.ItemIndex);
+                });
             });
         }
         

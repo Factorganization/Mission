@@ -35,6 +35,7 @@ namespace Runtime.GameContent.UI.Customization
             return btn;
         }
         
+        /*
         public void Populate(List<CustomizeItem> items, UnityAction<CustomizeButton> onSelected = null)
         {
             if (_customizeButtonPrefab == null || _contentArea == null) return;
@@ -61,6 +62,34 @@ namespace Runtime.GameContent.UI.Customization
                 btn.gameObject.SetActive(false);
             }
             
+        }*/
+        
+        public void PopulateMeshes(Mesh[] meshes, Sprite[] icons = null, UnityAction<CustomizeButton> onSelected = null)
+        {
+            if (_customizeButtonPrefab == null || _contentArea == null || meshes == null) return;
+
+            for (int i = _pool.Count; i < meshes.Length; i++)
+                CreatePooledButton(false);
+
+            for (int i = 0; i < meshes.Length; i++)
+            {
+                var btn = _pool[i];
+                btn.gameObject.SetActive(true);
+                btn.ResetForPool();
+                Sprite icon = (icons != null && i < icons.Length) ? icons[i] : null;
+                btn.SetData(meshes[i], icon, false, i);
+                if (onSelected != null)
+                    btn.OnChangeSkin.AddListener(onSelected);
+                else
+                    btn.OnChangeSkin.RemoveAllListeners();
+            }
+
+            for (int i = meshes.Length; i < _pool.Count; i++)
+            {
+                var btn = _pool[i];
+                btn.ResetForPool();
+                btn.gameObject.SetActive(false);
+            }
         }
 
         public void ClearPool()

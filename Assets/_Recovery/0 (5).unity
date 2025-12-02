@@ -493,11 +493,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!137 &1024413556 stripped
-SkinnedMeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 2745542156380987686, guid: aeaa3c6d201d14447982fa08c204faeb, type: 3}
-  m_PrefabInstance: {fileID: 4944527505461214771}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1146987002
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -634,10 +629,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: MainMenuUI
       objectReference: {fileID: 0}
-    - target: {fileID: 3061258262056468066, guid: 136f3dccbd0eacd4eb0ccebb0a56466d, type: 3}
-      propertyPath: _characterPreview
-      value: 
-      objectReference: {fileID: 1230151366}
     - target: {fileID: 3297451222587609645, guid: 136f3dccbd0eacd4eb0ccebb0a56466d, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -1003,31 +994,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: Satanic.Runtime::CustomizationPlayer
   bodyPartDataArray:
   - bodyPartType: 0
-    meshArray:
-    - {fileID: 4548107724352571430, guid: 96bfa2d6501c53049abfdcc622400ee5, type: 3}
-    skinnedMeshRenderer: {fileID: 1024413556}
+    meshArray: []
+    skinnedMeshRenderer: {fileID: 0}
   - bodyPartType: 1
-    meshArray:
-    - {fileID: 7284154273618522037, guid: 945955fae2099c4478e50030f4f3ebfd, type: 3}
-    - {fileID: 7034850171065022881, guid: 187665bc3119479408a66eb2eb2765a8, type: 3}
-    skinnedMeshRenderer: {fileID: 1024413556}
+    meshArray: []
+    skinnedMeshRenderer: {fileID: 0}
   - bodyPartType: 2
-    meshArray:
-    - {fileID: 690106047850165013, guid: 9fc5e8b801e834a459a1df09b30910d6, type: 3}
-    - {fileID: -211258614116911562, guid: 85e5114318976774c8d088841b608393, type: 3}
-    - {fileID: -5208879343037863941, guid: 084774609167a5547a10f86b475a4b5b, type: 3}
-    skinnedMeshRenderer: {fileID: 1024413556}
+    meshArray: []
+    skinnedMeshRenderer: {fileID: 0}
   - bodyPartType: 3
-    meshArray:
-    - {fileID: -5208879343037863941, guid: 084774609167a5547a10f86b475a4b5b, type: 3}
-    skinnedMeshRenderer: {fileID: 1024413556}
+    meshArray: []
+    skinnedMeshRenderer: {fileID: 0}
   - bodyPartType: 4
-    meshArray:
-    - {fileID: 5060444177187149915, guid: 084774609167a5547a10f86b475a4b5b, type: 3}
-    - {fileID: 2560431503302890792, guid: 47159592cd281ac458b8ec59734ee700, type: 3}
-    - {fileID: -2232952877369940510, guid: 084774609167a5547a10f86b475a4b5b, type: 3}
-    - {fileID: -8672714952799723808, guid: 440bf3651ae6b504d99cc3640906c684, type: 3}
-    skinnedMeshRenderer: {fileID: 1024413556}
+    meshArray: []
+    skinnedMeshRenderer: {fileID: 0}
 --- !u!224 &1499030061 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6711611100646029527, guid: 136f3dccbd0eacd4eb0ccebb0a56466d, type: 3}
