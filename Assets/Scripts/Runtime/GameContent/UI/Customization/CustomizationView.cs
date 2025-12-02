@@ -50,6 +50,7 @@ namespace Runtime.GameContent.UI.Customization
         
         [SerializeField] List<CustomizeItem> _headItems, _tailItems, _eyesItems, _bodyItems, _hornsItems;
         [SerializeField] CustomizationPooler _customizationPooler;
+        [SerializeField] private CustomizationPlayer _characterPreview;
         
         #endregion
 

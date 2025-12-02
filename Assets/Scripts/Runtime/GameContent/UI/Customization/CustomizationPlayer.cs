@@ -10,10 +10,11 @@ public class CustomizationPlayer : MonoBehaviour
     
     public enum BodyPartType
     {
+        Horns,
         Head,
+        Eyes,
         Body,
-        Legs,
-        Arms
+        Tail
     }
     
     [System.Serializable]

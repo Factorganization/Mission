@@ -27,7 +27,6 @@ namespace Runtime.GameContent.UI.Customization
        
        #region Fields
        
-       [SerializeField] private GameObject _characterPreview;
        [SerializeField] private Button _closeButton;
        [SerializeField] private Animation _animator;
        
