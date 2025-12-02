@@ -48,6 +48,17 @@ namespace Runtime.GameContent.UI.Mail
             _mailLevelPopup.Show();
         }
         
+        public override void Show()
+        {
+            base.Show();
+            _animator.Play("OpenMailPage");
+        }
+        
+        public override void Hide()
+        {
+            _animator.Play("CloseMailPage");
+        }
+        
         #endregion
         
         #region Fields
@@ -57,6 +68,7 @@ namespace Runtime.GameContent.UI.Mail
         [SerializeField] private LevelPopup _mailLevelPopup;
         [SerializeField] private GameObject _mailPrefab;
         [SerializeField] private LevelDataSO _levelData;
+        [SerializeField] private Animation _animator;
 
         #endregion
     }  

@@ -9,6 +9,7 @@ public class MailLevel : ScriptableObject
     public string LevelName;
     public string Sender;
     public string Description;
+    public string Objective;
 
     #endregion
 }
