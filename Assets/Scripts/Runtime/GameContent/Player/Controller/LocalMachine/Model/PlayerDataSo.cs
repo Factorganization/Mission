@@ -36,12 +36,10 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Model
         public InputActionReference tryPossessInput;
 
         public InputActionReference tryGrabInput;
+
+        public InputActionReference interactInput;
         
         public InputActionReference throwInput;
-
-        public InputActionReference possessInteractInput;
-        
-        public InputActionReference grabInteractInput;
 
         public InputActionReference menuInput;
     }
@@ -75,6 +73,8 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Model
         
         [Range(0f, 90f)]
         public float maxPitchAngle;
+
+        public bool freeCam;
     }
 
     [System.Serializable]
@@ -93,6 +93,8 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Model
         public Vector2 throwStrength;
 
         public float bigPossessActionTimer;
+
+        public float throwTimer;
     }
     
     [System.Serializable]

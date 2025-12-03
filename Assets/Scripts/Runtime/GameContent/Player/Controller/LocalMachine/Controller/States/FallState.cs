@@ -1,5 +1,5 @@
 using Runtime.GameContent.Player.Controller.LocalMachine.Model;
-using Runtime.Utils.BaseMachine;
+using Shared.Utils.BaseMachine;
 using UnityEngine;
 
 namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller.States
@@ -39,15 +39,20 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller.States
                     break;
                 
                 case 6:
-                    var tg = playerModel.OnTryGrab();
+                    var tg = playerModel.OnTryGrab(out var gb);
                     switch (tg)
                     {
+                        case 1 when playerModel.currentGrabbedObject is not null:
+                            playerModel.ResetGrabbedObjectState();
+                            playerModel.SetGrabbedObjectState(gb);
+                            break;
+                        
                         case 1:
-							playerModel.SetGrabbedObjectState();
+                            playerModel.SetGrabbedObjectState(gb);
                             break;
                         
                         case 0 when playerModel.currentGrabbedObject is not null:
-							playerModel.ResetGrabbedObjectState();
+                            playerModel.ResetGrabbedObjectState();
                             break;
                     }
                     break;
@@ -59,7 +64,16 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller.States
                     break;
                 
                 case 5:
-                    playerModel.TryThrowGrabbedObject();
+                    playerModel.throwTimer += Time.deltaTime;
+                    if (playerModel.throwTimer > playerModel.data.interactData.throwTimer)
+                    {
+                        playerModel.throwTimer = 0;
+                        playerModel.TryThrowGrabbedObject();
+                    }
+                    break;
+                
+                case 7:
+                    playerModel.throwTimer = 0;
                     break;
             }
             
