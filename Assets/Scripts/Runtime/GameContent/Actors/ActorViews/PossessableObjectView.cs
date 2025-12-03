@@ -115,6 +115,9 @@ namespace Runtime.GameContent.Actors.ActorViews
             Flag3 = Flag1;
             //TODO what ?
             SetParticle(this);
+            
+            if ((Flag3 & ElementFlag.CanExplode) != 0)
+	            Explode(this);
         }
 
 		public void CheckOtherElement(IElementHolder holder)
