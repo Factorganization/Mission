@@ -34,9 +34,10 @@ namespace Runtime.GameContent.Logics.LogicModels.MissionModels
         public static bool operator ==(MissionModel a, MissionModel b)
         {
             return a.mission == b.mission &&
-                   a.objectType == b.objectType &&
-                   a.room == b.room &&
-                   a.toApply == b.toApply;
+                   (a.objectType == b.objectType || 
+                    Enum.GetName(typeof(ElementFlag), a.toApply)!.StartsWith('A')) &&
+                   (a.room == b.room || a.room == RoomType.House || b.room == RoomType.House) &&
+                   a.toApply == b.toApply; //TODO a revoir
         }
 
         public static bool operator !=(MissionModel a, MissionModel b) => !(a == b);

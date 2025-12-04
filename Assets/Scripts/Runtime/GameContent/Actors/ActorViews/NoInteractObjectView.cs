@@ -2,6 +2,7 @@ using Runtime.GameContent.Actors.ActorInterfaces;
 using Runtime.GameContent.Logics.LogicInterfaces;
 using Runtime.GameContent.Logics.LogicModels;
 using Runtime.GameContent.Logics.LogicModels.ElementModels;
+using Runtime.GameContent.Logics.LogicModels.MissionModels;
 using Runtime.Management.GameManagement;
 using Shared.Utils.Listing;
 using UnityEngine;
@@ -61,6 +62,8 @@ namespace Runtime.GameContent.Actors.ActorViews
 			SetParticle(holder);
 		}
 
+        #region graphics methodes
+        
 		protected static void SetParticle(IElementHolder holder)
 		{
 			if ((holder.Flag3 & ElementFlag.CanBeWet) != 0 && !holder.VFX.waterPlaying)
@@ -147,6 +150,8 @@ namespace Runtime.GameContent.Actors.ActorViews
 					p.Stop();
 		}
 
+		#endregion
+		
 		private static int GetKey(ElementInteractionDataPair data) => data.flag;
 
 		#region F11 Comparisions
@@ -228,6 +233,8 @@ namespace Runtime.GameContent.Actors.ActorViews
         #endregion
 
         #region fields
+
+        [SerializeField] private ObjectType @object; //Tu me laisses l'appeler object >:(
 
         private static ElementInteractionDataPair[] ResolveInteractions =
         {

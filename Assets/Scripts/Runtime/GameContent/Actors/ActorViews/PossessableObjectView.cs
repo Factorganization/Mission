@@ -122,7 +122,7 @@ namespace Runtime.GameContent.Actors.ActorViews
 
 		public void CheckOtherElement(IElementHolder holder)
 		{
-			foreach (var i in ResolveInteractions)
+			foreach (var i in _resolveInteractions)
 			{
 				var key = GetKey(i);
 
@@ -132,7 +132,7 @@ namespace Runtime.GameContent.Actors.ActorViews
 
 			if (Active && holder.Active)
 			{
-				foreach (var i in NextInteractions)
+				foreach (var i in _nextInteractions)
 				{
 					var key = GetKey(i);
 					
@@ -146,18 +146,10 @@ namespace Runtime.GameContent.Actors.ActorViews
 			
 			SetParticle(this);
 			SetParticle(holder);
-			//ResetFlags(this);
-			//ResetFlags(holder);
 		}
 
-		private static void ResetFlags(IElementHolder holder)
-		{
-			//TODO separation pour elec et water
-			
-			holder.Flag3 |= ElementFlag.CanExplode;
-			holder.Flag3 &= ~ElementFlag.CanExplode;
-		}
-
+		#region graphics methodes
+		
 		protected static void SetParticle(IElementHolder holder)
 		{
 			if ((holder.Flag3 & ElementFlag.CanBeWet) != 0 && !holder.VFX.waterPlaying)
@@ -244,11 +236,13 @@ namespace Runtime.GameContent.Actors.ActorViews
 					p.Stop();
 		}
 
+		#endregion
+		
 		private static int GetKey(ElementInteractionDataPair data) => data.flag;
 
 		#region F11 Comparisions
 
-		private static void WetAndBurn(ElementInteractionData data)
+		private void WetAndBurn(ElementInteractionData data)
 		{
 			data.holder1.Flag3 |= ElementFlag.CanBurn;
 			data.holder1.Flag3 &= ~ElementFlag.CanBurn;
@@ -261,7 +255,7 @@ namespace Runtime.GameContent.Actors.ActorViews
 				data.holder2.Active = false;
 		}
 
-		private static void WetAndElec(ElementInteractionData data)
+		private void WetAndElec(ElementInteractionData data)
 		{
 			data.holder1.Flag3 |= ElementFlag.CanConduct;
 			data.holder2.Flag3 |= ElementFlag.CanConduct;
@@ -274,38 +268,39 @@ namespace Runtime.GameContent.Actors.ActorViews
 		private static void BurnToBurn(ElementInteractionData data)
 		{
 			data.holder2.Flag3 |= ElementFlag.CanBurn;
+			//MissionManager.Manager?.TryGetMission(new MissionModel(MissionType.ElementAffection, @object, ElementFlag.CanBurn, ));
 		}
 
-		private static void BurnToExplode(ElementInteractionData data)
+		private void BurnToExplode(ElementInteractionData data)
 		{
 			data.holder2.Flag3 |= ElementFlag.CanExplode;
 			Explode(data.holder2);
 		}
 
-		private static void ElectricToBurn(ElementInteractionData data)
+		private void ElectricToBurn(ElementInteractionData data)
 		{
 			data.holder2.Flag3 |= ElementFlag.CanBurn;
 		}
 
-		private static void ElectricToElectric(ElementInteractionData data)
+		private void ElectricToElectric(ElementInteractionData data)
 		{
 			data.holder2.Flag3 |= ElementFlag.CanConduct;
 		}
 
-		private static void ElectricToExplode(ElementInteractionData data)
+		private void ElectricToExplode(ElementInteractionData data)
 		{
 			data.holder2.Flag3 |= ElementFlag.CanExplode;
 			Explode(data.holder2);
 		}
 
-		private static void WetToWet(ElementInteractionData data)
+		private void WetToWet(ElementInteractionData data)
 		{
 			data.holder2.Flag3 |= ElementFlag.CanBeWet;
 		}
 
 		#endregion
 
-		private static void Explode(IElementHolder holder)
+		private void Explode(IElementHolder holder)
 		{
 			//TODO add raycasts
 
@@ -327,6 +322,8 @@ namespace Runtime.GameContent.Actors.ActorViews
         #region fields
 
 		[SerializeField] private VFXReferences vfxReferences;
+		
+		[SerializeField] private ObjectType @object;
 
         [SerializeField] private ElementFlag sourceElement;
 
@@ -338,13 +335,15 @@ namespace Runtime.GameContent.Actors.ActorViews
 
         [SerializeField] private bool destroyedAtStart;
         
-        private static ElementInteractionDataPair[] ResolveInteractions =
+        private RoomType _roomType = RoomType.House;
+        
+        private readonly ElementInteractionDataPair[] _resolveInteractions =
         {
 	        new(){ flag = 0b0011, callback = WetAndBurn },
 	        new(){ flag = 0b0101, callback = WetAndElec },
         };
 
-		private static ElementInteractionDataPair[] NextInteractions =
+		private readonly ElementInteractionDataPair[] _nextInteractions =
 		{
 			new(){ flag = 0b00100010, callback = BurnToBurn },
 			new(){ flag = 0b00101000, callback = BurnToExplode },

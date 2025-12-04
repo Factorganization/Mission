@@ -3,6 +3,7 @@ using Runtime.GameContent.Actors.ActorInterfaces;
 using Runtime.GameContent.Logics.LogicInterfaces;
 using Runtime.GameContent.Logics.LogicModels;
 using Runtime.GameContent.Logics.LogicModels.ElementModels;
+using Runtime.GameContent.Logics.LogicModels.MissionModels;
 using Runtime.Management.GameManagement;
 using Shared.Utils.Listing;
 using TMPro;
@@ -85,17 +86,9 @@ namespace Runtime.GameContent.Actors.ActorViews
 			
 			SetParticle(this);
 			SetParticle(holder);
-			//ResetFlags(this);
-			//ResetFlags(holder);
 		}
-
-		private static void ResetFlags(IElementHolder holder)
-		{
-			//TODO separation pour elec et water
-			
-			holder.Flag3 |= ElementFlag.CanExplode;
-			holder.Flag3 &= ~ElementFlag.CanExplode;
-		}
+		
+		#region graphics methodes
 
 		protected static void SetParticle(IElementHolder holder)
 		{
@@ -182,6 +175,8 @@ namespace Runtime.GameContent.Actors.ActorViews
 				foreach (var p in holder.VFX.explosionParticles)
 					p.Stop();
 		}
+		
+		#endregion
 
 		private static int GetKey(ElementInteractionDataPair data) => data.flag;
 
@@ -266,6 +261,8 @@ namespace Runtime.GameContent.Actors.ActorViews
 		#region fields
 
 		[SerializeField] private VFXReferences vfxReferences;
+		
+		[SerializeField] private ObjectType @object;
 
 		[SerializeField] private ElementFlag element;
 		
