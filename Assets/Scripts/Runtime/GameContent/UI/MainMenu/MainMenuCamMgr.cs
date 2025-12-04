@@ -11,14 +11,9 @@ namespace Runtime.GameContent.UI.MainMenu
             Initialize();
         }
 
-        private void Update()
-        {
-
-        }
-
         private void Initialize()
         {
-
+            _mainMenuCam.transform.position = _startPos.position;
         }
         
         private void MoveCameraToPosition(Transform targetPos)
@@ -35,7 +30,8 @@ namespace Runtime.GameContent.UI.MainMenu
         #region Fields
         
         [SerializeField] private Camera _mainMenuCam;
-        
+        [SerializeField] private Transform _startPos, _endPos;
+
         #endregion
 
     }

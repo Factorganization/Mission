@@ -197,6 +197,47 @@ namespace Runtime.GameContent.UI.Customization
         {
             public List<BodyPartTypeIndex> bodyPartTypeIndexList;
         }
+        
+        public void Save()
+        {
+            List<BodyPartTypeIndex> bodyPartTypeIndexList = new List<BodyPartTypeIndex>();
+
+            foreach (BodyPartType bodyPartType in Enum.GetValues(typeof(BodyPartType)))
+            {
+                BodyPartData bodyPartData = GetBodyPartData(bodyPartType);
+                int meshIndex = bodyPartData != null ? bodyPartData.currentIndex : 0;
+                bodyPartTypeIndexList.Add(new BodyPartTypeIndex
+                {
+                    bodyPartType = bodyPartType,
+                    index = meshIndex
+                });
+            }
+
+            SaveObject saveObject = new SaveObject
+            {
+                bodyPartTypeIndexList = bodyPartTypeIndexList
+            };
+
+            string json = JsonUtility.ToJson(saveObject);
+            Debug.Log(json);
+            PlayerPrefs.SetString(PLAYER_PREFS_KEY, json);
+        }
+
+        public void Load()
+        {
+            string json = PlayerPrefs.GetString(PLAYER_PREFS_KEY);
+            if (string.IsNullOrEmpty(json)) return;
+            SaveObject saveObject = JsonUtility.FromJson<SaveObject>(json);
+            if (saveObject == null || saveObject.bodyPartTypeIndexList == null) return;
+
+            foreach (var bodyPartTypeIndex in saveObject.bodyPartTypeIndexList)
+            {
+                BodyPartData bodyPartData = GetBodyPartData(bodyPartTypeIndex.bodyPartType);
+                if (bodyPartData == null || bodyPartData.prefabArray == null || bodyPartData.prefabArray.Length == 0) continue;
+                int clamped = Mathf.Clamp(bodyPartTypeIndex.index, 0, bodyPartData.prefabArray.Length - 1);
+                SetBodyPartPrefab(bodyPartTypeIndex.bodyPartType, clamped);
+            }
+        }
 
         /* Save and Load functionality for meshes.
         private void Save()
