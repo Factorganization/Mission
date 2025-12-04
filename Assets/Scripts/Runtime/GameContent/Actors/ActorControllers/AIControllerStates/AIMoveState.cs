@@ -1,5 +1,5 @@
 using System.Collections;
-using Runtime.Utils.BaseMachine;
+using Shared.Utils.BaseMachine;
 using UnityEngine;
 
 namespace Runtime.GameContent.Actors.ActorControllers.AIControllerStates

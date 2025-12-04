@@ -1,4 +1,3 @@
-using System;
 using Runtime.GameContent.Actors.ActorControllers;
 using Runtime.GameContent.Actors.ActorModels;
 using UnityEngine;
@@ -44,6 +43,15 @@ namespace Runtime.GameContent.Actors.ActorViews
                 AIController.SetCurrentWaypoint(_aiModel,
                     aiDetection.CurrentPossessable.Transform.position -
                     ((transform.position - aiDetection.CurrentPossessable.Transform.position).normalized) * 2);
+
+                if (Vector3.Distance(gameObject.transform.position, aiDetection.CurrentPossessable.Transform.position) <
+                    0.5f)
+                {
+                    //repair sfx
+                    aiDetection.CurrentPossessable.Destroyed = false;
+                    aiDetection.ForgetPossessable();
+                    AIController.SelectRandomWaypoint(_aiModel);
+                }
             }
 
             if (aiDetection.IsSuspicious)

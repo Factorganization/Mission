@@ -1,4 +1,3 @@
-using Runtime.GameContent.Actors.ActorControllers;
 using Runtime.GameContent.Actors.ActorInterfaces;
 using Runtime.Management.GameManagement;
 using UnityEditor;
@@ -155,6 +154,13 @@ public class AIDetection : MonoBehaviour
             return;
         CurrentObject.Rigidbody.isKinematic = false;
         CurrentObject = null;
+    }
+
+    public void ForgetPossessable()
+    {
+        if (CurrentPossessable == null)
+            return;
+        CurrentPossessable =  null;
     }
 
 #if UNITY_EDITOR
