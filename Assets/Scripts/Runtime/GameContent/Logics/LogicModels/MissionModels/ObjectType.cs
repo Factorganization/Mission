@@ -1,0 +1,33 @@
+namespace Runtime.GameContent.Logics.LogicModels.MissionModels
+{
+    public enum ObjectType
+    {
+        None,
+        Item,
+        Affectable,
+        Possessable,
+        I_Alarm,
+        I_Book,
+        I_Bucket,
+        I_Candle,
+        I_Cloth,
+        I_Knife,
+        I_Pan,
+        I_Phone,
+        I_Paper,
+        I_Tool,
+        I_HandSaw,
+        I_Towel,
+        I_WoodenSppoon,
+        A_Curtains,
+        P_Car,
+        P_FirePlace,
+        P_Computer,
+        P_ElectricMeter,
+        P_Fridge,
+        P_Sink,
+        P_Oven,
+        P_Toilet,
+        P_TV
+    }
+}
