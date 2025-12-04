@@ -1,7 +1,7 @@
 using System;
 using Runtime.GameContent.Actors.ActorControllers.AIControllerStates;
 using UnityEngine;
-using Runtime.Utils.BaseMachine;
+using Shared.Utils.BaseMachine;
 
 namespace Runtime.GameContent.Actors.ActorViews
 {

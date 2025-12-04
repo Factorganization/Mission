@@ -125,22 +125,26 @@ public class AIDetection : MonoBehaviour
             return;
         
         DropObject();
+        Debug.Log(CurrentPossessable);
         
         foreach (IPossessable possessable in levelGenerator.Possessables)
         {
-            var directionToPossessable = (possessable.Transform.position - transform.position);
-            float angleToPossess = Vector3.Angle(transform.forward, directionToPossessable.normalized);
+            var directionToPossessable = (new Vector3(possessable.Transform.position.x, 0, possessable.Transform.position.z) - new Vector3(transform.position.x, 0, transform.position.z)).normalized;
+            float angleToPossess = Vector3.Angle(transform.forward, directionToPossessable);
 
             if (angleToPossess < detectionAngle / 2 && directionToPossessable.magnitude <= detectionDistance)
             {
                 RaycastHit hit;
                 if (!Physics.Raycast(transform.position, directionToPossessable.normalized, out hit))
                     continue; 
-                if  (hit.transform != possessable.Transform)
+                if  (hit.transform.root != possessable.Transform)
                     continue;
-                
+
                 if (possessable.Destroyed)
+                {
+                    Debug.Log("Damaged Object spotted");
                     CurrentPossessable = possessable;
+                }
             }
         }
     }
