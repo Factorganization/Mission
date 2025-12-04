@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Eflatun.SceneReference;
 
-
-namespace Runtime.Management.GameManagement.SceneManagement
+namespace Runtime.Management.SceneManagement
 {
     [Serializable]
     public class SceneGroup
