@@ -70,6 +70,22 @@ namespace Runtime.GameContent.Actors.ActorViews
 
 		private void Start()
 		{
+			_resolveInteractions = new[]
+			{
+				new ElementInteractionDataPair{ flag = 0b0011, callback = WetAndBurn },
+				new ElementInteractionDataPair{ flag = 0b0101, callback = WetAndElec }
+			};
+			
+			_nextInteractions = new []
+			{
+				new ElementInteractionDataPair{ flag = 0b00100010, callback = BurnToBurn },
+				new ElementInteractionDataPair{ flag = 0b00101000, callback = BurnToExplode },
+				new ElementInteractionDataPair{ flag = 0b01000010, callback = ElectricToBurn },
+				new ElementInteractionDataPair{ flag = 0b01000100, callback = ElectricToElectric },
+				new ElementInteractionDataPair{ flag = 0b01001000, callback = ElectricToExplode },
+				new ElementInteractionDataPair{ flag = 0b00010001, callback = WetToWet }
+			};
+
 			Possessed = false;
 			Destroyed = destroyedAtStart;
 			_active = false;
@@ -265,10 +281,10 @@ namespace Runtime.GameContent.Actors.ActorViews
 
 		#region F12 Comparisons
 
-		private static void BurnToBurn(ElementInteractionData data)
+		private void BurnToBurn(ElementInteractionData data)
 		{
 			data.holder2.Flag3 |= ElementFlag.CanBurn;
-			//MissionManager.Manager?.TryGetMission(new MissionModel(MissionType.ElementAffection, @object, ElementFlag.CanBurn, ));
+			MissionManager.Manager?.TryGetMission(new MissionModel(MissionType.ElementAffection, @object, ElementFlag.CanBurn, _roomType));
 		}
 
 		private void BurnToExplode(ElementInteractionData data)
@@ -336,22 +352,10 @@ namespace Runtime.GameContent.Actors.ActorViews
         [SerializeField] private bool destroyedAtStart;
         
         private RoomType _roomType = RoomType.House;
-        
-        private readonly ElementInteractionDataPair[] _resolveInteractions =
-        {
-	        new(){ flag = 0b0011, callback = WetAndBurn },
-	        new(){ flag = 0b0101, callback = WetAndElec },
-        };
 
-		private readonly ElementInteractionDataPair[] _nextInteractions =
-		{
-			new(){ flag = 0b00100010, callback = BurnToBurn },
-			new(){ flag = 0b00101000, callback = BurnToExplode },
-			new(){ flag = 0b01000010, callback = ElectricToBurn },
-			new(){ flag = 0b01000100, callback = ElectricToElectric },
-			new(){ flag = 0b01001000, callback = ElectricToExplode },
-			new(){ flag = 0b00010001, callback = WetToWet },
-		};
+        private ElementInteractionDataPair[] _resolveInteractions;
+
+        private ElementInteractionDataPair[] _nextInteractions;
 
 		private bool _active;
 		

@@ -35,7 +35,9 @@ namespace Runtime.GameContent.Logics.LogicModels.MissionModels
         {
             return a.mission == b.mission &&
                    (a.objectType == b.objectType || 
-                    Enum.GetName(typeof(ElementFlag), a.toApply)!.StartsWith('A')) &&
+                    Enum.GetName(typeof(ElementFlag), a.toApply)!.StartsWith('A') && Enum.GetName(typeof(ElementFlag), b.toApply)!.StartsWith('A') ||
+                    Enum.GetName(typeof(ElementFlag), a.toApply)!.StartsWith('I') && Enum.GetName(typeof(ElementFlag), b.toApply)!.StartsWith('I') ||
+                    Enum.GetName(typeof(ElementFlag), a.toApply)!.StartsWith('P') && Enum.GetName(typeof(ElementFlag), b.toApply)!.StartsWith('P')) &&
                    (a.room == b.room || a.room == RoomType.House || b.room == RoomType.House) &&
                    a.toApply == b.toApply; //TODO a revoir
         }
