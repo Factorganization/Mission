@@ -126,11 +126,13 @@ namespace Runtime.GameContent.Actors.ActorViews
 		public void DestructiveAction()
 		{
             Destroyed = true;
-            //TODO how ?
             _active = true;
             Flag3 = Flag1;
+            //TODO how ?
             //TODO what ?
             SetParticle(this);
+            
+            MissionManager.Manager?.TryGetMission(new MissionModel(MissionType.Action, @object, ElementFlag.CanExplode, _roomType));
             
             if ((Flag3 & ElementFlag.CanExplode) != 0)
 	            Explode(this);
@@ -291,27 +293,32 @@ namespace Runtime.GameContent.Actors.ActorViews
 		{
 			data.holder2.Flag3 |= ElementFlag.CanExplode;
 			Explode(data.holder2);
+			MissionManager.Manager?.TryGetMission(new MissionModel(MissionType.ElementAffection, @object, ElementFlag.CanExplode, _roomType));
 		}
 
 		private void ElectricToBurn(ElementInteractionData data)
 		{
 			data.holder2.Flag3 |= ElementFlag.CanBurn;
+			MissionManager.Manager?.TryGetMission(new MissionModel(MissionType.ElementAffection, @object, ElementFlag.CanBurn, _roomType));
 		}
 
 		private void ElectricToElectric(ElementInteractionData data)
 		{
 			data.holder2.Flag3 |= ElementFlag.CanConduct;
+			MissionManager.Manager?.TryGetMission(new MissionModel(MissionType.ElementAffection, @object, ElementFlag.CanConduct, _roomType));
 		}
 
 		private void ElectricToExplode(ElementInteractionData data)
 		{
 			data.holder2.Flag3 |= ElementFlag.CanExplode;
 			Explode(data.holder2);
+			MissionManager.Manager?.TryGetMission(new MissionModel(MissionType.ElementAffection, @object, ElementFlag.CanExplode, _roomType));
 		}
 
 		private void WetToWet(ElementInteractionData data)
 		{
 			data.holder2.Flag3 |= ElementFlag.CanBeWet;
+			MissionManager.Manager?.TryGetMission(new MissionModel(MissionType.ElementAffection, @object, ElementFlag.CanBeWet, _roomType));
 		}
 
 		#endregion

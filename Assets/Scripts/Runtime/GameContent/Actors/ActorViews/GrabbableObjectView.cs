@@ -42,7 +42,21 @@ namespace Runtime.GameContent.Actors.ActorViews
 
 		public void Start()
 		{
-			_meshRenderer = GetComponentInChildren<MeshRenderer>();
+			_resolveInteractions = new[]
+			{
+				new ElementInteractionDataPair{ flag = 0b0011, callback = WetAndBurn },
+				new ElementInteractionDataPair{ flag = 0b0101, callback = WetAndElec },
+			};
+			_nextInteractions = new[]
+			{
+				new ElementInteractionDataPair{ flag = 0b00100010, callback = BurnToBurn },
+				new ElementInteractionDataPair{ flag = 0b00101000, callback = BurnToExplode },
+				new ElementInteractionDataPair{ flag = 0b01000010, callback = ElectricToBurn },
+				new ElementInteractionDataPair{ flag = 0b01000100, callback = ElectricToElectric },
+				new ElementInteractionDataPair{ flag = 0b01001000, callback = ElectricToExplode },
+				new ElementInteractionDataPair{ flag = 0b00010001, callback = WetToWet },
+			};
+			
 			_rb = GetComponent<Rigidbody>();
 			OriginPos = transform.position;
 			Active = true;
@@ -62,7 +76,7 @@ namespace Runtime.GameContent.Actors.ActorViews
 
 		public void CheckOtherElement(IElementHolder holder)
 		{
-			foreach (var i in ResolveInteractions)
+			foreach (var i in _resolveInteractions)
 			{
 				var key = GetKey(i);
 
@@ -72,7 +86,7 @@ namespace Runtime.GameContent.Actors.ActorViews
 
 			if (Active && holder.Active)
 			{
-				foreach (var i in NextInteractions)
+				foreach (var i in _nextInteractions)
 				{
 					var key = GetKey(i);
 					
@@ -182,7 +196,7 @@ namespace Runtime.GameContent.Actors.ActorViews
 
 		#region F11 Comparisions
 
-		private static void WetAndBurn(ElementInteractionData data)
+		private void WetAndBurn(ElementInteractionData data)
 		{
 			data.holder1.Flag3 |= ElementFlag.CanBurn;
 			data.holder1.Flag3 &= ~ElementFlag.CanBurn;
@@ -195,7 +209,7 @@ namespace Runtime.GameContent.Actors.ActorViews
 				data.holder2.Active = false;
 		}
 
-		private static void WetAndElec(ElementInteractionData data)
+		private void WetAndElec(ElementInteractionData data)
 		{
 			data.holder1.Flag3 |= ElementFlag.CanConduct;
 			data.holder2.Flag3 |= ElementFlag.CanConduct;
@@ -205,41 +219,47 @@ namespace Runtime.GameContent.Actors.ActorViews
 
 		#region F12 Comparisons
 
-		private static void BurnToBurn(ElementInteractionData data)
+		private void BurnToBurn(ElementInteractionData data)
 		{
 			data.holder2.Flag3 |= ElementFlag.CanBurn;
+			MissionManager.Manager?.TryGetMission(new MissionModel(MissionType.ElementAffection, @object, ElementFlag.CanBurn, _roomType));
 		}
 
-		private static void BurnToExplode(ElementInteractionData data)
+		private void BurnToExplode(ElementInteractionData data)
 		{
 			data.holder2.Flag3 |= ElementFlag.CanExplode;
 			Explode(data.holder2);
+			MissionManager.Manager?.TryGetMission(new MissionModel(MissionType.ElementAffection, @object, ElementFlag.CanExplode, _roomType));
 		}
 
-		private static void ElectricToBurn(ElementInteractionData data)
+		private void ElectricToBurn(ElementInteractionData data)
 		{
 			data.holder2.Flag3 |= ElementFlag.CanBurn;
+			MissionManager.Manager?.TryGetMission(new MissionModel(MissionType.ElementAffection, @object, ElementFlag.CanBurn, _roomType));
 		}
 
-		private static void ElectricToElectric(ElementInteractionData data)
+		private void ElectricToElectric(ElementInteractionData data)
 		{
 			data.holder2.Flag3 |= ElementFlag.CanConduct;
+			MissionManager.Manager?.TryGetMission(new MissionModel(MissionType.ElementAffection, @object, ElementFlag.CanConduct, _roomType));
 		}
 
-		private static void ElectricToExplode(ElementInteractionData data)
+		private void ElectricToExplode(ElementInteractionData data)
 		{
 			data.holder2.Flag3 |= ElementFlag.CanExplode;
 			Explode(data.holder2);
+			MissionManager.Manager?.TryGetMission(new MissionModel(MissionType.ElementAffection, @object, ElementFlag.CanExplode, _roomType));
 		}
 
-		private static void WetToWet(ElementInteractionData data)
+		private void WetToWet(ElementInteractionData data)
 		{
 			data.holder2.Flag3 |= ElementFlag.CanBeWet;
+			MissionManager.Manager?.TryGetMission(new MissionModel(MissionType.ElementAffection, @object, ElementFlag.CanBeWet, _roomType));
 		}
 
 		#endregion
 
-		private static void Explode(IElementHolder holder)
+		private void Explode(IElementHolder holder)
 		{
 			//TODO add raycasts
 
@@ -269,26 +289,14 @@ namespace Runtime.GameContent.Actors.ActorViews
 		[SerializeField] private TMP_Text text;
 
 		[SerializeField] private bool debug;
-		
-		private static ElementInteractionDataPair[] ResolveInteractions =
-		{
-			new(){ flag = 0b0011, callback = WetAndBurn },
-			new(){ flag = 0b0101, callback = WetAndElec },
-		};
-		
-		private static ElementInteractionDataPair[] NextInteractions =
-		{
-			new(){ flag = 0b00100010, callback = BurnToBurn },
-			new(){ flag = 0b00101000, callback = BurnToExplode },
-			new(){ flag = 0b01000010, callback = ElectricToBurn },
-			new(){ flag = 0b01000100, callback = ElectricToElectric },
-			new(){ flag = 0b01001000, callback = ElectricToExplode },
-			new(){ flag = 0b00010001, callback = WetToWet },
-		};
+        
+		private RoomType _roomType = RoomType.House;
+
+		private ElementInteractionDataPair[] _resolveInteractions;
+
+		private ElementInteractionDataPair[] _nextInteractions;
 		
 		private Rigidbody _rb;
-
-        private MeshRenderer _meshRenderer;
 
         #endregion
     }
