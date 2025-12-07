@@ -20,7 +20,7 @@ namespace Runtime.GameContent.Actors.ActorControllers.AIControllerStates
 
         public override sbyte OnUpdate()
         {
-                stateMachine.SwitchState("AIIdleState");
+            stateMachine.SwitchState("AIIdleState");
             
             Debug.Log("MoveAI");
             return 0;
