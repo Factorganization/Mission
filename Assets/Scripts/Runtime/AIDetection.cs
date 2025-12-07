@@ -1,3 +1,5 @@
+using Runtime.GameContent.Actors.ActorInterfaces;
+using Runtime.Management.GameManagement;
 using UnityEditor;
 using UnityEngine;
 
@@ -13,6 +15,24 @@ public class AIDetection : MonoBehaviour
     private void Update()
     {
         DetectPlayer();
+        
+        if (!IsPlayerSpotted && CurrentPossessable == null)
+            DetectDamagedItem();
+        
+        if (!IsPlayerSpotted && CurrentObject == null && CurrentPossessable == null)
+            DetectObject();
+        else
+        {
+            //Move object
+            if (CurrentObject != null)
+            {
+                if (Vector3.Distance(CurrentObject.Transform.position, transform.position) < 0.5f)
+                {
+                    CurrentObject.Transform.position = transform.position + transform.forward;
+                    CurrentObject.Rigidbody.isKinematic = true;
+                }
+            }
+        }
         
         //reset sus timer
         if (_detectionTimer > 0)
@@ -31,8 +51,8 @@ public class AIDetection : MonoBehaviour
 
     private void DetectPlayer()
     {
-        Vector3 directionToPlayer = player.position - transform.position;
-        float angleToPlayer = Vector3.Angle(transform.forward, directionToPlayer);
+        Vector3 directionToPlayer = (player.position - transform.position);
+        float angleToPlayer = Vector3.Angle(transform.forward, directionToPlayer.normalized);
 
         if (angleToPlayer < detectionAngle / 2 && directionToPlayer.magnitude <= detectionDistance)
         {
@@ -70,7 +90,80 @@ public class AIDetection : MonoBehaviour
             IsPlayerSpotted = true;
         }
     }
+    
+    private void DetectObject()
+    {
+        if (CurrentObject != null)
+            return;
+        
+        foreach (IGrabbable grabbable in levelGenerator.Grabbables)
+        {
+            var directionToGrabbable = (grabbable.Transform.position - transform.position);
+            float  angleToGrabbable = Vector3.Angle(transform.forward, directionToGrabbable.normalized);
 
+            if (angleToGrabbable < detectionAngle / 2 && directionToGrabbable.magnitude <= detectionDistance)
+            {
+                RaycastHit hit;
+                if (!Physics.Raycast(transform.position, directionToGrabbable.normalized, out hit))
+                    continue;
+                if (hit.transform != grabbable.Transform)
+                    continue;
+
+                if (Vector3.Distance(grabbable.OriginPos, grabbable.Transform.position) > 0.1f)
+                {
+                    CurrentObject = grabbable;
+                    return;
+                }
+            }
+        }  
+    }
+
+    public void DetectDamagedItem()
+    {
+        if  (CurrentPossessable != null)
+            return;
+        
+        DropObject();
+        Debug.Log(CurrentPossessable);
+        
+        foreach (IPossessable possessable in levelGenerator.Possessables)
+        {
+            var directionToPossessable = (new Vector3(possessable.Transform.position.x, 0, possessable.Transform.position.z) - new Vector3(transform.position.x, 0, transform.position.z)).normalized;
+            float angleToPossess = Vector3.Angle(transform.forward, directionToPossessable);
+
+            if (angleToPossess < detectionAngle / 2 && directionToPossessable.magnitude <= detectionDistance)
+            {
+                RaycastHit hit;
+                if (!Physics.Raycast(transform.position, directionToPossessable.normalized, out hit))
+                    continue; 
+                if  (hit.transform.root != possessable.Transform)
+                    continue;
+
+                if (possessable.Destroyed)
+                {
+                    Debug.Log("Damaged Object spotted");
+                    CurrentPossessable = possessable;
+                }
+            }
+        }
+    }
+
+    public void DropObject()
+    {
+        if (CurrentObject == null)
+            return;
+        CurrentObject.Rigidbody.isKinematic = false;
+        CurrentObject = null;
+    }
+
+    public void ForgetPossessable()
+    {
+        if (CurrentPossessable == null)
+            return;
+        CurrentPossessable =  null;
+    }
+
+#if UNITY_EDITOR
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.yellow;
@@ -81,16 +174,15 @@ public class AIDetection : MonoBehaviour
         Gizmos.color = new Color(1, 1, 0, 0.2f);
         Gizmos.DrawLine(transform.position, transform.position + rightBoundary);
         Gizmos.DrawLine(transform.position, transform.position + leftBoundary);
-#if UNITY_EDITOR
         Handles.color = new Color(1, 1, 0, 0.1f);
         Handles.DrawSolidArc(transform.position, Vector3.up, leftBoundary, detectionAngle, detectionDistance);
-#endif
         if (IsPlayerSpotted)
         {
             Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(transform.position, sixthSensDetectionDistance);
         }
     }
+#endif
     
     #endregion
     
@@ -99,17 +191,21 @@ public class AIDetection : MonoBehaviour
     public bool IsSuspicious { private set; get; } = false; 
     public bool IsPlayerSpotted { private set; get; } = false;
     public Vector3 LastKnownPlayerPosition { private set; get; } = Vector3.zero;
+    public IGrabbable CurrentObject { private set; get; } = null;
+    public IPossessable CurrentPossessable { private set; get; } = null;
     
     [SerializeField] private float detectionAngle = 45f;
     [SerializeField] private float detectionDistance = 10f;
     [SerializeField] private float sixthSensDetectionDistance = 6f;
     [SerializeField] private float timeToDetect = 3f;
     [SerializeField] private float timeToForget = 5f;
-
-    [SerializeField] private Transform player;
     
+    [SerializeField] private Transform player;
+    [SerializeField] private LevelGenerator levelGenerator;
+         
     private float _detectionTimer = 0f;
     private float _forgetTimer = 0f;
+    
     
     #endregion
 }

@@ -74,6 +74,7 @@ namespace Runtime.GameContent.Actors.ActorViews
 			Destroyed = destroyedAtStart;
 			_active = false;
 			Flag3 = Flag1;
+			SetParticle(this);
 		}
 		
 		public void Update()
