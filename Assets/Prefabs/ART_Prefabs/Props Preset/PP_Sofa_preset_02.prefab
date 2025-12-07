@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4955882424092863526}
   - component: {fileID: 4376645568159083504}
+  - component: {fileID: 8357210405319588798}
   m_Layer: 0
   m_Name: PP_Sofa_preset_02
   m_TagString: Untagged
@@ -57,8 +58,29 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 2}
-  m_Center: {x: 0.5, y: 0.5, z: 1}
+  m_Size: {x: 1, y: 0.5, z: 2}
+  m_Center: {x: 0.5, y: 0.25, z: 1}
+--- !u!65 &8357210405319588798
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7651942814021017996}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.17667142, y: 1.241523, z: 2}
+  m_Center: {x: 0.08833571, y: 0.6207615, z: 1}
 --- !u!1001 &738143210011161308
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -111,7 +133,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: PP_Sofa_02
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5459117436998976431, guid: 3dcb5c6b881fe874ea9e85506cbbd686, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
