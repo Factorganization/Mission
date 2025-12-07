@@ -111,11 +111,4 @@ namespace Runtime.GameContent.Actors.ActorViews
 
         #endregion
     }
-
-    public class mTransform
-    {
-        public Vector3 position = Vector3.zero;
-        public Quaternion rotation = Quaternion.identity;
-        public Vector3 scale = Vector3.one;
-    }
 }

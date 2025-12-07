@@ -1,4 +1,6 @@
 using Runtime.GameContent.Actors.ActorControllers.AIControllerStates;
+using Runtime.GameContent.Actors.ActorModels;
+using Runtime.GameContent.Actors.ActorControllers;
 using UnityEngine;
 using Shared.Utils.BaseMachine;
 
@@ -49,7 +51,7 @@ namespace Runtime.GameContent.Actors.ActorViews
         
         [SerializeField] private AIMovementDataSo aiMovementDataSo;
         [SerializeField] private AIDetection aiDetection;
-        [SerializeField] private NavMeshAgent agent;
+        [SerializeField] private UnityEngine.AI.NavMeshAgent agent;
 
         private int _index;
         private AIModel _aiModel;
