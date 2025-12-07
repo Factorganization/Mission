@@ -62,6 +62,8 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Model
         public float jumpBufferTime = 0;
         
         public float coyoteTime = 0;
+
+        public float throwTimer = 0;
         
         public bool isVisible = true;
         
