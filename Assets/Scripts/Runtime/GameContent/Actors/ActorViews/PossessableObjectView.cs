@@ -27,6 +27,8 @@ namespace Runtime.GameContent.Actors.ActorViews
         public ElementFlag Flag2 => receptorElement;
         
         public ElementFlag Flag3 { get; set; }
+        
+        public BoxCollider Collider => col;
 
         public bool Active
         {
@@ -82,7 +84,7 @@ namespace Runtime.GameContent.Actors.ActorViews
 			{
 				new ElementInteractionDataPair{ flag = 0b00100010, callback = BurnToBurn },
 				new ElementInteractionDataPair{ flag = 0b00101000, callback = BurnToExplode },
-				new ElementInteractionDataPair{ flag = 0b01000010, callback = ElectricToBurn },
+				//new ElementInteractionDataPair{ flag = 0b01000010, callback = ElectricToBurn },
 				new ElementInteractionDataPair{ flag = 0b01000100, callback = ElectricToElectric },
 				new ElementInteractionDataPair{ flag = 0b01001000, callback = ElectricToExplode },
 				new ElementInteractionDataPair{ flag = 0b00010001, callback = WetToWet }
@@ -366,6 +368,8 @@ namespace Runtime.GameContent.Actors.ActorViews
 
         [SerializeField] private ElementFlag receptorElement;
 
+        [SerializeField] private BoxCollider col;
+        
         [SerializeField] private TMP_Text text;
 
         [SerializeField] private bool debug;

@@ -62,10 +62,10 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller
                 if (p.Destroyed)
                     continue;
                 
-                var d = Vector3.Distance(p.Transform.position, playerModel.rb.position);
-                var a = Vector3.Angle(playerModel.graph.forward, ((p.Transform.position - playerModel.rb.position) * GameConstants.VectorUpFilter).normalized);
+                var d = Vector3.Distance(p.Transform.position + p.Collider.center, playerModel.rb.position);
+                var a = Vector3.Angle(playerModel.graph.forward, ((p.Transform.position + p.Collider.center - playerModel.rb.position) * GameConstants.VectorUpFilter).normalized);
                 Physics.Raycast(playerModel.rb.position, 
-                    (p.Transform.position - playerModel.rb.position).normalized,
+                    (p.Transform.position + p.Collider.center - playerModel.rb.position).normalized,
                     out var hit,
                     GameConstants.MaxPossessDistance,
                     playerModel.data.interactData.possessedBlockLayer);
