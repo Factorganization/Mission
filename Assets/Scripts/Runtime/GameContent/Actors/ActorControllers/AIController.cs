@@ -22,7 +22,7 @@ namespace Runtime.GameContent.Actors.ActorControllers
             if (model._currentWaypoint.position == Vector3.zero)
                 return;
             
-            if (Vector3.Distance(model.transform.position, model._currentWaypoint.position) < 0.5f)
+            if (Vector3.Distance(model.transform.position, model._currentWaypoint.position) < 1f)
             {
                 model._currentWaypoint.position = Vector3.zero;
             }
