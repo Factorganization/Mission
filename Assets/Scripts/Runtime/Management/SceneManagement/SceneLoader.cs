@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Runtime.Management.GameManagement.SceneManagement
+namespace Runtime.Management.SceneManagement
 {
     public class SceneLoader : MonoBehaviour
     {
