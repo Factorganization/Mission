@@ -20,6 +20,20 @@ namespace Runtime.GameContent.Logics.LogicModels.MissionModels
         I_Towel,
         I_WoodenSppoon,
         A_Curtains,
+        A_Armchair,
+        A_Bed,
+        A_BedSideLamp,
+        A_Bin,
+        A_Carpet,
+        A_Plant,
+        A_Pillow,
+        A_Sofa,
+        A_Frame,
+        A_Lamp,
+        A_LaundryBasket,
+        A_WallTowel,
+        A_WallLamp,
+        A_Toaster,
         P_Car,
         P_FirePlace,
         P_Computer,
@@ -28,6 +42,7 @@ namespace Runtime.GameContent.Logics.LogicModels.MissionModels
         P_Sink,
         P_Oven,
         P_Toilet,
-        P_TV
+        P_TV,
+        P_BathTub
     }
 }
