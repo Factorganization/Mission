@@ -117,7 +117,7 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller
                     (g.Transform.position - playerModel.rb.position).normalized,
                     out var hit,
                     GameConstants.MaxPossessDistance,
-                    playerModel.data.interactData.possessedBlockLayer);
+                    playerModel.data.interactData.grabbableBlockLayer);
                 
                 if (d >= GameConstants.MaxPossessDistance || a > GameConstants.MaxInteractionAngle || d > minDist || a > minAngle || hit.collider is null || !hit.collider.TryGetComponent<IGrabbable>(out _))
                     continue;
