@@ -64,8 +64,13 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller
                 
                 var d = Vector3.Distance(p.Transform.position, playerModel.rb.position);
                 var a = Vector3.Angle(playerModel.graph.forward, ((p.Transform.position - playerModel.rb.position) * GameConstants.VectorUpFilter).normalized);
-
-                if (d >= GameConstants.MaxPossessDistance || a > GameConstants.MaxInteractionAngle || d > minDist || a > minAngle)
+                Physics.Raycast(playerModel.rb.position, 
+                    (p.Transform.position - playerModel.rb.position).normalized,
+                    out var hit,
+                    GameConstants.MaxPossessDistance,
+                    playerModel.data.interactData.possessedBlockLayer);
+                
+                if (d >= GameConstants.MaxPossessDistance || a > GameConstants.MaxInteractionAngle || d > minDist || a > minAngle || hit.collider is null || !hit.collider.TryGetComponent<IPossessable>(out _))
                     continue;
                 
                 minDist = d;
@@ -108,8 +113,13 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller
                 
                 var d = Vector3.Distance(g.Transform.position, playerModel.rb.position);
                 var a = Vector3.Angle(playerModel.graph.forward, ((g.Transform.position - playerModel.rb.position) * GameConstants.VectorUpFilter).normalized);
+                Physics.Raycast(playerModel.rb.position, 
+                    (g.Transform.position - playerModel.rb.position).normalized,
+                    out var hit,
+                    GameConstants.MaxPossessDistance,
+                    playerModel.data.interactData.possessedBlockLayer);
                 
-                if (d >= GameConstants.MaxPossessDistance || a > GameConstants.MaxInteractionAngle || d > minDist || a > minAngle)
+                if (d >= GameConstants.MaxPossessDistance || a > GameConstants.MaxInteractionAngle || d > minDist || a > minAngle || hit.collider is null || !hit.collider.TryGetComponent<IGrabbable>(out _))
                     continue;
                 
                 minDist = d;
