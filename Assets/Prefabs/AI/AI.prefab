@@ -133,6 +133,7 @@ MonoBehaviour:
   timeToDetect: 3
   timeToForget: 5
   player: {fileID: 0}
+  levelGenerator: {fileID: 0}
 --- !u!114 &3672969848448794975
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -145,8 +146,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13770f5d5b18aa94cafae8a4f2bc4e58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AIView
-  aiMovementDataSo: {fileID: 11400000, guid: 71d44d3234b358f40a68f0bf64a98142, type: 2}
+  distanceToPossessable: 0
+  distanceToCollectable: 0
+  aiMovementDataSo: {fileID: 0}
   aiDetection: {fileID: 8089260054410516500}
+  agent: {fileID: 0}
 --- !u!1001 &1051032745574680457
 PrefabInstance:
   m_ObjectHideFlags: 0
