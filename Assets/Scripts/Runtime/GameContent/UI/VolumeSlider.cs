@@ -16,13 +16,13 @@ namespace Runtime.GameContent.UI
             switch (volumeType)
             {
                 case VolumeType.Master:
-                    volumeSlider.value = Management.GameManagement.AudioManager.AudioManager.Instance.masterVolume;
+                    volumeSlider.value = Management.AudioManager.AudioManager.Instance.masterVolume;
                     break;
                 case VolumeType.Music:
-                    volumeSlider.value = Management.GameManagement.AudioManager.AudioManager.Instance.musicVolume;
+                    volumeSlider.value = Management.AudioManager.AudioManager.Instance.musicVolume;
                     break;
                 case VolumeType.SFX:
-                    volumeSlider.value = Management.GameManagement.AudioManager.AudioManager.Instance.SFXVolume;
+                    volumeSlider.value = Management.AudioManager.AudioManager.Instance.SFXVolume;
                     break;
             }
         }
@@ -32,13 +32,13 @@ namespace Runtime.GameContent.UI
             switch (volumeType)
             {
                 case VolumeType.Master:
-                    Management.GameManagement.AudioManager.AudioManager.Instance.masterVolume = volumeSlider.value;
+                    Management.AudioManager.AudioManager.Instance.masterVolume = volumeSlider.value;
                     break;
                 case VolumeType.Music:
-                    Management.GameManagement.AudioManager.AudioManager.Instance.musicVolume = volumeSlider.value;
+                    Management.AudioManager.AudioManager.Instance.musicVolume = volumeSlider.value;
                     break;
                 case VolumeType.SFX:
-                    Management.GameManagement.AudioManager.AudioManager.Instance.SFXVolume = volumeSlider.value;
+                    Management.AudioManager.AudioManager.Instance.SFXVolume = volumeSlider.value;
                     break;
             }
         }

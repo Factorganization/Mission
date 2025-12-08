@@ -7,8 +7,10 @@ namespace Runtime.GameContent.Actors.ActorViews
 {
     public class AIView : ActorView
     {
-        
         #region methodes
+
+        [SerializeField] private float distanceToPossessable; 
+        [SerializeField] private float distanceToCollectable;
         
         private void Awake()
         {
@@ -24,9 +26,9 @@ namespace Runtime.GameContent.Actors.ActorViews
 
         private void Update()
         {
-            //Drop Object
+            //Drop Object // Check Distance Collectable
             if (aiDetection.CurrentObject != null)
-                if (Vector3.Distance(transform.position, aiDetection.CurrentObject.OriginPos) < 0.6f)
+                if (Vector3.Distance(transform.position, aiDetection.CurrentObject.OriginPos) < distanceToCollectable)
                 {
                     aiDetection.DropObject();
                     AIController.SelectRandomWaypoint(_aiModel);
@@ -44,8 +46,10 @@ namespace Runtime.GameContent.Actors.ActorViews
                     aiDetection.CurrentPossessable.Transform.position -
                     ((transform.position - aiDetection.CurrentPossessable.Transform.position).normalized) * 2);
 
+                
+                // Check Distance Possessable
                 if (Vector3.Distance(gameObject.transform.position, aiDetection.CurrentPossessable.Transform.position) <
-                    0.5f)
+                    distanceToPossessable)
                 {
                     //repair sfx
                     aiDetection.CurrentPossessable.Destroyed = false;

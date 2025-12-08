@@ -37,17 +37,17 @@ namespace Runtime.Management.GameManagement
         public void TryGetMission(MissionModel mission)
         {
             var i = FindMission(missions, mission);
-            
+
             if (i == -1)
                 return;
 
             if (_currentMissionsCount[i] > 0)
                 _currentMissionsCount[i]--;
-            
+
             SetText();
             CheckEndGame();
         }
-        
+
         private static int FindMission(MissionModel[] missions, MissionModel mission)
         {
             for (var i = 0; i < missions.Length; i++)
@@ -102,7 +102,7 @@ namespace Runtime.Management.GameManagement
                         ElementFlag.CanBurn => "under fire",
                         ElementFlag.CanConduct => "in electricity",
                         ElementFlag.CanExplode => "in explosion (wtf is this sentence)",
-                        _ => throw new ArgumentOutOfRangeException()
+                        _ => ""
                     };
                     text.text += $"{s} ";
                     text.text += $"in the {Enum.GetName(typeof(RoomType), m.room)} ";

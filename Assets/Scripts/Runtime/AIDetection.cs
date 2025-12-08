@@ -54,7 +54,7 @@ public class AIDetection : MonoBehaviour
         Vector3 directionToPlayer = (player.position - transform.position);
         float angleToPlayer = Vector3.Angle(transform.forward, directionToPlayer.normalized);
 
-        if (angleToPlayer < detectionAngle / 2 && directionToPlayer.magnitude <= detectionDistance)
+        if ((angleToPlayer < detectionAngle / 2 && directionToPlayer.magnitude <= detectionDistance) || Vector3.Distance(player.position, transform.position) < sixthSensDetectionDistance)
         {
             RaycastHit hit;
             if (!Physics.Raycast(transform.position, directionToPlayer.normalized, out hit, detectionDistance))
@@ -176,11 +176,9 @@ public class AIDetection : MonoBehaviour
         Gizmos.DrawLine(transform.position, transform.position + leftBoundary);
         Handles.color = new Color(1, 1, 0, 0.1f);
         Handles.DrawSolidArc(transform.position, Vector3.up, leftBoundary, detectionAngle, detectionDistance);
-        if (IsPlayerSpotted)
-        {
-            Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(transform.position, sixthSensDetectionDistance);
-        }
+            
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, sixthSensDetectionDistance);
     }
 #endif
     
