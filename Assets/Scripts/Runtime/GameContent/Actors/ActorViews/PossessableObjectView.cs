@@ -91,8 +91,20 @@ namespace Runtime.GameContent.Actors.ActorViews
 			Possessed = false;
 			Destroyed = destroyedAtStart;
 			_active = false;
-			Flag3 = Flag1;
-		}
+            //Flag3 = Flag1;
+            foreach (var p in vfxReferences.waterParticles)
+                p.Stop();
+            vfxReferences.waterPlaying = false;
+            foreach (var p in vfxReferences.fireParticles)
+                p.Stop();
+            vfxReferences.firePlaying = false;
+            foreach (var p in vfxReferences.electricParticles)
+                p.Stop();
+            vfxReferences.elecPlaying = false;
+            foreach (var p in vfxReferences.explosionParticles)
+                p.Stop();
+            vfxReferences.explodePlaying = false;
+        }
 		
 		public void Update()
 		{
