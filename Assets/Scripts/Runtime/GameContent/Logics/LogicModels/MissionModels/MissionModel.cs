@@ -34,11 +34,14 @@ namespace Runtime.GameContent.Logics.LogicModels.MissionModels
         public static bool operator ==(MissionModel a, MissionModel b)
         {
             return a.mission == b.mission &&
-                   (a.objectType == b.objectType || 
-                    Enum.GetName(typeof(ElementFlag), a.toApply)!.StartsWith('A') && Enum.GetName(typeof(ElementFlag), b.toApply)!.StartsWith('A') ||
-                    Enum.GetName(typeof(ElementFlag), a.toApply)!.StartsWith('I') && Enum.GetName(typeof(ElementFlag), b.toApply)!.StartsWith('I') ||
-                    Enum.GetName(typeof(ElementFlag), a.toApply)!.StartsWith('P') && Enum.GetName(typeof(ElementFlag), b.toApply)!.StartsWith('P')) &&
-                   (a.room == b.room || a.room == RoomType.House || b.room == RoomType.House) &&
+                   (a.objectType == b.objectType ||
+                    (a.objectType is ObjectType.Affectable && Enum.GetName(typeof(ElementFlag), b.objectType)!.StartsWith('A')) ||
+                    (a.objectType is ObjectType.Item && Enum.GetName(typeof(ElementFlag), b.objectType)!.StartsWith('I')) ||
+                    (a.objectType is ObjectType.Possessable && Enum.GetName(typeof(ElementFlag), b.objectType)!.StartsWith('P')) ||
+                    (Enum.GetName(typeof(ElementFlag), a.objectType)!.StartsWith('A') && b.objectType is ObjectType.Affectable) ||
+                    (Enum.GetName(typeof(ElementFlag), a.objectType)!.StartsWith('I') && b.objectType is ObjectType.Item) ||
+                    (Enum.GetName(typeof(ElementFlag), a.objectType)!.StartsWith('P') && b.objectType is ObjectType.Possessable)) &&
+                   (a.room == b.room || a.room is RoomType.House || b.room is RoomType.House) &&
                    a.toApply == b.toApply; //TODO a revoir
         }
 

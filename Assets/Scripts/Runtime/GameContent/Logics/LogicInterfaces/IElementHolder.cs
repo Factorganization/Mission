@@ -1,6 +1,7 @@
 using UnityEngine;
 using Runtime.GameContent.Logics.LogicModels;
 using Runtime.GameContent.Logics.LogicModels.ElementModels;
+using Runtime.GameContent.Logics.LogicModels.MissionModels;
 
 namespace Runtime.GameContent.Logics.LogicInterfaces
 {
@@ -25,6 +26,11 @@ namespace Runtime.GameContent.Logics.LogicInterfaces
         /// Hidden supplementary Flag that can store temporary IS data
         /// </summary>
         public ElementFlag Flag3 { get; set; }
+        
+        /// <summary>
+        /// The Current Room the Element holder is in
+        /// </summary>
+        public RoomType RoomType { get; set; }
         
         /// <summary>
         /// Defines if an object is active and can transmit any element
