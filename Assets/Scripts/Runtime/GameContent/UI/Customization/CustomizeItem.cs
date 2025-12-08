@@ -11,7 +11,9 @@ namespace Runtime.GameContent.UI.Customization
         public string ItemName;
         public Sprite ItemIcon;
         public Mesh ItemMesh;
+#if UNITY_EDITOR
         public BodyPart ItemBodyPart;
+#endif
         public bool Locked;
 
         #endregion
