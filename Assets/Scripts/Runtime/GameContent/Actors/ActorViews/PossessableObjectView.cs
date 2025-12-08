@@ -91,7 +91,7 @@ namespace Runtime.GameContent.Actors.ActorViews
 			Possessed = false;
 			Destroyed = destroyedAtStart;
 			_active = false;
-			Flag3 = Flag1;
+			//Flag3 = Flag1;
 			SetParticle(this);
 		}
 		
