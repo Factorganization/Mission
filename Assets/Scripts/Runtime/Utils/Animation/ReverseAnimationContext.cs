@@ -17,7 +17,7 @@ public static class ReverseAnimationContext
 
         AssetDatabase.CopyAsset(AssetDatabase.GetAssetPath(Selection.activeObject), copiedFilePath);
 
-        clip  = (AnimationClip)AssetDatabase.LoadAssetAtPath(copiedFilePath, typeof(AnimationClip));
+        clip = (AnimationClip)AssetDatabase.LoadAssetAtPath(copiedFilePath, typeof(AnimationClip));
 
         if (clip == null)
             return;
@@ -38,9 +38,11 @@ public static class ReverseAnimationContext
                 K.outTangent = tmp;
                 keys[i] = K;
             }
+
             curve.curve.keys = keys;
             clip.SetCurve(curve.path, curve.type, curve.propertyName, curve.curve);
         }
+
         var events = AnimationUtility.GetAnimationEvents(clip);
         if (events.Length > 0)
         {
@@ -48,8 +50,10 @@ public static class ReverseAnimationContext
             {
                 events[i].time = clipLength - events[i].time;
             }
+
             AnimationUtility.SetAnimationEvents(clip, events);
         }
+
         Debug.Log("Animation reversed!");
     }
 
@@ -66,6 +70,7 @@ public static class ReverseAnimationContext
         {
             return clips[0] as AnimationClip;
         }
+
         return null;
     }
 #endif
