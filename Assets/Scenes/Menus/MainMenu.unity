@@ -330,8 +330,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 160960405}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.17238778, y: 0.41756964, z: -0.08085562, w: 0.8884709}
-  m_LocalPosition: {x: -1.071, y: 1.369, z: 0.616}
+  m_LocalRotation: {x: 0.06661495, y: 0.38970658, z: -0.028276365, w: 0.91809136}
+  m_LocalPosition: {x: -1.497, y: 1.458, z: -0.143}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -372,7 +372,7 @@ Light:
   m_InnerSpotAngle: 21.80208
   m_CookieSize2D: {x: 10, y: 10}
   m_Shadows:
-    m_Type: 0
+    m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -625,13 +625,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 751735949}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -0.3, y: 1.1791823, z: 0.86820316}
+  m_LocalRotation: {x: 0.0077131568, y: 0.7070647, z: -0.0077131568, w: 0.7070647}
+  m_LocalPosition: {x: -0.443, y: 1.208, z: 0.86820316}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 1.25, y: 90, z: 0}
 --- !u!224 &1082108499 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2251695519112054915, guid: 136f3dccbd0eacd4eb0ccebb0a56466d, type: 3}
@@ -857,6 +857,10 @@ PrefabInstance:
       propertyPath: _parentRt
       value: 
       objectReference: {fileID: 1146987003}
+    - target: {fileID: 211816809774122399, guid: 136f3dccbd0eacd4eb0ccebb0a56466d, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 211816809774122399, guid: 136f3dccbd0eacd4eb0ccebb0a56466d, type: 3}
       propertyPath: _containerRectTransform
       value: 
@@ -1142,6 +1146,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1146987003}
     - target: {fileID: 4587536478840888671, guid: 136f3dccbd0eacd4eb0ccebb0a56466d, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4587536478840888671, guid: 136f3dccbd0eacd4eb0ccebb0a56466d, type: 3}
       propertyPath: _containerRectTransform
       value: 
       objectReference: {fileID: 1499030061}
@@ -1273,6 +1281,10 @@ PrefabInstance:
       propertyPath: _parentRt
       value: 
       objectReference: {fileID: 1146987003}
+    - target: {fileID: 9195097256766164687, guid: 136f3dccbd0eacd4eb0ccebb0a56466d, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9195097256766164687, guid: 136f3dccbd0eacd4eb0ccebb0a56466d, type: 3}
       propertyPath: _containerRectTransform
       value: 
@@ -1793,6 +1805,57 @@ Canvas:
   m_CorrespondingSourceObject: {fileID: 5180582552475340319, guid: 136f3dccbd0eacd4eb0ccebb0a56466d, type: 3}
   m_PrefabInstance: {fileID: 1146987002}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1949220623
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1949220624}
+  - component: {fileID: 1949220625}
+  m_Layer: 0
+  m_Name: CamMgr
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1949220624
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1949220623}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 5.59879, y: 0, z: 1.91936}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1949220625
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1949220623}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92299397f612baa44ae0e535aff239a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Satanic.Runtime::Runtime.GameContent.UI.MainMenu.MainMenuCamMgr
+  _mainMenuCam: {fileID: 579612465}
+  _startPos: {fileID: 160960406}
+  _endPos: {fileID: 751735950}
+  _positionSmoothTime: 0.2
+  _rotationSpeed: 8
+  _stopPositionThreshold: 0.01
+  _stopRotationThreshold: 0.5
 --- !u!1 &2124226892
 GameObject:
   m_ObjectHideFlags: 0
@@ -1951,3 +2014,4 @@ SceneRoots:
   - {fileID: 751735950}
   - {fileID: 2124226895}
   - {fileID: 108437265}
+  - {fileID: 1949220624}
