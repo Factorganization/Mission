@@ -102,7 +102,7 @@ namespace Runtime.Management.GameManagement
                         ElementFlag.CanBurn => "under fire",
                         ElementFlag.CanConduct => "in electricity",
                         ElementFlag.CanExplode => "in explosion (wtf is this sentence)",
-                        _ => throw new ArgumentOutOfRangeException()
+                        _ => ""
                     };
                     text.text += $"{s} ";
                     text.text += $"in the {Enum.GetName(typeof(RoomType), m.room)} ";
