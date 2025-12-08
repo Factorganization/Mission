@@ -1,7 +1,7 @@
 using FMODUnity;
 using UnityEngine;
 
-namespace Runtime.GameContent.AudioManager
+namespace Runtime.Management.AudioManager
 {
     public class FMODEvents : MonoBehaviour
     {

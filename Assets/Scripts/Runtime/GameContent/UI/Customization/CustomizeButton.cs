@@ -33,25 +33,11 @@ namespace Runtime.GameContent.UI.Customization
             if (_locked) return;
             OnChangeSkin.Invoke(this);
         }
-        /*
-        public void SetData(CustomizeItem item, bool locked)
-        {
-            _customizeItem = item;
-            _locked = locked;
-
-            if (item.ItemIcon != null)
-                _image.sprite = item != null ? item.ItemIcon : null;
-
-            if (_lockImage != null)
-                _lockImage.gameObject.SetActive(_locked);
-            
-            SelectedMesh = item != null ? item.ItemMesh : null;
-        }*/
         
-        public void SetData(Mesh mesh, Sprite icon, bool locked, int index)
+        public void SetData(GameObject prefab, Sprite icon, bool locked, int index)
         {
             _customizeItem = null;
-            SelectedMesh = mesh;
+            SelectedPrefab = prefab;
             ItemIndex = index;
             _locked = locked;
 
@@ -83,7 +69,7 @@ namespace Runtime.GameContent.UI.Customization
         
         public ChangeSkin OnChangeSkin = new ChangeSkin();
 
-        public Mesh SelectedMesh { get; private set; }
+        public GameObject SelectedPrefab { get; private set; }
         public int ItemIndex { get; private set; }
 
         #endregion

@@ -1,8 +1,8 @@
+using Runtime.Utils;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using Runtime.Utils;
 
-namespace Runtime.Management.GameManagement.SceneManagement
+namespace Runtime.Management.SceneManagement
 {
     public class Bootstrapper : PersistentSingleton<Bootstrapper>
     {

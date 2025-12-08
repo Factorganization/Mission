@@ -2,9 +2,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using FMOD.Studio;
 using FMODUnity;
-using Runtime.GameContent.AudioManager;
 
-namespace Runtime.Management.GameManagement.AudioManager
+namespace Runtime.Management.AudioManager
 {
     public class AudioManager : MonoBehaviour
     {
