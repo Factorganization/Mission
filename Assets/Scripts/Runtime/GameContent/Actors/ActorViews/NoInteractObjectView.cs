@@ -1,4 +1,3 @@
-using System;
 using Runtime.GameContent.Actors.ActorInterfaces;
 using Runtime.GameContent.Logics.LogicInterfaces;
 using Runtime.GameContent.Logics.LogicModels;
@@ -53,7 +52,7 @@ namespace Runtime.GameContent.Actors.ActorViews
 	        {
 		        new ElementInteractionDataPair{ flag = 0b00100010, callback = BurnToBurn },
 		        new ElementInteractionDataPair{ flag = 0b00101000, callback = BurnToExplode },
-		        new ElementInteractionDataPair{ flag = 0b01000010, callback = ElectricToBurn },
+		        //new ElementInteractionDataPair{ flag = 0b01000010, callback = ElectricToBurn },
 		        new ElementInteractionDataPair{ flag = 0b01000100, callback = ElectricToElectric },
 		        new ElementInteractionDataPair{ flag = 0b01001000, callback = ElectricToExplode },
 		        new ElementInteractionDataPair{ flag = 0b00010001, callback = WetToWet },
