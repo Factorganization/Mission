@@ -2345,6 +2345,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1399114592452773791, guid: 5dc7b979ee4b4264cbdf07cce36a214e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.9063079
+      objectReference: {fileID: 0}
+    - target: {fileID: 1399114592452773791, guid: 5dc7b979ee4b4264cbdf07cce36a214e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.42261827
+      objectReference: {fileID: 0}
+    - target: {fileID: 1399114592452773791, guid: 5dc7b979ee4b4264cbdf07cce36a214e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 1435137254149644292, guid: 5dc7b979ee4b4264cbdf07cce36a214e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -5
@@ -2388,6 +2400,10 @@ PrefabInstance:
     - target: {fileID: 3684857271434410580, guid: 5dc7b979ee4b4264cbdf07cce36a214e, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 5277432148175890142, guid: 5dc7b979ee4b4264cbdf07cce36a214e, type: 3}
+      propertyPath: CameraSide
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -7691,7 +7707,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Button
+  m_text: Restart
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -10120,6 +10136,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1496976623}
     m_Modifications:
+    - target: {fileID: 3321897340719687705, guid: e363b1cbf04843041a298a46d25ddb13, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 6ed5e77797c93a84ba2e65c86cebe673, type: 2}
+    - target: {fileID: 6319313067396894038, guid: e363b1cbf04843041a298a46d25ddb13, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 6ed5e77797c93a84ba2e65c86cebe673, type: 2}
     - target: {fileID: 2716507195819752737, guid: 5821622016fcb8849b9d9d1defe72942, type: 3}
       propertyPath: 'm_Materials.Array.data[2]'
       value: 
@@ -10168,14 +10192,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3321897340719687705, guid: e363b1cbf04843041a298a46d25ddb13, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
-      value: 
-      objectReference: {fileID: 2100000, guid: 6ed5e77797c93a84ba2e65c86cebe673, type: 2}
-    - target: {fileID: 6319313067396894038, guid: e363b1cbf04843041a298a46d25ddb13, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
-      value: 
-      objectReference: {fileID: 2100000, guid: 6ed5e77797c93a84ba2e65c86cebe673, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

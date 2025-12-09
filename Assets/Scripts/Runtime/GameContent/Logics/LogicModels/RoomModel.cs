@@ -9,7 +9,7 @@ namespace Runtime.GameContent.Logics.LogicModels
 
         public RoomType roomType;
         
-        public BoxCollider collider;
+        public BoxCollider col;
 
         #endregion
     }

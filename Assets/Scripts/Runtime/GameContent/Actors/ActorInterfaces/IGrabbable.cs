@@ -20,6 +20,11 @@ namespace Runtime.GameContent.Actors.ActorInterfaces
 		public Vector3 OriginPos { get; }
 
 		/// <summary>
+		/// Return True if object is active
+		/// </summary>
+		public bool Active { get; } 
+		
+		/// <summary>
 		/// Trigger an action when grabbing an object
 		/// </summary>
 		/// <returns></returns>
