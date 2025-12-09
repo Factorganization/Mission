@@ -2,6 +2,7 @@ using Runtime.GameContent.Actors.ActorControllers;
 using Runtime.GameContent.Actors.ActorModels;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.SceneManagement;
 
 namespace Runtime.GameContent.Actors.ActorViews
 {
@@ -29,6 +30,8 @@ namespace Runtime.GameContent.Actors.ActorViews
             if (Vector3.Distance(transform.position, playerTrans.position) < 1 && aiDetection.IsPlayerSpotted)
             {
                 gameOver.SetActive(true);
+                Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.None;
             }
             
             
@@ -105,7 +108,8 @@ namespace Runtime.GameContent.Actors.ActorViews
             AIController.SelectRandomWaypoint(_aiModel);
             _aiModel._waitTimer = 0;
         }
-        
+
+
         #endregion
         
         #region fields
