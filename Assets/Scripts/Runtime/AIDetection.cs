@@ -69,6 +69,7 @@ public class AIDetection : MonoBehaviour
                 Debug.Log("Suspicious");
                 _detectionTimer += Time.deltaTime;
                 transform.LookAt(player.position);
+                transform.rotation = new Quaternion(0, transform.rotation.y, 0, transform.rotation.w);
             }
             else
             {

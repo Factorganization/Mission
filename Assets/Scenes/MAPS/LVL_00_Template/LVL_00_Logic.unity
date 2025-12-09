@@ -726,6 +726,70 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9769280811ff40baa3e35756cc72cd21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Satanic.Runtime::Runtime.Management.GameManagement.LevelGenerator
+--- !u!1 &1644325303
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1644325305}
+  - component: {fileID: 1644325304}
+  m_Layer: 0
+  m_Name: NavMesh Surface
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1644325304
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1644325303}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.AI.Navigation::Unity.AI.Navigation.NavMeshSurface
+  m_SerializedVersion: 0
+  m_AgentTypeID: 0
+  m_CollectObjects: 0
+  m_Size: {x: 10, y: 10, z: 10}
+  m_Center: {x: 0, y: 2, z: 0}
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_UseGeometry: 0
+  m_DefaultArea: 0
+  m_GenerateLinks: 0
+  m_IgnoreNavMeshAgent: 1
+  m_IgnoreNavMeshObstacle: 1
+  m_OverrideTileSize: 0
+  m_TileSize: 256
+  m_OverrideVoxelSize: 0
+  m_VoxelSize: 0.05
+  m_MinRegionArea: 2
+  m_NavMeshData: {fileID: 0}
+  m_BuildHeightMesh: 0
+--- !u!4 &1644325305
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1644325303}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 4.65698, y: 0, z: -7.58292}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1670464050
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -851,6 +915,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3672969848448794975, guid: be8c6de8453500e46928f9750792260a, type: 3}
+      propertyPath: agent
+      value: 
+      objectReference: {fileID: 1754956357}
+    - target: {fileID: 3672969848448794975, guid: be8c6de8453500e46928f9750792260a, type: 3}
+      propertyPath: aiMovementDataSo
+      value: 
+      objectReference: {fileID: 11400000, guid: 138a50af4ed17e84998e5a657e6ef631, type: 2}
     - target: {fileID: 7910978268368340886, guid: be8c6de8453500e46928f9750792260a, type: 3}
       propertyPath: m_Name
       value: AI
@@ -866,8 +938,38 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7910978268368340886, guid: be8c6de8453500e46928f9750792260a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1754956357}
   m_SourcePrefab: {fileID: 100100000, guid: be8c6de8453500e46928f9750792260a, type: 3}
+--- !u!1 &1754956356 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7910978268368340886, guid: be8c6de8453500e46928f9750792260a, type: 3}
+  m_PrefabInstance: {fileID: 1754956355}
+  m_PrefabAsset: {fileID: 0}
+--- !u!195 &1754956357
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1754956356}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 1
+  m_BaseOffset: 0.5
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1 &1829930292
 GameObject:
   m_ObjectHideFlags: 0
@@ -1123,3 +1225,4 @@ SceneRoots:
   - {fileID: 370049867}
   - {fileID: 1829930294}
   - {fileID: 1842458546}
+  - {fileID: 1644325305}

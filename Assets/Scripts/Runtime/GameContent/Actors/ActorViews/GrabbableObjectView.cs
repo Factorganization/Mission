@@ -35,6 +35,8 @@ namespace Runtime.GameContent.Actors.ActorViews
 		public Vector3 OriginPos { get; private set; }
 
 		public bool Active { get; set; }
+
+		public bool[] MissionDone => _missionDone;
 		
 		public VFXReferences VFX => vfxReferences;
 
@@ -44,6 +46,8 @@ namespace Runtime.GameContent.Actors.ActorViews
 
 		public void Start()
 		{
+			_missionDone = new bool[Enum.GetValues(typeof(ElementFlag)).Length];
+			
 			_resolveInteractions = new[]
 			{
 				new ElementInteractionDataPair{ flag = 0b0011, callback = WetAndBurn },
@@ -64,10 +68,31 @@ namespace Runtime.GameContent.Actors.ActorViews
 			Active = true;
 		}
 
-		public void Update()
+		private void Update()
 		{
 			if (debug)
 				text.text = $"{(Active ? "<color=green>Active</color>" : "<color=red>Inactive</color>")}\n {Convert.ToString((int)Flag1, 2).PadLeft(4, '0')} \n {Convert.ToString((int)Flag2, 2).PadLeft(4, '0')}";
+			
+			if ((Flag3 & ElementFlag.CanBeWet) != 0 && !_missionDone[0])
+			{
+				_missionDone[0] = true;
+				MissionManager.Manager?.TryGetMission(new MissionModel(MissionType.ElementAffection, @object, ElementFlag.CanBeWet, RoomType));
+			}
+			if ((Flag3 & ElementFlag.CanBurn) != 0 && !_missionDone[1])
+			{
+				_missionDone[1] = true;
+				MissionManager.Manager?.TryGetMission(new MissionModel(MissionType.ElementAffection, @object, ElementFlag.CanBurn, RoomType));
+			}
+			if ((Flag3 & ElementFlag.CanConduct) != 0 && !_missionDone[2])
+			{
+				_missionDone[2] = true;
+				MissionManager.Manager?.TryGetMission(new MissionModel(MissionType.ElementAffection, @object, ElementFlag.CanConduct, RoomType));
+			}
+			if ((Flag3 & ElementFlag.CanExplode) != 0 && !_missionDone[3])
+			{
+				_missionDone[3] = true;
+				MissionManager.Manager?.TryGetMission(new MissionModel(MissionType.ElementAffection, @object, ElementFlag.CanExplode, RoomType));
+			}
 		}
 
 		public bool Action()
@@ -224,39 +249,63 @@ namespace Runtime.GameContent.Actors.ActorViews
 		private void BurnToBurn(ElementInteractionData data)
 		{
 			data.holder2.Flag3 |= ElementFlag.CanBurn;
-			MissionManager.Manager?.TryGetMission(new MissionModel(MissionType.ElementAffection, @object, ElementFlag.CanBurn, RoomType));
+			if (!_missionDone[1])
+			{
+				_missionDone[1] = true;
+				MissionManager.Manager?.TryGetMission(new MissionModel(MissionType.ElementAffection, @object, ElementFlag.CanBurn, RoomType));
+			}
 		}
 
 		private void BurnToExplode(ElementInteractionData data)
 		{
 			data.holder2.Flag3 |= ElementFlag.CanExplode;
 			Explode(data.holder2);
-			MissionManager.Manager?.TryGetMission(new MissionModel(MissionType.ElementAffection, @object, ElementFlag.CanExplode, RoomType));
+			if (_missionDone[3])
+			{
+				_missionDone[3] = true;
+				MissionManager.Manager?.TryGetMission(new MissionModel(MissionType.ElementAffection, @object, ElementFlag.CanExplode, RoomType));
+			}
 		}
 
 		private void ElectricToBurn(ElementInteractionData data)
 		{
 			data.holder2.Flag3 |= ElementFlag.CanBurn;
-			MissionManager.Manager?.TryGetMission(new MissionModel(MissionType.ElementAffection, @object, ElementFlag.CanBurn, RoomType));
+			if (!_missionDone[1])
+			{
+				_missionDone[1] = true;
+				MissionManager.Manager?.TryGetMission(new MissionModel(MissionType.ElementAffection, @object, ElementFlag.CanBurn, RoomType));
+			}
 		}
 
 		private void ElectricToElectric(ElementInteractionData data)
 		{
 			data.holder2.Flag3 |= ElementFlag.CanConduct;
-			MissionManager.Manager?.TryGetMission(new MissionModel(MissionType.ElementAffection, @object, ElementFlag.CanConduct, RoomType));
+			if (!_missionDone[2])
+			{
+				_missionDone[2] = true;
+				MissionManager.Manager?.TryGetMission(new MissionModel(MissionType.ElementAffection, @object, ElementFlag.CanConduct, RoomType));
+			}
 		}
 
 		private void ElectricToExplode(ElementInteractionData data)
 		{
 			data.holder2.Flag3 |= ElementFlag.CanExplode;
 			Explode(data.holder2);
-			MissionManager.Manager?.TryGetMission(new MissionModel(MissionType.ElementAffection, @object, ElementFlag.CanExplode, RoomType));
+			if (_missionDone[3])
+			{
+				_missionDone[3] = true;
+				MissionManager.Manager?.TryGetMission(new MissionModel(MissionType.ElementAffection, @object, ElementFlag.CanExplode, RoomType));
+			}
 		}
 
 		private void WetToWet(ElementInteractionData data)
 		{
 			data.holder2.Flag3 |= ElementFlag.CanBeWet;
-			MissionManager.Manager?.TryGetMission(new MissionModel(MissionType.ElementAffection, @object, ElementFlag.CanBeWet, RoomType));
+			if (!_missionDone[0])
+			{
+				_missionDone[0] = true;
+				MissionManager.Manager?.TryGetMission(new MissionModel(MissionType.ElementAffection, @object, ElementFlag.CanBeWet, RoomType));
+			}
 		}
 
 		#endregion
@@ -295,6 +344,8 @@ namespace Runtime.GameContent.Actors.ActorViews
 		private ElementInteractionDataPair[] _resolveInteractions;
 
 		private ElementInteractionDataPair[] _nextInteractions;
+
+		private bool[] _missionDone;
 		
 		private Rigidbody _rb;
 

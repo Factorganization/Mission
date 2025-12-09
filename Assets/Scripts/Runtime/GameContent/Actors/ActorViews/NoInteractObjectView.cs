@@ -1,3 +1,4 @@
+using System;
 using Runtime.GameContent.Actors.ActorInterfaces;
 using Runtime.GameContent.Logics.LogicInterfaces;
 using Runtime.GameContent.Logics.LogicModels;
@@ -34,6 +35,8 @@ namespace Runtime.GameContent.Actors.ActorViews
             set { }
         }
 
+        public bool[] MissionDone => _missionDone;
+
         public VFXReferences VFX => vfxReferences;
         
         #endregion
@@ -42,6 +45,8 @@ namespace Runtime.GameContent.Actors.ActorViews
 
         private void Start()
         {
+	        _missionDone = new bool[Enum.GetValues(typeof(ElementFlag)).Length];
+	        
 	        _resolveInteractions = new[]
 	        {
 		        new ElementInteractionDataPair{ flag = 0b0011, callback = WetAndBurn },
@@ -57,6 +62,30 @@ namespace Runtime.GameContent.Actors.ActorViews
 		        new ElementInteractionDataPair{ flag = 0b01001000, callback = ElectricToExplode },
 		        new ElementInteractionDataPair{ flag = 0b00010001, callback = WetToWet },
 	        };
+        }
+
+        private void Update()
+        {
+	        if ((Flag3 & ElementFlag.CanBeWet) != 0 && !_missionDone[0])
+	        {
+		        _missionDone[0] = true;
+		        MissionManager.Manager?.TryGetMission(new MissionModel(MissionType.ElementAffection, @object, ElementFlag.CanBeWet, RoomType));
+	        }
+	        if ((Flag3 & ElementFlag.CanBurn) != 0 && !_missionDone[1])
+	        {
+		        _missionDone[1] = true;
+		        MissionManager.Manager?.TryGetMission(new MissionModel(MissionType.ElementAffection, @object, ElementFlag.CanBurn, RoomType));
+	        }
+	        if ((Flag3 & ElementFlag.CanConduct) != 0 && !_missionDone[2])
+	        {
+		        _missionDone[2] = true;
+		        MissionManager.Manager?.TryGetMission(new MissionModel(MissionType.ElementAffection, @object, ElementFlag.CanConduct, RoomType));
+	        }
+	        if ((Flag3 & ElementFlag.CanExplode) != 0 && !_missionDone[3])
+	        {
+		        _missionDone[3] = true;
+		        MissionManager.Manager?.TryGetMission(new MissionModel(MissionType.ElementAffection, @object, ElementFlag.CanExplode, RoomType));
+	        }
         }
 
         public void CheckOtherElement(IElementHolder holder)
@@ -207,39 +236,63 @@ namespace Runtime.GameContent.Actors.ActorViews
 		private void BurnToBurn(ElementInteractionData data)
 		{
 			data.holder2.Flag3 |= ElementFlag.CanBurn;
-			MissionManager.Manager?.TryGetMission(new MissionModel(MissionType.ElementAffection, @object, ElementFlag.CanBurn, RoomType));
+			if (!_missionDone[1])
+			{
+				_missionDone[1] = true;
+				MissionManager.Manager?.TryGetMission(new MissionModel(MissionType.ElementAffection, @object, ElementFlag.CanBurn, RoomType));
+			}
 		}
 
 		private void BurnToExplode(ElementInteractionData data)
 		{
 			data.holder2.Flag3 |= ElementFlag.CanExplode;
 			Explode(data.holder2);
-			MissionManager.Manager?.TryGetMission(new MissionModel(MissionType.ElementAffection, @object, ElementFlag.CanExplode, RoomType));
+			if (_missionDone[3])
+			{
+				_missionDone[3] = true;
+				MissionManager.Manager?.TryGetMission(new MissionModel(MissionType.ElementAffection, @object, ElementFlag.CanExplode, RoomType));
+			}
 		}
 
 		private void ElectricToBurn(ElementInteractionData data)
 		{
 			data.holder2.Flag3 |= ElementFlag.CanBurn;
-			MissionManager.Manager?.TryGetMission(new MissionModel(MissionType.ElementAffection, @object, ElementFlag.CanBurn, RoomType));
+			if (!_missionDone[1])
+			{
+				_missionDone[1] = true;
+				MissionManager.Manager?.TryGetMission(new MissionModel(MissionType.ElementAffection, @object, ElementFlag.CanBurn, RoomType));
+			}
 		}
 
 		private void ElectricToElectric(ElementInteractionData data)
 		{
 			data.holder2.Flag3 |= ElementFlag.CanConduct;
-			MissionManager.Manager?.TryGetMission(new MissionModel(MissionType.ElementAffection, @object, ElementFlag.CanConduct, RoomType));
+			if (!_missionDone[2])
+			{
+				_missionDone[2] = true;
+				MissionManager.Manager?.TryGetMission(new MissionModel(MissionType.ElementAffection, @object, ElementFlag.CanConduct, RoomType));
+			}
 		}
 
 		private void ElectricToExplode(ElementInteractionData data)
 		{
 			data.holder2.Flag3 |= ElementFlag.CanExplode;
 			Explode(data.holder2);
-			MissionManager.Manager?.TryGetMission(new MissionModel(MissionType.ElementAffection, @object, ElementFlag.CanExplode, RoomType));
+			if (_missionDone[3])
+			{
+				_missionDone[3] = true;
+				MissionManager.Manager?.TryGetMission(new MissionModel(MissionType.ElementAffection, @object, ElementFlag.CanExplode, RoomType));
+			}
 		}
 
 		private void WetToWet(ElementInteractionData data)
 		{
 			data.holder2.Flag3 |= ElementFlag.CanBeWet;
-			MissionManager.Manager?.TryGetMission(new MissionModel(MissionType.ElementAffection, @object, ElementFlag.CanBeWet, RoomType));
+			if (!_missionDone[0])
+			{
+				_missionDone[0] = true;
+				MissionManager.Manager?.TryGetMission(new MissionModel(MissionType.ElementAffection, @object, ElementFlag.CanBeWet, RoomType));
+			}
 		}
 
 		#endregion
@@ -267,13 +320,15 @@ namespace Runtime.GameContent.Actors.ActorViews
 
         [SerializeField] private ObjectType @object; //Tu me laisses l'appeler object >:(
 
+        [SerializeField] private ElementFlag flag;
+        
+        [SerializeField] private VFXReferences vfxReferences;
+
         private ElementInteractionDataPair[] _resolveInteractions;
 
         private ElementInteractionDataPair[] _nextInteractions;
 
-        [SerializeField] private ElementFlag flag;
-        
-        [SerializeField] private VFXReferences vfxReferences;
+        private bool[] _missionDone;
 
         #endregion
     }
