@@ -90,7 +90,6 @@ namespace Runtime.GameContent.Actors.ActorViews
                 
                 if (_aiModel._currentWaypoint.position != Vector3.zero)
                     agent.SetDestination(_aiModel._currentWaypoint.position);
-                
             }
         
             //Display Player
