@@ -95,6 +95,10 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Model
         public float bigPossessActionTimer;
 
         public float throwTimer;
+        
+        public LayerMask grabbableBlockLayer;
+        
+        public LayerMask possessedBlockLayer;
     }
     
     [System.Serializable]

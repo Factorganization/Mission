@@ -69,7 +69,7 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller.States
         public override sbyte OnFixedUpdate()
         {
             playerModel.HandleRotateInputGather();
-            playerModel.SetCameraPivotLocalPos(Vector3.zero);
+            playerModel.SetCameraPivotLocalPos(playerModel.currentPossessedObject.Collider.center);
             playerModel.Look();
             
             return 0;
