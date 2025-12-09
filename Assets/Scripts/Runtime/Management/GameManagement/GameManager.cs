@@ -13,6 +13,12 @@ namespace Runtime.Management.GameManagement
                 SceneManager.LoadSceneAsync(s, LoadSceneMode.Additive);
         }
         
+        public void ReloadScene()
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+
+        
         #endregion
 
         #region fields
