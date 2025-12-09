@@ -26,6 +26,12 @@ namespace Runtime.GameContent.Actors.ActorViews
 
         private void Update()
         {
+            if (Vector3.Distance(transform.position, playerTrans.position) < 1 && aiDetection.IsPlayerSpotted)
+            {
+                gameOver.SetActive(true);
+            }
+            
+            
             //Drop Object // Check Distance Collectable
             if (aiDetection.CurrentObject != null)
                 if (Vector3.Distance(transform.position, aiDetection.CurrentObject.OriginPos) < distanceToCollectable)
@@ -107,6 +113,8 @@ namespace Runtime.GameContent.Actors.ActorViews
         [SerializeField] private AIMovementDataSo aiMovementDataSo;
         [SerializeField] private AIDetection aiDetection;
         [SerializeField] private NavMeshAgent agent;
+        [SerializeField] private Transform playerTrans;
+        [SerializeField] private GameObject gameOver; 
 
         private int _index;
         private AIModel _aiModel;
