@@ -38,6 +38,11 @@ namespace Runtime.GameContent.Logics.LogicInterfaces
         public bool Active { get; set; }
         
         /// <summary>
+        /// array of element length to indicate if object has done its mission for a specific element
+        /// </summary>
+        public bool[] MissionDone { get; }
+        
+        /// <summary>
         /// Graph feedbacks of the elements 
         /// </summary>
         public VFXReferences VFX { get; }

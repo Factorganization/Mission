@@ -48,7 +48,7 @@ namespace Runtime.Management.GameManagement
             {
                 foreach (var r in rooms)
                 {
-                    var b = new Bounds(r.collider.bounds.center, new Vector3(r.collider.bounds.size.x, 100, r.collider.bounds.size.z));
+                    var b = new Bounds(r.col.bounds.center, new Vector3(r.col.bounds.size.x, 100, r.col.bounds.size.z));
                     if (b.Contains(e.Transform.position))
                     {
                         e.RoomType = r.roomType;
@@ -76,7 +76,7 @@ namespace Runtime.Management.GameManagement
                 
                 foreach (var r in rooms)
                 {
-                    var b = new Bounds(r.collider.bounds.center, new Vector3(r.collider.bounds.size.x, 100, r.collider.bounds.size.z));
+                    var b = new Bounds(r.col.bounds.center, new Vector3(r.col.bounds.size.x, 100, r.col.bounds.size.z));
                     if (b.Contains(e.Transform.position))
                     {
                         e.RoomType = r.roomType;
