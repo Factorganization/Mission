@@ -7,7 +7,11 @@ namespace Runtime.GameContent.Actors.ActorModels
     {
         public float moveSpeed;
         public float rotateSpeed;
-        public Vector3[] waypoints;
         public float waitDelay;
+
+        [HideInInspector] 
+        public Vector3[] waypoints;
+        
     }
 }
+
