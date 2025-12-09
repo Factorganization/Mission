@@ -2,7 +2,6 @@ using Runtime.GameContent.Actors.ActorControllers;
 using Runtime.GameContent.Actors.ActorModels;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.SceneManagement;
 
 namespace Runtime.GameContent.Actors.ActorViews
 {
