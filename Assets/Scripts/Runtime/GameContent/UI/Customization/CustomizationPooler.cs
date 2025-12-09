@@ -64,7 +64,7 @@ namespace Runtime.GameContent.UI.Customization
             
         }*/
         
-        public void PopulateMeshes(GameObject[] prefabs, Sprite[] icons = null, UnityAction<CustomizeButton> onSelected = null)
+        public void PopulatePrefab(CustomizeItem[] prefabs, UnityAction<CustomizeButton> onSelected = null)
         {
             if (_customizeButtonPrefab == null || _contentArea == null || prefabs == null) return;
 
@@ -76,8 +76,8 @@ namespace Runtime.GameContent.UI.Customization
                 var btn = _pool[i];
                 btn.gameObject.SetActive(true);
                 btn.ResetForPool();
-                Sprite icon = (icons != null && i < icons.Length) ? icons[i] : null;
-                btn.SetData(prefabs[i], icon, false, i);
+                Sprite icon = (prefabs[i].ItemIcon != null && i < prefabs.Length) ? prefabs[i].ItemIcon : null;
+                btn.SetData(prefabs[i].ItemPrefab, icon, false, i);
                 if (onSelected != null)
                     btn.OnChangeSkin.AddListener(onSelected);
                 else
