@@ -77,7 +77,7 @@ namespace Runtime.GameContent.UI.Customization
                 btn.gameObject.SetActive(true);
                 btn.ResetForPool();
                 Sprite icon = (prefabs[i].ItemIcon != null && i < prefabs.Length) ? prefabs[i].ItemIcon : null;
-                btn.SetData(prefabs[i].ItemPrefab, icon, false, i);
+                btn.SetData(prefabs[i].ItemPrefab, icon, prefabs[i].Locked, i);
                 if (onSelected != null)
                     btn.OnChangeSkin.AddListener(onSelected);
                 else
