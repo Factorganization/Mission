@@ -18,7 +18,7 @@ namespace Runtime.GameContent.UI.Customization
             _hairButton.onClick.AddListener(() =>
             {
                 var prefabs = _characterPreview.GetPrefabs(CustomizationPlayer.BodyPartType.Hair);
-                _customizationPooler.PopulateMeshes(prefabs, null, (btn) =>
+                _customizationPooler.PopulatePrefab(prefabs, (btn) =>
                 {
                     _characterPreview.SetBodyPartPrefab(CustomizationPlayer.BodyPartType.Hair, btn.ItemIndex);
                 });
@@ -27,7 +27,7 @@ namespace Runtime.GameContent.UI.Customization
             _tailButton.onClick.AddListener(() =>
             {
                 var prefabs = _characterPreview.GetPrefabs(CustomizationPlayer.BodyPartType.Tail);
-                _customizationPooler.PopulateMeshes(prefabs, null, (btn) =>
+                _customizationPooler.PopulatePrefab(prefabs, (btn) =>
                 {
                     _characterPreview.SetBodyPartPrefab(CustomizationPlayer.BodyPartType.Tail, btn.ItemIndex);
                 });
@@ -36,7 +36,7 @@ namespace Runtime.GameContent.UI.Customization
             _eyesButton.onClick.AddListener(() =>
             {
                 var prefabs = _characterPreview.GetPrefabs(CustomizationPlayer.BodyPartType.Eyes);
-                _customizationPooler.PopulateMeshes(prefabs, null, (btn) =>
+                _customizationPooler.PopulatePrefab(prefabs, (btn) =>
                 {
                     _characterPreview.SetBodyPartPrefab(CustomizationPlayer.BodyPartType.Eyes, btn.ItemIndex);
                 });
@@ -45,7 +45,7 @@ namespace Runtime.GameContent.UI.Customization
             _bodyButton.onClick.AddListener(() =>
             {
                 var prefabs = _characterPreview.GetPrefabs(CustomizationPlayer.BodyPartType.Body);
-                _customizationPooler.PopulateMeshes(prefabs, null, (btn) =>
+                _customizationPooler.PopulatePrefab(prefabs, (btn) =>
                 {
                     _characterPreview.SetBodyPartPrefab(CustomizationPlayer.BodyPartType.Body, btn.ItemIndex);
                 });
@@ -54,7 +54,7 @@ namespace Runtime.GameContent.UI.Customization
             _hornsButton.onClick.AddListener(() =>
             {
                 var prefabs = _characterPreview.GetPrefabs(CustomizationPlayer.BodyPartType.Horns);
-                _customizationPooler.PopulateMeshes(prefabs, null, (btn) =>
+                _customizationPooler.PopulatePrefab(prefabs, (btn) =>
                 {
                     _characterPreview.SetBodyPartPrefab(CustomizationPlayer.BodyPartType.Horns, btn.ItemIndex);
                 });
@@ -70,8 +70,6 @@ namespace Runtime.GameContent.UI.Customization
         
         [SerializeField] CustomizationPooler _customizationPooler;
         [SerializeField] private CustomizationPlayer _characterPreview;
-        
-        private SkinnedMeshRenderer _focusedSkinnedMeshRenderer;
         
         #endregion
 
