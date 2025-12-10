@@ -7,14 +7,7 @@ namespace Runtime.GameContent.UI.Customization
 {
     public class CustomizationPlayer : MonoBehaviour
     {
-        private const string PLAYER_PREFS_KEY = "PlayerCustom";
-
-        [SerializeField] private BodyPartData[] bodyPartDataArray;
-        public BodyPartData[] BodyPartDataArray => bodyPartDataArray;
-        
-        [Tooltip("If true, all prefabs will be instantiated once at Start and toggled on/off when changing.")]
-        [SerializeField] private bool _preloadPrefabs = true;
-
+        #region Properties
         public enum BodyPartType
         {
             Horns,
@@ -35,12 +28,15 @@ namespace Runtime.GameContent.UI.Customization
             [NonSerialized] public int currentIndex = 0;
             [NonSerialized] public List<GameObject> instances;
         }
+        #endregion
 
+        #region Functions
         private void Start()
         {
             if (_preloadPrefabs)
                 PreloadAllPrefabs();
             ActivateCurrentInstances();
+            Load();
         }
 
         private void PreloadAllPrefabs()
@@ -124,6 +120,37 @@ namespace Runtime.GameContent.UI.Customization
             }
 
             data.currentIndex = clamped;
+        }
+        
+        public void ApplyMaterialToBodyPart(BodyPartType bodyPartType, Material mat)
+        {
+            var data = GetBodyPartData(bodyPartType);
+            if (data == null) return;
+
+            // Try the currentInstance first, fallback to instances[currentIndex]
+            GameObject target = data.currentInstance;
+            if (target == null && data.instances != null && data.currentIndex >= 0 && data.currentIndex < data.instances.Count)
+                target = data.instances[data.currentIndex];
+
+            if (target == null) return;
+
+            // Apply the material to every Renderer in the object (covers MeshRenderer and SkinnedMeshRenderer)
+            var renderers = target.GetComponentsInChildren<Renderer>(true);
+            foreach (var r in renderers)
+            {
+                var shared = r.sharedMaterials;
+                if (shared == null || shared.Length == 0)
+                {
+                    r.material = mat;
+                    continue;
+                }
+
+                // Replace all material slots with the selected material (keeps slot count)
+                var newMats = new Material[shared.Length];
+                for (int i = 0; i < newMats.Length; i++)
+                    newMats[i] = mat;
+                r.materials = newMats;
+            }
         }
 
         public CustomizeItem[] GetPrefabs(BodyPartType bodyPartType)
@@ -277,5 +304,19 @@ namespace Runtime.GameContent.UI.Customization
                 bodyPartData.skinnedMeshRenderer.sharedMesh = bodyPartData.meshArray[bodyPartTypeIndex.index];
             }
         }*/
+        #endregion
+        
+        #region Fields
+        private const string PLAYER_PREFS_KEY = "PlayerCustom";
+
+        [SerializeField] private BodyPartData[] bodyPartDataArray;
+        public BodyPartData[] BodyPartDataArray => bodyPartDataArray;
+
+        [Tooltip("Optional mesh for the player head")]
+        [SerializeField] private GameObject _playerHeadMesh;
+        
+        [Tooltip("If true, all prefabs will be instantiated once at Start and toggled on/off when changing.")]
+        [SerializeField] private bool _preloadPrefabs = true;
+        #endregion
     }
 }
