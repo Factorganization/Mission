@@ -17,6 +17,8 @@ namespace Runtime.GameContent.UI.Customization
         {
             _hairButton.onClick.AddListener(() =>
             {
+                if (_customizationColors != null)
+                    _customizationColors.SetCurrentBodyPart(CustomizationPlayer.BodyPartType.Hair);
                 var prefabs = _characterPreview.GetPrefabs(CustomizationPlayer.BodyPartType.Hair);
                 _customizationPooler.PopulatePrefab(prefabs, (btn) =>
                 {
@@ -26,6 +28,8 @@ namespace Runtime.GameContent.UI.Customization
             
             _tailButton.onClick.AddListener(() =>
             {
+                if (_customizationColors != null)
+                    _customizationColors.SetCurrentBodyPart(CustomizationPlayer.BodyPartType.Tail);
                 var prefabs = _characterPreview.GetPrefabs(CustomizationPlayer.BodyPartType.Tail);
                 _customizationPooler.PopulatePrefab(prefabs, (btn) =>
                 {
@@ -35,6 +39,8 @@ namespace Runtime.GameContent.UI.Customization
             
             _eyesButton.onClick.AddListener(() =>
             {
+                if (_customizationColors != null)
+                    _customizationColors.SetCurrentBodyPart(CustomizationPlayer.BodyPartType.Eyes);
                 var prefabs = _characterPreview.GetPrefabs(CustomizationPlayer.BodyPartType.Eyes);
                 _customizationPooler.PopulatePrefab(prefabs, (btn) =>
                 {
@@ -44,6 +50,8 @@ namespace Runtime.GameContent.UI.Customization
             
             _bodyButton.onClick.AddListener(() =>
             {
+                if (_customizationColors != null)
+                    _customizationColors.SetCurrentBodyPart(CustomizationPlayer.BodyPartType.Body);
                 var prefabs = _characterPreview.GetPrefabs(CustomizationPlayer.BodyPartType.Body);
                 _customizationPooler.PopulatePrefab(prefabs, (btn) =>
                 {
@@ -53,6 +61,8 @@ namespace Runtime.GameContent.UI.Customization
             
             _hornsButton.onClick.AddListener(() =>
             {
+                if (_customizationColors != null)
+                    _customizationColors.SetCurrentBodyPart(CustomizationPlayer.BodyPartType.Horns);
                 var prefabs = _characterPreview.GetPrefabs(CustomizationPlayer.BodyPartType.Horns);
                 _customizationPooler.PopulatePrefab(prefabs, (btn) =>
                 {
@@ -70,6 +80,7 @@ namespace Runtime.GameContent.UI.Customization
         
         [SerializeField] CustomizationPooler _customizationPooler;
         [SerializeField] private CustomizationPlayer _characterPreview;
+        [SerializeField] private CustomizationColors _customizationColors;
         
         #endregion
 
