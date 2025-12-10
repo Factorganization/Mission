@@ -20,7 +20,7 @@ namespace Runtime.GameContent.UI.Customization
        public override void Show() 
        {
            base.Show();
-           //_animator.Play("OpenCustomization"); 
+           //_animator.Play("OpenCustomization");
        }
        
        #endregion
