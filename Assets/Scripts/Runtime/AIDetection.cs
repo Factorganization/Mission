@@ -1,4 +1,5 @@
 using Runtime.GameContent.Actors.ActorInterfaces;
+using Runtime.GameContent.Player.Controller.LocalMachine.View;
 using Runtime.Management.GameManagement;
 using UnityEditor;
 using UnityEngine;
@@ -51,43 +52,43 @@ public class AIDetection : MonoBehaviour
 
     private void DetectPlayer()
     {
-        Vector3 directionToPlayer = (player.position - transform.position);
+        Vector3 directionToPlayer = (player.transform.position - transform.position);
         float angleToPlayer = Vector3.Angle(transform.forward, directionToPlayer.normalized);
-
-        if ((angleToPlayer < detectionAngle / 2 && directionToPlayer.magnitude <= detectionDistance) || Vector3.Distance(player.position, transform.position) < sixthSensDetectionDistance)
+        if (((angleToPlayer < detectionAngle / 2 && directionToPlayer.magnitude <= detectionDistance) ||
+            Vector3.Distance(player.transform.position, transform.position) < sixthSensDetectionDistance) && player.IsVisible)
         {
             RaycastHit hit;
             if (!Physics.Raycast(transform.position, directionToPlayer.normalized, out hit, detectionDistance))
                 return; 
-            if (hit.transform != player)
+            if (hit.transform != player.transform)
                 return;
-                
+            
             _forgetTimer = 0;
             
             if (_detectionTimer < timeToDetect)
             {
                 Debug.Log("Suspicious");
                 _detectionTimer += Time.deltaTime;
-                transform.LookAt(player.position);
+                transform.LookAt(player.transform.position);
                 transform.rotation = new Quaternion(0, transform.rotation.y, 0, transform.rotation.w);
             }
             else
             {
                 Debug.Log("Player Spotted");
                 IsPlayerSpotted = true;
-                LastKnownPlayerPosition = player.position;
+                LastKnownPlayerPosition = player.transform.position;
             }
         }
 
-        if (IsPlayerSpotted && Vector3.Distance(transform.position, player.position) <= sixthSensDetectionDistance)
+        if (IsPlayerSpotted && Vector3.Distance(transform.position, player.transform.position) <= sixthSensDetectionDistance)
         {
             RaycastHit hit;
             if (!Physics.Raycast(transform.position, directionToPlayer.normalized, out hit, detectionDistance))
                 return;
-            if (hit.transform != player)
+            if (hit.transform != player.transform)
                 return;
             
-            LastKnownPlayerPosition = player.position;
+            LastKnownPlayerPosition = player.transform.position;
             IsPlayerSpotted = true;
         }
     }
@@ -199,7 +200,7 @@ public class AIDetection : MonoBehaviour
     [SerializeField] private float timeToDetect = 3f;
     [SerializeField] private float timeToForget = 5f;
     
-    [SerializeField] private Transform player;
+    [SerializeField] private PlayerStateMachine player;
     [SerializeField] private LevelGenerator levelGenerator;
          
     private float _detectionTimer = 0f;
