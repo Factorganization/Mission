@@ -48,22 +48,15 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller.States
                     break;
                 
                 case 6:
-                    var tg = playerModel.OnTryGrab(out var gb);
-                    switch (tg)
+                    if (playerModel.currentGrabbedObject is not null)
                     {
-                        case 1 when playerModel.currentGrabbedObject is not null:
-                            playerModel.ResetGrabbedObjectState();
-                            playerModel.SetGrabbedObjectState(gb);
-                            break;
-                        
-                        case 1:
-                            playerModel.SetGrabbedObjectState(gb);
-                            break;
-                        
-                        case 0 when playerModel.currentGrabbedObject is not null:
-                            playerModel.ResetGrabbedObjectState();
-                            break;
+                        playerModel.ResetGrabbedObjectState();
+                        return 1;
                     }
+                    
+                    var tg = playerModel.OnTryGrab(out var gb);
+                    if (tg == 1)
+                        playerModel.SetGrabbedObjectState(gb);
                     break;
                 
                 case 4:

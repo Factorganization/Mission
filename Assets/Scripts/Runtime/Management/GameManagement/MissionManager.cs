@@ -65,8 +65,6 @@ namespace Runtime.Management.GameManagement
                 if (c > 0)
                     return;
             }
-            
-            Debug.Log("Level Won");
         }
 
         private void SetText()
