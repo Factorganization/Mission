@@ -10,7 +10,7 @@ namespace Runtime.GameContent.UI.Customization
 
         public string ItemName;
         public Sprite ItemIcon;
-        public Mesh ItemMesh;
+        public GameObject ItemPrefab;
         public CustomizationPlayer.BodyPartType ItemBodyPart;
         public bool Locked;
 

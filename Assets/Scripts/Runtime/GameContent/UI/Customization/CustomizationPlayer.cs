@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Runtime.GameContent.UI.Customization
@@ -27,7 +28,7 @@ namespace Runtime.GameContent.UI.Customization
         public class BodyPartData
         {
             public BodyPartType bodyPartType;
-            public GameObject[] prefabArray;
+            public CustomizeItem[] prefabArray;
             public Transform attachTransform;
 
             [NonSerialized] public GameObject currentInstance;
@@ -52,7 +53,7 @@ namespace Runtime.GameContent.UI.Customization
 
                 for (int i = 0; i < data.prefabArray.Length; i++)
                 {
-                    var prefab = data.prefabArray[i];
+                    var prefab = data.prefabArray[i].ItemPrefab;
                     if (prefab == null)
                     {
                         data.instances.Add(null);
@@ -106,7 +107,7 @@ namespace Runtime.GameContent.UI.Customization
                 if (data.currentInstance != null)
                     Destroy(data.currentInstance);
 
-                var prefab = data.prefabArray[clamped];
+                var prefab = data.prefabArray[clamped].ItemPrefab;
                 if (prefab != null)
                 {
                     var parent = data.attachTransform != null ? data.attachTransform : this.transform;
@@ -125,10 +126,10 @@ namespace Runtime.GameContent.UI.Customization
             data.currentIndex = clamped;
         }
 
-        public GameObject[] GetPrefabs(BodyPartType bodyPartType)
+        public CustomizeItem[] GetPrefabs(BodyPartType bodyPartType)
         {
             var data = GetBodyPartData(bodyPartType);
-            if (data == null || data.prefabArray == null) return new GameObject[0];
+            if (data == null || data.prefabArray == null) return new CustomizeItem[0];
             return data.prefabArray;
         }
 
