@@ -13,7 +13,7 @@ namespace Runtime.GameContent.Actors.ActorViews
         {
             _aiModel = new AIModel(aiMovementDataSo);
             _aiModel.transform = transform;
-            agent.speed = _aiModel.movementData.moveSpeed;
+            agent.speed = _aiModel.movementData.patrolSpeed;
             agent.angularSpeed = _aiModel.movementData.rotateSpeed;
             UpdateMovementData();
         }
@@ -76,6 +76,11 @@ namespace Runtime.GameContent.Actors.ActorViews
             {
                 agent.isStopped = false;
                 aiDetection.DropObject();
+                agent.speed = _aiModel.movementData.chaseSpeed;
+            }
+            else
+            {
+                agent.speed = _aiModel.movementData.patrolSpeed;
             }
             
             _aiUpdateSetPositionDelay = aiDetection.IsPlayerSpotted ? 0.01f : 0.2f;
