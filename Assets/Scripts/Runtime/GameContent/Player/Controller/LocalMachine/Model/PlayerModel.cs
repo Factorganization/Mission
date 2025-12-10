@@ -7,13 +7,14 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Model
     {
         #region constuctors
 
-        public PlayerModel(PlayerDataSo data, Rigidbody rb, Transform graph, Transform cam, Transform grab, Animator animator)
+        public PlayerModel(PlayerDataSo data, Rigidbody rb, Transform graph, Transform cam, Transform grab, Transform activeGrab, Animator animator)
         {
             this.data = data;
             this.rb = rb;
             this.graph = graph;
             this.cam = cam;
             this.grab = grab;
+            this.activeGrab = activeGrab;
             this.animator = animator;
         }
 
@@ -30,6 +31,8 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Model
         public readonly Transform cam;
 
         public readonly Transform grab;
+
+        public readonly Transform activeGrab;
 
         public IPossessable currentPossessedObject = null;
         
@@ -62,6 +65,8 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Model
         public float jumpBufferTime = 0;
         
         public float coyoteTime = 0;
+
+        public float throwTimer = 0;
         
         public bool isVisible = true;
         

@@ -1,5 +1,5 @@
 using Runtime.GameContent.Player.Controller.LocalMachine.Model;
-using Runtime.Utils.BaseMachine;
+using Shared.Utils.BaseMachine;
 using UnityEngine;
 
 namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller.States
@@ -51,6 +51,7 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller.States
                     if (_destructTimer > playerModel.data.interactData.bigPossessActionTimer)
                     {
                         playerModel.OnDestructiveAction();
+                        _destructTimer = 0;
                         
                         if (stateMachine.TrySwitchState("idle", (int) playerModel.data.activeStates))
                             return 1;
@@ -59,7 +60,6 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller.States
                 
                 case 3:
                     _destructTimer = 0;
-                    playerModel.OnAction();
                     break;
             }
             
@@ -69,7 +69,7 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller.States
         public override sbyte OnFixedUpdate()
         {
             playerModel.HandleRotateInputGather();
-            playerModel.SetCameraPivotLocalPos(Vector3.zero);
+            playerModel.SetCameraPivotLocalPos(playerModel.currentPossessedObject.Collider.center);
             playerModel.Look();
             
             return 0;

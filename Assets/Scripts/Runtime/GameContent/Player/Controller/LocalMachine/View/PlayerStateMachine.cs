@@ -1,7 +1,7 @@
 using System;
 using Runtime.GameContent.Player.Controller.LocalMachine.Controller.States;
 using Runtime.GameContent.Player.Controller.LocalMachine.Model;
-using Runtime.Utils.BaseMachine;
+using Shared.Utils.BaseMachine;
 using UnityEngine;
 
 namespace Runtime.GameContent.Player.Controller.LocalMachine.View
@@ -19,7 +19,7 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.View
 
         private void Awake()
         {
-            _playerModel = new PlayerModel(dataSo, referenceData.rb, referenceData.graph, referenceData.cam, referenceData.grab, referenceData.animator);
+            _playerModel = new PlayerModel(dataSo, referenceData.rb, referenceData.graph, referenceData.cam, referenceData.grab, referenceData.activeGrab, referenceData.animator);
             _stateMachine = new GenericStateMachine(Enum.GetNames(typeof(ControllerState)).Length);
 
             var idle = new IdleState(_stateMachine, gameObject, _playerModel, ControllerState.Idle);
@@ -122,6 +122,8 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.View
             [SerializeField] internal Transform graph;
 
             [SerializeField] internal Transform grab;
+
+            [SerializeField] internal Transform activeGrab;
                     
             [SerializeField] internal Animator animator;
         }

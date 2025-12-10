@@ -5,17 +5,25 @@ namespace Runtime.Management.GameManagement
 {
     public class GameManager : MonoBehaviour
     {
+        #region methodes
+        
         private void Start()
         {
-            SceneManager.LoadSceneAsync(scene1, LoadSceneMode.Additive);
-            SceneManager.LoadSceneAsync(scene2, LoadSceneMode.Additive);
+            foreach (var s in scenes)
+                SceneManager.LoadSceneAsync(s, LoadSceneMode.Additive);
         }
+        
+        public void ReloadScene()
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+
+        
+        #endregion
 
         #region fields
 
-        [SerializeField] private string scene1;
-        
-        [SerializeField] private string scene2;
+        [SerializeField] private string[] scenes;
 
         #endregion
     }

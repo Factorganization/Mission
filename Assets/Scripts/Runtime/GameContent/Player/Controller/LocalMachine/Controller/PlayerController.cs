@@ -1,4 +1,5 @@
 using Runtime.GameContent.Actors.ActorInterfaces;
+using Runtime.GameContent.Logics.LogicInterfaces;
 using Runtime.GameContent.Player.Controller.LocalMachine.Model;
 using Shared.RapaEngineUtils.Maths;
 using UnityEngine;
@@ -53,32 +54,36 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller
         /// <returns>
         /// <list type="return cases">
         /// <item>1 : try Possess / Unpossess</item>
-        /// <item>2 : possess action pressed</item>
-        /// <item>3 : possess action released</item>
+        /// <item>2 : interact pressed</item>
+        /// <item>3 : interact released</item>
         /// <item>4 : interact while grabbing</item>
-        /// <item>5 : throw item</item>
+        /// <item>5 : prep throw item</item>
         /// <item>6 : try Grab / Drop</item>
+        /// <item>7 : cancel throw</item>
         /// </list>
         /// </returns>
         internal static byte HandleMonoInputGather(this PlayerModel playerModel)
         {
             if (playerModel.data.inputData.tryPossessInput.action.WasPressedThisFrame())
                 return 1;
-
-            if (playerModel.data.inputData.possessInteractInput.action.IsPressed())
-                return 2;
-
-            if (playerModel.data.inputData.possessInteractInput.action.WasReleasedThisFrame())
-                return 3;
-
-            if (playerModel.data.inputData.grabInteractInput.action.WasPressedThisFrame())
+            
+            if (playerModel.data.inputData.interactInput.action.WasPressedThisFrame())
                 return 4;
 
-            if (playerModel.data.inputData.throwInput.action.WasPressedThisFrame())
-                return 5;
+            if (playerModel.data.inputData.interactInput.action.IsPressed())
+                return 2;
+
+            if (playerModel.data.inputData.interactInput.action.WasReleasedThisFrame())
+                return 3;
 
             if (playerModel.data.inputData.tryGrabInput.action.WasPressedThisFrame())
                 return 6;
+
+            if (playerModel.data.inputData.throwInput.action.IsPressed())
+                return 5;
+
+            if (playerModel.data.inputData.throwInput.action.WasReleasedThisFrame())
+                return 7; //not that useful
 
             return 0;
         }
@@ -123,8 +128,7 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller
                                     * Time.fixedDeltaTime;
             playerModel.camPitch = ClampSymmetric(playerModel.camPitch, playerModel.data.cameraData.maxPitchAngle);
             
-            //playerModel.cam.localEulerAngles = new Vector3(playerModel.camPitch, playerModel.camYaw, 0);
-            playerModel.cam.localEulerAngles = new Vector3(playerModel.cam.localEulerAngles.x, playerModel.camYaw, 0);
+            playerModel.cam.localEulerAngles = new Vector3(playerModel.data.cameraData.freeCam ? playerModel.camPitch : playerModel.cam.localEulerAngles.x, playerModel.camYaw, 0);
             //playerModel.cam.localEulerAngles += Math.EasingFunction.SimpleQuadraticEase.V3SimpleQuadraticEaseOut(playerModel.cam.localEulerAngles, playerModel.targetLookDir, 0.1f);
         }
         
@@ -215,6 +219,12 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller
         {
             if (playerModel.currentGrabbedObject is null)
                 return;
+
+            if (playerModel.currentGrabbedObject.Active && playerModel.currentGrabbedObject.Transform.parent != playerModel.activeGrab)
+                playerModel.currentGrabbedObject.Transform.SetParent(playerModel.activeGrab);
+            
+            if (!playerModel.currentGrabbedObject.Active && playerModel.currentGrabbedObject.Transform.parent != playerModel.grab)
+                playerModel.currentGrabbedObject.Transform.SetParent(playerModel.grab);
             
             if (playerModel.currentGrabbedObject.Transform.localPosition.sqrMagnitude < 0.005f)
                 return;
@@ -257,6 +267,8 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller
                 + new Vector3(0, playerModel.data.interactData.throwStrength.y, 0),
                 ForceMode.VelocityChange);
             
+            if (playerModel.currentGrabbedObject is IElementHolder e)
+                e.Active = true; //TODO a corriger apres refonte archi
             playerModel.currentGrabbedObject = null;
             
             return true;
@@ -268,21 +280,22 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller
 		/// <param name="playerModel">self</param>
 		/// <returns>True if interaction was performed, False otherwise</returns>
 		internal static bool TryInteractGrabbedObject(this PlayerModel playerModel)
-		{
-			if (playerModel.currentGrabbedObject.Action())
-				return true;
+        {
+            return playerModel.currentGrabbedObject is not null && playerModel.currentGrabbedObject.Action();
+        }
 
-			return false;
-		}
-
-		/// <summary>
-		/// Set the grabbed object collider and rb to the desired state to get grabbed
-		/// </summary>
-		/// <param name="playerModel">self</param>
-		internal static void SetGrabbedObjectState(this PlayerModel playerModel)
+        /// <summary>
+        /// Set the grabbed object collider and rb to the desired state to get grabbed
+        /// </summary>
+        /// <param name="playerModel">self</param>
+        /// <param name="gb">the grabbable object that was grabbed</param>
+        internal static void SetGrabbedObjectState(this PlayerModel playerModel, IGrabbable gb)
 		{
+            playerModel.currentGrabbedObject = gb;
 			playerModel.currentGrabbedObject.Rigidbody.isKinematic = true;
 			playerModel.currentGrabbedObject.Transform.SetParent(playerModel.grab, true);
+            if (playerModel.currentGrabbedObject is IElementHolder e)
+                e.Active = false; //TODO a corriger apres refonte archi
 		}
 
 		/// <summary>
@@ -293,6 +306,8 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller
 		{
 			playerModel.currentGrabbedObject.Rigidbody.isKinematic = false;
 			playerModel.currentGrabbedObject.Transform.SetParent(null, true);
+            if (playerModel.currentGrabbedObject is IElementHolder e)
+                e.Active = true; //TODO a corriger apres refonte archi
 			playerModel.currentGrabbedObject = null;
 		}
     }

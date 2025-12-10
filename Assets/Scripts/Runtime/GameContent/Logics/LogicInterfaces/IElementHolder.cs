@@ -1,28 +1,56 @@
+using UnityEngine;
 using Runtime.GameContent.Logics.LogicModels;
+using Runtime.GameContent.Logics.LogicModels.ElementModels;
+using Runtime.GameContent.Logics.LogicModels.MissionModels;
 
 namespace Runtime.GameContent.Logics.LogicInterfaces
 {
     public interface IElementHolder
     {
         /// <summary>
-        /// Define element that can affect this object or that type of source
+        /// Transform of the Element Holder
         /// </summary>
-        public ElementFlag Flag1 { get; }
+        public Transform Transform { get; }
         
         /// <summary>
-        /// Defines element held by a transmitter or the element that affect a source 
+        /// Define element that IS affecting this object
+        /// </summary>
+        public ElementFlag Flag1 { get; set; }
+        
+        /// <summary>
+        /// Defines element that CAN affect this object
         /// </summary>
         public ElementFlag Flag2 { get; }
         
         /// <summary>
+        /// Hidden supplementary Flag that can store temporary IS data
+        /// </summary>
+        public ElementFlag Flag3 { get; set; }
+        
+        /// <summary>
+        /// The Current Room the Element holder is in
+        /// </summary>
+        public RoomType RoomType { get; set; }
+        
+        /// <summary>
         /// Defines if an object is active and can transmit any element
         /// </summary>
-        public bool Active { get; }
+        public bool Active { get; set; }
+        
+        /// <summary>
+        /// array of element length to indicate if object has done its mission for a specific element
+        /// </summary>
+        public bool[] MissionDone { get; }
+        
+        /// <summary>
+        /// Graph feedbacks of the elements 
+        /// </summary>
+        public VFXReferences VFX { get; }
         
         /// <summary>
         /// Interact with another object that can hold an element, can call the same function from the other object
         /// </summary>
-        /// <param name="elementFlag">element flags Flag1 from the other object</param>
-        public void CheckOtherElement(ElementFlag elementFlag);
+        /// <param name="holder">other object holding elements</param>
+        public void CheckOtherElement(IElementHolder holder);
     }
 }
