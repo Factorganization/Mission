@@ -87,6 +87,18 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Model
         public Animator animator;
 
         public Vector3 lastLookDir;
+        
+        public readonly int UpperBodyLayerID = Animator.StringToHash("UpperBody");
+        
+        public readonly int LowerBodyLayerID = Animator.StringToHash("LowerBody");
+        
+        public readonly int isWalking = Animator.StringToHash("isWalking");
+        
+        public readonly int isHolding = Animator.StringToHash("isHolding");
+        
+        public readonly int isInteracting = Animator.StringToHash("isInteracting");
+        
+        public readonly int @throw = Animator.StringToHash("throw");
 
         #endregion
 
