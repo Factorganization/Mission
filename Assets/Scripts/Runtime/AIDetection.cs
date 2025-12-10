@@ -54,11 +54,11 @@ public class AIDetection : MonoBehaviour
     {
         Vector3 directionToPlayer = (player.transform.position - transform.position);
         float angleToPlayer = Vector3.Angle(transform.forward, directionToPlayer.normalized);
-        if (((angleToPlayer < detectionAngle / 2 && directionToPlayer.magnitude <= detectionDistance) ||
+        if ((((angleToPlayer < unawareDetectionAngle / 2 || (angleToPlayer < awareDetectionAngle && IsPlayerSpotted)) && (directionToPlayer.magnitude <= unawareDetectionDistance) || directionToPlayer.magnitude <= awareDetectionDistance && IsPlayerSpotted) ||
             Vector3.Distance(player.transform.position, transform.position) < sixthSensDetectionDistance) && player.IsVisible)
         {
             RaycastHit hit;
-            if (!Physics.Raycast(transform.position, directionToPlayer.normalized, out hit, detectionDistance))
+            if (!Physics.Raycast(transform.position, directionToPlayer.normalized, out hit, awareDetectionDistance))
                 return; 
             if (hit.transform != player.transform)
                 return;
@@ -83,7 +83,7 @@ public class AIDetection : MonoBehaviour
         if (IsPlayerSpotted && Vector3.Distance(transform.position, player.transform.position) <= sixthSensDetectionDistance)
         {
             RaycastHit hit;
-            if (!Physics.Raycast(transform.position, directionToPlayer.normalized, out hit, detectionDistance))
+            if (!Physics.Raycast(transform.position, directionToPlayer.normalized, out hit, unawareDetectionDistance))
                 return;
             if (hit.transform != player.transform)
                 return;
@@ -103,7 +103,7 @@ public class AIDetection : MonoBehaviour
             var directionToGrabbable = (grabbable.Transform.position - transform.position);
             float  angleToGrabbable = Vector3.Angle(transform.forward, directionToGrabbable.normalized);
 
-            if (angleToGrabbable < detectionAngle / 2 && directionToGrabbable.magnitude <= detectionDistance)
+            if (angleToGrabbable < unawareDetectionAngle / 2 && directionToGrabbable.magnitude <= unawareDetectionAngle)
             {
                 RaycastHit hit;
                 if (!Physics.Raycast(transform.position, directionToGrabbable.normalized, out hit))
@@ -133,7 +133,7 @@ public class AIDetection : MonoBehaviour
             var directionToPossessable = (new Vector3(possessable.Transform.position.x, 0, possessable.Transform.position.z) - new Vector3(transform.position.x, 0, transform.position.z)).normalized;
             float angleToPossess = Vector3.Angle(transform.forward, directionToPossessable);
 
-            if (angleToPossess < detectionAngle / 2 && directionToPossessable.magnitude <= detectionDistance)
+            if (angleToPossess < unawareDetectionAngle / 2 && directionToPossessable.magnitude <= unawareDetectionAngle)
             {
                 RaycastHit hit;
                 if (!Physics.Raycast(transform.position, directionToPossessable.normalized, out hit))
@@ -168,16 +168,23 @@ public class AIDetection : MonoBehaviour
 #if UNITY_EDITOR
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.yellow;
-
-        Vector3 rightBoundary = Quaternion.Euler(0, detectionAngle / 2, 0) * transform.forward * detectionDistance;
-        Vector3 leftBoundary = Quaternion.Euler(0, -detectionAngle / 2, 0) * transform.forward * detectionDistance;
-
+        Vector3 rightBoundary = Quaternion.Euler(0, awareDetectionAngle / 2, 0) * transform.forward * awareDetectionAngle;
+        Vector3 leftBoundary = Quaternion.Euler(0, -awareDetectionAngle / 2, 0) * transform.forward * awareDetectionAngle;
+        
         Gizmos.color = new Color(1, 1, 0, 0.2f);
         Gizmos.DrawLine(transform.position, transform.position + rightBoundary);
         Gizmos.DrawLine(transform.position, transform.position + leftBoundary);
         Handles.color = new Color(1, 1, 0, 0.1f);
-        Handles.DrawSolidArc(transform.position, Vector3.up, leftBoundary, detectionAngle, detectionDistance);
+        Handles.DrawSolidArc(transform.position, Vector3.up, leftBoundary, awareDetectionAngle, awareDetectionDistance);
+        
+        rightBoundary = Quaternion.Euler(0, unawareDetectionAngle / 2, 0) * transform.forward * unawareDetectionAngle;
+        leftBoundary = Quaternion.Euler(0, -unawareDetectionAngle / 2, 0) * transform.forward * unawareDetectionAngle;
+
+        Gizmos.color = new Color(1, 0.5f, 0, 0.2f);
+        Gizmos.DrawLine(transform.position, transform.position + rightBoundary);
+        Gizmos.DrawLine(transform.position, transform.position + leftBoundary);
+        Handles.color = new Color(1, 1, 0, 0.1f);
+        Handles.DrawSolidArc(transform.position, Vector3.up, leftBoundary, unawareDetectionAngle, unawareDetectionDistance);
             
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, sixthSensDetectionDistance);
@@ -194,8 +201,11 @@ public class AIDetection : MonoBehaviour
     public IGrabbable CurrentObject { private set; get; } = null;
     public IPossessable CurrentPossessable { private set; get; } = null;
     
-    [SerializeField] private float detectionAngle = 45f;
-    [SerializeField] private float detectionDistance = 10f;
+    [SerializeField] private float unawareDetectionAngle = 45f;
+    [SerializeField] private float awareDetectionAngle = 45f;
+    [SerializeField] private float unawareDetectionDistance = 10f;
+    [SerializeField] private float awareDetectionDistance = 10f;
+    
     [SerializeField] private float sixthSensDetectionDistance = 6f;
     [SerializeField] private float timeToDetect = 3f;
     [SerializeField] private float timeToForget = 5f;
