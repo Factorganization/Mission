@@ -1,3 +1,4 @@
+using Runtime.GameContent.Logics.LogicInterfaces;
 using UnityEngine;
 
 namespace Runtime.Management.GameManagement
@@ -40,6 +41,10 @@ namespace Runtime.Management.GameManagement
                     
                     if (Vector3.Distance(ei.Transform.position + ei.Collider.center, ej.Transform.position + ej.Collider.center) > 1.5f)
                         continue;
+                    
+                    Physics.Linecast(ei.Transform.position + ei.Collider.center, ej.Transform.position + ej.Collider.center, out var hit, blockLayer);
+                    if (!hit.transform.TryGetComponent<IElementHolder>(out _))
+                        return;
 
 					if (!ei.Active || !ej.Active)
 						continue;
@@ -53,6 +58,8 @@ namespace Runtime.Management.GameManagement
 
         #region fields
 
+        [SerializeField] private LayerMask blockLayer;
+        
         private float _delay;
 
         #endregion

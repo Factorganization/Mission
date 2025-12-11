@@ -404,6 +404,10 @@ namespace Runtime.GameContent.Actors.ActorViews
 				if (Vector3.Distance(e.Transform.position, holder.Transform.position) > 5f)
 					continue;
 
+				Physics.Linecast(e.Transform.position + e.Collider.center, holder.Transform.position + holder.Collider.center, out var hit, 0);
+				if (!hit.transform.TryGetComponent<IElementHolder>(out _))
+					continue;
+				
 				if ((e.Flag2 & ElementFlag.CanBurn) == 0)
 					continue;
 
