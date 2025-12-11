@@ -13,6 +13,11 @@ namespace Runtime.GameContent.Logics.LogicInterfaces
         public Transform Transform { get; }
         
         /// <summary>
+        /// Collider of the element holder
+        /// </summary>
+        public BoxCollider Collider { get; }
+        
+        /// <summary>
         /// Define element that IS affecting this object
         /// </summary>
         public ElementFlag Flag1 { get; set; }

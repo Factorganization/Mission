@@ -18,6 +18,8 @@ namespace Runtime.GameContent.Actors.ActorViews
 
 		public Transform Transform => transform;
 
+		public BoxCollider Collider => col;
+		
 		public Rigidbody Rigidbody => _rb;
 
 		public ElementFlag Flag1 { get; set; }
@@ -336,6 +338,8 @@ namespace Runtime.GameContent.Actors.ActorViews
 		[SerializeField] private ObjectType @object;
 
 		[SerializeField] private ElementFlag element;
+
+		[SerializeField] private BoxCollider col;
 		
 		[SerializeField] private TMP_Text text;
 

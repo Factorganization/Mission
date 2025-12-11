@@ -17,6 +17,8 @@ namespace Runtime.GameContent.Actors.ActorViews
         
         public Transform Transform => transform;
         
+        public BoxCollider Collider => col;
+        
         public ElementFlag Flag1 { get; set; }
 
         public ElementFlag Flag2 => flag;
@@ -321,6 +323,8 @@ namespace Runtime.GameContent.Actors.ActorViews
         [SerializeField] private ObjectType @object; //Tu me laisses l'appeler object >:(
 
         [SerializeField] private ElementFlag flag;
+
+        [SerializeField] private BoxCollider col;
         
         [SerializeField] private VFXReferences vfxReferences;
 
