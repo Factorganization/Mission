@@ -29,6 +29,8 @@ namespace Runtime.GameContent.Actors.ActorViews
         public ElementFlag Flag3 { get; set; }
         
         public BoxCollider Collider => col;
+        
+        public float ElementApplicationDistance => elementApplicationDistance;
 
         public bool[] MissionDone => _missionDone;
 
@@ -404,8 +406,8 @@ namespace Runtime.GameContent.Actors.ActorViews
 				if (Vector3.Distance(e.Transform.position, holder.Transform.position) > 5f)
 					continue;
 
-				Physics.Linecast(e.Transform.position + e.Collider.center, holder.Transform.position + holder.Collider.center, out var hit, 0);
-				if (!hit.transform.TryGetComponent<IElementHolder>(out _))
+				Physics.Linecast(e.Transform.position + e.Collider.center, holder.Transform.position + holder.Collider.center, out var hit, blockLayer);
+				if (hit.transform is not null && !hit.transform.TryGetComponent<IElementHolder>(out _))
 					continue;
 				
 				if ((e.Flag2 & ElementFlag.CanBurn) == 0)
@@ -435,6 +437,10 @@ namespace Runtime.GameContent.Actors.ActorViews
         [SerializeField] private ElementFlag receptorElement;
 
         [SerializeField] private BoxCollider col;
+        
+        [SerializeField] private LayerMask blockLayer;
+        
+        [SerializeField] private float elementApplicationDistance;
         
         [SerializeField] private TMP_Text text;
 

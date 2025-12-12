@@ -39,12 +39,12 @@ namespace Runtime.Management.GameManagement
                     var ei = LevelGenerator.Generator.ElementHolders[i];
                     var ej = LevelGenerator.Generator.ElementHolders[j];
                     
-                    if (Vector3.Distance(ei.Transform.position + ei.Collider.center, ej.Transform.position + ej.Collider.center) > 1.5f)
+                    if (Vector3.Distance(ei.Transform.position + ei.Collider.center, ej.Transform.position + ej.Collider.center) > ei.ElementApplicationDistance + ej.ElementApplicationDistance)
                         continue;
                     
                     Physics.Linecast(ei.Transform.position + ei.Collider.center, ej.Transform.position + ej.Collider.center, out var hit, blockLayer);
-                    if (!hit.transform.TryGetComponent<IElementHolder>(out _))
-                        return;
+                    if (hit.transform is not null && !hit.transform.TryGetComponent<IElementHolder>(out _))
+                        continue;
 
 					if (!ei.Active || !ej.Active)
 						continue;

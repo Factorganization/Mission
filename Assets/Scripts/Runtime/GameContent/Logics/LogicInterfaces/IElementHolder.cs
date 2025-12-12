@@ -43,6 +43,11 @@ namespace Runtime.GameContent.Logics.LogicInterfaces
         public bool Active { get; set; }
         
         /// <summary>
+        /// Max distance to apply element to another holder
+        /// </summary>
+        public float ElementApplicationDistance { get; }
+        
+        /// <summary>
         /// array of element length to indicate if object has done its mission for a specific element
         /// </summary>
         public bool[] MissionDone { get; }
