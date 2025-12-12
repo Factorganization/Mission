@@ -33,6 +33,10 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller.States
             playerModel.currentGrabbedObject.Rigidbody.isKinematic = false;
             playerModel.currentGrabbedObject.Transform.SetParent(null, true);
             playerModel.currentGrabbedObject = null;
+            
+            playerModel.SetAnimParam(playerModel.isHolding, false);
+            playerModel.SetAnimParam(playerModel.isInteracting, false);
+            playerModel.SetAnimParam(playerModel.isWalking, false);
         }
 
         public override sbyte OnUpdate()

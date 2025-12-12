@@ -60,6 +60,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9769280811ff40baa3e35756cc72cd21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Satanic.Runtime::Runtime.Management.GameManagement.LevelGenerator
+  rooms: []
 --- !u!114 &3116987740165120452
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -72,6 +73,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd1b6ccf22b24287bae17f1f720e1df4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Satanic.Runtime::Runtime.Management.GameManagement.ElementManager
+  blockLayer:
+    serializedVersion: 2
+    m_Bits: 3265
 --- !u!114 &375215268450755755
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -85,3 +89,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Satanic.Runtime::Runtime.Management.GameManagement.MissionManager
   missions: []
+  text: {fileID: 0}

@@ -35,35 +35,6 @@ namespace Runtime.GameContent.UI.Customization
             return btn;
         }
         
-        /*
-        public void Populate(List<CustomizeItem> items, UnityAction<CustomizeButton> onSelected = null)
-        {
-            if (_customizeButtonPrefab == null || _contentArea == null) return;
-            
-            for (int i = _pool.Count; i < items.Count; i++)
-                CreatePooledButton(false);
-            
-            for (int i = 0; i < items.Count; i++)
-            {
-                var btn = _pool[i];
-                btn.gameObject.SetActive(true);
-                btn.ResetForPool();
-                btn.SetData(items[i], items[i].Locked);
-                if (onSelected != null)
-                    btn.OnChangeSkin.AddListener(onSelected);
-                else
-                    btn.OnChangeSkin.RemoveAllListeners();
-            }
-            
-            for (int i = items.Count; i < _pool.Count; i++)
-            {
-                var btn = _pool[i];
-                btn.ResetForPool();
-                btn.gameObject.SetActive(false);
-            }
-            
-        }*/
-        
         public void PopulatePrefab(CustomizeItem[] prefabs, UnityAction<CustomizeButton> onSelected = null)
         {
             if (_customizeButtonPrefab == null || _contentArea == null || prefabs == null) return;

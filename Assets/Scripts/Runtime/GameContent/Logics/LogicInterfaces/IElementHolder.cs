@@ -13,6 +13,11 @@ namespace Runtime.GameContent.Logics.LogicInterfaces
         public Transform Transform { get; }
         
         /// <summary>
+        /// Collider of the element holder
+        /// </summary>
+        public BoxCollider Collider { get; }
+        
+        /// <summary>
         /// Define element that IS affecting this object
         /// </summary>
         public ElementFlag Flag1 { get; set; }
@@ -36,6 +41,11 @@ namespace Runtime.GameContent.Logics.LogicInterfaces
         /// Defines if an object is active and can transmit any element
         /// </summary>
         public bool Active { get; set; }
+        
+        /// <summary>
+        /// Max distance to apply element to another holder
+        /// </summary>
+        public float ElementApplicationDistance { get; }
         
         /// <summary>
         /// array of element length to indicate if object has done its mission for a specific element

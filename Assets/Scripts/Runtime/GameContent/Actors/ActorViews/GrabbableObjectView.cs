@@ -18,6 +18,10 @@ namespace Runtime.GameContent.Actors.ActorViews
 
 		public Transform Transform => transform;
 
+		public BoxCollider Collider => col;
+        
+		public float ElementApplicationDistance => elementApplicationDistance;
+		
 		public Rigidbody Rigidbody => _rb;
 
 		public ElementFlag Flag1 { get; set; }
@@ -98,7 +102,7 @@ namespace Runtime.GameContent.Actors.ActorViews
 		public bool Action()
 		{
 			Active = !Active;
-			return true;
+			return Active;
 		}
 
 		public void CheckOtherElement(IElementHolder holder)
@@ -318,12 +322,22 @@ namespace Runtime.GameContent.Actors.ActorViews
 			{
 				if (Vector3.Distance(e.Transform.position, holder.Transform.position) > 5f)
 					continue;
+				
+				Physics.Linecast(e.Transform.position + e.Collider.center, holder.Transform.position + holder.Collider.center, out var hit, blockLayer);
+				if (hit.transform is not null && !hit.transform.TryGetComponent<IElementHolder>(out _))
+					continue;
 
 				if ((e.Flag2 & ElementFlag.CanBurn) == 0)
 					continue;
 
 				e.Flag3 |= ElementFlag.CanBurn;
 				SetParticleOverride(e, ElementFlag.CanBurn, true);
+
+				if (!e.MissionDone[1])
+				{
+					_missionDone[1] = true;
+					MissionManager.Manager.TryGetMission(new MissionModel(MissionType.ElementAffection, @object, ElementFlag.CanExplode, RoomType));
+				}
 			}
 		}
 
@@ -336,6 +350,12 @@ namespace Runtime.GameContent.Actors.ActorViews
 		[SerializeField] private ObjectType @object;
 
 		[SerializeField] private ElementFlag element;
+
+		[SerializeField] private BoxCollider col;
+		
+		[SerializeField] private LayerMask blockLayer;
+        
+		[SerializeField] private float elementApplicationDistance;
 		
 		[SerializeField] private TMP_Text text;
 
