@@ -1,8 +1,6 @@
-using UnityEngine;
-
 namespace Runtime.GameContent.Logics.LogicModels
 {
-	[System.Serializable]
+	[Serializable]
 	public class VFXReferences
 	{
 		public ParticleSystem[] fireParticles;

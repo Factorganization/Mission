@@ -1,7 +1,4 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using UnityEngine;
 
 namespace Runtime.GameContent.UI.Customization
 {
@@ -17,7 +14,7 @@ namespace Runtime.GameContent.UI.Customization
             Tail
         }
 
-        [System.Serializable]
+        [Serializable]
         public class BodyPartData
         {
             public BodyPartType bodyPartType;
@@ -45,7 +42,7 @@ namespace Runtime.GameContent.UI.Customization
             {
                 if (data == null || data.prefabArray == null) continue;
                 data.instances = new List<GameObject>(data.prefabArray.Length);
-                var parent = data.attachTransform != null ? data.attachTransform : this.transform;
+                var parent = data.attachTransform != null ? data.attachTransform : transform;
 
                 for (int i = 0; i < data.prefabArray.Length; i++)
                 {
@@ -106,7 +103,7 @@ namespace Runtime.GameContent.UI.Customization
                 var prefab = data.prefabArray[clamped].ItemPrefab;
                 if (prefab != null)
                 {
-                    var parent = data.attachTransform != null ? data.attachTransform : this.transform;
+                    var parent = data.attachTransform != null ? data.attachTransform : transform;
                     data.currentInstance = Instantiate(prefab, parent);
                     data.currentInstance.transform.SetParent(parent, false);
                     data.currentInstance.transform.localPosition = Vector3.zero;

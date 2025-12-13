@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using UnityEngine;
 using UnityEngine.Events;
 
 namespace Runtime.GameContent.UI.Customization
@@ -88,5 +87,4 @@ namespace Runtime.GameContent.UI.Customization
         
         #endregion
     }
-
 }

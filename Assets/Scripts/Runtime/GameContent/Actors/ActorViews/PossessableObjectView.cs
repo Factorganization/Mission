@@ -1,4 +1,3 @@
-using System;
 using Runtime.GameContent.Actors.ActorInterfaces;
 using Runtime.GameContent.Logics.LogicInterfaces;
 using Runtime.GameContent.Logics.LogicModels;
@@ -7,16 +6,15 @@ using Runtime.GameContent.Logics.LogicModels.MissionModels;
 using Runtime.Management.GameManagement;
 using Shared.Utils.Listing;
 using TMPro;
-using UnityEngine;
 
 namespace Runtime.GameContent.Actors.ActorViews
 {
-    [Pooled, SelectionBase]
-    public class PossessableObjectView : ActorView, IPossessable, IElementHolder
-    {
-        #region properties
+	[Pooled, SelectionBase]
+	public class PossessableObjectView : ActorView, IPossessable, IElementHolder
+	{
+		#region properties
 
-        public Transform Transform => transform;
+		public Transform Transform => transform;
 
 		public ElementFlag Flag1
 		{
@@ -24,51 +22,51 @@ namespace Runtime.GameContent.Actors.ActorViews
 			set { }
 		}
 
-        public ElementFlag Flag2 => receptorElement;
+		public ElementFlag Flag2 => receptorElement;
         
-        public ElementFlag Flag3 { get; set; }
+		public ElementFlag Flag3 { get; set; }
         
-        public BoxCollider Collider => col;
+		public BoxCollider Collider => col;
         
-        public float ElementApplicationDistance => elementApplicationDistance;
+		public float ElementApplicationDistance => elementApplicationDistance;
 
-        public bool[] MissionDone => _missionDone;
+		public bool[] MissionDone => _missionDone;
 
-        public bool Active
-        {
-	        get => _active /*&& !Destroyed*/;
-	        set => _active = value;
-        }
+		public bool Active
+		{
+			get => _active /*&& !Destroyed*/;
+			set => _active = value;
+		}
 
-        public RoomType RoomType { get; set; } = RoomType.House;
+		public RoomType RoomType { get; set; } = RoomType.House;
 
-        public bool Possessed { get; set; }
+		public bool Possessed { get; set; }
 
-        public bool Destroyed
-        {
-	        get => _destroyed;
-	        set
-	        {
-		        _destroyed = value;
-		        if (_destroyed)
-			        return;
+		public bool Destroyed
+		{
+			get => _destroyed;
+			set
+			{
+				_destroyed = value;
+				if (_destroyed)
+					return;
 		        
-		        _active = false;
-		        Flag3 = Flag1;
-		        foreach (var p in vfxReferences.waterParticles)
-			        p.Stop();
-		        vfxReferences.waterPlaying = false;
-		        foreach (var p in vfxReferences.fireParticles)
-			        p.Stop();
-		        vfxReferences.firePlaying = false;
-		        foreach (var p in vfxReferences.electricParticles)
-			        p.Stop();
-		        vfxReferences.elecPlaying = false;
-		        foreach (var p in vfxReferences.explosionParticles)
-			        p.Stop();
-		        vfxReferences.explodePlaying = false;
-	        }
-        }
+				_active = false;
+				Flag3 = Flag1;
+				foreach (var p in vfxReferences.waterParticles)
+					p.Stop();
+				vfxReferences.waterPlaying = false;
+				foreach (var p in vfxReferences.fireParticles)
+					p.Stop();
+				vfxReferences.firePlaying = false;
+				foreach (var p in vfxReferences.electricParticles)
+					p.Stop();
+				vfxReferences.elecPlaying = false;
+				foreach (var p in vfxReferences.explosionParticles)
+					p.Stop();
+				vfxReferences.explodePlaying = false;
+			}
+		}
 
 		public VFXReferences VFX => vfxReferences;
 
@@ -82,37 +80,37 @@ namespace Runtime.GameContent.Actors.ActorViews
 			
 			_resolveInteractions = new[]
 			{
-				new ElementInteractionDataPair{ flag = 0b0011, callback = WetAndBurn },
-				new ElementInteractionDataPair{ flag = 0b0101, callback = WetAndElec }
+				new ElementInteractionDataPair{ Flag = 0b0011, Callback = WetAndBurn },
+				new ElementInteractionDataPair{ Flag = 0b0101, Callback = WetAndElec }
 			};
 			
 			_nextInteractions = new []
 			{
-				new ElementInteractionDataPair{ flag = 0b00100010, callback = BurnToBurn },
-				new ElementInteractionDataPair{ flag = 0b00101000, callback = BurnToExplode },
+				new ElementInteractionDataPair{ Flag = 0b00100010, Callback = BurnToBurn },
+				new ElementInteractionDataPair{ Flag = 0b00101000, Callback = BurnToExplode },
 				//new ElementInteractionDataPair{ flag = 0b01000010, callback = ElectricToBurn },
-				new ElementInteractionDataPair{ flag = 0b01000100, callback = ElectricToElectric },
-				new ElementInteractionDataPair{ flag = 0b01001000, callback = ElectricToExplode },
-				new ElementInteractionDataPair{ flag = 0b00010001, callback = WetToWet }
+				new ElementInteractionDataPair{ Flag = 0b01000100, Callback = ElectricToElectric },
+				new ElementInteractionDataPair{ Flag = 0b01001000, Callback = ElectricToExplode },
+				new ElementInteractionDataPair{ Flag = 0b00010001, Callback = WetToWet }
 			};
 
 			Possessed = false;
 			Destroyed = destroyedAtStart;
 			_active = false;
-            //Flag3 = Flag1;
-            foreach (var p in vfxReferences.waterParticles)
-                p.Stop();
-            vfxReferences.waterPlaying = false;
-            foreach (var p in vfxReferences.fireParticles)
-                p.Stop();
-            vfxReferences.firePlaying = false;
-            foreach (var p in vfxReferences.electricParticles)
-                p.Stop();
-            vfxReferences.elecPlaying = false;
-            foreach (var p in vfxReferences.explosionParticles)
-                p.Stop();
-            vfxReferences.explodePlaying = false;
-        }
+			//Flag3 = Flag1;
+			foreach (var p in vfxReferences.waterParticles)
+				p.Stop();
+			vfxReferences.waterPlaying = false;
+			foreach (var p in vfxReferences.fireParticles)
+				p.Stop();
+			vfxReferences.firePlaying = false;
+			foreach (var p in vfxReferences.electricParticles)
+				p.Stop();
+			vfxReferences.elecPlaying = false;
+			foreach (var p in vfxReferences.explosionParticles)
+				p.Stop();
+			vfxReferences.explodePlaying = false;
+		}
 		
 		private void Update()
 		{
@@ -122,20 +120,53 @@ namespace Runtime.GameContent.Actors.ActorViews
 			if (!_active)
 				return;
 			
-			if ((Flag3 & ElementFlag.CanBeWet) != 0 && !_missionDone[0])
+			if ((Flag3 & ElementFlag.CanBeWet) != 0)
 			{
-				_missionDone[0] = true;
-				MissionManager.Manager?.TryGetMission(new MissionModel(MissionType.ElementAffection, @object, ElementFlag.CanBeWet, RoomType));
+				durations.waterTimer -= Time.deltaTime;
+
+				if (durations.waterTimer < 0)
+				{
+					Flag3 &= ~ElementFlag.CanBeWet;
+					SetParticleOverride(this, ElementFlag.CanBeWet, false);
+				}
+
+				if (!_missionDone[0])
+				{
+					_missionDone[0] = true;
+					MissionManager.Manager?.TryGetMission(new MissionModel(MissionType.ElementAffection, @object, ElementFlag.CanBeWet, RoomType));
+				}
 			}
-			if ((Flag3 & ElementFlag.CanBurn) != 0 && !_missionDone[1])
+			if ((Flag3 & ElementFlag.CanBurn) != 0)
 			{
-				_missionDone[1] = true;
-				MissionManager.Manager?.TryGetMission(new MissionModel(MissionType.ElementAffection, @object, ElementFlag.CanBurn, RoomType));
+				durations.fireTimer -= Time.deltaTime;
+
+				if (durations.fireTimer < 0)
+				{
+					Flag3 &= ~ElementFlag.CanBurn;
+					SetParticleOverride(this, ElementFlag.CanBurn, false);
+				}
+		        
+				if (!_missionDone[1])
+				{
+					_missionDone[1] = true;
+					MissionManager.Manager?.TryGetMission(new MissionModel(MissionType.ElementAffection, @object, ElementFlag.CanBurn, RoomType));
+				}
 			}
-			if ((Flag3 & ElementFlag.CanConduct) != 0 && !_missionDone[2])
+			if ((Flag3 & ElementFlag.CanConduct) != 0)
 			{
-				_missionDone[2] = true;
-				MissionManager.Manager?.TryGetMission(new MissionModel(MissionType.ElementAffection, @object, ElementFlag.CanConduct, RoomType));
+				durations.electricityTimer -= Time.deltaTime;
+
+				if (durations.electricityTimer < 0)
+				{
+					Flag3 &= ~ElementFlag.CanConduct;
+					SetParticleOverride(this, ElementFlag.CanConduct, false);
+				}
+		        
+				if (!_missionDone[2])
+				{
+					_missionDone[2] = true;
+					MissionManager.Manager?.TryGetMission(new MissionModel(MissionType.ElementAffection, @object, ElementFlag.CanConduct, RoomType));
+				}
 			}
 			if ((Flag3 & ElementFlag.CanExplode) != 0 && !_missionDone[3])
 			{
@@ -171,22 +202,22 @@ namespace Runtime.GameContent.Actors.ActorViews
 
 		public void DestructiveAction()
 		{
-            Destroyed = true;
-            _active = true;
-            Flag3 = Flag1;
-            //TODO how ?
-            //TODO what ?
-            SetParticle(this);
+			Destroyed = true;
+			_active = true;
+			Flag3 = Flag1;
+			//TODO how ?
+			//TODO what ?
+			SetParticle(this);
 
-            if (!_missionDone[^1])
-            {
-	            _missionDone[^1] = true;
+			if (!_missionDone[^1])
+			{
+				_missionDone[^1] = true;
 				MissionManager.Manager?.TryGetMission(new MissionModel(MissionType.Action, @object, ElementFlag.CanExplode, RoomType));
-            }
+			}
             
-            if ((Flag3 & ElementFlag.CanExplode) != 0)
-	            Explode(this);
-        }
+			if ((Flag3 & ElementFlag.CanExplode) != 0)
+				Explode(this);
+		}
 
 		public void CheckOtherElement(IElementHolder holder)
 		{
@@ -195,7 +226,7 @@ namespace Runtime.GameContent.Actors.ActorViews
 				var key = GetKey(i);
 
 				if (((int)(Flag3 | holder.Flag3) & key) == key)
-					i.callback.Invoke(new ElementInteractionData(this, holder));
+					i.Callback.Invoke(new ElementInteractionData(this, holder));
 			}
 
 			if (Active && holder.Active)
@@ -205,10 +236,10 @@ namespace Runtime.GameContent.Actors.ActorViews
 					var key = GetKey(i);
 					
 					if (((((int)Flag3 << 4) | (int)holder.Flag2) & key) == key)
-						i.callback.Invoke(new ElementInteractionData(this, holder));
+						i.Callback.Invoke(new ElementInteractionData(this, holder));
                 
 					if (((((int)holder.Flag3 << 4) | (int)Flag2) & key) == key)
-						i.callback.Invoke(new ElementInteractionData(holder, this));
+						i.Callback.Invoke(new ElementInteractionData(holder, this));
 				}
 			}
 			
@@ -306,27 +337,27 @@ namespace Runtime.GameContent.Actors.ActorViews
 
 		#endregion
 		
-		private static int GetKey(ElementInteractionDataPair data) => data.flag;
+		private static int GetKey(ElementInteractionDataPair data) => data.Flag;
 
 		#region F11 Comparisions
 
 		private void WetAndBurn(ElementInteractionData data)
 		{
-			data.holder1.Flag3 |= ElementFlag.CanBurn;
-			data.holder1.Flag3 &= ~ElementFlag.CanBurn;
-			data.holder2.Flag3 |= ElementFlag.CanBurn;
-			data.holder2.Flag3 &= ~ElementFlag.CanBurn;
+			data.Holder1.Flag3 |= ElementFlag.CanBurn;
+			data.Holder1.Flag3 &= ~ElementFlag.CanBurn;
+			data.Holder2.Flag3 |= ElementFlag.CanBurn;
+			data.Holder2.Flag3 &= ~ElementFlag.CanBurn;
 
-			if (data.holder1 is IPossessable && (data.holder1.Flag3 & ElementFlag.CanBurn) != 0)
-				data.holder1.Active = false;
-			if (data.holder2 is IPossessable && (data.holder1.Flag3 & ElementFlag.CanBurn) != 0)
-				data.holder2.Active = false;
+			if (data.Holder1 is IPossessable && (data.Holder1.Flag3 & ElementFlag.CanBurn) != 0)
+				data.Holder1.Active = false;
+			if (data.Holder2 is IPossessable && (data.Holder1.Flag3 & ElementFlag.CanBurn) != 0)
+				data.Holder2.Active = false;
 		}
 
 		private void WetAndElec(ElementInteractionData data)
 		{
-			data.holder1.Flag3 |= ElementFlag.CanConduct;
-			data.holder2.Flag3 |= ElementFlag.CanConduct;
+			data.Holder1.Flag3 |= ElementFlag.CanConduct;
+			data.Holder2.Flag3 |= ElementFlag.CanConduct;
 		}
 
 		#endregion
@@ -335,7 +366,9 @@ namespace Runtime.GameContent.Actors.ActorViews
 
 		private void BurnToBurn(ElementInteractionData data)
 		{
-			data.holder2.Flag3 |= ElementFlag.CanBurn;
+			durations.fireTimer = durations.fireDuration; //TODO
+			
+			data.Holder2.Flag3 |= ElementFlag.CanBurn;
 			if (!_missionDone[1])
 			{
 				_missionDone[1] = true;
@@ -345,8 +378,8 @@ namespace Runtime.GameContent.Actors.ActorViews
 
 		private void BurnToExplode(ElementInteractionData data)
 		{
-			data.holder2.Flag3 |= ElementFlag.CanExplode;
-			Explode(data.holder2);
+			data.Holder2.Flag3 |= ElementFlag.CanExplode;
+			Explode(data.Holder2);
 			if (_missionDone[3])
 			{
 				_missionDone[3] = true;
@@ -356,7 +389,9 @@ namespace Runtime.GameContent.Actors.ActorViews
 
 		private void ElectricToBurn(ElementInteractionData data)
 		{
-			data.holder2.Flag3 |= ElementFlag.CanBurn;
+			durations.fireTimer = durations.fireDuration;
+			
+			data.Holder2.Flag3 |= ElementFlag.CanBurn;
 			if (!_missionDone[1])
 			{
 				_missionDone[1] = true;
@@ -366,7 +401,9 @@ namespace Runtime.GameContent.Actors.ActorViews
 
 		private void ElectricToElectric(ElementInteractionData data)
 		{
-			data.holder2.Flag3 |= ElementFlag.CanConduct;
+			durations.electricityTimer = durations.electricityDuration;
+			
+			data.Holder2.Flag3 |= ElementFlag.CanConduct;
 			if (!_missionDone[2])
 			{
 				_missionDone[2] = true;
@@ -376,8 +413,8 @@ namespace Runtime.GameContent.Actors.ActorViews
 
 		private void ElectricToExplode(ElementInteractionData data)
 		{
-			data.holder2.Flag3 |= ElementFlag.CanExplode;
-			Explode(data.holder2);
+			data.Holder2.Flag3 |= ElementFlag.CanExplode;
+			Explode(data.Holder2);
 			if (_missionDone[3])
 			{
 				_missionDone[3] = true;
@@ -387,7 +424,9 @@ namespace Runtime.GameContent.Actors.ActorViews
 
 		private void WetToWet(ElementInteractionData data)
 		{
-			data.holder2.Flag3 |= ElementFlag.CanBeWet;
+			durations.waterTimer = durations.waterDuration;
+			
+			data.Holder2.Flag3 |= ElementFlag.CanBeWet;
 			if (!_missionDone[0])
 			{
 				_missionDone[0] = true;
@@ -399,11 +438,9 @@ namespace Runtime.GameContent.Actors.ActorViews
 
 		private void Explode(IElementHolder holder)
 		{
-			//TODO add raycasts
-
 			foreach (var e in LevelGenerator.Generator.ElementHolders)
 			{
-				if (Vector3.Distance(e.Transform.position, holder.Transform.position) > 5f)
+				if (Vector3.Distance(e.Transform.position, holder.Transform.position) > destructionApplicationDistance)
 					continue;
 
 				Physics.Linecast(e.Transform.position + e.Collider.center, holder.Transform.position + holder.Collider.center, out var hit, blockLayer);
@@ -424,40 +461,44 @@ namespace Runtime.GameContent.Actors.ActorViews
 			}
 		}
 
-        #endregion
+		#endregion
 
-        #region fields
+		#region fields
 
 		[SerializeField] private VFXReferences vfxReferences;
 		
 		[SerializeField] private ObjectType @object;
 
-        [SerializeField] private ElementFlag sourceElement;
+		[SerializeField] private ElementFlag sourceElement;
 
-        [SerializeField] private ElementFlag receptorElement;
+		[SerializeField] private ElementFlag receptorElement;
 
-        [SerializeField] private BoxCollider col;
+		[SerializeField] private BoxCollider col;
         
-        [SerializeField] private LayerMask blockLayer;
+		[SerializeField] private LayerMask blockLayer;
+
+		[SerializeField] private ElementDuration durations;
         
-        [SerializeField] private float elementApplicationDistance;
+		[SerializeField] private float elementApplicationDistance;
         
-        [SerializeField] private TMP_Text text;
+		[SerializeField] private float destructionApplicationDistance;
+        
+		[SerializeField] private TMP_Text text;
 
-        [SerializeField] private bool debug;
+		[SerializeField] private bool debug;
 
-        [SerializeField] private bool destroyedAtStart;
+		[SerializeField] private bool destroyedAtStart;
 
-        private ElementInteractionDataPair[] _resolveInteractions;
+		private ElementInteractionDataPair[] _resolveInteractions;
 
-        private ElementInteractionDataPair[] _nextInteractions;
+		private ElementInteractionDataPair[] _nextInteractions;
 
-        private bool[] _missionDone;
+		private bool[] _missionDone;
 
 		private bool _active;
 		
 		private bool _destroyed;
 
-        #endregion
-    }
+		#endregion
+	}
 }

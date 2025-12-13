@@ -1,6 +1,3 @@
-using System;
-using Runtime.GameContent.UI.Quest;
-using UnityEngine;
 using UnityEngine.UI;
 
 namespace Runtime.GameContent.UI

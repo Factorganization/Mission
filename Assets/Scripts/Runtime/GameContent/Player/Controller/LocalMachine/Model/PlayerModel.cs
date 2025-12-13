@@ -1,5 +1,4 @@
 using Runtime.GameContent.Actors.ActorInterfaces;
-using UnityEngine;
 
 namespace Runtime.GameContent.Player.Controller.LocalMachine.Model
 {

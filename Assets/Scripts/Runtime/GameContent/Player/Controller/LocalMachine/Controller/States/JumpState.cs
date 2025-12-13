@@ -1,6 +1,5 @@
 using Runtime.GameContent.Player.Controller.LocalMachine.Model;
 using Shared.Utils.BaseMachine;
-using UnityEngine;
 
 namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller.States
 {
@@ -61,8 +60,8 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller.States
                 
                 case 4:
                     if (playerModel.TryInteractGrabbedObject())
-						//TODO des feedbacks ?
-						break;
+                        //TODO des feedbacks ?
+                        break;
                     break;
                 
                 case 5:

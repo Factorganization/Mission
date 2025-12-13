@@ -1,6 +1,6 @@
 namespace Runtime.GameContent.Player.Controller.LocalMachine.Model
 {
-    [System.Flags]
+    [Flags]
     public enum ControllerState
     {
         None = 0,

@@ -1,6 +1,4 @@
 using System.Collections.Generic;
-using TMPro;
-using UnityEngine;
 
 namespace Runtime.GameContent.UI
 {
@@ -46,5 +44,4 @@ namespace Runtime.GameContent.UI
         
         #endregion
     }
-    
 }

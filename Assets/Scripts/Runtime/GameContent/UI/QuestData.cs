@@ -1,5 +1,3 @@
-using UnityEngine;
-
 [CreateAssetMenu(fileName = "MissionDetails", menuName = "Scriptable Objects/MissionDetails")]
 public class QuestData : ScriptableObject
 {

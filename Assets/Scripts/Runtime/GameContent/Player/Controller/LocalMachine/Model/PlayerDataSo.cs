@@ -1,4 +1,3 @@
-using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace Runtime.GameContent.Player.Controller.LocalMachine.Model
@@ -22,7 +21,7 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Model
         public DevsData devsData;
     }
 
-    [System.Serializable]
+    [Serializable]
     public class InputData
     {
         public InputActionReference moveInput;
@@ -44,7 +43,7 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Model
         public InputActionReference menuInput;
     }
 
-    [System.Serializable]
+    [Serializable]
     public class MoveData
     {
         [Range(0.5f, 2f)]
@@ -62,7 +61,7 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Model
         public float graphRotationSpeed;
     }
 
-    [System.Serializable]
+    [Serializable]
     public class CameraData
     {
         [Range(0f, 10f)]
@@ -77,7 +76,7 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Model
         public bool freeCam;
     }
 
-    [System.Serializable]
+    [Serializable]
     public class JumpData
     {
         public float jumpStrength;
@@ -87,7 +86,7 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Model
         public float jumpBufferTime; 
     }
 
-    [System.Serializable]
+    [Serializable]
     public class InteractData
     {
         public Vector2 throwStrength;
@@ -101,7 +100,7 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Model
         public LayerMask possessedBlockLayer;
     }
     
-    [System.Serializable]
+    [Serializable]
     public class GroudCheckData
     {
         public LayerMask groundLayer;
@@ -113,7 +112,7 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Model
         public float additionalCastLength;
     }
     
-    [System.Serializable]
+    [Serializable]
     public class GravityData
     {
         public float slopeClosingSpeedMultiplier;
@@ -123,7 +122,7 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Model
         public float maxFallSpeed;
     }
     
-    [System.Serializable]
+    [Serializable]
     public class DevsData
     {
         public GroudCheckData groundCheckData;

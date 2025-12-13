@@ -1,7 +1,4 @@
-using System;
-using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.Controls;
 
 namespace Runtime.GameContent.UI.MainMenu
 {
@@ -86,5 +83,4 @@ namespace Runtime.GameContent.UI.MainMenu
         #endregion
 
     }
-
 }

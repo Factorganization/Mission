@@ -1,5 +1,3 @@
-using UnityEngine;
-
 namespace Runtime.GameContent.UI
 {
     public class UIParent : MonoBehaviour
