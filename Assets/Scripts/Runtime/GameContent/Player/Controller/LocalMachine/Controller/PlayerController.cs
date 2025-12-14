@@ -219,6 +219,12 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller
         {
             if (playerModel.currentGrabbedObject is null)
                 return;
+
+            if (playerModel.currentGrabbedObject.Active && playerModel.currentGrabbedObject.Transform.parent != playerModel.activeGrab)
+                playerModel.currentGrabbedObject.Transform.SetParent(playerModel.activeGrab);
+            
+            if (!playerModel.currentGrabbedObject.Active && playerModel.currentGrabbedObject.Transform.parent != playerModel.grab)
+                playerModel.currentGrabbedObject.Transform.SetParent(playerModel.grab);
             
             if (playerModel.currentGrabbedObject.Transform.localPosition.sqrMagnitude < 0.005f)
                 return;

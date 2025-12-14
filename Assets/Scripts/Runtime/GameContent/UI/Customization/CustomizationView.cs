@@ -15,48 +15,48 @@ namespace Runtime.GameContent.UI.Customization
 
         private void Initialize()
         {
-            _headButton.onClick.AddListener(() =>
+            _hairButton.onClick.AddListener(() =>
             {
-                var meshes = _characterPreview.GetMeshes(CustomizationPlayer.BodyPartType.Head);
-                _customizationPooler.PopulateMeshes(meshes, null, (btn) =>
+                var prefabs = _characterPreview.GetPrefabs(CustomizationPlayer.BodyPartType.Hair);
+                _customizationPooler.PopulatePrefab(prefabs, (btn) =>
                 {
-                    _characterPreview.SetBodyPartMesh(CustomizationPlayer.BodyPartType.Head, btn.ItemIndex);
+                    _characterPreview.SetBodyPartPrefab(CustomizationPlayer.BodyPartType.Hair, btn.ItemIndex);
                 });
             });
             
             _tailButton.onClick.AddListener(() =>
             {
-                var meshes = _characterPreview.GetMeshes(CustomizationPlayer.BodyPartType.Tail);
-                _customizationPooler.PopulateMeshes(meshes, null, (btn) =>
+                var prefabs = _characterPreview.GetPrefabs(CustomizationPlayer.BodyPartType.Tail);
+                _customizationPooler.PopulatePrefab(prefabs, (btn) =>
                 {
-                    _characterPreview.SetBodyPartMesh(CustomizationPlayer.BodyPartType.Tail, btn.ItemIndex);
+                    _characterPreview.SetBodyPartPrefab(CustomizationPlayer.BodyPartType.Tail, btn.ItemIndex);
                 });
             });
             
             _eyesButton.onClick.AddListener(() =>
             {
-                var meshes = _characterPreview.GetMeshes(CustomizationPlayer.BodyPartType.Eyes);
-                _customizationPooler.PopulateMeshes(meshes, null, (btn) =>
+                var prefabs = _characterPreview.GetPrefabs(CustomizationPlayer.BodyPartType.Eyes);
+                _customizationPooler.PopulatePrefab(prefabs, (btn) =>
                 {
-                    _characterPreview.SetBodyPartMesh(CustomizationPlayer.BodyPartType.Eyes, btn.ItemIndex);
+                    _characterPreview.SetBodyPartPrefab(CustomizationPlayer.BodyPartType.Eyes, btn.ItemIndex);
                 });
             });
             
             _bodyButton.onClick.AddListener(() =>
             {
-                var meshes = _characterPreview.GetMeshes(CustomizationPlayer.BodyPartType.Body);
-                _customizationPooler.PopulateMeshes(meshes, null, (btn) =>
+                var prefabs = _characterPreview.GetPrefabs(CustomizationPlayer.BodyPartType.Body);
+                _customizationPooler.PopulatePrefab(prefabs, (btn) =>
                 {
-                    _characterPreview.SetBodyPartMesh(CustomizationPlayer.BodyPartType.Body, btn.ItemIndex);
+                    _characterPreview.SetBodyPartPrefab(CustomizationPlayer.BodyPartType.Body, btn.ItemIndex);
                 });
             });
             
             _hornsButton.onClick.AddListener(() =>
             {
-                var meshes = _characterPreview.GetMeshes(CustomizationPlayer.BodyPartType.Horns);
-                _customizationPooler.PopulateMeshes(meshes, null, (btn) =>
+                var prefabs = _characterPreview.GetPrefabs(CustomizationPlayer.BodyPartType.Horns);
+                _customizationPooler.PopulatePrefab(prefabs, (btn) =>
                 {
-                    _characterPreview.SetBodyPartMesh(CustomizationPlayer.BodyPartType.Horns, btn.ItemIndex);
+                    _characterPreview.SetBodyPartPrefab(CustomizationPlayer.BodyPartType.Horns, btn.ItemIndex);
                 });
             });
         }
@@ -65,10 +65,9 @@ namespace Runtime.GameContent.UI.Customization
 
         #region Fields
 
-        [SerializeField] private Button _headButton, _tailButton, _eyesButton, _bodyButton, _hornsButton;
+        [SerializeField] private Button _hairButton, _tailButton, _eyesButton, _bodyButton, _hornsButton;
         [SerializeField] private GameObject _contentArea; 
         
-        [SerializeField] List<CustomizeItem> _headItems, _tailItems, _eyesItems, _bodyItems, _hornsItems;
         [SerializeField] CustomizationPooler _customizationPooler;
         [SerializeField] private CustomizationPlayer _characterPreview;
         

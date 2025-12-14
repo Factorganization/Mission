@@ -1,7 +1,9 @@
+using System;
 using Runtime.GameContent.Actors.ActorInterfaces;
 using Runtime.GameContent.Logics.LogicInterfaces;
 using Runtime.GameContent.Logics.LogicModels;
 using Runtime.GameContent.Logics.LogicModels.ElementModels;
+using Runtime.GameContent.Logics.LogicModels.MissionModels;
 using Runtime.Management.GameManagement;
 using Shared.Utils.Listing;
 using UnityEngine;
@@ -25,17 +27,70 @@ namespace Runtime.GameContent.Actors.ActorViews
 	        set => Flag1 = value;
         }
         
+        public RoomType RoomType { get; set; } = RoomType.House;
+        
         public bool Active
         {
             get => true;
             set { }
         }
 
+        public bool[] MissionDone => _missionDone;
+
         public VFXReferences VFX => vfxReferences;
         
+        #endregion
+        
+        #region methodes
+
+        private void Start()
+        {
+	        _missionDone = new bool[Enum.GetValues(typeof(ElementFlag)).Length];
+	        
+	        _resolveInteractions = new[]
+	        {
+		        new ElementInteractionDataPair{ flag = 0b0011, callback = WetAndBurn },
+		        new ElementInteractionDataPair{ flag = 0b0101, callback = WetAndElec },
+	        };
+	        
+	        _nextInteractions = new []
+	        {
+		        new ElementInteractionDataPair{ flag = 0b00100010, callback = BurnToBurn },
+		        new ElementInteractionDataPair{ flag = 0b00101000, callback = BurnToExplode },
+		        //new ElementInteractionDataPair{ flag = 0b01000010, callback = ElectricToBurn },
+		        new ElementInteractionDataPair{ flag = 0b01000100, callback = ElectricToElectric },
+		        new ElementInteractionDataPair{ flag = 0b01001000, callback = ElectricToExplode },
+		        new ElementInteractionDataPair{ flag = 0b00010001, callback = WetToWet },
+	        };
+        }
+
+        private void Update()
+        {
+	        if ((Flag3 & ElementFlag.CanBeWet) != 0 && !_missionDone[0])
+	        {
+		        _missionDone[0] = true;
+		        MissionManager.Manager?.TryGetMission(new MissionModel(MissionType.ElementAffection, @object, ElementFlag.CanBeWet, RoomType));
+	        }
+	        if ((Flag3 & ElementFlag.CanBurn) != 0 && !_missionDone[1])
+	        {
+		        _missionDone[1] = true;
+		        MissionManager.Manager?.TryGetMission(new MissionModel(MissionType.ElementAffection, @object, ElementFlag.CanBurn, RoomType));
+	        }
+	        if ((Flag3 & ElementFlag.CanConduct) != 0 && !_missionDone[2])
+	        {
+		        _missionDone[2] = true;
+		        MissionManager.Manager?.TryGetMission(new MissionModel(MissionType.ElementAffection, @object, ElementFlag.CanConduct, RoomType));
+	        }
+	        if ((Flag3 & ElementFlag.CanExplode) != 0 && !_missionDone[3])
+	        {
+		        _missionDone[3] = true;
+		        MissionManager.Manager?.TryGetMission(new MissionModel(MissionType.ElementAffection, @object, ElementFlag.CanExplode, RoomType));
+	        }
+        }
+
         public void CheckOtherElement(IElementHolder holder)
         {
-            foreach (var i in ResolveInteractions)
+            foreach (var i in _resolveInteractions)
 			{
 				var key = GetKey(i);
 
@@ -45,7 +100,7 @@ namespace Runtime.GameContent.Actors.ActorViews
 
 			if (Active && holder.Active)
 			{
-				foreach (var i in NextInteractions)
+				foreach (var i in _nextInteractions)
 				{
 					var key = GetKey(i);
 					
@@ -61,6 +116,8 @@ namespace Runtime.GameContent.Actors.ActorViews
 			SetParticle(holder);
 		}
 
+        #region graphics methodes
+        
 		protected static void SetParticle(IElementHolder holder)
 		{
 			if ((holder.Flag3 & ElementFlag.CanBeWet) != 0 && !holder.VFX.waterPlaying)
@@ -147,11 +204,13 @@ namespace Runtime.GameContent.Actors.ActorViews
 					p.Stop();
 		}
 
+		#endregion
+		
 		private static int GetKey(ElementInteractionDataPair data) => data.flag;
 
 		#region F11 Comparisions
 
-		private static void WetAndBurn(ElementInteractionData data)
+		private void WetAndBurn(ElementInteractionData data)
 		{
 			data.holder1.Flag3 |= ElementFlag.CanBurn;
 			data.holder1.Flag3 &= ~ElementFlag.CanBurn;
@@ -164,7 +223,7 @@ namespace Runtime.GameContent.Actors.ActorViews
 				data.holder2.Active = false;
 		}
 
-		private static void WetAndElec(ElementInteractionData data)
+		private void WetAndElec(ElementInteractionData data)
 		{
 			data.holder1.Flag3 |= ElementFlag.CanConduct;
 			data.holder2.Flag3 |= ElementFlag.CanConduct;
@@ -174,41 +233,71 @@ namespace Runtime.GameContent.Actors.ActorViews
 
 		#region F12 Comparisons
 
-		private static void BurnToBurn(ElementInteractionData data)
+		private void BurnToBurn(ElementInteractionData data)
 		{
 			data.holder2.Flag3 |= ElementFlag.CanBurn;
+			if (!_missionDone[1])
+			{
+				_missionDone[1] = true;
+				MissionManager.Manager?.TryGetMission(new MissionModel(MissionType.ElementAffection, @object, ElementFlag.CanBurn, RoomType));
+			}
 		}
 
-		private static void BurnToExplode(ElementInteractionData data)
+		private void BurnToExplode(ElementInteractionData data)
 		{
 			data.holder2.Flag3 |= ElementFlag.CanExplode;
 			Explode(data.holder2);
+			if (_missionDone[3])
+			{
+				_missionDone[3] = true;
+				MissionManager.Manager?.TryGetMission(new MissionModel(MissionType.ElementAffection, @object, ElementFlag.CanExplode, RoomType));
+			}
 		}
 
-		private static void ElectricToBurn(ElementInteractionData data)
+		private void ElectricToBurn(ElementInteractionData data)
 		{
 			data.holder2.Flag3 |= ElementFlag.CanBurn;
+			if (!_missionDone[1])
+			{
+				_missionDone[1] = true;
+				MissionManager.Manager?.TryGetMission(new MissionModel(MissionType.ElementAffection, @object, ElementFlag.CanBurn, RoomType));
+			}
 		}
 
-		private static void ElectricToElectric(ElementInteractionData data)
+		private void ElectricToElectric(ElementInteractionData data)
 		{
 			data.holder2.Flag3 |= ElementFlag.CanConduct;
+			if (!_missionDone[2])
+			{
+				_missionDone[2] = true;
+				MissionManager.Manager?.TryGetMission(new MissionModel(MissionType.ElementAffection, @object, ElementFlag.CanConduct, RoomType));
+			}
 		}
 
-		private static void ElectricToExplode(ElementInteractionData data)
+		private void ElectricToExplode(ElementInteractionData data)
 		{
 			data.holder2.Flag3 |= ElementFlag.CanExplode;
 			Explode(data.holder2);
+			if (_missionDone[3])
+			{
+				_missionDone[3] = true;
+				MissionManager.Manager?.TryGetMission(new MissionModel(MissionType.ElementAffection, @object, ElementFlag.CanExplode, RoomType));
+			}
 		}
 
-		private static void WetToWet(ElementInteractionData data)
+		private void WetToWet(ElementInteractionData data)
 		{
 			data.holder2.Flag3 |= ElementFlag.CanBeWet;
+			if (!_missionDone[0])
+			{
+				_missionDone[0] = true;
+				MissionManager.Manager?.TryGetMission(new MissionModel(MissionType.ElementAffection, @object, ElementFlag.CanBeWet, RoomType));
+			}
 		}
 
 		#endregion
 
-		private static void Explode(IElementHolder holder)
+		private void Explode(IElementHolder holder)
 		{
 			//TODO add raycasts
 
@@ -229,25 +318,17 @@ namespace Runtime.GameContent.Actors.ActorViews
 
         #region fields
 
-        private static ElementInteractionDataPair[] ResolveInteractions =
-        {
-	        new(){ flag = 0b0011, callback = WetAndBurn },
-	        new(){ flag = 0b0101, callback = WetAndElec },
-        };
-
-		private static ElementInteractionDataPair[] NextInteractions =
-		{
-			new(){ flag = 0b00100010, callback = BurnToBurn },
-			new(){ flag = 0b00101000, callback = BurnToExplode },
-			new(){ flag = 0b01000010, callback = ElectricToBurn },
-			new(){ flag = 0b01000100, callback = ElectricToElectric },
-			new(){ flag = 0b01001000, callback = ElectricToExplode },
-			new(){ flag = 0b00010001, callback = WetToWet },
-		};
+        [SerializeField] private ObjectType @object; //Tu me laisses l'appeler object >:(
 
         [SerializeField] private ElementFlag flag;
         
         [SerializeField] private VFXReferences vfxReferences;
+
+        private ElementInteractionDataPair[] _resolveInteractions;
+
+        private ElementInteractionDataPair[] _nextInteractions;
+
+        private bool[] _missionDone;
 
         #endregion
     }

@@ -64,27 +64,27 @@ namespace Runtime.GameContent.UI.Customization
             
         }*/
         
-        public void PopulateMeshes(Mesh[] meshes, Sprite[] icons = null, UnityAction<CustomizeButton> onSelected = null)
+        public void PopulatePrefab(CustomizeItem[] prefabs, UnityAction<CustomizeButton> onSelected = null)
         {
-            if (_customizeButtonPrefab == null || _contentArea == null || meshes == null) return;
+            if (_customizeButtonPrefab == null || _contentArea == null || prefabs == null) return;
 
-            for (int i = _pool.Count; i < meshes.Length; i++)
+            for (int i = _pool.Count; i < prefabs.Length; i++)
                 CreatePooledButton(false);
 
-            for (int i = 0; i < meshes.Length; i++)
+            for (int i = 0; i < prefabs.Length; i++)
             {
                 var btn = _pool[i];
                 btn.gameObject.SetActive(true);
                 btn.ResetForPool();
-                Sprite icon = (icons != null && i < icons.Length) ? icons[i] : null;
-                btn.SetData(meshes[i], icon, false, i);
+                Sprite icon = (prefabs[i].ItemIcon != null && i < prefabs.Length) ? prefabs[i].ItemIcon : null;
+                btn.SetData(prefabs[i].ItemPrefab, icon, prefabs[i].Locked, i);
                 if (onSelected != null)
                     btn.OnChangeSkin.AddListener(onSelected);
                 else
                     btn.OnChangeSkin.RemoveAllListeners();
             }
 
-            for (int i = meshes.Length; i < _pool.Count; i++)
+            for (int i = prefabs.Length; i < _pool.Count; i++)
             {
                 var btn = _pool[i];
                 btn.ResetForPool();

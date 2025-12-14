@@ -25,7 +25,7 @@ MonoBehaviour:
     menuInput: {fileID: 0}
   moveData:
     playerHeight: 1.75
-    playerSpeed: 250
+    playerSpeed: 225
     crouchSpeedMultiplier: 0.75
     crouchDepth: 0.25
     accelDecelMultiplier: 25
@@ -34,13 +34,19 @@ MonoBehaviour:
     throwStrength: {x: 5, y: 3.5}
     bigPossessActionTimer: 0.5
     throwTimer: 0.5
+    grabbableBlockLayer:
+      serializedVersion: 2
+      m_Bits: 193
+    possessedBlockLayer:
+      serializedVersion: 2
+      m_Bits: 1089
   jumpData:
     jumpStrength: 0
     jumpCoyoteTime: 0.15
     jumpBufferTime: 0.2
   cameraData:
     gamepadCamSensitivity: 5
-    mouseCamSensitivity: 0.5
+    mouseCamSensitivity: 0.1
     maxPitchAngle: 50
     freeCam: 0
   devsData:

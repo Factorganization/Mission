@@ -1,5 +1,6 @@
 using Runtime.GameContent.Actors.ActorModels;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace Runtime.GameContent.Actors.ActorControllers
 {
@@ -8,32 +9,31 @@ namespace Runtime.GameContent.Actors.ActorControllers
         #region methodes
         public static void SetCurrentWaypoint(AIModel model, Vector3 waypoint)
         {
-            model._currentWaypoint = waypoint;
+            model._currentWaypoint.position = waypoint;
         }
 
         public static void SelectRandomWaypoint(AIModel model)
         {
-            model._currentWaypoint = model.movementData.waypoints[Random.Range(0, model.movementData.waypoints.Length)];
+            model._currentWaypoint.position = model.movementData.waypoints[Random.Range(0, model.movementData.waypoints.Length)];
         }
 
         public static void MoveToWaypoint(AIModel model)
         {
-            if (model._currentWaypoint == Vector3.zero)
-                return; 
-        
-            model.transform.position = Vector3.MoveTowards(model.transform.position, model._currentWaypoint, model.movementData.moveSpeed*Time.deltaTime);
-
-            if (Vector3.Distance(model.transform.position, model._currentWaypoint) < 0.1f)
-                model._currentWaypoint = Vector3.zero;
-        
+            if (model._currentWaypoint.position == Vector3.zero)
+                return;
+            
+            if (Vector3.Distance(model.transform.position, model._currentWaypoint.position) < 1f)
+            {
+                model._currentWaypoint.position = Vector3.zero;
+            }
         }
-
+        
         public static bool RotateToWaypoint(AIModel model)
         {
-            if (model._currentWaypoint == Vector3.zero)
+            if (model._currentWaypoint.position == Vector3.zero)
                 return true;
 
-            Quaternion newRotation = Quaternion.LookRotation((model._currentWaypoint - model.transform.position).normalized);
+            Quaternion newRotation = Quaternion.LookRotation((model._currentWaypoint.position - model.transform.position).normalized);
             model.transform.rotation = Quaternion.Slerp(model.transform.rotation, newRotation, model.movementData.rotateSpeed * Time.deltaTime);
 
             if (Quaternion.Angle(model.transform.rotation, newRotation) < 1)

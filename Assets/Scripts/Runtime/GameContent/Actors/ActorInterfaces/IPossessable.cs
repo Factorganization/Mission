@@ -10,6 +10,11 @@ namespace Runtime.GameContent.Actors.ActorInterfaces
         public Transform Transform { get; }
         
         /// <summary>
+        /// Collider of the possessable object 
+        /// </summary>
+        public BoxCollider Collider { get; }
+        
+        /// <summary>
         /// True if the object is being possessed, False otherwise 
         /// </summary>
         public bool Possessed { get; set; }
