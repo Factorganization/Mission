@@ -29,10 +29,10 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 4682204160826580101}
   - {fileID: 8650682054042533848}
   - {fileID: 8563260265151213551}
   - {fileID: 2497414085363990705}
-  - {fileID: 4682204160826580101}
   - {fileID: 3188740073005683737}
   m_Father: {fileID: 103022815682631381}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -283,28 +283,39 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 375fdb83f0fd4dfcab07eab4cb93728a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Satanic.Runtime::Runtime.GameContent.Actors.ActorViews.PossessableObjectView
-  vfxReferences:
-    fireParticles:
-    - {fileID: 1913773069877097176}
-    waterParticles:
-    - {fileID: 508088045275630661}
-    electricParticles:
-    - {fileID: 6827055279348322438}
-    explosionParticles:
-    - {fileID: 3009414924847345972}
-    firePlaying: 0
-    waterPlaying: 0
-    elecPlaying: 0
-    explodePlaying: 0
-  object: 0
+  objectDefinition:
+    object: 0
+    col: {fileID: 1106776132260142351}
+    blockLayer:
+      serializedVersion: 2
+      m_Bits: 3265
+    durations:
+      fireDuration: 0
+      electricityDuration: 0
+      waterDuration: 0
+      fireTimer: 0
+      electricityTimer: 0
+      waterTimer: 0
+    elementApplicationDistance: 0
+    destructionApplicationDistance: 0
+    vfxReferences:
+      fireParticles:
+      - {fileID: 1913773069877097176}
+      waterParticles:
+      - {fileID: 508088045275630661}
+      electricParticles:
+      - {fileID: 6827055279348322438}
+      explosionParticles:
+      - {fileID: 3009414924847345972}
+      firePlaying: 0
+      waterPlaying: 0
+      elecPlaying: 0
+      explodePlaying: 0
+    debugInfo:
+      text: {fileID: 8287148556315684837}
+      debug: 0
   sourceElement: 0
   receptorElement: 0
-  col: {fileID: 1106776132260142351}
-  blockLayer:
-    serializedVersion: 2
-    m_Bits: 3265
-  text: {fileID: 8287148556315684837}
-  debug: 0
   destroyedAtStart: 0
 --- !u!1001 &227722069707885145
 PrefabInstance:
