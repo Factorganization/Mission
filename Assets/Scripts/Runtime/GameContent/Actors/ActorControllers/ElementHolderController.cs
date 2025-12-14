@@ -1,4 +1,5 @@
 using Runtime.GameContent.Actors.ActorInterfaces;
+using Runtime.GameContent.Actors.ActorViews;
 using Runtime.GameContent.Logics.LogicInterfaces;
 using Runtime.GameContent.Logics.LogicModels;
 using Runtime.GameContent.Logics.LogicModels.ElementModels;
@@ -7,7 +8,7 @@ using Runtime.Management.GameManagement;
 
 namespace Runtime.GameContent.Actors.ActorControllers;
 
-public abstract class ElementHolderController : MonoBehaviour, IElementHolder 
+public abstract class ElementHolderController : ActorView, IElementHolder 
 {
     #region properties
 
@@ -15,6 +16,8 @@ public abstract class ElementHolderController : MonoBehaviour, IElementHolder
 
 	public RoomType RoomType { get; set; } = RoomType.House;
 
+	public ElementDuration Durations => objectDefinition.durations;
+	
 	public VFXReferences VFX => objectDefinition.vfxReferences;
 
 	public bool[] MissionDone => _missionDone;
@@ -137,6 +140,8 @@ public abstract class ElementHolderController : MonoBehaviour, IElementHolder
 	
 	#endregion
 	
+	#region element holder implementation
+	
 	private static int GetKey(ElementInteractionDataPair data) => data.Flag;
 
 	public void CheckOtherElement(IElementHolder holder)
@@ -166,6 +171,8 @@ public abstract class ElementHolderController : MonoBehaviour, IElementHolder
 		SetParticle(this);
 		SetParticle(holder);
 	}
+	
+	#endregion
 
 	#region graphics methodes
 	
@@ -372,6 +379,7 @@ public abstract class ElementHolderController : MonoBehaviour, IElementHolder
 
 			e.Flag3 |= ElementFlag.CanBurn;
 			SetParticleOverride(e, ElementFlag.CanBurn, true);
+			e.Durations.fireTimer = e.Durations.fireDuration;
 
 			if (!e.MissionDone[1])
 			{

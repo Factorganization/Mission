@@ -1,7 +1,7 @@
 namespace Runtime.GameContent.Logics.LogicModels.ElementModels
 {
     [Serializable]
-    public struct ElementDuration
+    public class ElementDuration
     {
         public float fireDuration;
         

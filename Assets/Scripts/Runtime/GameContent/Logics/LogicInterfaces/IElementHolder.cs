@@ -50,6 +50,11 @@ namespace Runtime.GameContent.Logics.LogicInterfaces
         /// array of element length to indicate if object has done its mission for a specific element
         /// </summary>
         public bool[] MissionDone { get; }
+
+        /// <summary>
+        /// Element application durations
+        /// </summary>
+        public ElementDuration Durations { get; }
         
         /// <summary>
         /// Graph feedbacks of the elements 

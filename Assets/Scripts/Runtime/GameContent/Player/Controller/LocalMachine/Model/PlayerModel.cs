@@ -81,9 +81,9 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Model
 
         #region graphs
 
-        public Transform graph;
+        public readonly Transform graph;
                 
-        public Animator animator;
+        public readonly Animator animator;
 
         public Vector3 lastLookDir;
         

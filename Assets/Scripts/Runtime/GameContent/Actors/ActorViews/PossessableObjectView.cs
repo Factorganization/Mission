@@ -113,6 +113,14 @@ namespace Runtime.GameContent.Actors.ActorViews
 			Destroyed = true;
 			Active = true;
 			Flag3 = Flag1;
+
+			if ((Flag3 & ElementFlag.CanBurn) != 0)
+				objectDefinition.durations.fireTimer = objectDefinition.durations.fireDuration;
+			if ((Flag3 & ElementFlag.CanBeWet) != 0)
+				objectDefinition.durations.waterTimer = objectDefinition.durations.waterDuration;
+			if ((Flag3 & ElementFlag.CanConduct) != 0)
+				objectDefinition.durations.electricityTimer = objectDefinition.durations.electricityDuration;
+			
 			//TODO how ?
 			//TODO what ?
 			SetParticle(this);
