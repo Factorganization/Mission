@@ -8,6 +8,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -140327557151704175, guid: c12bbb06da139614f826b765d6ae4245, type: 3}
+      propertyPath: m_Center.y
+      value: 0.34
+      objectReference: {fileID: 0}
     - target: {fileID: 3037010625124760956, guid: c12bbb06da139614f826b765d6ae4245, type: 3}
       propertyPath: m_Name
       value: PV_Affectable_Armchair_01 1
@@ -61,11 +65,23 @@ PrefabInstance:
       value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 5901160782831643434, guid: c12bbb06da139614f826b765d6ae4245, type: 3}
+      propertyPath: objectDefinition.object
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 5901160782831643434, guid: c12bbb06da139614f826b765d6ae4245, type: 3}
       propertyPath: vfxReferences.fireParticles.Array.size
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5901160782831643434, guid: c12bbb06da139614f826b765d6ae4245, type: 3}
       propertyPath: 'vfxReferences.fireParticles.Array.data[1]'
+      value: 
+      objectReference: {fileID: 3332339788813529538}
+    - target: {fileID: 5901160782831643434, guid: c12bbb06da139614f826b765d6ae4245, type: 3}
+      propertyPath: objectDefinition.vfxReferences.fireParticles.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5901160782831643434, guid: c12bbb06da139614f826b765d6ae4245, type: 3}
+      propertyPath: 'objectDefinition.vfxReferences.fireParticles.Array.data[1]'
       value: 
       objectReference: {fileID: 3332339788813529538}
     - target: {fileID: 7126485399853516677, guid: c12bbb06da139614f826b765d6ae4245, type: 3}
@@ -204,6 +220,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8407628375322945105}
     m_Modifications:
+    - target: {fileID: 291392551625227944, guid: 87a0989a81b32f04db7e1fd827d26260, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 440238495708376524, guid: 87a0989a81b32f04db7e1fd827d26260, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -244,9 +264,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5003820525837218610, guid: 87a0989a81b32f04db7e1fd827d26260, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 5680252970067557574, guid: 87a0989a81b32f04db7e1fd827d26260, type: 3}
       propertyPath: m_Name
       value: PP_Office_Chair_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 5680252970067557574, guid: 87a0989a81b32f04db7e1fd827d26260, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -280,8 +308,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1.6448278, z: 1}
-  m_Center: {x: 0, y: 0.854671, z: 0}
+  m_Size: {x: 0.40209374, y: 1.6448278, z: 1}
+  m_Center: {x: -0.29895312, y: 0.854671, z: 0}
 --- !u!4 &9154170404813814521 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 440238495708376524, guid: 87a0989a81b32f04db7e1fd827d26260, type: 3}
