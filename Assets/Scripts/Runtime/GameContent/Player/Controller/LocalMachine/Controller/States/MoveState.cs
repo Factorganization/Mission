@@ -21,7 +21,8 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller.States
             playerModel.Move(playerModel.currentMoveMultiplier);
             playerModel.isGrounded = true;
             playerModel.coyoteTime = playerModel.data.jumpData.jumpCoyoteTime;
-            //TODO anims
+            
+            playerModel.SetAnimParam(playerModel.isWalking, true);
         }
 
         public override sbyte OnUpdate()
@@ -42,28 +43,30 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller.States
                     break;
                 
                 case 6:
-                    var tg = playerModel.OnTryGrab(out var gb);
-                    switch (tg)
+                    if (playerModel.currentGrabbedObject is not null)
                     {
-                        case 1 when playerModel.currentGrabbedObject is not null:
-                            playerModel.ResetGrabbedObjectState();
-                            playerModel.SetGrabbedObjectState(gb);
-                            break;
-                        
-                        case 1:
-							playerModel.SetGrabbedObjectState(gb);
-                            break;
-                        
-                        case 0 when playerModel.currentGrabbedObject is not null:
-							playerModel.ResetGrabbedObjectState();
-                            break;
+                        playerModel.ResetGrabbedObjectState();
+                        playerModel.SetAnimParam(playerModel.isHolding, false);
+                        playerModel.SetAnimParam(playerModel.isInteracting, false);
+                        break;
+                    }
+                    
+                    var tg = playerModel.OnTryGrab(out var gb);
+                    if (tg == 1)
+                    {
+                        playerModel.SetGrabbedObjectState(gb);
+                        playerModel.SetAnimParam(playerModel.isHolding, true);
+                        playerModel.SetAnimParam(playerModel.isInteracting, false);
                     }
                     break;
-                
+
                 case 4:
                     if (playerModel.TryInteractGrabbedObject())
-						//TODO des feedbacks ?
-						break;
+                    {
+                        playerModel.SetAnimParam(playerModel.isInteracting, true);
+                        break;
+                    }
+                    playerModel.SetAnimParam(playerModel.isInteracting, false);
                     break;
                 
                 case 5:
@@ -71,7 +74,12 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller.States
                     if (playerModel.throwTimer > playerModel.data.interactData.throwTimer)
                     {
                         playerModel.throwTimer = 0;
-                        playerModel.TryThrowGrabbedObject();
+                        if (playerModel.TryThrowGrabbedObject())
+                        {
+                            playerModel.SetAnimParam(playerModel.isInteracting, false);
+                            playerModel.SetAnimParam(playerModel.isHolding, false);
+                            playerModel.SetAnimParam(playerModel.@throw);
+                        }
                     }
                     break;
                 

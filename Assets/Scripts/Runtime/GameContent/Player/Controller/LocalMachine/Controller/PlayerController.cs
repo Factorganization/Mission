@@ -310,5 +310,59 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller
                 e.Active = true; //TODO a corriger apres refonte archi
 			playerModel.currentGrabbedObject = null;
 		}
+
+        /// <summary>
+        /// Set the weight of an animator layer
+        /// </summary>
+        /// <param name="playerModel">self</param>
+        /// <param name="layerID">id of the layer</param>
+        /// <param name="weight">desired weight of the layer</param>
+        internal static void SetAnimWeight(this PlayerModel playerModel, int layerID, float weight)
+        {
+            playerModel.animator.SetLayerWeight(layerID, weight);
+        }
+        
+        /// <summary>
+        /// Set the value of an animator parameter
+        /// </summary>
+        /// <param name="playerModel">self</param>
+        /// <param name="param">parameter id of the animator</param>
+        internal static void SetAnimParam(this PlayerModel playerModel, int param)
+        {
+            playerModel.animator.SetTrigger(param);
+        }
+
+        /// <summary>
+        /// Set the value of an animator parameter
+        /// </summary>
+        /// <param name="playerModel">self</param>
+        /// <param name="param">parameter id of the animator</param>
+        /// <param name="value">desired param value</param>
+        internal static void SetAnimParam(this PlayerModel playerModel, int param, bool value)
+        {
+            playerModel.animator.SetBool(param, value);
+        }
+
+        /// <summary>
+        /// Set the value of an animator parameter
+        /// </summary>
+        /// <param name="playerModel">self</param>
+        /// <param name="param">parameter id of the animator</param>
+        /// <param name="value">desired param value</param>
+        internal static void SetAnimParam(this PlayerModel playerModel, int param, float value)
+        {
+            playerModel.animator.SetFloat(param, value);
+        }
+
+        /// <summary>
+        /// Set the value of an animator parameter
+        /// </summary>
+        /// <param name="playerModel">self</param>
+        /// <param name="param">parameter id of the animator</param>
+        /// <param name="value">desired param value</param>
+        internal static void SetAnimParam(this PlayerModel playerModel, int param, int value)
+        {
+            playerModel.animator.SetInteger(param, value);
+        }
     }
 }

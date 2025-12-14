@@ -65,8 +65,6 @@ namespace Runtime.Management.GameManagement
                 if (c > 0)
                     return;
             }
-            
-            Debug.Log("Level Won");
         }
 
         private void SetText()
@@ -96,14 +94,29 @@ namespace Runtime.Management.GameManagement
                     text.text += "Set ";
                     text.text += $"{m.number} ";
                     text.text += $"{Enum.GetName(typeof(ObjectType), m.objectType)!.Split('_')[^1]} ";
-                    var s = m.toApply switch
+                    var s = "";
+                    if ((m.toApply & ElementFlag.CanBeWet) != 0)
+                        s += "under water";
+                    if ((m.toApply & ElementFlag.CanBurn) != 0)
                     {
-                        ElementFlag.CanBeWet => "under water",
-                        ElementFlag.CanBurn => "under fire",
-                        ElementFlag.CanConduct => "in electricity",
-                        ElementFlag.CanExplode => "in explosion (wtf is this sentence)",
-                        _ => ""
-                    };
+                        if (s != "")
+                            s += " or ";
+                        s += "under fire";
+                    }
+                    if ((m.toApply & ElementFlag.CanConduct) != 0)
+                    {
+                        if (s != "")
+                            s += " or ";
+                        s += "in electricity";
+                    }
+
+                    if ((m.toApply & ElementFlag.CanExplode) != 0)
+                    {
+                        if (s != "")
+                            s += " or ";
+                        s += "in explosion (wtf is this sentence)";
+                    }
+
                     text.text += $"{s} ";
                     text.text += $"in the {Enum.GetName(typeof(RoomType), m.room)} ";
                     text.text += $": {m.number - _currentMissionsCount[i]}/{m.number}";

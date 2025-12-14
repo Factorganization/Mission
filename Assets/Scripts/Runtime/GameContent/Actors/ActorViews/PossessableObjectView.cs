@@ -117,6 +117,9 @@ namespace Runtime.GameContent.Actors.ActorViews
 			if (debug)
 				text.text = $"{(Active ? "<color=green>Active</color>" : "<color=red>Inactive</color>")}\n {Convert.ToString((int)Flag1, 2).PadLeft(4, '0')} \n {Convert.ToString((int)Flag2, 2).PadLeft(4, '0')}";
 
+			if (!_active)
+				return;
+			
 			if ((Flag3 & ElementFlag.CanBeWet) != 0 && !_missionDone[0])
 			{
 				_missionDone[0] = true;

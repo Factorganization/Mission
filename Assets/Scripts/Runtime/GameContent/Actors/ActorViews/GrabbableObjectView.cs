@@ -98,7 +98,7 @@ namespace Runtime.GameContent.Actors.ActorViews
 		public bool Action()
 		{
 			Active = !Active;
-			return true;
+			return Active;
 		}
 
 		public void CheckOtherElement(IElementHolder holder)
