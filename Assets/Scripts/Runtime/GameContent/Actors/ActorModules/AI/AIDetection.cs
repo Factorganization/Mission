@@ -3,7 +3,7 @@ using Runtime.GameContent.Player.Controller.LocalMachine.View;
 using Runtime.Management.GameManagement;
 using UnityEditor;
 
-namespace Runtime
+namespace Runtime.GameContent.Actors.ActorModules.AI
 {
     public class AIDetection : MonoBehaviour
     {
@@ -124,7 +124,7 @@ namespace Runtime
                 return;
         
             DropObject();
-            Debug.Log(CurrentPossessable);
+            Debug.Log("Current target (possessable)"+CurrentPossessable);
         
             foreach (IPossessable possessable in levelGenerator.Possessables)
             {
