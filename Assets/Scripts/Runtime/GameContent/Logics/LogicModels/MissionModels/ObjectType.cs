@@ -43,6 +43,10 @@ namespace Runtime.GameContent.Logics.LogicModels.MissionModels
         P_Oven,
         P_Toilet,
         P_TV,
-        P_BathTub
+        P_BathTub,
+        I_Magazine,
+        I_Bottle,
+        A_Chimney,
+        A_Globe,
     }
 }
