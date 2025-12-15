@@ -1,5 +1,3 @@
-using UnityEngine;
-
 namespace Runtime.Utils.Customization
 {
     public class CustomCameraMatrix : MonoBehaviour

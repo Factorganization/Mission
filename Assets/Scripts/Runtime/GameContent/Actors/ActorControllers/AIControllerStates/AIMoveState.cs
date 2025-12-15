@@ -1,6 +1,5 @@
 using System.Collections;
 using Shared.Utils.BaseMachine;
-using UnityEngine;
 
 namespace Runtime.GameContent.Actors.ActorControllers.AIControllerStates
 {

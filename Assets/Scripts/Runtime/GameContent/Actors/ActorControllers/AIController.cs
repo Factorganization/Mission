@@ -1,6 +1,4 @@
 using Runtime.GameContent.Actors.ActorModels;
-using UnityEngine;
-using UnityEngine.AI;
 
 namespace Runtime.GameContent.Actors.ActorControllers
 {

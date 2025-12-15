@@ -1,7 +1,6 @@
-using UnityEditor;
 #if UNITY_EDITOR
+using UnityEditor;
 using UnityEditor.SceneManagement;
-using UnityEngine;
 
 
 namespace Runtime.GameContent.CustomSceneManagement
@@ -53,7 +52,7 @@ namespace Runtime.GameContent.CustomSceneManagement
         #endregion
     }
 
-    [System.Serializable]
+    [Serializable]
     public class SceneDataPath
     {
         #region fields
@@ -65,7 +64,7 @@ namespace Runtime.GameContent.CustomSceneManagement
         #endregion
     }
     
-    [System.Serializable]
+    [Serializable]
     public class CustomSceneGroup
     {
         #region fields

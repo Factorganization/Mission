@@ -1,5 +1,4 @@
 using FMODUnity;
-using UnityEngine;
 
 namespace Runtime.Management.AudioManager
 {
@@ -26,5 +25,5 @@ namespace Runtime.Management.AudioManager
         
             Instance = this;
         }
-    } 
+    }
 }

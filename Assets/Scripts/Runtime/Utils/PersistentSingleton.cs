@@ -1,5 +1,3 @@
-using UnityEngine;
-
 namespace Runtime.Utils
 {
     public class PersistentSingleton<T> : MonoBehaviour where T : Component
@@ -55,7 +53,7 @@ namespace Runtime.Utils
             {
                 if (this != instance)
                 {
-                    Destroy(this.gameObject);
+                    Destroy(gameObject);
                 }
             }
         }

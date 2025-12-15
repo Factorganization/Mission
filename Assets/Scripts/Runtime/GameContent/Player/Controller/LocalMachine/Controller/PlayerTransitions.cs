@@ -1,37 +1,43 @@
+using System.Runtime.CompilerServices;
 using Runtime.GameContent.Actors.ActorInterfaces;
 using Runtime.GameContent.Player.Controller.LocalMachine.Model;
 using Runtime.Management.GameManagement;
-using UnityEngine;
 
 namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller
 {
     internal static class PlayerTransitions
     {
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static bool OnIdle(this PlayerModel playerModel)
         {
             return playerModel.inputDir.sqrMagnitude < 0.1f;
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static bool OnMove(this PlayerModel playerModel)
         {
             return playerModel.inputDir.sqrMagnitude >= 0.1f;
         }
         
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static bool OnJump(this PlayerModel playerModel)
         {
             return playerModel.coyoteTime > 0 && playerModel.jumpBufferTime > 0;
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static bool OnFall(this PlayerModel playerModel)
         {
             return playerModel.rb.linearVelocity.y < 0;
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static void OnAction(this PlayerModel playerModel)
         {
             playerModel.currentPossessedObject.Action();
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static void OnDestructiveAction(this PlayerModel playerModel)
         {
             playerModel.currentPossessedObject.DestructiveAction();

@@ -1,12 +1,5 @@
-using Runtime.GameContent.Logics.LogicControllers;
 using Runtime.GameContent.Logics.LogicControllers.ElementControllers;
 
-namespace Runtime.GameContent.Logics.LogicModels.ElementModels
-{
-    public struct ElementInteractionDataPair
-    {
-        public int flag;
+namespace Runtime.GameContent.Logics.LogicModels.ElementModels;
 
-        public ElementInteraction callback;
-    }
-}
+public record struct ElementInteractionDataPair(int Flag, ElementInteraction Callback);

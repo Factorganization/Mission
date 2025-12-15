@@ -1,4 +1,4 @@
-using UnityEngine;
+using Runtime.GameContent.Logics.LogicInterfaces;
 
 namespace Runtime.Management.GameManagement
 {
@@ -35,13 +35,20 @@ namespace Runtime.Management.GameManagement
             {
                 for (var j = i + 1; j < c; j++)
                 {
-                    if (Vector3.Distance(LevelGenerator.Generator.ElementHolders[i].Transform.position, LevelGenerator.Generator.ElementHolders[j].Transform.position) > 1.5f)
+                    var ei = LevelGenerator.Generator.ElementHolders[i];
+                    var ej = LevelGenerator.Generator.ElementHolders[j];
+                    
+                    if (Vector3.Distance(ei.Transform.position + ei.Collider.center, ej.Transform.position + ej.Collider.center) > ei.ElementApplicationDistance + ej.ElementApplicationDistance)
+                        continue;
+                    
+                    Physics.Linecast(ei.Transform.position + ei.Collider.center, ej.Transform.position + ej.Collider.center, out var hit, blockLayer);
+                    if (hit.transform is not null && !hit.transform.TryGetComponent<IElementHolder>(out _))
                         continue;
 
-					if (!LevelGenerator.Generator.ElementHolders[i].Active || !LevelGenerator.Generator.ElementHolders[j].Active)
-						continue;
+                    if (!ei.Active || !ej.Active)
+                        continue;
                     
-                    LevelGenerator.Generator.ElementHolders[i].CheckOtherElement(LevelGenerator.Generator.ElementHolders[j]);
+                    ei.CheckOtherElement(ej);
                 }
             }
         }
@@ -50,6 +57,8 @@ namespace Runtime.Management.GameManagement
 
         #region fields
 
+        [SerializeField] private LayerMask blockLayer;
+        
         private float _delay;
 
         #endregion
