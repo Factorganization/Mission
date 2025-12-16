@@ -32,10 +32,24 @@ namespace Runtime.GameContent.UI.Customization
             OnChangeSkin.Invoke(this);
         }
         
-        public void SetData(GameObject prefab, Sprite icon, bool locked, int index)
+        public void SetDataPrefab(GameObject prefab, Sprite icon, bool locked, int index)
         {
             _customizeItem = null;
             SelectedPrefab = prefab;
+            ItemIndex = index;
+            _locked = locked;
+
+            if (_image != null)
+                _image.sprite = icon;
+
+            if (_lockImage != null)
+                _lockImage.gameObject.SetActive(_locked);
+        }
+        
+        public void SetDataMesh(Mesh mesh, Sprite icon, bool locked, int index)
+        {
+            _customizeItem = null;
+            SelectedPrefab = null;
             ItemIndex = index;
             _locked = locked;
 

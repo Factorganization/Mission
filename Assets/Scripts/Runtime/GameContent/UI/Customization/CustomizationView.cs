@@ -13,7 +13,56 @@ namespace Runtime.GameContent.UI.Customization
 
         private void Initialize()
         {
-            _hairButton.onClick.AddListener(() =>
+             if (_customizationColors == null)
+                 return;
+            
+             _hornsButton.onClick.AddListener( () =>
+             {
+                 if (_customizationColors != null)
+                     _customizationColors.SetCurrentBodyPart(CustomizationPlayer.BodyPartType.Horns);
+                 var meshes = _characterPreview.GetItem(CustomizationPlayer.BodyPartType.Horns);
+                 _customizationPooler.Populate(meshes, (btn) =>
+                 {
+                     _characterPreview.SetBodyPartMesh(CustomizationPlayer.BodyPartType.Horns, btn.ItemIndex);
+                 });
+             });
+            
+             _hairButton.onClick.AddListener(() =>
+             {
+                 if (_customizationColors != null)
+                     _customizationColors.SetCurrentBodyPart(CustomizationPlayer.BodyPartType.Hair);
+                 var meshes= _characterPreview.GetItem(CustomizationPlayer.BodyPartType.Hair);
+                 _customizationPooler.Populate(meshes, (btn) =>
+                 {
+                     _characterPreview.SetBodyPartMesh(CustomizationPlayer.BodyPartType.Hair, btn.ItemIndex);
+                 });
+             });
+
+             _bodyButton.onClick.AddListener(() =>
+             {
+                 if (_customizationColors != null)
+                     _customizationColors.SetCurrentBodyPart(CustomizationPlayer.BodyPartType.Body);
+                 var meshes = _characterPreview.GetItem(CustomizationPlayer.BodyPartType.Body);
+                 _customizationPooler.Populate(meshes, (btn) =>
+                 {
+                     _characterPreview.SetBodyPartMesh(CustomizationPlayer.BodyPartType.Body, btn.ItemIndex);
+                 });
+             });
+            
+             _tailButton.onClick.AddListener(() =>
+             {
+                 if (_customizationColors != null)
+                     _customizationColors.SetCurrentBodyPart(CustomizationPlayer.BodyPartType.Tail);
+                 var meshes = _characterPreview.GetItem(CustomizationPlayer.BodyPartType.Tail);
+                 _customizationPooler.Populate(meshes, (btn) =>
+                 {
+                     _characterPreview.SetBodyPartMesh(CustomizationPlayer.BodyPartType.Tail, btn.ItemIndex);
+                 });
+             });
+        }
+        
+        /* Prefab Selection Listeners
+         * _hairButton.onClick.AddListener(() =>
             {
                 if (_customizationColors != null)
                     _customizationColors.SetCurrentBodyPart(CustomizationPlayer.BodyPartType.Hair);
@@ -67,7 +116,7 @@ namespace Runtime.GameContent.UI.Customization
                     _characterPreview.SetBodyPartPrefab(CustomizationPlayer.BodyPartType.Horns, btn.ItemIndex);
                 });
             });
-        }
+         */
         
         #endregion
 
