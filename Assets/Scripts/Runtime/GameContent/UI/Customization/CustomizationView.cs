@@ -37,6 +37,20 @@ namespace Runtime.GameContent.UI.Customization
                      _characterPreview.SetBodyPartMesh(CustomizationPlayer.BodyPartType.Hair, btn.ItemIndex);
                  });
              });
+             
+             _eyesButton.onClick.AddListener(() =>
+             {
+                 if (_customizationColors != null)
+                     _customizationColors.SetCurrentBodyPart(CustomizationPlayer.BodyPartType.Eyes);
+
+                 var mats = _customizationColors.GetMaterialsForBodyPart(CustomizationPlayer.BodyPartType.Eyes);
+                 _customizationPooler.PopulateMaterials(mats, (btn) =>
+                 {
+                     var mat = btn.SelectedMaterial;
+                     if (mat != null)
+                         _characterPreview.ApplyMaterialToBodyPart(CustomizationPlayer.BodyPartType.Eyes, mat);
+                 });
+             });
 
              _bodyButton.onClick.AddListener(() =>
              {

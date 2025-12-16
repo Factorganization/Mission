@@ -52,6 +52,24 @@ namespace Runtime.GameContent.UI.Customization
             SelectedPrefab = null;
             ItemIndex = index;
             _locked = locked;
+            SelectedMaterial = null;
+            SelectedMesh = mesh;
+
+            if (_image != null)
+                _image.sprite = icon;
+
+            if (_lockImage != null)
+                _lockImage.gameObject.SetActive(_locked);
+        }
+        
+        public void SetDataMat(Material mat, Sprite icon, bool locked, int index)
+        {
+            _customizeItem = null;
+            SelectedPrefab = null;
+            ItemIndex = index;
+            _locked = locked;
+            SelectedMaterial = mat;
+            SelectedMesh = null;
 
             if (_image != null)
                 _image.sprite = icon;
@@ -82,6 +100,8 @@ namespace Runtime.GameContent.UI.Customization
         public ChangeSkin OnChangeSkin = new ChangeSkin();
 
         public GameObject SelectedPrefab { get; private set; }
+        public Material SelectedMaterial { get; private set; }
+        public Mesh SelectedMesh { get; private set; }
         public int ItemIndex { get; private set; }
 
         #endregion

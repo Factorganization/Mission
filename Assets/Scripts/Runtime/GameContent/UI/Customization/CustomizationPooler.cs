@@ -65,6 +65,36 @@ namespace Runtime.GameContent.UI.Customization
                 btn.gameObject.SetActive(false);
             }
         }
+        
+        public void PopulateMaterials(List<Material> materials, UnityAction<CustomizeButton> onSelected = null)
+        {
+            if (_customizeButtonPrefab == null || _contentArea == null || materials == null) return;
+
+            for (int i = _pool.Count; i < materials.Count; i++)
+                CreatePooledButton(false);
+
+            for (int i = 0; i < materials.Count; i++)
+            {
+                var btn = _pool[i];
+                btn.gameObject.SetActive(true);
+                btn.ResetForPool();
+
+                Sprite icon = null;
+                btn.SetDataMat(materials[i], icon, false, i);
+
+                if (onSelected != null)
+                    btn.OnChangeSkin.AddListener(onSelected);
+                else
+                    btn.OnChangeSkin.RemoveAllListeners();
+            }
+
+            for (int i = materials.Count; i < _pool.Count; i++)
+            {
+                var btn = _pool[i];
+                btn.ResetForPool();
+                btn.gameObject.SetActive(false);
+            }
+        }
 
         public void ClearPool()
         {

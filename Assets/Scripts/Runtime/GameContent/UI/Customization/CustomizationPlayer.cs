@@ -173,17 +173,15 @@ namespace Runtime.GameContent.UI.Customization
         public void ApplyMaterialToBodyPart(BodyPartType bodyPartType, Material mat, int materialIndex = 0)
         {
             if (mat == null) return;
+            
+            //BodyPartType targetPart = bodyPartType == BodyPartType.Eyes ? BodyPartType.Body : bodyPartType;
 
-            // if selecting eyes should change the head/body instead
-            BodyPartType targetPart = bodyPartType == BodyPartType.Eyes ? BodyPartType.Body : bodyPartType;
-
-            Renderer renderer = GetRendererForBodyPart(targetPart);
+            Renderer renderer = GetRendererForBodyPart(bodyPartType);
             if (renderer == null) return;
 
             Material[] mats = renderer.sharedMaterials;
             if (mats == null || mats.Length == 0)
             {
-                // no existing materials -> assign single material
                 renderer.sharedMaterials = new Material[] { mat };
                 return;
             }
