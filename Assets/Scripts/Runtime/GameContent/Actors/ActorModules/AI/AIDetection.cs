@@ -105,6 +105,7 @@ namespace Runtime.GameContent.Actors.ActorModules.AI
                     if (Vector3.Distance(grabbable.OriginPos, grabbable.Transform.position) > 0.5f)
                     {
                         CurrentObject = grabbable;
+                        CurrentObject.IsResetingPos = false;
                         return;
                     }
                 }

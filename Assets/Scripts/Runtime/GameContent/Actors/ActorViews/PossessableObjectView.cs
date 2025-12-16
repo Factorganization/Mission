@@ -69,12 +69,15 @@ namespace Runtime.GameContent.Actors.ActorViews
 		#region methodes
 
 		#region unity events
-		
+
+		public bool AtOriginPos { get; set; }
+
 		protected override void Start()
 		{
 			base.Start();
 
 			Active = false;
+			AtOriginPos = true;
 			Possessed = false;
 			Destroyed = destroyedAtStart;
 		}

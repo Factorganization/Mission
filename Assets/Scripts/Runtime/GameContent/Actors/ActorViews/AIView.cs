@@ -42,6 +42,7 @@ namespace Runtime.GameContent.Actors.ActorViews
                 AIController.SetCurrentWaypoint(_aiModel,  aiDetection.CurrentObject.OriginPos);
                 if (Vector3.Distance(transform.position, aiDetection.CurrentObject.OriginPos) < distanceToCollectable)
                 {
+                    aiDetection.CurrentObject.IsResetingPos = true;
                     aiDetection.DropObject();
                     AIController.SelectRandomWaypoint(_aiModel);
                 }
