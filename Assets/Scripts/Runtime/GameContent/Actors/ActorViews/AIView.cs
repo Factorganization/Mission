@@ -26,6 +26,8 @@ namespace Runtime.GameContent.Actors.ActorViews
 
         private void Update()
         {
+            Debug.Log(aiDetection.CurrentObject);
+            
             //Check if Caught
             if (Vector3.Distance(transform.position, playerTrans.position) < 1 && aiDetection.IsPlayerSpotted)
             {
@@ -36,11 +38,15 @@ namespace Runtime.GameContent.Actors.ActorViews
             
             //Drop Object // Check Distance Collectable
             if (aiDetection.CurrentObject != null)
+            {
+                AIController.SetCurrentWaypoint(_aiModel,  aiDetection.CurrentObject.OriginPos);
+                Debug.Log(Vector3.Distance(transform.position, aiDetection.CurrentObject.OriginPos));
                 if (Vector3.Distance(transform.position, aiDetection.CurrentObject.OriginPos) < distanceToCollectable)
                 {
                     aiDetection.DropObject();
                     AIController.SelectRandomWaypoint(_aiModel);
                 }
+            }
 
             //Check if Repairable
             if (aiDetection.CurrentPossessable != null)

@@ -99,7 +99,7 @@ namespace Runtime.GameContent.Actors.ActorModules.AI
             foreach (IGrabbable grabbable in levelGenerator.Grabbables)
             {
                 var directionToGrabbable = (grabbable.Transform.position - transform.position);
-                float  angleToGrabbable = Vector3.Angle(transform.forward, directionToGrabbable.normalized);
+                float angleToGrabbable = Vector3.Angle(transform.forward, directionToGrabbable.normalized);
 
                 if (angleToGrabbable < unawareDetectionAngle / 2 && directionToGrabbable.magnitude <= unawareDetectionAngle)
                 {
@@ -108,8 +108,8 @@ namespace Runtime.GameContent.Actors.ActorModules.AI
                         continue;
                     if (hit.transform != grabbable.Transform)
                         continue;
-
-                    if (Vector3.Distance(grabbable.OriginPos, grabbable.Transform.position) > 0.1f)
+                    
+                    if (Vector3.Distance(grabbable.OriginPos, grabbable.Transform.position) > 0.5f)
                     {
                         CurrentObject = grabbable;
                         return;
@@ -122,9 +122,6 @@ namespace Runtime.GameContent.Actors.ActorModules.AI
         {
             if  (CurrentPossessable != null)
                 return;
-        
-            DropObject();
-            Debug.Log("Current target (possessable)"+CurrentPossessable);
         
             foreach (IPossessable possessable in levelGenerator.Possessables)
             {
@@ -142,6 +139,7 @@ namespace Runtime.GameContent.Actors.ActorModules.AI
                     if (possessable.Destroyed)
                     {
                         Debug.Log("Damaged Object spotted");
+                        DropObject();
                         CurrentPossessable = possessable;
                     }
                 }
