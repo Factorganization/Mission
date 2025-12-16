@@ -23,14 +23,7 @@ namespace Runtime.GameContent.Actors.ActorModules.AI
             else
             {
                 //Move object
-                if (CurrentObject != null)
-                {
-                    if (Vector3.Distance(CurrentObject.Transform.position, transform.position) < 0.5f)
-                    {
-                        CurrentObject.Transform.position = transform.position + transform.forward;
-                        CurrentObject.Rigidbody.isKinematic = true;
-                    }
-                }
+                SetGrabbedObjectLocalPos();
             }
         
             //reset sus timer
@@ -150,6 +143,7 @@ namespace Runtime.GameContent.Actors.ActorModules.AI
         {
             if (CurrentObject == null)
                 return;
+            CurrentObject.Transform.parent = null;
             CurrentObject.Rigidbody.isKinematic = false;
             CurrentObject = null;
         }
@@ -159,6 +153,22 @@ namespace Runtime.GameContent.Actors.ActorModules.AI
             if (CurrentPossessable == null)
                 return;
             CurrentPossessable =  null;
+        }
+        
+        private void SetGrabbedObjectLocalPos()
+        {
+            if (CurrentObject is null)
+                return;
+            
+            if (CurrentObject.Transform.parent != gameObject.transform)
+                CurrentObject.Transform.SetParent(gameObject.transform);
+            
+            if (CurrentObject.Transform.localPosition.sqrMagnitude < 0.005f)
+                return;
+            
+            CurrentObject.Transform.localPosition += Math.EasingFunction.SimpleQuadraticEase.V3SimpleQuadraticEaseOut(CurrentObject.Transform.localPosition, Vector3.zero, 0.1f);
+            if (CurrentObject.Transform.localPosition.sqrMagnitude < 0.005f)
+                CurrentObject.Transform.localPosition = Vector3.zero;
         }
 
 #if UNITY_EDITOR

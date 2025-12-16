@@ -40,7 +40,6 @@ namespace Runtime.GameContent.Actors.ActorViews
             if (aiDetection.CurrentObject != null)
             {
                 AIController.SetCurrentWaypoint(_aiModel,  aiDetection.CurrentObject.OriginPos);
-                Debug.Log(Vector3.Distance(transform.position, aiDetection.CurrentObject.OriginPos));
                 if (Vector3.Distance(transform.position, aiDetection.CurrentObject.OriginPos) < distanceToCollectable)
                 {
                     aiDetection.DropObject();
