@@ -86,6 +86,21 @@ namespace Runtime.Management.GameManagement
                 }
             }
         }
+        
+#if UNITY_EDITOR
+        private void OnDrawGizmos()
+        {
+            if (!debug)
+                return;
+            
+            foreach (var r in rooms)
+            {
+                Gizmos.color = Color.red;
+                var b = new Bounds(r.col.bounds.center, new Vector3(r.col.bounds.size.x, 100, r.col.bounds.size.z));
+                Gizmos.DrawWireCube(b.center, b.size);
+            }
+        }
+#endif
 
         #endregion
 
@@ -99,6 +114,8 @@ namespace Runtime.Management.GameManagement
         
         [SerializeField] private RoomModel[] rooms;
 
+        [SerializeField] private bool debug;
+        
         private float _delay;
 
         #endregion

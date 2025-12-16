@@ -5,7 +5,7 @@ namespace Runtime.Utils
         [Tooltip("if this is true, this singleton will auto detach if it finds itself parented on awake")]
         public bool UnparentOnAwake = true;
 
-        public static bool HasInstance => instance != null;
+        public static bool HasInstance => instance is not null;
         public static T Current => instance;
 
         protected static T instance;
