@@ -1,6 +1,6 @@
 using Runtime.GameContent.Actors.ActorControllers;
 using Runtime.GameContent.Actors.ActorModels;
-using UnityEngine;
+using Runtime.GameContent.Actors.ActorModules.AI;
 using UnityEngine.AI;
 
 namespace Runtime.GameContent.Actors.ActorViews
@@ -41,10 +41,6 @@ namespace Runtime.GameContent.Actors.ActorViews
                     aiDetection.DropObject();
                     AIController.SelectRandomWaypoint(_aiModel);
                 }
-            
-            //Must put AI Detection into MVC
-            if (aiDetection.CurrentObject != null)
-                AIController.SetCurrentWaypoint(_aiModel,  aiDetection.CurrentObject.OriginPos);
 
             //Check if Repairable
             if (aiDetection.CurrentPossessable != null)

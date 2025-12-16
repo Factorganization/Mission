@@ -1,6 +1,6 @@
 using TMPro;
-using UnityEngine;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 namespace Runtime.GameContent.UI
 {
@@ -28,7 +28,7 @@ namespace Runtime.GameContent.UI
         private void InitScreenSizeDropdown()
         {
             _screenSizeDropdown.ClearOptions();
-            var options = new System.Collections.Generic.List<string>();
+            var options = new List<string>();
             foreach (var res in Screen.resolutions)
             {
                 options.Add(res.width + " x " + res.height);
@@ -40,7 +40,7 @@ namespace Runtime.GameContent.UI
         private void InitVideoQualityDropdown()
         {
             _videoQualityDropdown.ClearOptions();
-            var options = new System.Collections.Generic.List<string>();
+            var options = new List<string>();
             for (int i = 0; i < QualitySettings.names.Length; i++)
             {
                 options.Add(QualitySettings.names[i]);

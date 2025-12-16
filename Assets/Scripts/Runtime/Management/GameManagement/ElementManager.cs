@@ -1,5 +1,4 @@
 using Runtime.GameContent.Logics.LogicInterfaces;
-using UnityEngine;
 
 namespace Runtime.Management.GameManagement
 {
@@ -46,8 +45,8 @@ namespace Runtime.Management.GameManagement
                     if (hit.transform is not null && !hit.transform.TryGetComponent<IElementHolder>(out _))
                         continue;
 
-					if (!ei.Active || !ej.Active)
-						continue;
+                    if (!ei.Active || !ej.Active)
+                        continue;
                     
                     ei.CheckOtherElement(ej);
                 }

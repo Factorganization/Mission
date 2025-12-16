@@ -1,4 +1,3 @@
-using UnityEngine;
 using UnityEngine.UI;
 
 namespace Runtime.GameContent.UI.Mail
@@ -71,5 +70,5 @@ namespace Runtime.GameContent.UI.Mail
         [SerializeField] private Animation _animator;
 
         #endregion
-    }  
+    }
 }

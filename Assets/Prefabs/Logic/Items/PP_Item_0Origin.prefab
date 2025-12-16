@@ -29,9 +29,9 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 2536819003257748047}
   - {fileID: 8009500967388066514}
   - {fileID: 1071164843753720130}
-  - {fileID: 2536819003257748047}
   - {fileID: 4514218272072364282}
   - {fileID: 8711513539304437300}
   m_Father: {fileID: 6738679296161904903}
@@ -53,7 +53,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2536819003257748047
 RectTransform:
   m_ObjectHideFlags: 0
@@ -313,27 +313,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a384f8a6ec044a0b55831ba13494800, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Satanic.Runtime::Runtime.GameContent.Actors.ActorViews.GrabbableObjectView
-  vfxReferences:
-    fireParticles:
-    - {fileID: 983198383896707026}
-    waterParticles:
-    - {fileID: 4172199253233133032}
-    electricParticles:
-    - {fileID: 5502137814029890661}
-    explosionParticles:
-    - {fileID: 5893193186080528281}
-    firePlaying: 0
-    waterPlaying: 0
-    elecPlaying: 0
-    explodePlaying: 0
-  object: 0
+  objectDefinition:
+    object: 0
+    col: {fileID: 5062524779848803313}
+    blockLayer:
+      serializedVersion: 2
+      m_Bits: 3265
+    durations:
+      fireDuration: 50
+      electricityDuration: 50
+      waterDuration: 50
+      fireTimer: 0
+      electricityTimer: 0
+      waterTimer: 0
+    elementApplicationDistance: 0.75
+    destructionApplicationDistance: 5
+    vfxReferences:
+      fireParticles:
+      - {fileID: 983198383896707026}
+      waterParticles:
+      - {fileID: 4172199253233133032}
+      electricParticles:
+      - {fileID: 5502137814029890661}
+      explosionParticles:
+      - {fileID: 5893193186080528281}
+      firePlaying: 0
+      waterPlaying: 0
+      elecPlaying: 0
+      explodePlaying: 0
+    debugInfo:
+      text: {fileID: 6557622766700802820}
+      debug: 0
   element: 0
-  col: {fileID: 5062524779848803313}
-  blockLayer:
-    serializedVersion: 2
-    m_Bits: 3265
-  text: {fileID: 6557622766700802820}
-  debug: 0
 --- !u!1001 &2529898007233764699
 PrefabInstance:
   m_ObjectHideFlags: 0

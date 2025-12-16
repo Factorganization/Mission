@@ -1,5 +1,4 @@
 using TMPro;
-using UnityEngine;
 
 namespace Runtime.GameContent.UI.Quest
 {
@@ -28,5 +27,4 @@ namespace Runtime.GameContent.UI.Quest
         
         #endregion
     }
-
 }

@@ -1,5 +1,3 @@
-using UnityEngine;
-
 namespace Runtime.GameContent
 {
     public static class GameConstants

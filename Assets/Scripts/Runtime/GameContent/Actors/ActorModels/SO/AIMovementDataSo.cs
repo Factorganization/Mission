@@ -1,5 +1,3 @@
-using UnityEngine;
-
 namespace Runtime.GameContent.Actors.ActorModels
 {
     [CreateAssetMenu(fileName = "IAMovementSO", menuName = "IA/Movement")]

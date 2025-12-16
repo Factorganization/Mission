@@ -1,8 +1,6 @@
 using Runtime.GameContent.Actors.ActorInterfaces;
 using Runtime.GameContent.Logics.LogicInterfaces;
 using Runtime.GameContent.Player.Controller.LocalMachine.Model;
-using Shared.RapaEngineUtils.Maths;
-using UnityEngine;
 
 namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller
 {
@@ -274,12 +272,12 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller
             return true;
         }
 
-		/// <summary>
-		/// When player is grabbing an object, will try to use the object and interact with it on an element source object 
-		/// </summary>
-		/// <param name="playerModel">self</param>
-		/// <returns>True if interaction was performed, False otherwise</returns>
-		internal static bool TryInteractGrabbedObject(this PlayerModel playerModel)
+        /// <summary>
+        /// When player is grabbing an object, will try to use the object and interact with it on an element source object 
+        /// </summary>
+        /// <param name="playerModel">self</param>
+        /// <returns>True if interaction was performed, False otherwise</returns>
+        internal static bool TryInteractGrabbedObject(this PlayerModel playerModel)
         {
             return playerModel.currentGrabbedObject is not null && playerModel.currentGrabbedObject.Action();
         }
@@ -290,26 +288,26 @@ namespace Runtime.GameContent.Player.Controller.LocalMachine.Controller
         /// <param name="playerModel">self</param>
         /// <param name="gb">the grabbable object that was grabbed</param>
         internal static void SetGrabbedObjectState(this PlayerModel playerModel, IGrabbable gb)
-		{
+        {
             playerModel.currentGrabbedObject = gb;
-			playerModel.currentGrabbedObject.Rigidbody.isKinematic = true;
-			playerModel.currentGrabbedObject.Transform.SetParent(playerModel.grab, true);
+            playerModel.currentGrabbedObject.Rigidbody.isKinematic = true;
+            playerModel.currentGrabbedObject.Transform.SetParent(playerModel.grab, true);
             if (playerModel.currentGrabbedObject is IElementHolder e)
                 e.Active = false; //TODO a corriger apres refonte archi
-		}
+        }
 
-		/// <summary>
-		/// Reset the grabbed object collier and rb states, reset the parent to null
-		/// </summary>
-		/// <param name="playerModel">self</param>
-		internal static void ResetGrabbedObjectState(this PlayerModel playerModel)
-		{
-			playerModel.currentGrabbedObject.Rigidbody.isKinematic = false;
-			playerModel.currentGrabbedObject.Transform.SetParent(null, true);
+        /// <summary>
+        /// Reset the grabbed object collier and rb states, reset the parent to null
+        /// </summary>
+        /// <param name="playerModel">self</param>
+        internal static void ResetGrabbedObjectState(this PlayerModel playerModel)
+        {
+            playerModel.currentGrabbedObject.Rigidbody.isKinematic = false;
+            playerModel.currentGrabbedObject.Transform.SetParent(null, true);
             if (playerModel.currentGrabbedObject is IElementHolder e)
                 e.Active = true; //TODO a corriger apres refonte archi
-			playerModel.currentGrabbedObject = null;
-		}
+            playerModel.currentGrabbedObject = null;
+        }
 
         /// <summary>
         /// Set the weight of an animator layer

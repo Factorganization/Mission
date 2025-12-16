@@ -1,5 +1,3 @@
-using UnityEngine;
-
 [CreateAssetMenu(fileName = "MailLevel", menuName = "Scriptable Objects/MailLevel")]
 public class MailLevel : ScriptableObject
 {
