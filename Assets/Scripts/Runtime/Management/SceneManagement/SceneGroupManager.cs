@@ -5,42 +5,49 @@ using UnityEngine.SceneManagement;
 
 namespace Runtime.Management.SceneManagement
 {
-    public class SceneGroupManager
+    public class SceneGroupManager : IDisposable, IAsyncDisposable
     {
-        public event Action<string> OnSceneLoaded = delegate { };
-        public event Action<string> OnSceneUnloaded = delegate { };
-        public event Action OnSceneGroupLoaded = delegate { };
+        #region constructors
         
-        SceneGroup ActiveSceneGroup;
-
+        ~SceneGroupManager()
+        {
+            ReleaseUnmanagedResources();
+        }
+        
+        #endregion
+        
+        #region methodes
+        
         public async Task LoadScenes(SceneGroup group, IProgress<float> progress, bool reloadDupScenes = false)
         {
-            ActiveSceneGroup = group;
+            _activeSceneGroup = group;
             var loadedScenes = new List<string>();
 
             await UnloadScenes();
 
-            int sceneCount = SceneManager.sceneCount;
+            var sceneCount = SceneManager.sceneCount;
 
             for (var i = 0; i < sceneCount; i++)
             {
                 loadedScenes.Add(SceneManager.GetSceneAt(i).name);
             }
             
-            var totalScenesToLoad = ActiveSceneGroup.Scenes.Count;
+            var totalScenesToLoad = _activeSceneGroup.scenes.Count;
             
             var operationGroup = new AsyncOperationGroup(totalScenesToLoad);
 
             for (var i = 0; i < totalScenesToLoad; i++)
             {
-                var sceneData = group.Scenes[i];
-                if (reloadDupScenes == false && loadedScenes.Contains(sceneData.Name)) continue;
+                var sceneData = group.scenes[i];
                 
-                var operation = SceneManager.LoadSceneAsync(sceneData.Reference.Path, LoadSceneMode.Additive);
+                if (reloadDupScenes == false && loadedScenes.Contains(sceneData.Name))
+                    continue;
+                
+                var operation = SceneManager.LoadSceneAsync(sceneData.reference.Path, LoadSceneMode.Additive);
 
                 await Task.Delay(TimeSpan.FromSeconds(2.5f));
                 
-                operationGroup.Operations.Add(operation);
+                operationGroup.operations.Add(operation);
                 
                 OnSceneLoaded.Invoke(sceneData.Name);
             }
@@ -52,7 +59,7 @@ namespace Runtime.Management.SceneManagement
                 await Task.Delay(100);
             }
             
-            Scene activeScene = SceneManager.GetSceneByName(ActiveSceneGroup.FindSceneNameByType(SceneType.ActiveScene));
+            var activeScene = SceneManager.GetSceneByName(_activeSceneGroup.FindSceneNameByType(SceneType.ActiveScene));
             
             if (activeScene.IsValid())
             {
@@ -67,14 +74,20 @@ namespace Runtime.Management.SceneManagement
             var scenes = new List<string>();
             var activeScene = SceneManager.GetActiveScene().name;
             
-            int sceneCount = SceneManager.sceneCount;
+            var sceneCount = SceneManager.sceneCount;
             
             for (var i = 0; i < sceneCount; i++)
             {
                 var sceneAt = SceneManager.GetSceneAt(i);
-                if (!sceneAt.isLoaded) continue;
+                
+                if (!sceneAt.isLoaded)
+                    continue;
+                
                 var sceneName = sceneAt.name;
-                if (sceneName.Equals(activeScene) || sceneName == "Bootstrapper") continue;
+                
+                if (sceneName.Equals(activeScene) || sceneName == "Bootstrapper")
+                    continue;
+                
                 scenes.Add(sceneName);
             }
             
@@ -84,9 +97,11 @@ namespace Runtime.Management.SceneManagement
             foreach (var scene in scenes)
             {
                 var operation = SceneManager.UnloadSceneAsync(scene);
-                if (operation == null) continue;
                 
-                operationGroup.Operations.Add(operation);
+                if (operation == null)
+                    continue;
+                
+                operationGroup.operations.Add(operation);
                 
                 OnSceneUnloaded.Invoke(scene);
             }
@@ -98,18 +113,62 @@ namespace Runtime.Management.SceneManagement
                 await Task.Delay(100);
             }
         }
+
+        private void ReleaseUnmanagedResources()
+        {
+            _activeSceneGroup = null;
+        }
+
+        public void Dispose()
+        {
+            ReleaseUnmanagedResources();
+            GC.SuppressFinalize(this);
+        }
+
+        public async ValueTask DisposeAsync()
+        {
+            ReleaseUnmanagedResources();
+            GC.SuppressFinalize(this);
+        }
+        
+        #endregion
+
+        #region fields
+
+        public event Action<string> OnSceneLoaded = delegate { };
+        
+        public event Action<string> OnSceneUnloaded = delegate { };
+        
+        public event Action OnSceneGroupLoaded = delegate { };
+
+        private SceneGroup _activeSceneGroup;
+
+        #endregion
     }
 
     public readonly struct AsyncOperationGroup
     {
-        public readonly List<AsyncOperation> Operations;
+        #region properties
 
-        public float Progress => Operations.Count == 0 ? 0 : Operations.Average(o => o.progress);
-        public bool IsDone => Operations.All(o => o.isDone);
+        public float Progress => operations.Count == 0 ? 0 : operations.Average(o => o.progress);
         
-        public AsyncOperationGroup(int intialCapacity)
+        public bool IsDone => operations.All(o => o.isDone);
+        
+        #endregion
+        
+        #region methodes
+        
+        public AsyncOperationGroup(int initialCapacity)
         {
-            Operations = new List<AsyncOperation>(intialCapacity);
+            operations = new List<AsyncOperation>(initialCapacity);
         }
+        
+        #endregion
+
+        #region fields
+
+        public readonly List<AsyncOperation> operations;
+
+        #endregion
     }
 }

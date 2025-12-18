@@ -5,17 +5,10 @@ namespace Runtime.Management.SceneManagement
 {
     public class SceneLoader : MonoBehaviour
     {
-        [SerializeField] Image loadingBar;
-        [SerializeField] float fillSpeed = 0.5f;
-        [SerializeField] Canvas loadingCanvas;
-        [SerializeField] Camera loadingCamera;
-        [SerializeField] SceneGroup[] sceneGroups;
+        #region methodes
         
-        float targetProgress;
-        bool isLoading;
-
-        public readonly SceneGroupManager manager = new SceneGroupManager();
-
+        #region unity events
+        
         private void Awake()
         {
             manager.OnSceneLoaded += sceneName => Debug.Log("Loaded : " + sceneName);
@@ -23,27 +16,31 @@ namespace Runtime.Management.SceneManagement
             manager.OnSceneGroupLoaded += () => Debug.Log("Scene group loaded");
         }
 
-        async void Start()
+        private async void Start()
         {
-            await LoadSceneGroup(0);
+            await LoadSceneGroup(1);
         }
 
         private void Update()
         {
-            if (!isLoading) return;
+            if (!_isLoading)
+                return;
             
-            float currentFillAmount = loadingBar.fillAmount;
-            float progressDifference = Mathf.Abs(currentFillAmount - targetProgress);
+            var currentFillAmount = loadingBar.fillAmount;
+            var progressDifference = Mathf.Abs(currentFillAmount - _targetProgress);
+            var dynamicSpeed = progressDifference * fillSpeed;
             
-            float dynamicSpeed = progressDifference * fillSpeed;
-            
-            loadingBar.fillAmount = Mathf.Lerp(currentFillAmount, targetProgress, Time.deltaTime * dynamicSpeed);
+            loadingBar.fillAmount = Mathf.Lerp(currentFillAmount, _targetProgress, Time.deltaTime * dynamicSpeed);
         }
+        
+        #endregion
 
+        #region load methodes
+        
         public async Task LoadSceneGroup(int index)
         {
             loadingBar.fillAmount = 0f;
-            targetProgress = 1f;
+            _targetProgress = 1f;
 
             if (index < 0 || index >= sceneGroups.Length)
             {
@@ -51,30 +48,63 @@ namespace Runtime.Management.SceneManagement
                 return;
             }
             
-            LoadingProgress progress = new LoadingProgress();
-            progress.Progressed += target => targetProgress = Mathf.Max(target, targetProgress);
+            var progress = new LoadingProgress();
+            progress.Progressed += target => _targetProgress = Mathf.Max(target, _targetProgress);
             
             EnableLoadingCanvas();
             await manager.LoadScenes(sceneGroups[index], progress);
             EnableLoadingCanvas(false);
         }
         
-        void EnableLoadingCanvas(bool enable = true)
+        private void EnableLoadingCanvas(bool enable = true)
         {
-            isLoading = enable;
-            loadingCanvas.gameObject.SetActive(enable);
-            loadingCamera.gameObject.SetActive(enable);
+            _isLoading = enable;
+            loadingCanvas.enabled = enable;
+            loadingCamera.enabled = enable;
         }
+        
+        #endregion
+        
+        #endregion
+
+        #region fields
+
+        public readonly SceneGroupManager manager = new();
+        
+        [SerializeField] private Image loadingBar;
+        
+        [SerializeField] private float fillSpeed = 0.5f;
+        
+        [SerializeField] private Canvas loadingCanvas;
+        
+        [SerializeField] private Camera loadingCamera;
+        
+        [SerializeField] private SceneGroup[] sceneGroups;
+
+        private float _targetProgress;
+
+        private bool _isLoading;
+        
+        #endregion
     }
     
     public class LoadingProgress : IProgress<float>
     {
+        #region methodes
+        
+        public void Report(float value)
+        {
+            Progressed?.Invoke(value / Ratio);
+        }
+        
+        #endregion
+        
+        #region fields
+        
         public event Action<float> Progressed;
 
-        private const float ratio = 1f;
-
-        public void Report(float value) {
-            Progressed?.Invoke(value / ratio);
-        }
+        private const float Ratio = 1f;
+        
+        #endregion
     }
 }

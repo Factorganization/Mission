@@ -2,7 +2,7 @@ using UnityEngine.SceneManagement;
 
 #if UNITY_EDITOR
 
-namespace Runtime.GameContent.CustomSceneManagement
+namespace Runtime.Utils.CustomSceneManagement
 {
     public static class CustomSceneLoader
     {

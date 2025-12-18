@@ -2,8 +2,7 @@
 using UnityEditor;
 using UnityEditor.SceneManagement;
 
-
-namespace Runtime.GameContent.CustomSceneManagement
+namespace Runtime.Utils.CustomSceneManagement
 {
     [CreateAssetMenu(fileName = "SceneListSo", menuName = "Runtime/GameContent/CustomSceneManagement/SceneListSo", order = 0)]
     public class SceneListSo : ScriptableObject

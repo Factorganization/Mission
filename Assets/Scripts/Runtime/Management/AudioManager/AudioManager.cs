@@ -6,7 +6,6 @@ namespace Runtime.Management.AudioManager
 {
     public class AudioManager : MonoBehaviour
     {
-    
         #region Functions
         
         private void Awake()

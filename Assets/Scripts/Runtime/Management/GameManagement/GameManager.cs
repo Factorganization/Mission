@@ -8,13 +8,13 @@ namespace Runtime.Management.GameManagement
         
         private void Start()
         {
-            foreach (var s in scenes)
-                SceneManager.LoadSceneAsync(s, LoadSceneMode.Additive);
+            /*foreach (var s in scenes)
+                SceneManager.LoadSceneAsync(s, LoadSceneMode.Additive);*/
         }
         
         public void ReloadScene()
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            /*SceneManager.LoadScene(SceneManager.GetActiveScene().name);*/
         }
 
         

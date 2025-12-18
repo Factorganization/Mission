@@ -7,21 +7,36 @@ namespace Runtime.Management.SceneManagement
     [Serializable]
     public class SceneGroup
     {
-        public string GroupName;
-        public List<ScenaData> Scenes;
-        
+        #region methodes
+
         public string FindSceneNameByType(SceneType sceneType)
         {
-            return Scenes.FirstOrDefault(scene => scene.SceneType == sceneType)?.Reference.Name;
+            return scenes.FirstOrDefault(scene => scene.sceneType == sceneType)?.reference.Name;
         }
+
+        #endregion
+        
+        #region fields
+        
+        public string groupName;
+        
+        public List<ScenaData> scenes;
+        
+        #endregion
     }
     
     [Serializable]
     public class ScenaData
     {
-        public SceneReference Reference;
-        public string Name => Reference.Name;
-        public SceneType SceneType;
+        #region fields
+        
+        public string Name => reference.Name;
+        
+        public SceneReference reference;
+        
+        public SceneType sceneType;
+        
+        #endregion
     }
     
     public enum SceneType
