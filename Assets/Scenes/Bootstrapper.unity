@@ -163,6 +163,45 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b4983492f3140d1bc5df3b9a00c603d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Satanic.Runtime::Runtime.Services.SceneService.SceneService
+  loadingBar: {fileID: 401963497}
+  fillSpeed: 1
+  loadingCanvas: {fileID: 1565290217}
+  loadingCamera: {fileID: 1223126579}
+  sceneGroups:
+  - groupName: Menu
+    scenes:
+    - reference:
+        asset: {fileID: 102900000, guid: f751fb1ae50d9ab488aebb4e38ad62fb, type: 3}
+        guid: f751fb1ae50d9ab488aebb4e38ad62fb
+      sceneType: 1
+  - groupName: Level0
+    scenes:
+    - reference:
+        asset: {fileID: 102900000, guid: 72512918e2eb8024a9a96c8fb71a45f4, type: 3}
+        guid: 72512918e2eb8024a9a96c8fb71a45f4
+      sceneType: 0
+    - reference:
+        asset: {fileID: 102900000, guid: 4315258fd736c0a4184adf18798e4a80, type: 3}
+        guid: 4315258fd736c0a4184adf18798e4a80
+      sceneType: 5
+    - reference:
+        asset: {fileID: 102900000, guid: ed9266141f6215440aa57e8053f3f84f, type: 3}
+        guid: ed9266141f6215440aa57e8053f3f84f
+      sceneType: 5
+  - groupName: Level1
+    scenes:
+    - reference:
+        asset: {fileID: 102900000, guid: b2e4916e9a485234aa7ea22e42daf3cc, type: 3}
+        guid: b2e4916e9a485234aa7ea22e42daf3cc
+      sceneType: 0
+    - reference:
+        asset: {fileID: 102900000, guid: 81910470fe7b83849b86493fa64c89e3, type: 3}
+        guid: 81910470fe7b83849b86493fa64c89e3
+      sceneType: 5
+    - reference:
+        asset: {fileID: 102900000, guid: e49df9cc90b97a641846cecd93f747d6, type: 3}
+        guid: e49df9cc90b97a641846cecd93f747d6
+      sceneType: 5
 --- !u!1 &127996005
 GameObject:
   m_ObjectHideFlags: 0
@@ -526,89 +565,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 967076594}
   m_CullTransparentMesh: 1
---- !u!1 &992416576
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 992416578}
-  - component: {fileID: 992416577}
-  m_Layer: 0
-  m_Name: SceneLoader
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &992416577
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 992416576}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b159e59365b0ff408316257741158a4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Satanic.Runtime::Runtime.Management.GameManagement.SceneManagement.SceneLoader
-  loadingBar: {fileID: 401963497}
-  fillSpeed: 0.5
-  loadingCanvas: {fileID: 1565290217}
-  loadingCamera: {fileID: 1223126579}
-  sceneGroups:
-  - groupName: Menu
-    scenes:
-    - reference:
-        asset: {fileID: 102900000, guid: f751fb1ae50d9ab488aebb4e38ad62fb, type: 3}
-        guid: f751fb1ae50d9ab488aebb4e38ad62fb
-      sceneType: 1
-  - groupName: Level0
-    scenes:
-    - reference:
-        asset: {fileID: 102900000, guid: 72512918e2eb8024a9a96c8fb71a45f4, type: 3}
-        guid: 72512918e2eb8024a9a96c8fb71a45f4
-      sceneType: 0
-    - reference:
-        asset: {fileID: 102900000, guid: 4315258fd736c0a4184adf18798e4a80, type: 3}
-        guid: 4315258fd736c0a4184adf18798e4a80
-      sceneType: 5
-    - reference:
-        asset: {fileID: 102900000, guid: ed9266141f6215440aa57e8053f3f84f, type: 3}
-        guid: ed9266141f6215440aa57e8053f3f84f
-      sceneType: 5
-  - groupName: Level1
-    scenes:
-    - reference:
-        asset: {fileID: 102900000, guid: b2e4916e9a485234aa7ea22e42daf3cc, type: 3}
-        guid: b2e4916e9a485234aa7ea22e42daf3cc
-      sceneType: 0
-    - reference:
-        asset: {fileID: 102900000, guid: 81910470fe7b83849b86493fa64c89e3, type: 3}
-        guid: 81910470fe7b83849b86493fa64c89e3
-      sceneType: 5
-    - reference:
-        asset: {fileID: 102900000, guid: e49df9cc90b97a641846cecd93f747d6, type: 3}
-        guid: e49df9cc90b97a641846cecd93f747d6
-      sceneType: 5
---- !u!4 &992416578
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 992416576}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.07633, y: 1.24261, z: 0.89213}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1136430945
 GameObject:
   m_ObjectHideFlags: 0
@@ -671,7 +627,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!20 &1223126579
 Camera:
   m_ObjectHideFlags: 0
@@ -800,6 +756,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1250735122}
   - component: {fileID: 1250735124}
+  - component: {fileID: 1250735125}
   m_Layer: 0
   m_Name: Bootstrapper
   m_TagString: Untagged
@@ -835,11 +792,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Satanic.Runtime::Runtime.Management.GameManagement.SceneManagement.Bootstrapper
   unparentOnAwake: 1
+  serviceLocator: {fileID: 1250735125}
   services:
   - {fileID: 1136430947}
   - {fileID: 2023761024}
   - {fileID: 73824205}
   - {fileID: 1759796934}
+--- !u!114 &1250735125
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1250735121}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24aaa6a589df4054a3bd65e764b7e654, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Satanic.Runtime::Runtime.Service.ServiceLocator
 --- !u!1 &1446602026
 GameObject:
   m_ObjectHideFlags: 0
@@ -929,7 +899,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16b2de8a27b80d14eb8b355870f74cdc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  _barFill: {fileID: 401963497}
+  barFill: {fileID: 401963497}
 --- !u!114 &1565290215
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -979,7 +949,7 @@ Canvas:
   m_GameObject: {fileID: 1565290213}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 1
+  m_RenderMode: 0
   m_Camera: {fileID: 1223126579}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
@@ -1186,7 +1156,6 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 1250735122}
-  - {fileID: 992416578}
   - {fileID: 1446602027}
   - {fileID: 1906248645}
   - {fileID: 1136430946}

@@ -1,0 +1,16 @@
+using Runtime.Services.GameService.GameContent.Player.Controller.LocalMachine.Model;
+using Shared.Utils.BaseMachine;
+
+namespace Runtime.Services.GameService.GameContent.Player.Controller.LocalMachine.Controller.States
+{
+    public sealed class MenuState : BasePlayerState
+    {
+        #region constructors
+        
+        public MenuState(GenericStateMachine machine, GameObject go, PlayerModel model, ControllerState state) : base(machine, go, model, state)
+        {
+        }
+        
+        #endregion
+    }
+}

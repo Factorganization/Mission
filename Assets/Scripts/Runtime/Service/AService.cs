@@ -7,6 +7,10 @@ public abstract class AService : MonoBehaviour, IService
         return true;
     }
 
+    public virtual void Begin()
+    {
+    }
+
     public virtual void Tick()
     {
     }
