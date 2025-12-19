@@ -7,9 +7,10 @@ namespace Runtime.GameContent.Logics.LogicModels.MissionModels
         LivingRoom,
         Kitchen,
         Bathroom,
-        BedRoom,
+        Bedroom,
         Garage,
         Toilet,
-        
+        Office,
+        Hallway
     }
 }
