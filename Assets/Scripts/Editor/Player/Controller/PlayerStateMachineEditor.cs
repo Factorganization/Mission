@@ -1,4 +1,4 @@
-using Runtime.GameContent.Player.Controller.LocalMachine.View;
+using Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.View;
 using UnityEditor;
 using UnityEngine.UIElements;
 
