@@ -1,9 +1,9 @@
-using Runtime.Services.GameService.GameContent.Actors.ActorControllers;
-using Runtime.Services.GameService.GameContent.Actors.ActorInterfaces;
-using Runtime.Services.GameService.GameContent.Logics.LogicModels.ElementModels;
+using Runtime.Services.Game.GameContent.Actors.ActorControllers;
+using Runtime.Services.Game.GameContent.Actors.ActorInterfaces;
+using Runtime.Services.Game.GameContent.Logics.LogicModels.ElementModels;
 using Shared.Utils.Listing;
 
-namespace Runtime.Services.GameService.GameContent.Actors.ActorViews
+namespace Runtime.Services.Game.GameContent.Actors.ActorViews
 {
 	[Pooled, SelectionBase, RequireComponent(typeof(Rigidbody))]
 	public class GrabbableObjectView : ElementHolderController, IGrabbable

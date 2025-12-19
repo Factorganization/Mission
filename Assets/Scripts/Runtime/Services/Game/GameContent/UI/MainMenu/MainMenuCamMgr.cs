@@ -1,6 +1,6 @@
 using UnityEngine.InputSystem;
 
-namespace Runtime.Services.GameService.GameContent.UI.MainMenu
+namespace Runtime.Services.Game.GameContent.UI.MainMenu
 {
     public class MainMenuCamMgr : MonoBehaviour
     {

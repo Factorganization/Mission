@@ -1,4 +1,4 @@
-namespace Runtime.Services.GameService.GameSystems
+namespace Runtime.Services.Game.GameSystems
 {
     public class GameManager : MonoBehaviour
     {

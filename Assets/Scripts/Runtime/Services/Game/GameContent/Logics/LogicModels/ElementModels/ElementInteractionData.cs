@@ -1,6 +1,6 @@
-using Runtime.Services.GameService.GameContent.Logics.LogicInterfaces;
+using Runtime.Services.Game.GameContent.Logics.LogicInterfaces;
 
-namespace Runtime.Services.GameService.GameContent.Logics.LogicModels.ElementModels;
+namespace Runtime.Services.Game.GameContent.Logics.LogicModels.ElementModels;
 
 /// <summary>
 /// Init element holder pair

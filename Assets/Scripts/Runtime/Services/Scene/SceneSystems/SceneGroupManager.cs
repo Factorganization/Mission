@@ -3,7 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine.SceneManagement;
 
-namespace Runtime.Services.SceneService.SceneSystems
+namespace Runtime.Services.Scene.SceneSystems
 {
     public class SceneGroupManager : IDisposable, IAsyncDisposable
     {

@@ -1,6 +1,6 @@
 using UnityEngine.InputSystem;
 
-namespace Runtime.Services.GameService.GameContent.Player.Controller.LocalMachine.Model
+namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Model
 {
     [CreateAssetMenu(fileName = "PlayerData", menuName = "Player/PlayerData")]
     public sealed class PlayerDataSo : ScriptableObject

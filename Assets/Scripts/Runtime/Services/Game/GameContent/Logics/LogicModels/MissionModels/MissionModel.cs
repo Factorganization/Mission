@@ -1,6 +1,6 @@
-using Runtime.Services.GameService.GameContent.Logics.LogicModels.ElementModels;
+using Runtime.Services.Game.GameContent.Logics.LogicModels.ElementModels;
 
-namespace Runtime.Services.GameService.GameContent.Logics.LogicModels.MissionModels
+namespace Runtime.Services.Game.GameContent.Logics.LogicModels.MissionModels
 {
     [Serializable]
     public struct MissionModel : IEquatable<MissionModel>

@@ -1,6 +1,6 @@
 using TMPro;
 
-namespace Runtime.Services.GameService.GameContent.UI.Quest
+namespace Runtime.Services.Game.GameContent.UI.Quest
 {
     public class Quest : MonoBehaviour
     {

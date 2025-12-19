@@ -1,11 +1,11 @@
-using Runtime.Services.GameService.GameContent.Actors.ActorControllers;
-using Runtime.Services.GameService.GameContent.Actors.ActorInterfaces;
-using Runtime.Services.GameService.GameContent.Logics.LogicModels.ElementModels;
-using Runtime.Services.GameService.GameContent.Logics.LogicModels.MissionModels;
-using Runtime.Services.GameService.GameSystems;
+using Runtime.Services.Game.GameContent.Actors.ActorControllers;
+using Runtime.Services.Game.GameContent.Actors.ActorInterfaces;
+using Runtime.Services.Game.GameContent.Logics.LogicModels.ElementModels;
+using Runtime.Services.Game.GameContent.Logics.LogicModels.MissionModels;
+using Runtime.Services.Game.GameSystems;
 using Shared.Utils.Listing;
 
-namespace Runtime.Services.GameService.GameContent.Actors.ActorViews
+namespace Runtime.Services.Game.GameContent.Actors.ActorViews
 {
 	[Pooled, SelectionBase]
 	public class PossessableObjectView : ElementHolderController, IPossessable

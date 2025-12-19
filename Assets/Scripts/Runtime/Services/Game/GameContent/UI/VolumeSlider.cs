@@ -1,7 +1,7 @@
-using Runtime.Services.AudioService.AudioSystems;
+using Runtime.Services.Audio.AudioSystems;
 using UnityEngine.UI;
 
-namespace Runtime.Services.GameService.GameContent.UI
+namespace Runtime.Services.Game.GameContent.UI
 {
     public class VolumeSlider : MonoBehaviour
     {

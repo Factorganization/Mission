@@ -1,4 +1,4 @@
-namespace Runtime.Services.GameService.GameContent.Actors.ActorModels.SO
+namespace Runtime.Services.Game.GameContent.Actors.ActorModels.SO
 {
     [CreateAssetMenu(fileName = "IAMovementSO", menuName = "IA/Movement")]
     public sealed class AIMovementDataSo : ScriptableObject

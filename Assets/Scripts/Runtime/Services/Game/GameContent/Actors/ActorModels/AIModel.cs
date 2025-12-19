@@ -1,7 +1,7 @@
-using Runtime.Services.GameService.GameContent.Actors.ActorModels.SO;
-using Runtime.Services.GameService.GameContent.Actors.ActorViews;
+using Runtime.Services.Game.GameContent.Actors.ActorModels.SO;
+using Runtime.Services.Game.GameContent.Actors.ActorViews;
 
-namespace Runtime.Services.GameService.GameContent.Actors.ActorModels
+namespace Runtime.Services.Game.GameContent.Actors.ActorModels
 {
     public class AIModel : ActorModel
     {

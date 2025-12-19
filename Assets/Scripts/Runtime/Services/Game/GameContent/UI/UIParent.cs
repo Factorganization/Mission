@@ -1,4 +1,4 @@
-namespace Runtime.Services.GameService.GameContent.UI
+namespace Runtime.Services.Game.GameContent.UI
 {
     public class UIParent : MonoBehaviour
     {

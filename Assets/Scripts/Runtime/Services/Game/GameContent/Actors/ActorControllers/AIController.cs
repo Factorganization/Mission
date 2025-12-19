@@ -1,6 +1,6 @@
-using Runtime.Services.GameService.GameContent.Actors.ActorModels;
+using Runtime.Services.Game.GameContent.Actors.ActorModels;
 
-namespace Runtime.Services.GameService.GameContent.Actors.ActorControllers
+namespace Runtime.Services.Game.GameContent.Actors.ActorControllers
 {
     public static class AIController
     {

@@ -1,11 +1,11 @@
-using Runtime.Services.GameService.GameContent.Actors.ActorControllers;
-using Runtime.Services.GameService.GameContent.Actors.ActorControllers.AIControllerStates;
-using Runtime.Services.GameService.GameContent.Actors.ActorModels;
-using Runtime.Services.GameService.GameContent.Actors.ActorModels.SO;
-using Runtime.Services.GameService.GameContent.Actors.ActorModules.AI;
+using Runtime.Services.Game.GameContent.Actors.ActorControllers;
+using Runtime.Services.Game.GameContent.Actors.ActorControllers.AIControllerStates;
+using Runtime.Services.Game.GameContent.Actors.ActorModels;
+using Runtime.Services.Game.GameContent.Actors.ActorModels.SO;
+using Runtime.Services.Game.GameContent.Actors.ActorModules.AI;
 using Shared.Utils.BaseMachine;
 
-namespace Runtime.Services.GameService.GameContent.Actors.ActorViews
+namespace Runtime.Services.Game.GameContent.Actors.ActorViews
 {
     public class testStateMachine : MonoBehaviour
     {

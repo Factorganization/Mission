@@ -1,7 +1,7 @@
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-namespace Runtime.Services.GameService.GameContent.UI.Customization;
+namespace Runtime.Services.Game.GameContent.UI.Customization;
 
 [Serializable]
 public class ChangeSkin : UnityEvent<CustomizeButton> { }

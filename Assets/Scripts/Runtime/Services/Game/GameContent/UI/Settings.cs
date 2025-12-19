@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine.UI;
 
-namespace Runtime.Services.GameService.GameContent.UI
+namespace Runtime.Services.Game.GameContent.UI
 {
     public class Settings : UIParent
     {

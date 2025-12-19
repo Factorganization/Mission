@@ -1,7 +1,7 @@
-using Runtime.Services.GameService.GameContent.Player.Controller.LocalMachine.Model;
+using Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Model;
 using Shared.Utils.BaseMachine;
 
-namespace Runtime.Services.GameService.GameContent.Player.Controller.LocalMachine.Controller.States
+namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Controller.States
 {
     public sealed class InteractState : BasePlayerState
     {

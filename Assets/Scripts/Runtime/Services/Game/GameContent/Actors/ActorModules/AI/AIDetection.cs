@@ -1,9 +1,9 @@
-using Runtime.Services.GameService.GameContent.Actors.ActorInterfaces;
-using Runtime.Services.GameService.GameContent.Player.Controller.LocalMachine.View;
-using Runtime.Services.GameService.GameSystems;
+using Runtime.Services.Game.GameContent.Actors.ActorInterfaces;
+using Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.View;
+using Runtime.Services.Game.GameSystems;
 using UnityEditor;
 
-namespace Runtime.Services.GameService.GameContent.Actors.ActorModules.AI
+namespace Runtime.Services.Game.GameContent.Actors.ActorModules.AI
 {
     public class AIDetection : MonoBehaviour
     {

@@ -1,4 +1,4 @@
-namespace Runtime.Services.GameService.GameContent.Player.Controller.LocalMachine.Model
+namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Model
 {
     [Flags]
     public enum ControllerState

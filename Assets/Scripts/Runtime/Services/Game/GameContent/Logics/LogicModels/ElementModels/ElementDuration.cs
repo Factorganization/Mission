@@ -1,4 +1,4 @@
-namespace Runtime.Services.GameService.GameContent.Logics.LogicModels.ElementModels
+namespace Runtime.Services.Game.GameContent.Logics.LogicModels.ElementModels
 {
     [Serializable]
     public class ElementDuration

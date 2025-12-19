@@ -1,6 +1,6 @@
-using Runtime.Services.GameService.GameContent.Actors.ActorInterfaces;
+using Runtime.Services.Game.GameContent.Actors.ActorInterfaces;
 
-namespace Runtime.Services.GameService.GameContent.Player.Controller.LocalMachine.Model
+namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Model
 {
     public sealed class PlayerModel
     {

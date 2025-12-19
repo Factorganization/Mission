@@ -1,7 +1,7 @@
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
-namespace Runtime.Services.GameService.GameContent.UI
+namespace Runtime.Services.Game.GameContent.UI
 {
     [RequireComponent(typeof(RectTransform))]
     public class DraggableUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler

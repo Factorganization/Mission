@@ -1,34 +1,35 @@
 using TMPro;
 using UnityEngine.Events;
 
-namespace Runtime.Services.GameService.GameContent.UI.Mail;
-
-[Serializable]
-public class MailSelectedEvent : UnityEvent<MailLevel> { }
-
-public class Mail : MonoBehaviour
+namespace Runtime.Services.Game.GameContent.UI.Mail
 {
-    #region Functions
-        
-    public void Bind(MailLevel mailLevel)
+    [Serializable]
+    public class MailSelectedEvent : UnityEvent<MailLevel> { }
+
+    public class Mail : MonoBehaviour
     {
-        _mailLevel = mailLevel;
-        _mailSubject.text = mailLevel.Subject;
-    }
-
-    public void OnSelected()
-    {
-        OnMailSelected.Invoke(_mailLevel);
-    }
-
-    #endregion
-
-    #region Fields
-
-    [SerializeField] private MailLevel _mailLevel;
-    [SerializeField] private TextMeshProUGUI _mailSubject;
+        #region Functions
         
-    public MailSelectedEvent OnMailSelected = new MailSelectedEvent();
+        public void Bind(MailLevel mailLevel)
+        {
+            _mailLevel = mailLevel;
+            _mailSubject.text = mailLevel.Subject;
+        }
 
-    #endregion
+        public void OnSelected()
+        {
+            OnMailSelected.Invoke(_mailLevel);
+        }
+
+        #endregion
+
+        #region Fields
+
+        [SerializeField] private MailLevel _mailLevel;
+        [SerializeField] private TextMeshProUGUI _mailSubject;
+        
+        public MailSelectedEvent OnMailSelected = new MailSelectedEvent();
+
+        #endregion
+    }
 }

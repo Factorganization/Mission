@@ -1,6 +1,6 @@
-using Runtime.Services.GameService.GameContent.Logics.LogicModels.MissionModels;
+using Runtime.Services.Game.GameContent.Logics.LogicModels.MissionModels;
 
-namespace Runtime.Services.GameService.GameContent.Logics.LogicModels
+namespace Runtime.Services.Game.GameContent.Logics.LogicModels
 {
     public class RoomModel : MonoBehaviour
     {

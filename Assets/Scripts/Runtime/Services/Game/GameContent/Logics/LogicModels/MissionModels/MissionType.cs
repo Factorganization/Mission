@@ -1,4 +1,4 @@
-namespace Runtime.Services.GameService.GameContent.Logics.LogicModels.MissionModels
+namespace Runtime.Services.Game.GameContent.Logics.LogicModels.MissionModels
 {
     public enum MissionType
     {

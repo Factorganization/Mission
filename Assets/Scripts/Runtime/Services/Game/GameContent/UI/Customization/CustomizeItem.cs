@@ -1,4 +1,4 @@
-namespace Runtime.Services.GameService.GameContent.UI.Customization
+namespace Runtime.Services.Game.GameContent.UI.Customization
 {
     [CreateAssetMenu(fileName = "CustomizeItem", menuName = "Scriptable Objects/CustomizeItem")]
     public class CustomizeItem : ScriptableObject

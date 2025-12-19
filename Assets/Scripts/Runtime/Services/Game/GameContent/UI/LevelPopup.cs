@@ -1,9 +1,10 @@
 using Runtime.Service;
-using Runtime.Services.GameService.GameContent.UI.Mail;
+using Runtime.Services.Game.GameContent.UI.Mail;
+using Runtime.Services.Scene;
 using TMPro;
 using UnityEngine.UI;
 
-namespace Runtime.Services.GameService.GameContent.UI
+namespace Runtime.Services.Game.GameContent.UI
 {
     public class LevelPopup : UIParent
     {
@@ -22,7 +23,7 @@ namespace Runtime.Services.GameService.GameContent.UI
 
         private async void OpenLevel()
         {
-            await ServiceLocator.Instance.Get<SceneService.SceneService>().LoadSceneGroup(_levelData.LevelName);
+            await ServiceLocator.Instance.Get<SceneService>().LoadSceneGroup(_levelData.LevelName);
             //TODO
             //juste pour rappeler que c'est la
         }

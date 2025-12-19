@@ -1,6 +1,6 @@
 using UnityEngine.UI;
 
-namespace Runtime.Services.SceneService.SceneSystems
+namespace Runtime.Services.Scene.SceneSystems
 {
     public class LoadingScreen : MonoBehaviour
     {

@@ -1,8 +1,8 @@
-using Runtime.Services.GameService.GameContent.Logics.LogicModels;
-using Runtime.Services.GameService.GameContent.Logics.LogicModels.ElementModels;
-using Runtime.Services.GameService.GameContent.Logics.LogicModels.MissionModels;
+using Runtime.Services.Game.GameContent.Logics.LogicModels;
+using Runtime.Services.Game.GameContent.Logics.LogicModels.ElementModels;
+using Runtime.Services.Game.GameContent.Logics.LogicModels.MissionModels;
 
-namespace Runtime.Services.GameService.GameContent.Logics.LogicInterfaces
+namespace Runtime.Services.Game.GameContent.Logics.LogicInterfaces
 {
     public interface IElementHolder
     {

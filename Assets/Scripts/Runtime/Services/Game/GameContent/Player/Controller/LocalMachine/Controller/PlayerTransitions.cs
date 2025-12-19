@@ -1,9 +1,9 @@
 using System.Runtime.CompilerServices;
-using Runtime.Services.GameService.GameContent.Actors.ActorInterfaces;
-using Runtime.Services.GameService.GameContent.Player.Controller.LocalMachine.Model;
-using Runtime.Services.GameService.GameSystems;
+using Runtime.Services.Game.GameContent.Actors.ActorInterfaces;
+using Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Model;
+using Runtime.Services.Game.GameSystems;
 
-namespace Runtime.Services.GameService.GameContent.Player.Controller.LocalMachine.Controller
+namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Controller
 {
     internal static class PlayerTransitions
     {

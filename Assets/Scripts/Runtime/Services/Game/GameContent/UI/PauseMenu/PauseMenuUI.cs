@@ -1,6 +1,6 @@
 using UnityEngine.UI;
 
-namespace Runtime.Services.GameService.GameContent.UI.PauseMenu
+namespace Runtime.Services.Game.GameContent.UI.PauseMenu
 {
     public class PauseMenuUI : UIParent
     {

@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using FMOD.Studio;
 using FMODUnity;
 
-namespace Runtime.Services.AudioService.AudioSystems
+namespace Runtime.Services.Audio.AudioSystems
 {
     public class AudioManager : MonoBehaviour
     {

@@ -1,7 +1,7 @@
 using System.Collections;
 using Shared.Utils.BaseMachine;
 
-namespace Runtime.Services.GameService.GameContent.Actors.ActorControllers.AIControllerStates
+namespace Runtime.Services.Game.GameContent.Actors.ActorControllers.AIControllerStates
 {
     public class AIMoveState : BaseState
     {

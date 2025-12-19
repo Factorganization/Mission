@@ -1,6 +1,6 @@
 using UnityEngine.UI;
 
-namespace Runtime.Services.GameService.GameContent.UI.Mail
+namespace Runtime.Services.Game.GameContent.UI.Mail
 {
     public class MailBox : UIParent
     {

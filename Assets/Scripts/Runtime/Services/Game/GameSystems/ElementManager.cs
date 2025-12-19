@@ -1,6 +1,6 @@
-using Runtime.Services.GameService.GameContent.Logics.LogicInterfaces;
+using Runtime.Services.Game.GameContent.Logics.LogicInterfaces;
 
-namespace Runtime.Services.GameService.GameSystems
+namespace Runtime.Services.Game.GameSystems
 {
     public class ElementManager : MonoBehaviour
     {

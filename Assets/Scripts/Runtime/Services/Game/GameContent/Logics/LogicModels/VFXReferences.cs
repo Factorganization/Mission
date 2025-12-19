@@ -1,4 +1,4 @@
-namespace Runtime.Services.GameService.GameContent.Logics.LogicModels
+namespace Runtime.Services.Game.GameContent.Logics.LogicModels
 {
 	[Serializable]
 	public class VFXReferences

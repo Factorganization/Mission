@@ -1,8 +1,8 @@
-using Runtime.Services.GameService.GameContent.Player.Controller.LocalMachine.Controller.States;
-using Runtime.Services.GameService.GameContent.Player.Controller.LocalMachine.Model;
+using Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Controller.States;
+using Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Model;
 using Shared.Utils.BaseMachine;
 
-namespace Runtime.Services.GameService.GameContent.Player.Controller.LocalMachine.View
+namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.View
 {
     [SelectionBase]
     public class PlayerStateMachine : MonoBehaviour

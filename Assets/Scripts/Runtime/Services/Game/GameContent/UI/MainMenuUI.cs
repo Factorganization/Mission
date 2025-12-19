@@ -1,6 +1,6 @@
 using UnityEngine.UI;
 
-namespace Runtime.Services.GameService.GameContent.UI
+namespace Runtime.Services.Game.GameContent.UI
 {
     public class MainMenuUI : MonoBehaviour
     {

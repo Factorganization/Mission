@@ -1,6 +1,6 @@
 using FMODUnity;
 
-namespace Runtime.Services.AudioService.AudioSystems
+namespace Runtime.Services.Audio.AudioSystems
 {
     public class FMODEvents : MonoBehaviour
     {

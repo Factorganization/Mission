@@ -1,6 +1,6 @@
 using Runtime.Service;
 
-namespace Runtime.Services.GameService
+namespace Runtime.Services.Game
 {
     public class GameService : AService
     {

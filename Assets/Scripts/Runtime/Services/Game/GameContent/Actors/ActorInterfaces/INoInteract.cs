@@ -1,4 +1,4 @@
-namespace Runtime.Services.GameService.GameContent.Actors.ActorInterfaces
+namespace Runtime.Services.Game.GameContent.Actors.ActorInterfaces
 {
     public interface INoInteract
     {

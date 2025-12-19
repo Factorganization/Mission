@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine.UI;
 
-namespace Runtime.Services.GameService.GameContent.UI.Customization
+namespace Runtime.Services.Game.GameContent.UI.Customization
 {
     public class CustomizationColors : MonoBehaviour
     {

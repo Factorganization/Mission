@@ -1,6 +1,6 @@
 using Runtime.Service;
 
-namespace Runtime.Services.DataService
+namespace Runtime.Services.Data
 {
     public class DataService : AService
     {

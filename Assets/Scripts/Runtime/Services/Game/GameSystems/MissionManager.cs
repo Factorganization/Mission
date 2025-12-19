@@ -1,8 +1,8 @@
-using Runtime.Services.GameService.GameContent.Logics.LogicModels.ElementModels;
-using Runtime.Services.GameService.GameContent.Logics.LogicModels.MissionModels;
+using Runtime.Services.Game.GameContent.Logics.LogicModels.ElementModels;
+using Runtime.Services.Game.GameContent.Logics.LogicModels.MissionModels;
 using TMPro;
 
-namespace Runtime.Services.GameService.GameSystems
+namespace Runtime.Services.Game.GameSystems
 {
     public class MissionManager : MonoBehaviour
     {

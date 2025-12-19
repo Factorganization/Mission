@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Runtime.Services.GameService.GameContent.UI.PauseMenu
+namespace Runtime.Services.Game.GameContent.UI.PauseMenu
 {
     public class QuestPage : UIParent
     {

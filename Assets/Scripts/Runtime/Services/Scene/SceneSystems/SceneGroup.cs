@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Eflatun.SceneReference;
 
-namespace Runtime.Services.SceneService.SceneSystems
+namespace Runtime.Services.Scene.SceneSystems
 {
     [Serializable]
     public class SceneGroup

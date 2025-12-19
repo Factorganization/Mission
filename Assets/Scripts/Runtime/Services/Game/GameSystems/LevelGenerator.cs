@@ -1,11 +1,11 @@
-using Runtime.Services.GameService.GameContent.Actors.ActorInterfaces;
-using Runtime.Services.GameService.GameContent.Actors.ActorViews;
-using Runtime.Services.GameService.GameContent.Logics.LogicInterfaces;
-using Runtime.Services.GameService.GameContent.Logics.LogicModels;
-using Runtime.Services.GameService.GameContent.Logics.LogicModels.MissionModels;
+using Runtime.Services.Game.GameContent.Actors.ActorInterfaces;
+using Runtime.Services.Game.GameContent.Actors.ActorViews;
+using Runtime.Services.Game.GameContent.Logics.LogicInterfaces;
+using Runtime.Services.Game.GameContent.Logics.LogicModels;
+using Runtime.Services.Game.GameContent.Logics.LogicModels.MissionModels;
 using Shared.Utils.Listing;
 
-namespace Runtime.Services.GameService.GameSystems
+namespace Runtime.Services.Game.GameSystems
 {
     public class LevelGenerator : MonoBehaviour
     {

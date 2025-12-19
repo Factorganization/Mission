@@ -1,10 +1,11 @@
-using Runtime.Services.GameService.GameContent.UI.Mail;
+using Runtime.Services.Game.GameContent.UI.Mail;
 
-namespace Runtime.Services.GameService.GameContent.UI;
-
-[CreateAssetMenu(fileName = "LevelDataSO", menuName = "ScriptableObjects/LevelDataSO", order = 1)]
-public class LevelDataSO : ScriptableObject
+namespace Runtime.Services.Game.GameContent.UI
 {
-    public MailLevel _mailLevel;
-    public MailLevel[] _allLevels;
+    [CreateAssetMenu(fileName = "LevelDataSO", menuName = "ScriptableObjects/LevelDataSO", order = 1)]
+    public class LevelDataSO : ScriptableObject
+    {
+        public MailLevel _mailLevel;
+        public MailLevel[] _allLevels;
+    }
 }

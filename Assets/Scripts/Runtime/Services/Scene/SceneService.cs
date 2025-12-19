@@ -1,9 +1,9 @@
 using System.Threading.Tasks;
-using UnityEngine.UI;
-using Runtime.Services.SceneService.SceneSystems;
 using Runtime.Service;
+using Runtime.Services.Scene.SceneSystems;
+using UnityEngine.UI;
 
-namespace Runtime.Services.SceneService
+namespace Runtime.Services.Scene
 {
     public class SceneService : AService
     {

@@ -1,4 +1,4 @@
-namespace Runtime.Services.GameService.GameContent
+namespace Runtime.Services.Game.GameContent
 {
     public static class GameConstants
     {

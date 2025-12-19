@@ -1,15 +1,16 @@
-namespace Runtime.Services.GameService.GameContent.UI.Mail;
-
-[CreateAssetMenu(fileName = "MailLevel", menuName = "Scriptable Objects/MailLevel")]
-public class MailLevel : ScriptableObject
+namespace Runtime.Services.Game.GameContent.UI.Mail
 {
-    #region Fields
+    [CreateAssetMenu(fileName = "MailLevel", menuName = "Scriptable Objects/MailLevel")]
+    public class MailLevel : ScriptableObject
+    {
+        #region Fields
 
-    public string Subject;
-    public string LevelName;
-    public string Sender;
-    public string Description;
-    public string Objective;
+        public string Subject;
+        public string LevelName;
+        public string Sender;
+        public string Description;
+        public string Objective;
 
-    #endregion
+        #endregion
+    }
 }
