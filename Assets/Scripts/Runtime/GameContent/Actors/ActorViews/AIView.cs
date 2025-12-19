@@ -26,8 +26,6 @@ namespace Runtime.GameContent.Actors.ActorViews
 
         private void Update()
         {
-            Debug.Log(aiDetection.CurrentObject);
-            
             //Check if Caught
             if (Vector3.Distance(transform.position, playerTrans.position) < 1 && aiDetection.IsPlayerSpotted)
             {
@@ -56,13 +54,14 @@ namespace Runtime.GameContent.Actors.ActorViews
                     ((transform.position - aiDetection.CurrentPossessable.Transform.position).normalized) * 2);
                 
                 // Check Distance Possessable
-                if (Vector3.Distance(gameObject.transform.position, aiDetection.CurrentPossessable.Transform.position) <
+                if (Vector3.Distance(transform.position, aiDetection.CurrentPossessable.Transform.position) <
                     distanceToPossessable)
                 {
                     //repair sfx
                     aiDetection.CurrentPossessable.Destroyed = false;
                     aiDetection.ForgetPossessable();
                     AIController.SelectRandomWaypoint(_aiModel);
+                    Debug.Log("repaired");
                 }
             }
 
