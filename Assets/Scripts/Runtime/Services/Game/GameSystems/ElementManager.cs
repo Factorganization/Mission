@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Runtime.Services.Game.GameContent.Logics.LogicInterfaces;
 
 namespace Runtime.Services.Game.GameSystems
@@ -20,20 +21,20 @@ namespace Runtime.Services.Game.GameSystems
             Element = this;
         }
 
-        private void FixedUpdate()
+        private /*async*/ void FixedUpdate()
         {
             var c = LevelGenerator.Generator.ElementHolders.Count;
 
             _delay += Time.fixedDeltaTime;
             
-            if (_delay < 0.25f)
+            if (_delay < 1)
                 return;
 
             _delay = 0;
-            
-            for (var i = 0; i < c - 1; i++)
+            //await Task.Delay(900);
+            for (var i = 0; i < c; i++)
             {
-                for (var j = i + 1; j < c; j++)
+                for (var j = 0; j < c; j++) // Tant pis on fait une loop en plus //TODO tester le async
                 {
                     var ei = LevelGenerator.Generator.ElementHolders[i];
                     var ej = LevelGenerator.Generator.ElementHolders[j];

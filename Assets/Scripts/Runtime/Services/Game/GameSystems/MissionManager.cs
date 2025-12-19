@@ -32,18 +32,19 @@ namespace Runtime.Services.Game.GameSystems
             SetText();
         }
 
-        public void TryGetMission(MissionModel mission)
+        public bool TryGetMission(MissionModel mission)
         {
             var i = FindMission(missions, mission);
 
             if (i == -1)
-                return;
+                return false;
 
             if (_currentMissionsCount[i] > 0)
                 _currentMissionsCount[i]--;
 
             SetText();
             CheckEndGame();
+            return true;
         }
 
         private static int FindMission(MissionModel[] missions, MissionModel mission)

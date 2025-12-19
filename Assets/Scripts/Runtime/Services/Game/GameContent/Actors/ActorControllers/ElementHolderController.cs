@@ -77,11 +77,18 @@ public abstract class ElementHolderController : ActorView, IElementHolder
 	
 	protected virtual void Update()
 	{
+#if UNITY_EDITOR
 		if (objectDefinition.debugInfo.debug)
 			objectDefinition.debugInfo.text.text = $"{(Active ? "<color=green>Active</color>" : "<color=red>Inactive</color>")}\n {Convert.ToString((int)Flag1, 2).PadLeft(4, '0')} \n {Convert.ToString((int)Flag2, 2).PadLeft(4, '0')}";
-
+#endif
+		
 		if (!Active)
 			return;
+
+		if (_missionCheckTimer <= 0)
+			_missionCheckTimer = 0.5f; //TODO magic value
+		
+		_missionCheckTimer -= Time.deltaTime;
 		
 		if ((Flag3 & ElementFlag.CanBeWet) != 0)
 		{
@@ -93,10 +100,10 @@ public abstract class ElementHolderController : ActorView, IElementHolder
 				SetParticleOverride(this, ElementFlag.CanBeWet, false);
 			}
 
-			if (!_missionDone[0])
+			if (!_missionDone[0] && _missionCheckTimer <= 0)
 			{
-				_missionDone[0] = true;
-				MissionManager.Manager?.TryGetMission(new MissionModel(MissionType.ElementAffection, objectDefinition.@object, ElementFlag.CanBeWet, RoomType));
+				if (MissionManager.Manager.TryGetMission(new MissionModel(MissionType.ElementAffection, objectDefinition.@object, ElementFlag.CanBeWet, RoomType)))
+					_missionDone[0] = true;
 			}
 		}
 		if ((Flag3 & ElementFlag.CanBurn) != 0)
@@ -109,10 +116,10 @@ public abstract class ElementHolderController : ActorView, IElementHolder
 				SetParticleOverride(this, ElementFlag.CanBurn, false);
 			}
 	        
-			if (!_missionDone[1])
+			if (!_missionDone[1] && _missionCheckTimer <= 0)
 			{
-				_missionDone[1] = true;
-				MissionManager.Manager?.TryGetMission(new MissionModel(MissionType.ElementAffection, objectDefinition.@object, ElementFlag.CanBurn, RoomType));
+				if (MissionManager.Manager.TryGetMission(new MissionModel(MissionType.ElementAffection, objectDefinition.@object, ElementFlag.CanBurn, RoomType)))
+					_missionDone[1] = true;
 			}
 		}
 		if ((Flag3 & ElementFlag.CanConduct) != 0)
@@ -125,16 +132,16 @@ public abstract class ElementHolderController : ActorView, IElementHolder
 				SetParticleOverride(this, ElementFlag.CanConduct, false);
 			}
 	        
-			if (!_missionDone[2])
+			if (!_missionDone[2] && _missionCheckTimer <= 0)
 			{
-				_missionDone[2] = true;
-				MissionManager.Manager?.TryGetMission(new MissionModel(MissionType.ElementAffection, objectDefinition.@object, ElementFlag.CanConduct, RoomType));
+				if (MissionManager.Manager.TryGetMission(new MissionModel(MissionType.ElementAffection, objectDefinition.@object, ElementFlag.CanConduct, RoomType)))
+					_missionDone[2] = true;
 			}
 		}
-		if ((Flag3 & ElementFlag.CanExplode) != 0 && !_missionDone[3])
+		if ((Flag3 & ElementFlag.CanExplode) != 0 && !_missionDone[3] && _missionCheckTimer <= 0)
 		{
-			_missionDone[3] = true;
-			MissionManager.Manager?.TryGetMission(new MissionModel(MissionType.ElementAffection, objectDefinition.@object, ElementFlag.CanExplode, RoomType));
+			if (MissionManager.Manager.TryGetMission(new MissionModel(MissionType.ElementAffection, objectDefinition.@object, ElementFlag.CanExplode, RoomType)))
+				_missionDone[3] = true;
 		}
 	}
 	
@@ -402,6 +409,8 @@ public abstract class ElementHolderController : ActorView, IElementHolder
 	private ElementInteractionDataPair[] _nextInteractions;
 
 	private bool[] _missionDone;
+
+	private float _missionCheckTimer;
 
 	#endregion
 }
