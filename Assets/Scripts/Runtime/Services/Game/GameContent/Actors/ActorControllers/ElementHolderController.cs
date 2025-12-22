@@ -14,7 +14,7 @@ public abstract class ElementHolderController : ActorView, IElementHolder
 
 	public Transform Transform => transform;
 
-	public RoomType RoomType { get; set; } = RoomType.House;
+	[field:SerializeField] public RoomType RoomType { get; set; } = RoomType.House;
 
 	public ElementDuration Durations => objectDefinition.durations;
 	
@@ -82,8 +82,8 @@ public abstract class ElementHolderController : ActorView, IElementHolder
 			objectDefinition.debugInfo.text.text = $"{(Active ? "<color=green>Active</color>" : "<color=red>Inactive</color>")}\n {Convert.ToString((int)Flag1, 2).PadLeft(4, '0')} \n {Convert.ToString((int)Flag2, 2).PadLeft(4, '0')}";
 #endif
 		
-		if (!Active)
-			return;
+		/*if (!Active) //Partons du principe que un objet peut valider ses missions meme inactif
+			return;*/
 
 		if (_missionCheckTimer <= 0)
 			_missionCheckTimer = 0.5f; //TODO magic value
@@ -303,8 +303,8 @@ public abstract class ElementHolderController : ActorView, IElementHolder
 		data.Holder2.Flag3 |= ElementFlag.CanBurn;
 		if (!_missionDone[1])
 		{
-			_missionDone[1] = true;
-			MissionManager.Manager?.TryGetMission(new MissionModel(MissionType.ElementAffection, objectDefinition.@object, ElementFlag.CanBurn, RoomType));
+			if (MissionManager.Manager.TryGetMission(new MissionModel(MissionType.ElementAffection, objectDefinition.@object, ElementFlag.CanBurn, RoomType)))
+				_missionDone[1] = true;
 		}
 	}
 
@@ -314,8 +314,8 @@ public abstract class ElementHolderController : ActorView, IElementHolder
 		Explode(data.Holder2);
 		if (_missionDone[3])
 		{
-			_missionDone[3] = true;
-			MissionManager.Manager?.TryGetMission(new MissionModel(MissionType.ElementAffection, objectDefinition.@object, ElementFlag.CanExplode, RoomType));
+			if (MissionManager.Manager.TryGetMission(new MissionModel(MissionType.ElementAffection, objectDefinition.@object, ElementFlag.CanExplode, RoomType)))
+				_missionDone[3] = true;
 		}
 	}
 
@@ -326,8 +326,8 @@ public abstract class ElementHolderController : ActorView, IElementHolder
 		data.Holder2.Flag3 |= ElementFlag.CanBurn;
 		if (!_missionDone[1])
 		{
-			_missionDone[1] = true;
-			MissionManager.Manager?.TryGetMission(new MissionModel(MissionType.ElementAffection, objectDefinition.@object, ElementFlag.CanBurn, RoomType));
+			if (MissionManager.Manager.TryGetMission(new MissionModel(MissionType.ElementAffection, objectDefinition.@object, ElementFlag.CanBurn, RoomType)))
+				_missionDone[1] = true;
 		}
 	}
 
@@ -338,8 +338,8 @@ public abstract class ElementHolderController : ActorView, IElementHolder
 		data.Holder2.Flag3 |= ElementFlag.CanConduct;
 		if (!_missionDone[2])
 		{
-			_missionDone[2] = true;
-			MissionManager.Manager?.TryGetMission(new MissionModel(MissionType.ElementAffection, objectDefinition.@object, ElementFlag.CanConduct, RoomType));
+			if (MissionManager.Manager.TryGetMission(new MissionModel(MissionType.ElementAffection, objectDefinition.@object, ElementFlag.CanConduct, RoomType)))
+				_missionDone[2] = true;
 		}
 	}
 
@@ -349,8 +349,8 @@ public abstract class ElementHolderController : ActorView, IElementHolder
 		Explode(data.Holder2);
 		if (_missionDone[3])
 		{
-			_missionDone[3] = true;
-			MissionManager.Manager?.TryGetMission(new MissionModel(MissionType.ElementAffection, objectDefinition.@object, ElementFlag.CanExplode, RoomType));
+			if (MissionManager.Manager.TryGetMission(new MissionModel(MissionType.ElementAffection, objectDefinition.@object, ElementFlag.CanExplode, RoomType)))
+				_missionDone[3] = true;
 		}
 	}
 
@@ -361,8 +361,8 @@ public abstract class ElementHolderController : ActorView, IElementHolder
 		data.Holder2.Flag3 |= ElementFlag.CanBeWet;
 		if (!_missionDone[0])
 		{
-			_missionDone[0] = true;
-			MissionManager.Manager?.TryGetMission(new MissionModel(MissionType.ElementAffection, objectDefinition.@object, ElementFlag.CanBeWet, RoomType));
+			if (MissionManager.Manager.TryGetMission(new MissionModel(MissionType.ElementAffection, objectDefinition.@object, ElementFlag.CanBeWet, RoomType)))
+				_missionDone[0] = true;
 		}
 	}
 
@@ -390,8 +390,8 @@ public abstract class ElementHolderController : ActorView, IElementHolder
 
 			if (!e.MissionDone[1])
 			{
-				_missionDone[1] = true;
-				MissionManager.Manager.TryGetMission(new MissionModel(MissionType.ElementAffection, objectDefinition.@object, ElementFlag.CanExplode, RoomType));
+				if (MissionManager.Manager.TryGetMission(new MissionModel(MissionType.ElementAffection, objectDefinition.@object, ElementFlag.CanExplode, RoomType)))
+					_missionDone[1] = true;
 			}
 		}
 	}

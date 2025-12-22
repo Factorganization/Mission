@@ -3,6 +3,7 @@ namespace Runtime.Services.Game.GameContent.Logics.LogicModels.MissionModels
     public enum ObjectType
     {
         None,
+        All,
         Item,
         Affectable,
         Possessable,
