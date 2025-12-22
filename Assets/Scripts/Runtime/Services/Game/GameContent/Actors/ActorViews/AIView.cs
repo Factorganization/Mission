@@ -1,7 +1,9 @@
+using Runtime.Service;
 using Runtime.Services.Game.GameContent.Actors.ActorControllers;
 using Runtime.Services.Game.GameContent.Actors.ActorModels;
 using Runtime.Services.Game.GameContent.Actors.ActorModels.SO;
 using Runtime.Services.Game.GameContent.Actors.ActorModules.AI;
+using Runtime.Services.Cursor;
 using UnityEngine.AI;
 
 namespace Runtime.Services.Game.GameContent.Actors.ActorViews
@@ -31,8 +33,7 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
             if (Vector3.Distance(transform.position, playerTrans.position) < 1 && aiDetection.IsPlayerSpotted)
             {
                 gameOver.SetActive(true);
-                Cursor.visible = true;
-                Cursor.lockState = CursorLockMode.None;
+                ServiceLocator.Instance.Get<CursorService>().SetActive(true);
             }
             
             //Drop Object // Check Distance Collectable
