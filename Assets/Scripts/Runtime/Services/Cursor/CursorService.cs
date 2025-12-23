@@ -23,7 +23,7 @@ namespace Runtime.Services.Cursor
             }
             
             var mousePos = moveInput.action.ReadValue<Vector2>();
-            _mousePos += new Vector2(mousePos.x, mousePos.y);
+            _mousePos += new Vector2(mousePos.x * 1920 / Screen.width, mousePos.y * 1080 / Screen.height);
             
             if (_mousePos.x > Screen.width)
                 _mousePos.x = Screen.width;
@@ -35,6 +35,9 @@ namespace Runtime.Services.Cursor
                 _mousePos.y = 0;
             
             Mouse.current.WarpCursorPosition(_mousePos);
+            
+            Debug.Log($"Mouse pos: {_mousePos.x}, {_mousePos.y}");
+            Debug.Log($"Mouse real pos: {Mouse.current.position.ReadValue().x}, {Mouse.current.position.ReadValue().y}");
         }
 
         public void SetActive(bool active)
