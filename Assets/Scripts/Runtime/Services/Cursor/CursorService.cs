@@ -1,5 +1,7 @@
 using Runtime.Service;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.LowLevel;
+using UnityEngine.InputSystem.Users;
 
 namespace Runtime.Services.Cursor
 {
@@ -7,37 +9,100 @@ namespace Runtime.Services.Cursor
     {
         #region methodes
 
-        private void Start()
+        public override void Begin()
         {
             UnityEngine.Cursor.visible = true;
             UnityEngine.Cursor.lockState = CursorLockMode.Confined;
             _mouseVisible = true;
         }
 
-        private void Update()
+        private void OnEnable()
         {
-            if (!_mouseVisible)
+            if (_virtualMouse is null)
             {
-                _mousePos = new Vector2(Screen.width / 2f, Screen.height / 2f);
-                return;
+                _virtualMouse = InputSystem.AddDevice<Mouse>("VirtualMouse");
+            }
+            else if (!_virtualMouse.added)
+            {
+                InputSystem.AddDevice(_virtualMouse);
+            }
+
+            InputUser.PerformPairingWithDevice(_virtualMouse, playerInput.user);
+
+            if (cursorTransform is not null)
+            {
+                var pos = cursorTransform.anchoredPosition;
+                InputState.Change(_virtualMouse.position, pos);
             }
             
-            var mousePos = moveInput.action.ReadValue<Vector2>();
-            _mousePos += new Vector2(mousePos.x * 1920 / Screen.width, mousePos.y * 1080 / Screen.height);
+            InputSystem.onAfterUpdate += UpdateMotion;
+            playerInput.onControlsChanged += OnControlsChanged;
+        }
+
+        private void OnDisable()
+        {
+            if (_virtualMouse is not null && _virtualMouse.added)
+                InputSystem.RemoveDevice(_virtualMouse);
             
-            if (_mousePos.x > Screen.width)
-                _mousePos.x = Screen.width;
-            if (_mousePos.y > Screen.height)
-                _mousePos.y = Screen.height;
-            if (_mousePos.x < 0)
-                _mousePos.x = 0;
-            if (_mousePos.y < 0)
-                _mousePos.y = 0;
+            InputSystem.onAfterUpdate -= UpdateMotion;
+            playerInput.onControlsChanged -= OnControlsChanged;
+        }
+
+        private void UpdateMotion()
+        {
+            if (_virtualMouse is null || Gamepad.current is null)
+                return;
             
-            Mouse.current.WarpCursorPosition(_mousePos);
+            var deltaValue = Gamepad.current.leftStick.ReadValue();
+            deltaValue *= cursorSpeed * Time.deltaTime;
             
-            Debug.Log($"Mouse pos: {_mousePos.x}, {_mousePos.y}");
-            Debug.Log($"Mouse real pos: {Mouse.current.position.ReadValue().x}, {Mouse.current.position.ReadValue().y}");
+            var currentPos = _virtualMouse.position.ReadValue();
+            var newPos = currentPos + deltaValue;
+            
+            newPos.x = Mathf.Clamp(newPos.x, padding, Screen.width - padding);
+            newPos.y = Mathf.Clamp(newPos.y, padding, Screen.height - padding);
+            
+            InputState.Change(_virtualMouse.position, newPos);
+            InputState.Change(_virtualMouse.delta, deltaValue);
+            
+            var aButtonIsPressed = Gamepad.current.aButton.IsPressed();
+            if (_previousMouseState != aButtonIsPressed)
+            {
+                _virtualMouse.CopyState<MouseState>(out var mouseState);
+                mouseState.WithButton(MouseButton.Left, aButtonIsPressed);
+                InputState.Change(_virtualMouse, mouseState);
+                _previousMouseState = aButtonIsPressed;
+            }
+            
+            AnchorCursor(newPos);
+        }
+
+        private void AnchorCursor(Vector2 anchor)
+        {
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasTransform, anchor, null, out var anchoredPos);
+            cursorTransform.anchoredPosition = anchoredPos;
+        }
+
+        private void OnControlsChanged(PlayerInput input)
+        {
+            if (playerInput is null)
+                return;
+
+            if (playerInput.currentControlScheme == mouseScheme && _previousControlScheme != mouseScheme)
+            {
+                cursorTransform.gameObject.SetActive(false);
+                UnityEngine.Cursor.visible = true;
+                _currentMouse.WarpCursorPosition(_virtualMouse.position.ReadValue());
+                _previousControlScheme = mouseScheme;
+            }
+            else if (playerInput.currentControlScheme == gamepadScheme && _previousControlScheme != gamepadScheme)
+            {
+                cursorTransform.gameObject.SetActive(true);
+                UnityEngine.Cursor.visible = false;
+                InputState.Change(_virtualMouse.position, _currentMouse.position.ReadValue());
+                AnchorCursor(_currentMouse.position.ReadValue());
+                _previousControlScheme = gamepadScheme;
+            }
         }
 
         public void SetActive(bool active)
@@ -45,21 +110,33 @@ namespace Runtime.Services.Cursor
             _mouseVisible = active;
         }
 
-        private void OnDrawGizmos()
-        {
-            Gizmos.color = Color.yellow;
-            //Gizmos.DrawWireCube();
-        }
-
         #endregion
 
         #region fields
-    
-        [SerializeField] private InputActionReference moveInput;
-        
-        private Vector2 _mousePos;
 
+        [SerializeField] private PlayerInput playerInput;
+
+        [SerializeField] private RectTransform canvasTransform;
+        
+        [SerializeField] private RectTransform cursorTransform;
+        
+        [SerializeField] private float cursorSpeed;
+
+        [SerializeField] private float padding;
+        
+        private Mouse _virtualMouse;
+
+        private Mouse _currentMouse;
+
+        private string _previousControlScheme = "";
+        
+        private bool _previousMouseState;
+        
         private bool _mouseVisible;
+
+        private const string gamepadScheme = "Gamepad";
+        
+        private const string mouseScheme = "Keyboard&Mouse";
 
         #endregion
     }
