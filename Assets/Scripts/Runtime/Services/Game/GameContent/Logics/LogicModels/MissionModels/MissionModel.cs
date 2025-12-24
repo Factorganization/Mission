@@ -39,7 +39,8 @@ namespace Runtime.Services.Game.GameContent.Logics.LogicModels.MissionModels
                  (a.objectType is ObjectType.Possessable && Enum.GetName(typeof(ObjectType), b.objectType)!.StartsWith('P')) ||
                  (Enum.GetName(typeof(ObjectType), a.objectType)!.StartsWith('A') && b.objectType is ObjectType.Affectable) ||
                  (Enum.GetName(typeof(ObjectType), a.objectType)!.StartsWith('I') && b.objectType is ObjectType.Item) ||
-                 (Enum.GetName(typeof(ObjectType), a.objectType)!.StartsWith('P') && b.objectType is ObjectType.Possessable)) &&
+                 (Enum.GetName(typeof(ObjectType), a.objectType)!.StartsWith('P') && b.objectType is ObjectType.Possessable) ||
+                 a.objectType is ObjectType.All || b.objectType is ObjectType.All) &&
                 (a.room == b.room || a.room is RoomType.House || b.room is RoomType.House) &&
                 ((int)a.toApply & (int)b.toApply) != 0; //TODO a revoir
         }

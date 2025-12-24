@@ -11,6 +11,8 @@ namespace Runtime
         
         protected override void Awake()
         {
+            base.Awake();
+            
             try
             {
                 Debug.Log("Bootstrapper...");
