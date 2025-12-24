@@ -57,9 +57,6 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.View
         private void Start()
         {
             _stateMachine.InitMachine();
-            
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
         }
 
         private void Update()
