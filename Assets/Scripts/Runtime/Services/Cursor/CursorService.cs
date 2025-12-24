@@ -18,6 +18,8 @@ namespace Runtime.Services.Cursor
 
         private void OnEnable()
         {
+            _currentMouse = Mouse.current;
+            
             if (_virtualMouse is null)
             {
                 _virtualMouse = InputSystem.AddDevice<Mouse>("VirtualMouse");
@@ -85,7 +87,7 @@ namespace Runtime.Services.Cursor
 
         private void OnControlsChanged(PlayerInput input)
         {
-            if (playerInput is null)
+            if (playerInput is null || _virtualMouse is null)
                 return;
 
             if (playerInput.currentControlScheme == mouseScheme && _previousControlScheme != mouseScheme)
