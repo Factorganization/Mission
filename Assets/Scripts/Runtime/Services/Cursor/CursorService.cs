@@ -1,6 +1,5 @@
 using Runtime.Service;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.UI;
 
 namespace Runtime.Services.Cursor
 {
@@ -23,7 +22,7 @@ namespace Runtime.Services.Cursor
                 return;
             }
             
-            var mousePos = moveInput.action.ReadValue<Vector2>();
+            var mousePos = moveInput.action.ReadValue<Vector2>() * mouseSpeed;
             _mousePos += new Vector2(mousePos.x * 1920 / Screen.width, mousePos.y * 1080 / Screen.height);
             
             if (_mousePos.x > Screen.width)
@@ -36,20 +35,11 @@ namespace Runtime.Services.Cursor
                 _mousePos.y = 0;
             
             Mouse.current.WarpCursorPosition(_mousePos);
-            
-            Debug.Log($"Mouse pos: {_mousePos.x}, {_mousePos.y}");
-            Debug.Log($"Mouse real pos: {Mouse.current.position.ReadValue().x}, {Mouse.current.position.ReadValue().y}");
         }
 
         public void SetActive(bool active)
         {
             _mouseVisible = active;
-        }
-
-        private void OnDrawGizmos()
-        {
-            Gizmos.color = Color.yellow;
-            //Gizmos.DrawWireCube();
         }
 
         #endregion
@@ -58,7 +48,7 @@ namespace Runtime.Services.Cursor
     
         [SerializeField] private InputActionReference moveInput;
 
-        [SerializeField] private VirtualMouseInput mouse;
+        [SerializeField] private float mouseSpeed;
         
         private Vector2 _mousePos;
 
