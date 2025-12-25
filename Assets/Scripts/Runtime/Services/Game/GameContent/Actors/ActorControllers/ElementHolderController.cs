@@ -14,7 +14,7 @@ public abstract class ElementHolderController : ActorView, IElementHolder
 
 	public Transform Transform => transform;
 
-	[field:SerializeField] public RoomType RoomType { get; set; } = RoomType.House;
+	public RoomType RoomType { get; set; } = RoomType.House;
 
 	public ElementDuration Durations => objectDefinition.durations;
 	
