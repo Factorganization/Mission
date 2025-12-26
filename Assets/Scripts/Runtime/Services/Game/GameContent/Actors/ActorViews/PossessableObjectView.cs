@@ -34,7 +34,21 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
 		
 		#region possessable
 		
-		public bool Possessed { get; set; }
+		public bool Possessed
+		{
+			get => _possessed;
+			set
+			{
+				_possessed = value;
+				if (_possessed)
+				{
+					SetModel(2);
+					return;
+				}
+
+				SetModel(1);
+			}
+		}
 
 		public bool Destroyed
 		{
@@ -43,8 +57,12 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
 			{
 				_destroyed = value;
 				if (_destroyed)
+				{
+					SetModel(4);
 					return;
-		        
+				}
+
+				SetModel(1);
 				Active = false;
 				Flag3 = Flag1;
 				foreach (var p in VFX.waterParticles)
@@ -110,6 +128,7 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
 
 		public void DestructiveAction()
 		{
+			Possessed = false;
 			Destroyed = true;
 			Active = true;
 			Flag3 = Flag1;
@@ -135,6 +154,13 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
 				Explode(this);
 		}
 
+		private void SetModel(int i)
+		{
+			baseModel.SetActive(i == 1);
+			possessedModel.SetActive(i == 2);
+			destroyedModel.SetActive(i == 3);
+		}
+
 		#endregion
 		
 		#endregion
@@ -144,11 +170,19 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
 		[SerializeField] private ElementFlag sourceElement;
 
 		[SerializeField] private ElementFlag receptorElement;
-		
+
+		[SerializeField] private GameObject baseModel;
+
+		[SerializeField] private GameObject possessedModel;
+
+		[SerializeField] private GameObject destroyedModel;
+
 		[SerializeField] private bool destroyedAtStart;
 
 		private bool _active;
-		
+
+		private bool _possessed;
+
 		private bool _destroyed;
 
 		#endregion

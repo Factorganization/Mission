@@ -80,7 +80,6 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Contr
 
         public override void OnExitState()
         {
-            playerModel.currentPossessedObject.Possessed = false;
             playerModel.currentPossessedObject.Transform.tag = "Untagged";
             playerModel.currentPossessedObject = null;
             playerModel.cam.SetParent(playerModel.rb.transform, true);
