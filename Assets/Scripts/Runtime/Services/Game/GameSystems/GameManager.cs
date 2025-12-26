@@ -1,21 +1,22 @@
+using Runtime.Service;
+using Runtime.Services.Cursor;
+
 namespace Runtime.Services.Game.GameSystems
 {
     public class GameManager : MonoBehaviour
     {
         #region methodes
-        
+
         private void Start()
         {
-            /*foreach (var s in scenes)
-                SceneManager.LoadSceneAsync(s, LoadSceneMode.Additive);*/
-        }
-        
-        public void ReloadScene()
-        {
-            /*SceneManager.LoadScene(SceneManager.GetActiveScene().name);*/
+            ServiceLocator.Instance.Get<CursorService>().SetActive(false);
         }
 
-        
+        public void ReloadScene()
+        {
+            
+        }
+
         #endregion
 
         #region fields

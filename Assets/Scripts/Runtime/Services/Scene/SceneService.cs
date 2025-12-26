@@ -84,7 +84,6 @@ namespace Runtime.Services.Scene
         {
             _isLoading = enable;
             loadingCanvas.enabled = enable;
-            loadingCamera.enabled = enable;
         }
         
         #endregion
@@ -100,8 +99,6 @@ namespace Runtime.Services.Scene
         [SerializeField] private float fillSpeed = 0.5f;
         
         [SerializeField] private Canvas loadingCanvas;
-        
-        [SerializeField] private Camera loadingCamera;
         
         [SerializeField] private SceneGroup[] sceneGroups;
 
