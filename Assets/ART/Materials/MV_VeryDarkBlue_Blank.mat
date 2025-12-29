@@ -7,9 +7,9 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: MV_Hair_01
+  m_Name: MV_VeryDarkBlue_Blank
   m_Shader: {fileID: 4800000, guid: be891319084e9d147b09d89e80ce60e0, type: 3}
-  m_Parent: {fileID: 2100000, guid: 1b93c2e375b342745bfd8c55fe5a2d31, type: 2}
+  m_Parent: {fileID: 2100000, guid: c8f5b714c4d220a439708c7a60d80b05, type: 2}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - _EMISSIVE_SIMPLE
@@ -31,28 +31,19 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: d473e0ffccdbecf42b1efa207c91bac1, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _1st_ShadeColor_Step: 0.5
-    - _2nd_ShadeColor_Step: 0.2
-    - _Add_Antipodean_RimLight: 1
-    - _BaseColor_Step: 0.5
-    - _LightDirection_MaskOn: 1
+    - _OUTLINE: 1
     - _Offset_Z: 0
-    - _Outline_Width: 10
-    - _RimLight_FeatherOff: 1
-    - _RimLight_InsideMask: 0.593
-    - _RimLight_Power: 1
-    - _ShadeColor_Step: 0.2
+    - _Use_1stAs2nd: 0
     - _Use_BaseAs1st: 1
     m_Colors:
-    - _1st_ShadeColor: {r: 1, g: 0.6039216, b: 0.38039216, a: 1}
-    - _Ap_RimLightColor: {r: 0, g: 1, b: 0.9286413, a: 1}
-    - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _RimLightColor: {r: 1, g: 1, b: 1, a: 1}
+    - _1st_ShadeColor: {r: 0.16862746, g: 0.16862746, b: 0.14509805, a: 1}
+    - _2nd_ShadeColor: {r: 0.0857892, g: 0.08679241, b: 0.07909572, a: 1}
+    - _BaseColor: {r: 0.28235295, g: 0.2784314, b: 0.24313727, a: 1}
+    - _Color: {r: 0.28235292, g: 0.27843136, b: 0.24313724, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
