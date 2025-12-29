@@ -7,24 +7,24 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: MV_White_Blank 2
+  m_Name: MV_DarkBlue_Blank 3
   m_Shader: {fileID: 4800000, guid: be891319084e9d147b09d89e80ce60e0, type: 3}
-  m_Parent: {fileID: 2100000, guid: 6d0d774f261acbe43b1aa1e1493a3c9f, type: 2}
-  m_ModifiedSerializedProperties: 16
+  m_Parent: {fileID: 2100000, guid: a58a1881970c1ee49aaadc4ab8254461, type: 2}
+  m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - _EMISSIVE_SIMPLE
   - _IS_ANGELRING_OFF
-  - _IS_TRANSCLIPPING_ON
-  - _OUTLINE_NML
+  - _IS_TRANSCLIPPING_OFF
+  - _OUTLINE_POS
   - _SHADINGGRADEMAP
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 2450
+  m_CustomRenderQueue: -1
   stringTagMap:
     IgnoreProjection: False
-    RenderType: TransparentCutout
+    RenderType: Opaque
   disabledShaderPasses: []
   m_LockedProperties: 
   m_SavedProperties:
@@ -33,29 +33,17 @@ Material:
     - _MainTex:
         m_Texture: {fileID: 2800000, guid: c8503cb1cc1c95240a8546673e5d0a8a, type: 3}
         m_Scale: {x: 3, y: 3}
-        m_Offset: {x: -0.46, y: 0}
+        m_Offset: {x: -1.08, y: -0.62}
     m_Ints: []
     m_Floats:
-    - _ClippingMode: 1
-    - _CullMode: 2
-    - _Is_BlendBaseColor: 0
+    - _OUTLINE: 1
     - _Offset_Z: 0
-    - _Outline_Width: 10
-    - _SPRDefaultUnlitColorMask: 15
-    - _SRPDefaultUnlitColMode: 1
-    - _StencilComp: 0
-    - _StencilMode: 0
-    - _StencilOpFail: 0
-    - _StencilOpPass: 0
-    - _TransparentEnabled: 0
     - _Use_1stAs2nd: 0
     - _Use_BaseAs1st: 1
-    - _ZOverDrawMode: 0
-    - _ZWriteMode: 1
     m_Colors:
-    - _1st_ShadeColor: {r: 0.7264151, g: 0.60477483, b: 0.48313457, a: 1}
-    - _2nd_ShadeColor: {r: 0.6603774, g: 0.43193093, b: 0.40806338, a: 1}
-    - _BaseColor: {r: 0.9433962, g: 0.86755306, b: 0.7253471, a: 1}
-    - _Color: {r: 0.9433962, g: 0.86755306, b: 0.7253471, a: 1}
+    - _1st_ShadeColor: {r: 0.2830189, g: 0.2785848, b: 0.24163404, a: 1}
+    - _2nd_ShadeColor: {r: 0.167778, g: 0.16981131, b: 0.14337842, a: 1}
+    - _BaseColor: {r: 0.3773585, g: 0.35773295, b: 0.3008188, a: 1}
+    - _Color: {r: 0.37735847, g: 0.35773292, b: 0.30081877, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
