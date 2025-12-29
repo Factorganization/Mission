@@ -24,7 +24,7 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
         private void Start()
         {
             _aiModel._currentWaypoint = new mTransform();
-            AIController.SetCurrentWaypoint(_aiModel, aiMovementDataSo.waypoints[0]);
+            AIController.SelectNextWaypoint(_aiModel);
         }
 
         private void Update()
@@ -44,7 +44,7 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
                 {
                     aiDetection.CurrentObject.IsResetingPos = true;
                     aiDetection.DropObject();
-                    AIController.SelectRandomWaypoint(_aiModel);
+                    AIController.SelectNextWaypoint(_aiModel);
                 }
             }
 
@@ -62,7 +62,7 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
                     //repair sfx
                     aiDetection.CurrentPossessable.Destroyed = false;
                     aiDetection.ForgetPossessable();
-                    AIController.SelectRandomWaypoint(_aiModel);
+                    AIController.SelectNextWaypoint(_aiModel);
                     Debug.Log("repaired");
                 }
             }
@@ -104,7 +104,7 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
             transform.position = _aiModel.transform.position;
             transform.rotation = _aiModel.transform.rotation;
         
-            //If position is null return
+            //If position is not null return
             if (_aiModel._currentWaypoint.position != Vector3.zero)
                 return;
         
@@ -112,7 +112,7 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
             _aiModel._waitTimer += Time.deltaTime;
             if (!(_aiModel._waitTimer >= aiMovementDataSo.waitDelay)) return;
         
-            AIController.SelectRandomWaypoint(_aiModel);
+            AIController.SelectNextWaypoint(_aiModel);
             _aiModel._waitTimer = 0;
         }
 
