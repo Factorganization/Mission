@@ -31,13 +31,11 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Contr
             return playerModel.rb.linearVelocity.y < 0;
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static void OnAction(this PlayerModel playerModel)
         {
             playerModel.currentPossessedObject.Action();
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static void OnDestructiveAction(this PlayerModel playerModel)
         {
             playerModel.currentPossessedObject.DestructiveAction();
@@ -76,7 +74,7 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Contr
                     GameConstants.MaxPossessDistance,
                     playerModel.data.interactData.possessedBlockLayer);
                 
-                if (d >= GameConstants.MaxPossessDistance || a > GameConstants.MaxInteractionAngle || d > minDist || a > minAngle || hit.collider is null || !hit.collider.TryGetComponent<IPossessable>(out _))
+                if (d >= GameConstants.MaxPossessDistance || a > GameConstants.MaxInteractionAngle || d > minDist || a > minAngle || !hit.transform.root.TryGetComponent<IPossessable>(out _))
                     continue;
                 
                 minDist = d;
@@ -125,7 +123,7 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Contr
                     GameConstants.MaxPossessDistance,
                     playerModel.data.interactData.grabbableBlockLayer);
                 
-                if (d >= GameConstants.MaxPossessDistance || a > GameConstants.MaxInteractionAngle || d > minDist || a > minAngle || hit.collider is null || !hit.collider.TryGetComponent<IGrabbable>(out _))
+                if (d >= GameConstants.MaxPossessDistance || a > GameConstants.MaxInteractionAngle || d > minDist || a > minAngle || !hit.transform.root.TryGetComponent<IGrabbable>(out _))
                     continue;
                 
                 minDist = d;

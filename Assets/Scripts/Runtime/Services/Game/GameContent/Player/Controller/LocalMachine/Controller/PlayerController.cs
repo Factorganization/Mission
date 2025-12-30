@@ -1,3 +1,4 @@
+using System.Runtime.CompilerServices;
 using Runtime.Services.Game.GameContent.Actors.ActorInterfaces;
 using Runtime.Services.Game.GameContent.Logics.LogicInterfaces;
 using Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Model;
@@ -6,6 +7,7 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Contr
 {
     internal static class PlayerController
     {
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static float ClampSymmetric(float val, float clamper) => Mathf.Clamp(val, -clamper, clamper);
 
         /// <summary>

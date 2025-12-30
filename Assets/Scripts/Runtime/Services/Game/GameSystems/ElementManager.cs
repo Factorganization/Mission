@@ -43,7 +43,7 @@ namespace Runtime.Services.Game.GameSystems
                         continue;
                     
                     Physics.Linecast(ei.Transform.position + ei.Collider.center, ej.Transform.position + ej.Collider.center, out var hit, blockLayer);
-                    if (hit.transform is not null && !hit.transform.TryGetComponent<IElementHolder>(out _))
+                    if (hit.transform is not null && !hit.transform.root.TryGetComponent<IElementHolder>(out _))
                         continue;
 
                     if (!ei.Active || !ej.Active)
