@@ -5,5 +5,6 @@ namespace Runtime.Services.Game.GameContent.Logics.LogicModels.MissionModels
         None,
         Action,
         ElementAffection,
+		ElementPresence,
     }
 }

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Runtime.Services.Game.GameContent.Logics.LogicModels.ElementModels;
 using Runtime.Services.Game.GameContent.Logics.LogicModels.MissionModels;
 using TMPro;
@@ -14,47 +15,103 @@ namespace Runtime.Services.Game.GameSystems
 
         #region methodes
 
-        private void Awake()
-        {
-            if (Manager is not null)
-                Debug.LogWarning("MissionManager already instantiated");
-            
-            Manager = this;
-        }
+		#region unity events
 
-        private void Start()
-        {
-            _currentMissionsCount = new int[missions.Length];
-            for (var i = 0; i < missions.Length; i++)
-            {
-                _currentMissionsCount[i] = missions[i].number;
-            }
-            SetText();
-        }
+		private void Awake()
+		{
+			if (Manager is not null)
+				Debug.LogWarning("MissionManager already instantiated");
 
-        public bool TryGetMission(MissionModel mission)
-        {
-            var i = FindMission(missions, mission);
+			Manager = this;
+		}
 
-            if (i == -1)
+		private void Start()
+		{
+			_currentMissionsCount = new int[missions.Length];
+			for (var i = 0; i < missions.Length; i++)
+			{
+				_currentMissionsCount[i] = missions[i].number;
+
+				if (missions[i].mission is MissionType.ElementPresence)
+					_presenceMissions.Add(i, missions[i]);
+			}
+			SetText();
+		}
+
+		private void Update()
+		{
+			_missionTimer += Time.deltaTime;
+
+			if (_missionTimer > 0.5f)
+				return;
+
+			_missionTimer = 0;
+
+			foreach (var m in _presenceMissions)
+			{
+				if (_currentMissionsCount[m.Key] == 0)
+					continue;
+
+				var i = 0;
+
+				foreach (var e in LevelGenerator.Generator.ElementHolders)
+				{
+					if (m.Value == new MissionModel(MissionType.ElementPresence, e.ObjectType, e.Flag3, e.RoomType))
+						i++;
+				}
+
+				_currentMissionsCount[m.Key] -= i;
+				if (_currentMissionsCount[m.Key] < 0)
+					_currentMissionsCount[m.Key] = 0;
+			}
+
+			SetText();
+			CheckEndGame();
+		}
+
+		#endregion
+
+		#region missions callbacks
+
+        public bool TryGetAndSetMission(MissionModel mission)
+        {
+            var l = FindMission(missions, mission);
+
+            if (l.Count == 0)
                 return false;
 
-            if (_currentMissionsCount[i] > 0)
-                _currentMissionsCount[i]--;
+			foreach (var i in l)
+			{
+				if (_currentMissionsCount[i] > 0)
+					_currentMissionsCount[i]--;
+			}
 
-            SetText();
-            CheckEndGame();
-            return true;
+			SetText();
+			CheckEndGame();
+			return true;
         }
 
-        private static int FindMission(MissionModel[] missions, MissionModel mission)
+        public List<int> TryGetMissions(MissionModel mission)
         {
+            return FindMission(missions, mission);
+        }
+
+        public bool TrySetMission(MissionModel mission, int number)
+        {
+            return false;
+        }
+
+        private static List<int> FindMission(MissionModel[] missions, MissionModel mission)
+        {
+			List<int> l = new();
+
             for (var i = 0; i < missions.Length; i++)
             {
                 if (missions[i] == mission)
-                    return i;
+                    l.Add(i);
             }
-            return -1;
+
+            return l;
         }
 
         private void CheckEndGame()
@@ -65,6 +122,11 @@ namespace Runtime.Services.Game.GameSystems
                     return;
             }
         }
+
+		private void SetTextNoText()
+		{
+			
+		}
 
         private void SetText()
         {
@@ -120,21 +182,59 @@ namespace Runtime.Services.Game.GameSystems
                     text.text += $"in the {Enum.GetName(typeof(RoomType), m.room)} ";
                     text.text += $": {m.number - _currentMissionsCount[i]}/{m.number}";
                 }
+				else if (m.mission is MissionType.ElementPresence)
+                {
+                    text.text += "Have ";
+                    text.text += $"{m.number} ";
+                    text.text += $"{Enum.GetName(typeof(ObjectType), m.objectType)!.Split('_')[^1]} ";
+                    var s = "";
+                    if ((m.toApply & ElementFlag.CanBeWet) != 0)
+                        s += "under water";
+                    if ((m.toApply & ElementFlag.CanBurn) != 0)
+                    {
+                        if (s != "")
+                            s += " or ";
+                        s += "under fire";
+                    }
+                    if ((m.toApply & ElementFlag.CanConduct) != 0)
+                    {
+                        if (s != "")
+                            s += " or ";
+                        s += "in electricity";
+                    }
+
+                    if ((m.toApply & ElementFlag.CanExplode) != 0)
+                    {
+                        if (s != "")
+                            s += " or ";
+                        s += "in explosion (still not a good sentence)";
+                    }
+
+                    text.text += $"{s} ";
+                    text.text += $"in the {Enum.GetName(typeof(RoomType), m.room)} ";
+                    text.text += $": {m.number - _currentMissionsCount[i]}/{m.number}";
+                }
                 
                 text.text += "</color>";
                 text.text += "\n";
             }
         }
 
+		#endregion
+
         #endregion
 
         #region fields
 
         [SerializeField] private MissionModel[] missions;
-        
+
         [SerializeField] private TMP_Text text;
 
+		private Dictionary<int, MissionModel> _presenceMissions = new();
+
         private int[] _currentMissionsCount;
+
+		private float _missionTimer;
 
         #endregion
     }
