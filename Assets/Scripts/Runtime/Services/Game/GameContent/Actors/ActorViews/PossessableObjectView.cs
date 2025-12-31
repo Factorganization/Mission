@@ -58,7 +58,7 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
 				_destroyed = value;
 				if (_destroyed)
 				{
-					SetModel(4);
+					SetModel(3);
 					return;
 				}
 
