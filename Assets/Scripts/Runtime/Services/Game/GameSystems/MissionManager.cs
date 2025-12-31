@@ -52,6 +52,7 @@ namespace Runtime.Services.Game.GameSystems
 				if (_currentMissionsCount[m.Key] == 0)
 					continue;
 
+                _currentMissionsCount[m.Key] = m.Value.number;
 				var i = 0;
 
 				foreach (var e in LevelGenerator.Generator.ElementHolders)

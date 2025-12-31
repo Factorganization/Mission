@@ -210,6 +210,21 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Contr
             if ((playerModel.cam.localPosition - targetPos).sqrMagnitude < 0.005f)
                 playerModel.cam.localPosition = targetPos;
         }
+        
+        /// <summary>
+        /// Set Camera Global Position SMOOTHLY on a specified target position
+        /// </summary>
+        /// <param name="playerModel">self</param>
+        /// <param name="targetPos">target position for camera</param>
+        internal static void SetCameraPivotGlobalPos(this PlayerModel playerModel, Vector3 targetPos)
+        {
+            if ((playerModel.cam.position - targetPos).sqrMagnitude < 0.005f)
+                return;
+            
+            playerModel.cam.position += Math.EasingFunction.SimpleQuadraticEase.V3SimpleQuadraticEaseOut(playerModel.cam.position, targetPos, 0.1f);
+            if ((playerModel.cam.position - targetPos).sqrMagnitude < 0.005f)
+                playerModel.cam.position = targetPos;
+        }
 
         /// <summary>
         /// If player is grabbing an object, Set the local position of the object SMOOTHLY on a specified target position
