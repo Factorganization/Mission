@@ -128,7 +128,7 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
 
 		public void DestructiveAction()
 		{
-			Possessed = false;
+			_possessed = false;
 			Destroyed = true;
 			Active = true;
 			Flag3 = Flag1;
