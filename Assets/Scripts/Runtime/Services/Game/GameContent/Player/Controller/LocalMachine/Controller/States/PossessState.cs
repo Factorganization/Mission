@@ -20,7 +20,7 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Contr
             _destructTimer = 0;
             playerModel.targetDir = Vector3.zero;
             playerModel.rb.linearVelocity = Vector3.zero;
-            playerModel.cam.SetParent(playerModel.currentPossessedObject.Transform, true);
+            //playerModel.cam.SetParent(playerModel.currentPossessedObject.Transform, true);
             playerModel.isVisible = false;
             playerModel.graph.gameObject.SetActive(false); 
             playerModel.currentPossessedObject.Transform.tag = "Player";
@@ -72,7 +72,7 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Contr
         public override sbyte OnFixedUpdate()
         {
             playerModel.HandleRotateInputGather();
-            playerModel.SetCameraPivotLocalPos(playerModel.currentPossessedObject.Collider.center);
+            playerModel.SetCameraPivotGlobalPos(playerModel.currentPossessedObject.Collider.center + playerModel.currentPossessedObject.Transform.position);
             playerModel.Look();
             
             return 0;
@@ -83,7 +83,7 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Contr
             playerModel.currentPossessedObject.Transform.tag = "Untagged";
             playerModel.currentPossessedObject.Possessed = false;
             playerModel.currentPossessedObject = null;
-            playerModel.cam.SetParent(playerModel.rb.transform, true);
+            //playerModel.cam.SetParent(playerModel.rb.transform, true);
             playerModel.isVisible = true;
             playerModel.graph.gameObject.SetActive(true);
         }
