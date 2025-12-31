@@ -146,7 +146,7 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
 
 			if (!MissionDone[^1])
 			{
-				if (MissionManager.Manager.TryGetMission(new MissionModel(MissionType.Action, objectDefinition.@object, ElementFlag.CanExplode, RoomType)))
+				if (MissionManager.Manager.TryGetAndSetMission(new MissionModel(MissionType.Action, objectDefinition.@object, ElementFlag.CanExplode, RoomType)))
 					MissionDone[^1] = true;
 			}
             

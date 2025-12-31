@@ -30,7 +30,12 @@ namespace Runtime.Services.Game.GameContent.Logics.LogicInterfaces
         /// Hidden supplementary Flag that can store temporary IS data
         /// </summary>
         public ElementFlag Flag3 { get; set; }
-        
+
+		/// <summary>
+		/// object category of the element holder
+		/// </summary>
+		public ObjectType ObjectType { get; }
+
         /// <summary>
         /// The Current Room the Element holder is in
         /// </summary>
@@ -47,7 +52,7 @@ namespace Runtime.Services.Game.GameContent.Logics.LogicInterfaces
         public float ElementApplicationDistance { get; }
         
         /// <summary>
-        /// array of element length to indicate if object has done its mission for a specific element
+        /// array of element length to indicate if object has done its presence mission for a specific element
         /// </summary>
         public bool[] MissionDone { get; }
 
