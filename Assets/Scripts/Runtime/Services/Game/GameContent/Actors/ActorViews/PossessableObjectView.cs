@@ -40,6 +40,10 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
 			set
 			{
 				_possessed = value;
+
+				if (_destroyed)
+					return;
+				
 				if (_possessed)
 				{
 					SetModel(2);
@@ -128,7 +132,6 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
 
 		public void DestructiveAction()
 		{
-			_possessed = false;
 			Destroyed = true;
 			Active = true;
 			Flag3 = Flag1;
