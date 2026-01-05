@@ -34,6 +34,7 @@ namespace Runtime.Services.Cursor
         public void SetActive(bool active)
         {
             _mouseVisible = active;
+			UnityEngine.Cursor.visible = active;
         }
 
         #endregion
