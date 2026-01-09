@@ -1,10 +1,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Shared.Utils.BaseMachine
 {
-    public sealed class GenericStateMachine
+    public sealed class GenericStateMachine : IDisposable, IAsyncDisposable
     {
         #region constructor
 
@@ -19,6 +20,11 @@ namespace Shared.Utils.BaseMachine
             _fixedUpdateStates = new Func<sbyte>[stateNumber];
             _exitStates = new Action[stateNumber];
             _coroutineStates = new Func<IEnumerator>[stateNumber];
+        }
+
+        ~GenericStateMachine()
+        {
+            ReleaseUnmanagedResources();
         }
 
         #endregion
@@ -155,6 +161,23 @@ namespace Shared.Utils.BaseMachine
             TryForceState(value,flag);
             
             return true;
+        }
+
+        private void ReleaseUnmanagedResources()
+        {
+            
+        }
+
+        public void Dispose()
+        {
+            ReleaseUnmanagedResources();
+            GC.SuppressFinalize(this);
+        }
+
+        public async ValueTask DisposeAsync()
+        {
+            ReleaseUnmanagedResources();
+            GC.SuppressFinalize(this);
         }
         
         public static implicit operator int(GenericStateMachine m) => m._currentState;

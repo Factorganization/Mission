@@ -1,4 +1,4 @@
-namespace Runtime.Utils
+namespace Runtime.Utils.Navigation
 {
     public static class PathFinder
     {
