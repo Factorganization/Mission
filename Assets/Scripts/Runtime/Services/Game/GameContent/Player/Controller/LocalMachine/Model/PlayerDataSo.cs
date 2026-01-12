@@ -70,8 +70,11 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Model
         [Range(0f, 10f)]
         public float mouseCamSensitivity;
         
-        [Range(0f, 90f)]
-        public float maxPitchAngle;
+        [Range(-90f, 90f)]
+        public float maxUpperPitchAngle;
+        
+        [Range(-90f, 90f)]
+        public float maxLowerPitchAngle;
 
         public bool freeCam;
     }
