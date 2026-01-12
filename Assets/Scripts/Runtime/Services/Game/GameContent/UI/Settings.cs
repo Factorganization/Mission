@@ -64,6 +64,17 @@ namespace Runtime.Services.Game.GameContent.UI
         {
             Screen.fullScreen = isFullscreen;
         }
+        
+        public override void Show()
+        {
+            base.Show();
+            _animator.Play("SettingsOpen");
+        }
+
+        public override void Hide()
+        {
+            _animator.Play("SettingsClose");
+        }
 
         #endregion
 
@@ -73,6 +84,7 @@ namespace Runtime.Services.Game.GameContent.UI
         [SerializeField] private TMP_Dropdown _videoQualityDropdown;
         [SerializeField] private TMP_Dropdown _screenSizeDropdown;
         [SerializeField] private Toggle _fullscreenToggle, _sfwModeToggle, _noUIToggle;
+        [SerializeField] private Animation _animator;
         
         #endregion
     }
