@@ -12,6 +12,10 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorModels
 
             _isSuspicious = false;
             _isPlayerDetected = false; 
+            
+            if (movementData.NotImmediateRepeatCount >= movementData.waypoints.Length)
+                movementData.NotImmediateRepeatCount = movementData.waypoints.Length - 1;
+            _excludedWaypoints = new int[movementData.NotImmediateRepeatCount];
         }
         #endregion
         
@@ -25,6 +29,8 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorModels
         public bool _isSuspicious;
         public bool _isPlayerDetected;
         public Vector3 _lastKnownPlayerPosition;
+        
+        public int[] _excludedWaypoints;
         
         #endregion
     }
