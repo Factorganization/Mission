@@ -29,7 +29,7 @@ namespace Runtime.Services.Scene
 
         public override async void Begin()
         {
-            await LoadSceneGroup(0);
+            await LoadSceneGroup(startingIndex);
         }
 
         public override void Tick()
@@ -102,6 +102,8 @@ namespace Runtime.Services.Scene
         [SerializeField] private float fillSpeed = 0.5f;
         
         [SerializeField] private Canvas loadingCanvas;
+
+        [SerializeField] private int startingIndex;
         
         [SerializeField] private SceneGroup[] sceneGroups;
 

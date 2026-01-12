@@ -1,12 +1,18 @@
 using Runtime.Service;
 using Runtime.Services.Cursor;
+using Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.View;
 using Runtime.Services.Scene;
-using Runtime.Utils.Singleton;
 
 namespace Runtime.Services.Game.GameSystems
 {
-    public class GameManager : Singleton<GameManager>
+    public class GameManager : MonoBehaviour
     {
+        #region properties
+
+        public PlayerStateMachine Player => player;
+
+        #endregion
+        
         #region methodes
 
         private void Start()
@@ -29,8 +35,8 @@ namespace Runtime.Services.Game.GameSystems
 
         #region fields
 
-        [SerializeField] private string[] scenes;
-        
+        [SerializeField] private PlayerStateMachine player;
+
         #endregion
     }
 }
