@@ -53,20 +53,6 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
 
 		protected override void Update()
 		{
-			base.Update();
-			if (!IsResetingPos)
-				return;
-			
-			Transform.position += Math.EasingFunction.SimpleQuadraticEase.V3SimpleQuadraticEaseOut(Transform.position, OriginPos, 0.1f);
-			if (Vector3.Distance(Transform.position, OriginPos) > 0.1f)
-			{
-				Transform.position = OriginPos;
-				IsResetingPos = false;
-			}
-		}
-
-		protected override void Update()
-		{
 #if UNITY_EDITOR
 			if (objectDefinition.debugInfo.debug)
 				objectDefinition.debugInfo.text.text = $"{(Active ? "<color=green>Active</color>" : "<color=red>Inactive</color>")}\n {Convert.ToString((int)Flag1, 2).PadLeft(4, '0')} \n {Convert.ToString((int)Flag2, 2).PadLeft(4, '0')}";
@@ -105,6 +91,16 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
 				{
 					Flag3 &= ~ElementFlag.CanConduct;
 					SetParticleOverride(this, ElementFlag.CanConduct, false);
+				}
+			}
+			
+			if (IsResetingPos)
+			{
+				Transform.position += Math.EasingFunction.SimpleQuadraticEase.V3SimpleQuadraticEaseOut(Transform.position, OriginPos, 0.1f);
+				if (Vector3.Distance(Transform.position, OriginPos) > 0.1f)
+				{
+					Transform.position = OriginPos;
+					IsResetingPos = false;
 				}
 			}
 		}
