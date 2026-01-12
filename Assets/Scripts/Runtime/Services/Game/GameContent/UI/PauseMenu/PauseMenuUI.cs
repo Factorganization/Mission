@@ -1,3 +1,5 @@
+using Runtime.Service;
+using Runtime.Services.Scene;
 using UnityEngine.UI;
 
 namespace Runtime.Services.Game.GameContent.UI.PauseMenu
@@ -28,9 +30,9 @@ namespace Runtime.Services.Game.GameContent.UI.PauseMenu
             // Time.timeScale = 0f; // Pause the game
         }
         
-        private void ReturnToMainMenu()
+        private async void ReturnToMainMenu()
         {
-            // SceneManager.LoadScene("MainMenu");
+            await ServiceLocator.Instance.Get<SceneService>().LoadSceneGroup(0);
         }
 
         public override void Hide()

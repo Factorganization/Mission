@@ -1,5 +1,6 @@
 using Runtime.Service;
 using Runtime.Services.Cursor;
+using Runtime.Services.Scene;
 
 namespace Runtime.Services.Game.GameSystems
 {
@@ -12,9 +13,10 @@ namespace Runtime.Services.Game.GameSystems
             ServiceLocator.Instance.Get<CursorService>().SetActive(false);
         }
 
-        public void ReloadScene()
+        public async void ReloadScene()
         {
-            
+			var s = ServiceLocator.Instance.Get<SceneService>();
+            await s.LoadSceneGroup(s.CurrentActiveSceneGroup);
         }
 
         #endregion

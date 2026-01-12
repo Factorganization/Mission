@@ -40,6 +40,10 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
 			set
 			{
 				_possessed = value;
+
+				if (_destroyed)
+					return;
+				
 				if (_possessed)
 				{
 					SetModel(2);
@@ -58,7 +62,7 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
 				_destroyed = value;
 				if (_destroyed)
 				{
-					SetModel(4);
+					SetModel(3);
 					return;
 				}
 
@@ -128,7 +132,6 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
 
 		public void DestructiveAction()
 		{
-			Possessed = false;
 			Destroyed = true;
 			Active = true;
 			Flag3 = Flag1;
@@ -146,7 +149,7 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
 
 			if (!MissionDone[^1])
 			{
-				if (MissionManager.Manager.TryGetMission(new MissionModel(MissionType.Action, objectDefinition.@object, ElementFlag.CanExplode, RoomType)))
+				if (MissionManager.Manager.TryGetAndSetMission(new MissionModel(MissionType.Action, objectDefinition.@object, ElementFlag.CanExplode, RoomType)))
 					MissionDone[^1] = true;
 			}
             

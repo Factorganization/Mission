@@ -11,6 +11,8 @@ namespace Runtime.Services.Scene
 
         public bool Loaded => !_isLoading;
 
+		public int CurrentActiveSceneGroup { get; private set; }
+
         #endregion
         
         #region methodes
@@ -59,7 +61,8 @@ namespace Runtime.Services.Scene
             
             var progress = new LoadingProgress();
             progress.Progressed += target => _targetProgress = Mathf.Max(target, _targetProgress);
-            
+            CurrentActiveSceneGroup = index;
+
             EnableLoadingCanvas();
             await manager.LoadScenes(sceneGroups[index], progress);
             EnableLoadingCanvas(false);
