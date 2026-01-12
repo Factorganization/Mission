@@ -14,7 +14,6 @@ namespace Runtime.Services.Game.GameContent.UI.Customization
 
         private void Initialize()
         {
-            // Hook up color buttons (ensure lists/buttons assigned in inspector)
             if (_colorButton1 != null) _colorButton1.onClick.AddListener(() => ApplyColor(0));
             if (_colorButton2 != null) _colorButton2.onClick.AddListener(() => ApplyColor(1));
             if (_colorButton3 != null) _colorButton3.onClick.AddListener(() => ApplyColor(2));
@@ -34,16 +33,15 @@ namespace Runtime.Services.Game.GameContent.UI.Customization
 
             _characterPreview.ApplyMaterialToBodyPart(_currentBodyPart, mat);
         }
-
-        // Public API used by CustomizationView when switching which body part is active
+        
         public void SetCurrentBodyPart(CustomizationPlayer.BodyPartType bodyPartType)
         {
             _currentBodyPart = bodyPartType;
         }
         
-        private List<Material> GetMatsForCurrentBodyPart()
+        public List<Material> GetMaterialsForBodyPart(CustomizationPlayer.BodyPartType bodyPartType)
         {
-            switch (_currentBodyPart)
+            switch (bodyPartType)
             {
                 case CustomizationPlayer.BodyPartType.Hair:
                     return _hairMats ?? _colorsMats;
@@ -58,6 +56,11 @@ namespace Runtime.Services.Game.GameContent.UI.Customization
                 default:
                     return _colorsMats;
             }
+        }
+        
+        private List<Material> GetMatsForCurrentBodyPart()
+        {
+            return GetMaterialsForBodyPart(_currentBodyPart);
         }
 
         #endregion
