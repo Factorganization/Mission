@@ -1906,8 +1906,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2036061099195245581}
   m_HandleRect: {fileID: 0}
   m_Direction: 2
-  m_Value: 1
-  m_Size: 0.94666666
+  m_Value: 1.0000045
+  m_Size: 0.94666636
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -3093,6 +3093,10 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: c5e1b4b0a3dd024459787133875130d1, type: 2}
+    - target: {fileID: 7729445520419921575, guid: 2a584f2fd41ae314ea29c2f52fad87bb, type: 3}
+      propertyPath: m_SortingLayer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8882289598640204503, guid: 2a584f2fd41ae314ea29c2f52fad87bb, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -3108,31 +3112,6 @@ PrefabInstance:
 --- !u!4 &584108362542186507 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 886458596459054453, guid: 2a584f2fd41ae314ea29c2f52fad87bb, type: 3}
-  m_PrefabInstance: {fileID: 312575846728664446}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &897692739843988858 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 586383681509660676, guid: 2a584f2fd41ae314ea29c2f52fad87bb, type: 3}
-  m_PrefabInstance: {fileID: 312575846728664446}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &2554054373689734510 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2821413874156056592, guid: 2a584f2fd41ae314ea29c2f52fad87bb, type: 3}
-  m_PrefabInstance: {fileID: 312575846728664446}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &2834418227029648503 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2523034281540821257, guid: 2a584f2fd41ae314ea29c2f52fad87bb, type: 3}
-  m_PrefabInstance: {fileID: 312575846728664446}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &3810033544691908818 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3497479697322608044, guid: 2a584f2fd41ae314ea29c2f52fad87bb, type: 3}
-  m_PrefabInstance: {fileID: 312575846728664446}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &5140970000190289385 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4831829041263227031, guid: 2a584f2fd41ae314ea29c2f52fad87bb, type: 3}
   m_PrefabInstance: {fileID: 312575846728664446}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &6239531236379569388 stripped
@@ -3152,30 +3131,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3dabb6626ab35c40b93301102fe46b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Satanic.Runtime::CustomizationPlayer
-  bodyPartDataArray:
-  - bodyPartType: 0
-    prefabArray:
-    - {fileID: 11400000, guid: b506699e3169df04fb95ee96cc5ac715, type: 2}
-    attachTransform: {fileID: 3810033544691908818}
-  - bodyPartType: 1
-    prefabArray:
-    - {fileID: 11400000, guid: 5fb681986a893bf4d988118b3ad8828e, type: 2}
-    - {fileID: 11400000, guid: 81bbe274df1120641b1af9fa753c3eb6, type: 2}
-    - {fileID: 11400000, guid: d317a930fe5acc74a95eb3a237ec2e59, type: 2}
-    attachTransform: {fileID: 5140970000190289385}
-  - bodyPartType: 2
-    prefabArray:
-    - {fileID: 11400000, guid: 4f586088ab531934f90e64201c4fa948, type: 2}
-    - {fileID: 11400000, guid: 8aa173066e91be04a972b11f4c0b2e7b, type: 2}
-    - {fileID: 11400000, guid: 8e787e05397d187468c1aaff99468b62, type: 2}
-    attachTransform: {fileID: 2834418227029648503}
-  - bodyPartType: 3
-    prefabArray:
-    - {fileID: 11400000, guid: c55c248a3784b7e4081c59af0edaaa80, type: 2}
-    attachTransform: {fileID: 897692739843988858}
-  - bodyPartType: 4
-    prefabArray:
-    - {fileID: 11400000, guid: 3c2eef109a350474eaada7161687c580, type: 2}
-    attachTransform: {fileID: 2554054373689734510}
-  _playerHeadMesh: {fileID: 0}
+  bodyPartMeshDataArray: []
   _preloadPrefabs: 1
