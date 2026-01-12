@@ -49,6 +49,48 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
 			Active = true;
 		}
 
+		protected override void Update()
+		{
+#if UNITY_EDITOR
+			if (objectDefinition.debugInfo.debug)
+				objectDefinition.debugInfo.text.text = $"{(Active ? "<color=green>Active</color>" : "<color=red>Inactive</color>")}\n {Convert.ToString((int)Flag1, 2).PadLeft(4, '0')} \n {Convert.ToString((int)Flag2, 2).PadLeft(4, '0')}";
+#endif
+
+			/*if (!Active) //Partons du principe que un objet peut valider ses missions meme inactif
+				return;*/
+
+			if ((Flag3 & ElementFlag.CanBeWet) != 0)
+			{
+				objectDefinition.durations.waterTimer -= Time.deltaTime;
+
+				if (objectDefinition.durations.waterTimer < 0)
+				{
+					Flag3 &= ~ElementFlag.CanBeWet;
+					SetParticleOverride(this, ElementFlag.CanBeWet, false);
+				}
+			}
+			if ((Flag3 & ElementFlag.CanBurn) != 0)
+			{
+				objectDefinition.durations.fireTimer -= Time.deltaTime;
+
+				if (objectDefinition.durations.fireTimer < 0)
+				{
+					Flag3 &= ~ElementFlag.CanBurn;
+					SetParticleOverride(this, ElementFlag.CanBurn, false);
+				}
+			}
+			if ((Flag3 & ElementFlag.CanConduct) != 0)
+			{
+				objectDefinition.durations.electricityTimer -= Time.deltaTime;
+
+				if (objectDefinition.durations.electricityTimer < 0)
+				{
+					Flag3 &= ~ElementFlag.CanConduct;
+					SetParticleOverride(this, ElementFlag.CanConduct, false);
+				}
+			}
+		}
+
 		#endregion
 		
 		#region grabbable
@@ -57,6 +99,11 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
 		{
 			Active = !Active;
 			return Active;
+		}
+
+		public void SetSpawner(SpawnerObjectView spawner)
+		{
+			_spawnerRef = spawner;
 		}
 		
 		#endregion
@@ -68,6 +115,8 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
 		[SerializeField] private ElementFlag element;
 		
 		private Rigidbody _rb;
+
+		private SpawnerObjectView _spawnerRef;
 
 		#endregion
 	}

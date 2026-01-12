@@ -126,7 +126,7 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Contr
             playerModel.camPitch -= playerModel.lookDir.y
                                     * (playerModel.isUsingMouse ? playerModel.data.cameraData.mouseCamSensitivity : playerModel.data.cameraData.gamepadCamSensitivity)
                                     * Time.fixedDeltaTime;
-            playerModel.camPitch = ClampSymmetric(playerModel.camPitch, playerModel.data.cameraData.maxPitchAngle);
+            playerModel.camPitch = Mathf.Clamp(playerModel.camPitch, playerModel.data.cameraData.maxLowerPitchAngle, playerModel.data.cameraData.maxUpperPitchAngle);
             
             playerModel.cam.localEulerAngles = new Vector3(playerModel.data.cameraData.freeCam ? playerModel.camPitch : playerModel.cam.localEulerAngles.x, playerModel.camYaw, 0);
             //playerModel.cam.localEulerAngles += Math.EasingFunction.SimpleQuadraticEase.V3SimpleQuadraticEaseOut(playerModel.cam.localEulerAngles, playerModel.targetLookDir, 0.1f);
