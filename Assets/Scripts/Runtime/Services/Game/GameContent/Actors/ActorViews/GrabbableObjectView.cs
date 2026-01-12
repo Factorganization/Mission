@@ -73,8 +73,10 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
 			{
 				objectDefinition.durations.fireTimer -= Time.deltaTime;
 
-				if (objectDefinition.durations.fireTimer < 0)
+				if (objectDefinition.durations.fireTimer < -0.5f)
 				{
+					Transform.position = _spawnerRef ? _spawnerRef.SpawnPos.position : OriginPos;
+					
 					Flag3 &= ~ElementFlag.CanBurn;
 					SetParticleOverride(this, ElementFlag.CanBurn, false);
 				}
