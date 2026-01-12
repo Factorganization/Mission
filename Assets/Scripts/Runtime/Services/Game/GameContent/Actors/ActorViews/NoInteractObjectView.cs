@@ -19,7 +19,9 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
 			get => Flag1;
 			set => Flag1 = value;
 		}
-        
+
+		public bool AtOriginPos { get; set; }
+
 		public override bool Active
 		{
 			get => true;
