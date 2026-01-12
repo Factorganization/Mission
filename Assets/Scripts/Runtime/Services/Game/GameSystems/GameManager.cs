@@ -1,10 +1,11 @@
 using Runtime.Service;
 using Runtime.Services.Cursor;
 using Runtime.Services.Scene;
+using Runtime.Utils.Singleton;
 
 namespace Runtime.Services.Game.GameSystems
 {
-    public class GameManager : MonoBehaviour
+    public class GameManager : Singleton<GameManager>
     {
         #region methodes
 
@@ -19,12 +20,17 @@ namespace Runtime.Services.Game.GameSystems
             await s.LoadSceneGroup(s.CurrentActiveSceneGroup);
         }
 
+        public void EndGame()
+        {
+            // Show end game UI
+        }
+        
         #endregion
 
         #region fields
 
         [SerializeField] private string[] scenes;
-
+        
         #endregion
     }
 }
