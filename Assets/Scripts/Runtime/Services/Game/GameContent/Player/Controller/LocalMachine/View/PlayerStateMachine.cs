@@ -9,6 +9,8 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.View
     {
         #region properties
 
+        public PlayerModel PlayerModel => _playerModel;
+        
         public bool IsVisible => _playerModel.isVisible;
 
         #endregion

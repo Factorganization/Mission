@@ -1,6 +1,8 @@
+using Runtime.Service;
 using Runtime.Services.Game.GameContent.Actors.ActorControllers;
 using Runtime.Services.Game.GameContent.Actors.ActorInterfaces;
 using Runtime.Services.Game.GameContent.Logics.LogicModels.ElementModels;
+using Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Controller;
 using Shared.Utils.Listing;
 
 namespace Runtime.Services.Game.GameContent.Actors.ActorViews
@@ -78,7 +80,11 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
 				if (objectDefinition.durations.fireTimer < -0.5f)
 				{
 					Transform.position = _spawnerRef ? _spawnerRef.SpawnPos.position : OriginPos;
-					
+					//TODO virer ca de la 
+					var p = ServiceLocator.Instance.Get<GameService>().GameManager.Player.PlayerModel;
+					p.ResetGrabbedObjectState();
+					p.SetAnimParam(p.isHolding, false);
+					p.SetAnimParam(p.isInteracting, false);
 					Flag3 &= ~ElementFlag.CanBurn;
 					SetParticleOverride(this, ElementFlag.CanBurn, false);
 				}
