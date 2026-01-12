@@ -27,7 +27,7 @@ namespace Runtime.Services.Game.GameContent.UI.PauseMenu
         private void OpenPauseMenu()
         {
             Show();
-            // Time.timeScale = 0f; // Pause the game
+            Time.timeScale = 0f; // Pause the game
         }
         
         private async void ReturnToMainMenu()
@@ -38,7 +38,7 @@ namespace Runtime.Services.Game.GameContent.UI.PauseMenu
         public override void Hide()
         {
             base.Hide();
-            // Time.timeScale = 1f; // Resume the game
+            Time.timeScale = 1f; // Resume the game
         }
         
 
