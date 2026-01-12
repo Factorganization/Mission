@@ -9,6 +9,8 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.View
     {
         #region properties
 
+        public PlayerModel PlayerModel => _playerModel;
+        
         public bool IsVisible => _playerModel.isVisible;
 
         #endregion
@@ -97,11 +99,11 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.View
         {
             set
             {
-                if (dataSo.cameraData.maxPitchAngle <= 89)
+                if (dataSo.cameraData.maxUpperPitchAngle <= 89)
                     return;
                 
                 var color = Color.red;
-                dataSo.cameraData.maxPitchAngle = 89;
+                dataSo.cameraData.maxUpperPitchAngle = 89;
                 Debug.LogError(
                     $"<color=#{(byte)(color.r * 255f):X2}{(byte)(color.g * 255f):X2}{(byte)(color.b * 255f):X2}>par pitié depassez pas 89</color>");
             }

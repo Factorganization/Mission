@@ -23,14 +23,7 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorModules.AI
             else
             {
                 //Move object
-                if (CurrentObject != null)
-                {
-                    if (Vector3.Distance(CurrentObject.Transform.position, transform.position) < 0.5f)
-                    {
-                        CurrentObject.Transform.position = transform.position + transform.forward;
-                        CurrentObject.Rigidbody.isKinematic = true;
-                    }
-                }
+                SetGrabbedObjectLocalPos();
             }
         
             //reset sus timer
@@ -99,7 +92,7 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorModules.AI
             foreach (IGrabbable grabbable in levelGenerator.Grabbables)
             {
                 var directionToGrabbable = (grabbable.Transform.position - transform.position);
-                float  angleToGrabbable = Vector3.Angle(transform.forward, directionToGrabbable.normalized);
+                float angleToGrabbable = Vector3.Angle(transform.forward, directionToGrabbable.normalized);
 
                 if (angleToGrabbable < unawareDetectionAngle / 2 && directionToGrabbable.magnitude <= unawareDetectionAngle)
                 {
@@ -108,10 +101,11 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorModules.AI
                         continue;
                     if (hit.transform != grabbable.Transform)
                         continue;
-
-                    if (Vector3.Distance(grabbable.OriginPos, grabbable.Transform.position) > 0.1f)
+                    
+                    if (Vector3.Distance(grabbable.OriginPos, grabbable.Transform.position) > 0.5f)
                     {
                         CurrentObject = grabbable;
+                        CurrentObject.IsResetingPos = false;
                         return;
                     }
                 }
@@ -123,25 +117,23 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorModules.AI
             if  (CurrentPossessable != null)
                 return;
         
-            DropObject();
-            Debug.Log("Current target (possessable)"+CurrentPossessable);
-        
             foreach (IPossessable possessable in levelGenerator.Possessables)
             {
                 var directionToPossessable = (new Vector3(possessable.Transform.position.x, 0, possessable.Transform.position.z) - new Vector3(transform.position.x, 0, transform.position.z)).normalized;
                 float angleToPossess = Vector3.Angle(transform.forward, directionToPossessable);
 
-                if (angleToPossess < unawareDetectionAngle / 2 && directionToPossessable.magnitude <= unawareDetectionAngle)
+                if ((angleToPossess < unawareDetectionAngle / 2 && directionToPossessable.magnitude <= unawareDetectionAngle) || directionToPossessable.magnitude <= sixthSensDetectionDistance)
                 {
                     RaycastHit hit;
                     if (!Physics.Raycast(transform.position, directionToPossessable.normalized, out hit))
                         continue; 
+                        
                     if  (hit.transform.root != possessable.Transform)
                         continue;
 
                     if (possessable.Destroyed)
                     {
-                        Debug.Log("Damaged Object spotted");
+                        DropObject();
                         CurrentPossessable = possessable;
                     }
                 }
@@ -152,6 +144,7 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorModules.AI
         {
             if (CurrentObject == null)
                 return;
+            CurrentObject.Transform.parent = null;
             CurrentObject.Rigidbody.isKinematic = false;
             CurrentObject = null;
         }
@@ -161,6 +154,22 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorModules.AI
             if (CurrentPossessable == null)
                 return;
             CurrentPossessable =  null;
+        }
+        
+        private void SetGrabbedObjectLocalPos()
+        {
+            if (CurrentObject is null)
+                return;
+            
+            if (CurrentObject.Transform.parent != gameObject.transform)
+                CurrentObject.Transform.SetParent(gameObject.transform);
+            
+            if (CurrentObject.Transform.localPosition.sqrMagnitude < 0.005f)
+                return;
+            
+            CurrentObject.Transform.localPosition += Math.EasingFunction.SimpleQuadraticEase.V3SimpleQuadraticEaseOut(CurrentObject.Transform.localPosition, Vector3.zero, 0.1f);
+            if (CurrentObject.Transform.localPosition.sqrMagnitude < 0.005f)
+                CurrentObject.Transform.localPosition = Vector3.zero;
         }
 
 #if UNITY_EDITOR
@@ -186,6 +195,29 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorModules.AI
             
             Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(transform.position, sixthSensDetectionDistance);
+
+            foreach (IPossessable possessable in levelGenerator.Possessables)
+            {
+                if (possessable.Destroyed)
+                {
+                    Gizmos.color = Color.red;
+                    Gizmos.DrawWireSphere(possessable.Transform.position,1);
+                }
+                else
+                {
+                    Gizmos.color = Color.green;
+                    Gizmos.DrawWireSphere(possessable.Transform.position, 1);
+                }
+                
+                var directionToPossessable = (new Vector3(possessable.Transform.position.x, 0, possessable.Transform.position.z) - new Vector3(transform.position.x, 0, transform.position.z)).normalized;
+                float angleToPossess = Vector3.Angle(transform.forward, directionToPossessable);
+
+                if (angleToPossess < unawareDetectionAngle / 2 && directionToPossessable.magnitude <= unawareDetectionAngle)
+                {
+                    Gizmos.color = Color.blue;
+                    Gizmos.DrawLine(transform.position, possessable.Transform.position);
+                }
+            }
         }
 #endif
     

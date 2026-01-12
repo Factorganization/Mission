@@ -805,6 +805,37 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 5903519c44786064d9dcbce8f7dcb05f, type: 3}
+--- !u!1 &136096731
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 136096732}
+  m_Layer: 11
+  m_Name: Spawn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &136096732
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 136096731}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.653, y: 0.085, z: 1.902}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 257693511}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &150991173
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1470,8 +1501,14 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: d0c3d8acda191f941a1b8d0fd8e4611e, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 8407628375322945105, guid: 5821622016fcb8849b9d9d1defe72942, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 136096732}
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7313748957529948064, guid: 5821622016fcb8849b9d9d1defe72942, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 257693513}
     - targetCorrespondingSourceObject: {fileID: 9049886332449529947, guid: 5821622016fcb8849b9d9d1defe72942, type: 3}
       insertIndex: -1
       addedObject: {fileID: 0}
@@ -1481,6 +1518,25 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8407628375322945105, guid: 5821622016fcb8849b9d9d1defe72942, type: 3}
   m_PrefabInstance: {fileID: 257693510}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &257693512 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7313748957529948064, guid: 5821622016fcb8849b9d9d1defe72942, type: 3}
+  m_PrefabInstance: {fileID: 257693510}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &257693513
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 257693512}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d805cc3d208e54479734f63a0b3cec8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Satanic.Runtime::Runtime.Services.Game.GameContent.Actors.ActorViews.SpawnerObjectView
+  grabbable: {fileID: 440206342}
+  spawnPos: {fileID: 136096732}
 --- !u!1001 &259804410
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2865,6 +2921,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PV_Item_Cloth_01 Variant (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2103334060989962303, guid: 37f6c443bd4d86345a9bcfb03adbdc5c, type: 3}
+      propertyPath: objectDefinition.durations.fireDuration
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3457831520730347493, guid: 37f6c443bd4d86345a9bcfb03adbdc5c, type: 3}
       propertyPath: m_LocalPosition.x
       value: -8.693
@@ -2913,6 +2973,17 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 37f6c443bd4d86345a9bcfb03adbdc5c, type: 3}
+--- !u!114 &440206342 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2103334060989962303, guid: 37f6c443bd4d86345a9bcfb03adbdc5c, type: 3}
+  m_PrefabInstance: {fileID: 440206341}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a384f8a6ec044a0b55831ba13494800, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Satanic.Runtime::Runtime.GameContent.Actors.ActorViews.GrabbableObjectView
 --- !u!1001 &457284438
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6575,6 +6646,59 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 779a5029ef219594784db5a2baa3a46f, type: 3}
+--- !u!1 &1190474494
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1190474498}
+  - component: {fileID: 1190474495}
+  m_Layer: 6
+  m_Name: Ground
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!65 &1190474495
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1190474494}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 10, y: 1, z: 10}
+  m_Center: {x: 0, y: -0.5, z: 0}
+--- !u!4 &1190474498
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1190474494}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.75968003, y: -0.009999998, z: -0.31599045}
+  m_LocalScale: {x: 4, y: 1.5999999, z: 4}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1215127485
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6834,7 +6958,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 375215268450755755, guid: 10ce2058a27ca0142a0c1b3f0befdb66, type: 3}
       propertyPath: missions.Array.data[1].objectType
-      value: 30
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 375215268450755755, guid: 10ce2058a27ca0142a0c1b3f0befdb66, type: 3}
       propertyPath: missions.Array.data[2].objectType
@@ -11815,3 +11939,4 @@ SceneRoots:
   - {fileID: 1955108945}
   - {fileID: 878463277}
   - {fileID: 52025551}
+  - {fileID: 1190474498}
