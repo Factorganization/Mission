@@ -103,6 +103,30 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -140327557151704175, guid: c12bbb06da139614f826b765d6ae4245, type: 3}
+      propertyPath: m_Size.x
+      value: 0.9658007
+      objectReference: {fileID: 0}
+    - target: {fileID: -140327557151704175, guid: c12bbb06da139614f826b765d6ae4245, type: 3}
+      propertyPath: m_Size.y
+      value: 0.5526522
+      objectReference: {fileID: 0}
+    - target: {fileID: -140327557151704175, guid: c12bbb06da139614f826b765d6ae4245, type: 3}
+      propertyPath: m_Size.z
+      value: 1.9563122
+      objectReference: {fileID: 0}
+    - target: {fileID: -140327557151704175, guid: c12bbb06da139614f826b765d6ae4245, type: 3}
+      propertyPath: m_Center.x
+      value: 0.48290035
+      objectReference: {fileID: 0}
+    - target: {fileID: -140327557151704175, guid: c12bbb06da139614f826b765d6ae4245, type: 3}
+      propertyPath: m_Center.y
+      value: 0.26323023
+      objectReference: {fileID: 0}
+    - target: {fileID: -140327557151704175, guid: c12bbb06da139614f826b765d6ae4245, type: 3}
+      propertyPath: m_Center.z
+      value: 0.989014
+      objectReference: {fileID: 0}
     - target: {fileID: 3037010625124760956, guid: c12bbb06da139614f826b765d6ae4245, type: 3}
       propertyPath: m_Name
       value: PV_Affectable_Sofa_04
@@ -196,13 +220,42 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8123157732674644584, guid: c12bbb06da139614f826b765d6ae4245, type: 3}
       insertIndex: 2
       addedObject: {fileID: 1379549261353339930}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3037010625124760956, guid: c12bbb06da139614f826b765d6ae4245, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1197758434071922437}
   m_SourcePrefab: {fileID: 100100000, guid: c12bbb06da139614f826b765d6ae4245, type: 3}
 --- !u!4 &4603037348192282804 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8123157732674644584, guid: c12bbb06da139614f826b765d6ae4245, type: 3}
   m_PrefabInstance: {fileID: 5717890373151441628}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &7313748957529948064 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3037010625124760956, guid: c12bbb06da139614f826b765d6ae4245, type: 3}
+  m_PrefabInstance: {fileID: 5717890373151441628}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &1197758434071922437
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7313748957529948064}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.17667142, y: 1.241523, z: 2}
+  m_Center: {x: 0.08833571, y: 0.6207615, z: 1}
 --- !u!4 &8407628375322945105 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4321172548639204493, guid: c12bbb06da139614f826b765d6ae4245, type: 3}
@@ -260,7 +313,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: PP_Sofa_preset_02
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8357210405319588798, guid: 4986f2172d452e0459c1a18cffc4f54e, type: 3}
+    - {fileID: 4376645568159083504, guid: 4986f2172d452e0459c1a18cffc4f54e, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
