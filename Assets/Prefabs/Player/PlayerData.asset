@@ -25,10 +25,10 @@ MonoBehaviour:
     menuInput: {fileID: 0}
   moveData:
     playerHeight: 1.75
-    playerSpeed: 225
+    playerSpeed: 150
     crouchSpeedMultiplier: 0.75
     crouchDepth: 0.25
-    accelDecelMultiplier: 25
+    accelDecelMultiplier: 20
     graphRotationSpeed: 15
   interactData:
     throwStrength: {x: 5, y: 3.5}
@@ -45,11 +45,10 @@ MonoBehaviour:
     jumpCoyoteTime: 0.15
     jumpBufferTime: 0.2
   cameraData:
-    gamepadCamSensitivity: 5
+    gamepadCamSensitivity: 2
     mouseCamSensitivity: 0.1
-    maxUpperPitchAngle: 65
-    maxLowerPitchAngle: 35
-    freeCam: 1
+    maxPitchAngle: 0
+    freeCam: 0
   devsData:
     groundCheckData:
       groundLayer:
