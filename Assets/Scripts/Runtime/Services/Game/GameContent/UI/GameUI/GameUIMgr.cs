@@ -21,8 +21,7 @@ namespace Runtime.Services.Game.GameContent.UI.GameUI
 
         public async void ReturnToMainMenu()
         {
-            var s = ServiceLocator.Instance.Get<SceneService>();
-            await s.LoadSceneGroup(0);
+            await ServiceLocator.Instance.Get<SceneService>().LoadSceneGroup(0);
         }
         
         public void RestartLevel()
