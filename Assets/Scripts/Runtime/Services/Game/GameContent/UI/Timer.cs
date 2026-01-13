@@ -16,7 +16,7 @@ namespace Runtime.Services.Game.GameContent.UI
                 if (remainingTime < 0)
                 {
                     remainingTime = 0;
-                    GameManager.Instance.EndGame();
+                    GameManager.Instance.GameUIMgr.GameOver();
                 }
             }
             

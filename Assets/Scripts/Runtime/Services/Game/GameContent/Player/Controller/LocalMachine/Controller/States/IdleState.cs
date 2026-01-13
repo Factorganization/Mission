@@ -1,4 +1,5 @@
 using Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Model;
+using Runtime.Services.Game.GameSystems;
 using Shared.Utils.BaseMachine;
 
 namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Controller.States
@@ -83,6 +84,10 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Contr
                 
                 case 7:
                     playerModel.throwTimer = 0;
+                    break;
+                
+                case 8:
+                    GameManager.Instance.GameUIMgr.QuestPage.QuestOpenOrClose();
                     break;
                 
                 //TODO open menu
