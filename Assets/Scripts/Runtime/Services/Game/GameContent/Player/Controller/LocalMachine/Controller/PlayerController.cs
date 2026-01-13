@@ -87,6 +87,9 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Contr
 
             if (playerModel.data.inputData.missionInput.action.WasPressedThisFrame())
                 return 8;
+            
+            if (playerModel.data.inputData.menuInput.action.WasPressedThisFrame())
+                return 9;
 
             return 0;
         }
