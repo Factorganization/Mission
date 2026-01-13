@@ -1,8 +1,8 @@
-using Runtime.Service;
 using Runtime.Services.Game.GameContent.Actors.ActorControllers;
 using Runtime.Services.Game.GameContent.Actors.ActorInterfaces;
 using Runtime.Services.Game.GameContent.Logics.LogicModels.ElementModels;
 using Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Controller;
+using Runtime.Services.Game.GameSystems;
 using Shared.Utils.Listing;
 
 namespace Runtime.Services.Game.GameContent.Actors.ActorViews
@@ -81,7 +81,7 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
 				{
 					Transform.position = _spawnerRef ? _spawnerRef.SpawnPos.position : OriginPos;
 					//TODO virer ca de la 
-					var p = ServiceLocator.Instance.Get<GameService>().GameManager.Player.PlayerModel;
+					var p = GameManager.Instance.Player.PlayerModel;
 					p.ResetGrabbedObjectState();
 					p.SetAnimParam(p.isHolding, false);
 					p.SetAnimParam(p.isInteracting, false);
@@ -100,6 +100,7 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
 				}
 			}
 			
+			//IA 
 			if (IsResetingPos)
 			{
 				Transform.position += Math.EasingFunction.SimpleQuadraticEase.V3SimpleQuadraticEaseOut(Transform.position, OriginPos, 0.1f);
