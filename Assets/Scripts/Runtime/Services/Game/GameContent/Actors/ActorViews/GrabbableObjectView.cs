@@ -85,6 +85,7 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
 					p.ResetGrabbedObjectState();
 					p.SetAnimParam(p.isHolding, false);
 					p.SetAnimParam(p.isInteracting, false);
+					//et puis merde
 					Flag3 &= ~ElementFlag.CanBurn;
 					SetParticleOverride(this, ElementFlag.CanBurn, false);
 				}
