@@ -59,12 +59,12 @@ namespace Runtime.Services.Scene.SceneSystems
                 await Task.Delay(100);
             }
             
-            var activeScene = SceneManager.GetSceneByName(_activeSceneGroup.FindSceneNameByType(SceneType.ActiveScene));
+           /*var activeScene = SceneManager.GetSceneByName(_activeSceneGroup.FindSceneNameByType(SceneType.ActiveScene));
             
             if (activeScene.IsValid())
             {
                 SceneManager.SetActiveScene(activeScene);
-            }
+            }*/
             
             OnSceneGroupLoaded.Invoke();
         }
@@ -79,7 +79,6 @@ namespace Runtime.Services.Scene.SceneSystems
             for (var i = 0; i < sceneCount; i++)
             {
                 var sceneAt = SceneManager.GetSceneAt(i);
-                
                 if (!sceneAt.isLoaded)
                     continue;
                 
