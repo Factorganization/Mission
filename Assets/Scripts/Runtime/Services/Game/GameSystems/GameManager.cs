@@ -7,16 +7,23 @@ using Runtime.Utils.Singleton;
 
 namespace Runtime.Services.Game.GameSystems
 {
-    public class GameManager : Singleton<GameManager>
+    public class GameManager : MonoBehaviour
     {
         #region properties
+
+        public static GameManager Instance { get; private set; }
 
         public PlayerStateMachine Player => player;
         public GameUIMgr GameUIMgr => gameUIMgr;
 
         #endregion
-        
+
         #region methodes
+
+        private void Awake()
+        {
+            Instance = this;
+        }
 
         private void Start()
         {
