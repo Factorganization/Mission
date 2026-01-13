@@ -6775,6 +6775,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9769280811ff40baa3e35756cc72cd21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Satanic.Runtime::Runtime.Management.GameManagement.LevelGenerator
+--- !u!114 &1245005280 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8837192657718346339, guid: 10ce2058a27ca0142a0c1b3f0befdb66, type: 3}
+  m_PrefabInstance: {fileID: 1245005278}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 414c09abf74a4e8788224d449f90ff5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Satanic.Runtime::Runtime.Management.GameManagement.GameManager
 --- !u!1001 &1259545565
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11527,6 +11538,14 @@ PrefabInstance:
     - target: {fileID: 356917593111891621, guid: 47fb7fd33a10b8b4fbda2c9f87889171, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2398437284016022385, guid: 47fb7fd33a10b8b4fbda2c9f87889171, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1245005280}
+    - target: {fileID: 2398437284016022385, guid: 47fb7fd33a10b8b4fbda2c9f87889171, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ReloadScene
       objectReference: {fileID: 0}
     - target: {fileID: 3998649202778860745, guid: 47fb7fd33a10b8b4fbda2c9f87889171, type: 3}
       propertyPath: m_Name
