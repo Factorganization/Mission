@@ -1,6 +1,5 @@
-using Runtime.Services.Game.GameSystems;
+using Runtime.Service;
 using TMPro;
-using UnityEngine;
 
 namespace Runtime.Services.Game.GameContent.UI
 {
@@ -17,7 +16,7 @@ namespace Runtime.Services.Game.GameContent.UI
                 if (remainingTime < 0)
                 {
                     remainingTime = 0;
-                    GameManager.Instance.EndGame();
+                    ServiceLocator.Instance.Get<GameService>().GameManager.EndGame();
                 }
             }
             
