@@ -9,17 +9,24 @@ namespace Runtime.Services.Game.GameContent.UI.MainMenu
         private void Start()
         {
             Initialize();
+            
+            if (!_firstTimeGameOpened && _mainMenuCam != null && _endPos != null)
+            {
+                _mainMenuCam.transform.position = _endPos.position;
+                _mainMenuCam.transform.rotation = _endPos.rotation;
+                _isAtEndPos = true;
+            }
         }
 
         private void Update()
         {
-            if (Mouse.current.leftButton.wasPressedThisFrame && !_isAtEndPos)
+            if (Mouse.current.leftButton.wasPressedThisFrame && !_isAtEndPos && _firstTimeGameOpened)
             {
                 StartMoveTo(_endPos);
                 _isAtEndPos = true;
             }
             
-            if (_isMoving && _mainMenuCam != null && _targetPos != null)
+            if (_isMoving)
             {
                 SmoothUpdate(Time.deltaTime);
             }
@@ -59,6 +66,7 @@ namespace Runtime.Services.Game.GameContent.UI.MainMenu
                 camTransform.position = targetPosition;
                 camTransform.rotation = targetRot;
                 _isMoving = false;
+                _firstTimeGameOpened = false;
             }
         }
 
@@ -75,10 +83,14 @@ namespace Runtime.Services.Game.GameContent.UI.MainMenu
         [SerializeField] private float _stopPositionThreshold = 0.01f;
         [SerializeField] private float _stopRotationThreshold = 0.5f;
 
+        [SerializeField] private bool _firstTimeGameOpened = true;
+
         private Vector3 _positionVelocity;
         private bool _isMoving;
         private Transform _targetPos;
         private bool _isAtEndPos;
+        
+        public bool FirstTimeGameOpened => _firstTimeGameOpened;
         
         #endregion
 
