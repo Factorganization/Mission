@@ -126,6 +126,8 @@ namespace Runtime.Services.Game.GameSystems
                 if (c > 0)
                     return;
             }
+            
+            GameManager.Instance.GameUIMgr.WinGame();
         }
 
 		private void SetTextOnBoard()
