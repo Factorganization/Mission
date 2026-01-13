@@ -100,6 +100,7 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
 				}
 			}
 			
+			//IA 
 			if (IsResetingPos)
 			{
 				Transform.position += Math.EasingFunction.SimpleQuadraticEase.V3SimpleQuadraticEaseOut(Transform.position, OriginPos, 0.1f);

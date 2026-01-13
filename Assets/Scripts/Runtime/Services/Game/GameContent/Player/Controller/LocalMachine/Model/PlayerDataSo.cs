@@ -41,6 +41,8 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Model
         public InputActionReference throwInput;
 
         public InputActionReference menuInput;
+        
+        public InputActionReference missionInput;
     }
 
     [Serializable]
