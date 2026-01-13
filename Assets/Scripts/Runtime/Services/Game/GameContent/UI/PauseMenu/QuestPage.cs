@@ -23,12 +23,12 @@ namespace Runtime.Services.Game.GameContent.UI.PauseMenu
         public override void Show()
         {
             base.Show();
-            _animator.Play("OpenQuestPage");
+            _animator.Play("QuestPageAppear");
         }
 
         public override void Hide()
         {
-            _animator.Play("CloseQuestPage");
+            _animator.Play("QuestPageDisappear");
         }
 
         #endregion
@@ -37,9 +37,9 @@ namespace Runtime.Services.Game.GameContent.UI.PauseMenu
         
         // Temporary quest data list for testing
         [SerializeField] private Animation _animator;
-        
-        public bool IsOpen { get; private set; }
-        
+
+        public bool IsOpen;
+
         #endregion
     }
 }
