@@ -84,6 +84,8 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Contr
                 case 7:
                     playerModel.throwTimer = 0;
                     break;
+                
+                //TODO open menu
             }
 
             if (playerModel.OnJump())

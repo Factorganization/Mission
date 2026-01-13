@@ -12,5 +12,20 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Contr
         }
         
         #endregion
+
+        #region methodes
+
+        public override sbyte OnUpdate()
+        {
+            if (playerModel.data.inputData.menuInput.action.WasPressedThisFrame())
+            {
+                //TODO close menu
+                stateMachine.TrySwitchState("menu", (int)playerModel.data.activeStates);
+            }
+            
+            return base.OnUpdate();
+        }
+
+        #endregion
     }
 }

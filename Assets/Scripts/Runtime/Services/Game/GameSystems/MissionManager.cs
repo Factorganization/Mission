@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Runtime.Services.Game.GameContent.Logics.LogicModels.ElementModels;
 using Runtime.Services.Game.GameContent.Logics.LogicModels.MissionModels;
 using TMPro;
+using UnityEngine.InputSystem;
 
 namespace Runtime.Services.Game.GameSystems
 {
@@ -39,7 +40,7 @@ namespace Runtime.Services.Game.GameSystems
 		}
 
 		private void Update()
-		{
+        {
 			_missionTimer += Time.deltaTime;
 
 			if (_missionTimer > 0.5f)
@@ -87,7 +88,10 @@ namespace Runtime.Services.Game.GameSystems
 					_currentMissionsCount[i]--;
 			}
 
-			SetText();
+			if (onBoardingMode)
+                SetTextOnBoard();
+            else
+                SetText();
 			CheckEndGame();
 			return true;
         }
@@ -124,10 +128,16 @@ namespace Runtime.Services.Game.GameSystems
             }
         }
 
-		private void SetTextNoText()
-		{
-			
-		}
+		private void SetTextOnBoard()
+        {
+            for (var i = 0; i < _currentMissionsCount.Length; i++)
+            {
+                var c = _currentMissionsCount[i];
+                var t = missionTexts[i];
+                
+                
+            }
+        }
 
         private void SetText()
         {
@@ -230,6 +240,10 @@ namespace Runtime.Services.Game.GameSystems
         [SerializeField] private MissionModel[] missions;
 
         [SerializeField] private TMP_Text text;
+        
+        [SerializeField] private TMP_Text[] missionTexts;
+
+        [SerializeField] private bool onBoardingMode;
 
 		private Dictionary<int, MissionModel> _presenceMissions = new();
 
