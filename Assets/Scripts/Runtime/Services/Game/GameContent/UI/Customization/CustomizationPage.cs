@@ -19,7 +19,13 @@ namespace Runtime.Services.Game.GameContent.UI.Customization
         public override void Show()
         {
             base.Show();
-            //_animator.Play("OpenCustomization");
+            _animator.Play("OpenCustomPage");
+        }
+        
+        
+        public override void Hide()
+        {
+            _animator.Play("CloseCustomPage");
         }
 
         #endregion

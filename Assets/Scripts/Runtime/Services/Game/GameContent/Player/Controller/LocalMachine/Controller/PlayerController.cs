@@ -85,6 +85,12 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Contr
             if (playerModel.data.inputData.throwInput.action.WasReleasedThisFrame())
                 return 7; //not that useful
 
+            if (playerModel.data.inputData.missionInput.action.WasPressedThisFrame())
+                return 8;
+            
+            if (playerModel.data.inputData.menuInput.action.WasPressedThisFrame())
+                return 9;
+
             return 0;
         }
         
@@ -126,7 +132,7 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Contr
             playerModel.camPitch -= playerModel.lookDir.y
                                     * (playerModel.isUsingMouse ? playerModel.data.cameraData.mouseCamSensitivity : playerModel.data.cameraData.gamepadCamSensitivity)
                                     * Time.fixedDeltaTime;
-            playerModel.camPitch = ClampSymmetric(playerModel.camPitch, playerModel.data.cameraData.maxPitchAngle);
+            playerModel.camPitch = Mathf.Clamp(playerModel.camPitch, playerModel.data.cameraData.maxLowerPitchAngle, playerModel.data.cameraData.maxUpperPitchAngle);
             
             playerModel.cam.localEulerAngles = new Vector3(playerModel.data.cameraData.freeCam ? playerModel.camPitch : playerModel.cam.localEulerAngles.x, playerModel.camYaw, 0);
             //playerModel.cam.localEulerAngles += Math.EasingFunction.SimpleQuadraticEase.V3SimpleQuadraticEaseOut(playerModel.cam.localEulerAngles, playerModel.targetLookDir, 0.1f);

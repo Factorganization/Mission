@@ -1,6 +1,8 @@
 using Runtime.Services.Game.GameContent.Actors.ActorControllers;
 using Runtime.Services.Game.GameContent.Actors.ActorInterfaces;
 using Runtime.Services.Game.GameContent.Logics.LogicModels.ElementModels;
+using Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Controller;
+using Runtime.Services.Game.GameSystems;
 using Shared.Utils.Listing;
 
 namespace Runtime.Services.Game.GameContent.Actors.ActorViews
@@ -53,15 +55,61 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
 
 		protected override void Update()
 		{
-			base.Update();
-			if (!IsResetingPos)
-				return;
-			
-			Transform.position += Math.EasingFunction.SimpleQuadraticEase.V3SimpleQuadraticEaseOut(Transform.position, OriginPos, 0.1f);
-			if (Vector3.Distance(Transform.position, OriginPos) > 0.1f)
+#if UNITY_EDITOR
+			if (objectDefinition.debugInfo.debug)
+				objectDefinition.debugInfo.text.text = $"{(Active ? "<color=green>Active</color>" : "<color=red>Inactive</color>")}\n {Convert.ToString((int)Flag1, 2).PadLeft(4, '0')} \n {Convert.ToString((int)Flag2, 2).PadLeft(4, '0')}";
+#endif
+
+			/*if (!Active) //Partons du principe que un objet peut valider ses missions meme inactif
+				return;*/
+
+			if ((Flag3 & ElementFlag.CanBeWet) != 0)
 			{
-				Transform.position = OriginPos;
-				IsResetingPos = false;
+				objectDefinition.durations.waterTimer -= Time.deltaTime;
+
+				if (objectDefinition.durations.waterTimer < 0)
+				{
+					Flag3 &= ~ElementFlag.CanBeWet;
+					SetParticleOverride(this, ElementFlag.CanBeWet, false);
+				}
+			}
+			if ((Flag3 & ElementFlag.CanBurn) != 0)
+			{
+				objectDefinition.durations.fireTimer -= Time.deltaTime;
+
+				if (objectDefinition.durations.fireTimer < -0.5f)
+				{
+					Transform.position = _spawnerRef ? _spawnerRef.SpawnPos.position : OriginPos;
+					//TODO virer ca de la 
+					var p = GameManager.Instance.Player.PlayerModel;
+					p.ResetGrabbedObjectState();
+					p.SetAnimParam(p.isHolding, false);
+					p.SetAnimParam(p.isInteracting, false);
+					//et puis merde
+					Flag3 &= ~ElementFlag.CanBurn;
+					SetParticleOverride(this, ElementFlag.CanBurn, false);
+				}
+			}
+			if ((Flag3 & ElementFlag.CanConduct) != 0)
+			{
+				objectDefinition.durations.electricityTimer -= Time.deltaTime;
+
+				if (objectDefinition.durations.electricityTimer < 0)
+				{
+					Flag3 &= ~ElementFlag.CanConduct;
+					SetParticleOverride(this, ElementFlag.CanConduct, false);
+				}
+			}
+			
+			//IA 
+			if (IsResetingPos)
+			{
+				Transform.position += Math.EasingFunction.SimpleQuadraticEase.V3SimpleQuadraticEaseOut(Transform.position, OriginPos, 0.1f);
+				if (Vector3.Distance(Transform.position, OriginPos) > 0.1f)
+				{
+					Transform.position = OriginPos;
+					IsResetingPos = false;
+				}
 			}
 		}
 
@@ -74,6 +122,11 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
 			Active = !Active;
 			return Active;
 		}
+
+		public void SetSpawner(SpawnerObjectView spawner)
+		{
+			_spawnerRef = spawner;
+		}
 		
 		#endregion
 
@@ -84,6 +137,8 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
 		[SerializeField] private ElementFlag element;
 		
 		private Rigidbody _rb;
+
+		private SpawnerObjectView _spawnerRef;
 
 		#endregion
 	}
