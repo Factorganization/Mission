@@ -32,24 +32,20 @@ namespace Runtime.Services.Scene.SceneSystems
                 loadedScenes.Add(SceneManager.GetSceneAt(i).name);
             }
             
-            var totalScenesToLoad = _activeSceneGroup.scenes.Count;
-            
-            var operationGroup = new AsyncOperationGroup(totalScenesToLoad);
+            var operationGroup = new AsyncOperationGroup(_activeSceneGroup.scenes.Count);
 
-            for (var i = 0; i < totalScenesToLoad; i++)
+            foreach (var scene in _activeSceneGroup.scenes)
             {
-                var sceneData = group.scenes[i];
-                
-                if (reloadDupScenes == false && loadedScenes.Contains(sceneData.Name))
+                if (!reloadDupScenes && loadedScenes.Contains(scene.Name))
                     continue;
                 
-                var operation = SceneManager.LoadSceneAsync(sceneData.reference.Path, LoadSceneMode.Additive);
+                var operation = SceneManager.LoadSceneAsync(scene.reference.Path, LoadSceneMode.Additive);
 
                 await Task.Delay(TimeSpan.FromSeconds(2.5f));
                 
                 operationGroup.operations.Add(operation);
                 
-                OnSceneLoaded.Invoke(sceneData.Name);
+                OnSceneLoaded.Invoke(scene.Name);
             }
             
             // Wait until all AsyncOperations in the group are done

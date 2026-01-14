@@ -24,6 +24,11 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorInterfaces
 		public bool Active { get; } 
 		
 		/// <summary>
+		/// Return true if object is being grabbed
+		/// </summary>
+		public bool Grabbed { get; set; }
+		
+		/// <summary>
 		/// Trigger an action when grabbing an object
 		/// </summary>
 		/// <returns></returns>
