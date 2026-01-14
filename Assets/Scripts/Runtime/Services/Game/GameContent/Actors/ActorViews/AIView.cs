@@ -6,6 +6,7 @@ using Runtime.Services.Game.GameContent.Actors.ActorModules.AI;
 using Runtime.Services.Cursor;
 using Runtime.Services.Game.GameSystems;
 using UnityEngine.AI;
+using NUnit.Framework;
 
 namespace Runtime.Services.Game.GameContent.Actors.ActorViews
 {
@@ -63,6 +64,7 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
                     //repair sfx
                     if (_aiModel._repairTimer < repairTime)
                     {
+                        animator.SetBool("ac_isRepairing", true);
                         _aiModel._repairTimer += Time.deltaTime;
                     }
                     else
@@ -71,6 +73,7 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
                     aiDetection.ForgetPossessable();
                     AIController.SelectNextWaypoint(_aiModel);
                     Debug.Log("repaired");
+                    animator.SetBool("ac_isRepairing", false);
                     _aiModel._repairTimer = 0;
                     } 
                 }
@@ -80,6 +83,7 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
             if (aiDetection.IsSuspicious)
                 AIController.SetCurrentWaypoint(_aiModel, aiDetection.LastKnownPlayerPosition);
             agent.isStopped = aiDetection.IsSuspicious;
+            animator.SetBool("ac_isSus", aiDetection.IsSuspicious);
             
             if (aiDetection && aiDetection.IsSuspicious && !aiDetection.IsPlayerSpotted)
                 return;
@@ -89,10 +93,14 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
                 agent.isStopped = false;
                 aiDetection.DropObject();
                 agent.speed = _aiModel.movementData.chaseSpeed;
+                animator.SetBool("ac_isWalking", false);
+                animator.SetBool("ac_isRunning", true);
             }
             else
             {
                 agent.speed = _aiModel.movementData.patrolSpeed;
+                animator.SetBool("ac_isRunning", false);
+                animator.SetBool("ac_isWalking", true);
             }
             
             _aiUpdateSetPositionDelay = aiDetection.IsPlayerSpotted ? 0.01f : 0.2f;
@@ -148,6 +156,7 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
         [SerializeField] private AIDetection aiDetection;
         [SerializeField] private NavMeshAgent agent;
         [SerializeField] private Transform playerTrans;
+        [SerializeField] private Animator animator; 
         [SerializeField] private float repairTime;
 
         private int _index;
