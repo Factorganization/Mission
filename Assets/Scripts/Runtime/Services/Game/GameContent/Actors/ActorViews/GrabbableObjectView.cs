@@ -35,6 +35,8 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
 		
 		public Vector3 OriginPos { get; private set; }
 		
+		public bool Grabbed { get; set; }
+		
 		#endregion
 		
 		#endregion
@@ -55,51 +57,30 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
 
 		protected override void Update()
 		{
-#if UNITY_EDITOR
-			if (objectDefinition.debugInfo.debug)
-				objectDefinition.debugInfo.text.text = $"{(Active ? "<color=green>Active</color>" : "<color=red>Inactive</color>")}\n {Convert.ToString((int)Flag1, 2).PadLeft(4, '0')} \n {Convert.ToString((int)Flag2, 2).PadLeft(4, '0')}";
-#endif
+			base.Update();
 
-			/*if (!Active) //Partons du principe que un objet peut valider ses missions meme inactif
-				return;*/
-
-			if ((Flag3 & ElementFlag.CanBeWet) != 0)
-			{
-				objectDefinition.durations.waterTimer -= Time.deltaTime;
-
-				if (objectDefinition.durations.waterTimer < 0)
-				{
-					Flag3 &= ~ElementFlag.CanBeWet;
-					SetParticleOverride(this, ElementFlag.CanBeWet, false);
-				}
-			}
 			if ((Flag3 & ElementFlag.CanBurn) != 0)
 			{
-				objectDefinition.durations.fireTimer -= Time.deltaTime;
+				_fireDestructionTimer += Time.deltaTime;
 
-				if (objectDefinition.durations.fireTimer < -0.5f)
+				if (_fireDestructionTimer > fireDestructionDuration)
 				{
 					Transform.position = _spawnerRef ? _spawnerRef.SpawnPos.position : OriginPos;
-					//TODO virer ca de la 
-					var p = GameManager.Instance.Player.PlayerModel;
-					p.ResetGrabbedObjectState();
-					p.SetAnimParam(p.isHolding, false);
-					p.SetAnimParam(p.isInteracting, false);
-					//et puis merde
+
+					if (Grabbed)
+					{
+						var p = GameManager.Instance.Player.PlayerModel;
+						p.ResetGrabbedObjectState();
+						p.SetAnimParam(p.isHolding, false);
+						p.SetAnimParam(p.isInteracting, false);
+					}
+
 					Flag3 &= ~ElementFlag.CanBurn;
 					SetParticleOverride(this, ElementFlag.CanBurn, false);
 				}
 			}
-			if ((Flag3 & ElementFlag.CanConduct) != 0)
-			{
-				objectDefinition.durations.electricityTimer -= Time.deltaTime;
-
-				if (objectDefinition.durations.electricityTimer < 0)
-				{
-					Flag3 &= ~ElementFlag.CanConduct;
-					SetParticleOverride(this, ElementFlag.CanConduct, false);
-				}
-			}
+			else
+				_fireDestructionTimer = 0;
 			
 			//IA 
 			if (IsResetingPos)
@@ -135,10 +116,14 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
 		#region fields
 
 		[SerializeField] private ElementFlag element;
+
+		[SerializeField] private float fireDestructionDuration;
 		
 		private Rigidbody _rb;
 
 		private SpawnerObjectView _spawnerRef;
+
+		private float _fireDestructionTimer;
 
 		#endregion
 	}
