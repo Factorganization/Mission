@@ -6,7 +6,12 @@ namespace Runtime.Services.Game.GameContent.UI
     public class Timer : MonoBehaviour
     {
         #region Functions
-        
+
+        private void Start()
+        {
+            remainingTime = 600; // 10 minutes
+        }
+
         void Update()
         {
             if (remainingTime > 0)
@@ -30,7 +35,7 @@ namespace Runtime.Services.Game.GameContent.UI
         #region Fields
         
         [SerializeField] private TextMeshProUGUI timerText;
-        [SerializeField] private float remainingTime;
+        [SerializeField] private float remainingTime = 600;
         
         public float RemainingTime => remainingTime;
         
