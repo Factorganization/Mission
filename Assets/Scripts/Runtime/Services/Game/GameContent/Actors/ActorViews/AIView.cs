@@ -66,13 +66,14 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
                     {
                         animator.SetBool("ac_isRepairing", true);
                         _aiModel._repairTimer += Time.deltaTime;
+                        agent.isStopped = true;
                     }
                     else
                     {
                     aiDetection.CurrentPossessable.Destroyed = false;
                     aiDetection.ForgetPossessable();
                     AIController.SelectNextWaypoint(_aiModel);
-                    Debug.Log("repaired");
+                    agent.isStopped = false;
                     animator.SetBool("ac_isRepairing", false);
                     _aiModel._repairTimer = 0;
                     } 
