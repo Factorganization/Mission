@@ -28,6 +28,7 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorModels
         public float _waitTimer;
         public float _repairTimer;
         public bool _isSuspicious;
+        public bool _isRepairing;
         public bool _isPlayerDetected;
         
         

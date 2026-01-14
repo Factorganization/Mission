@@ -32,7 +32,7 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
         private void Update()
         {
             //Check if Caught
-            if (Vector3.Distance(transform.position, playerTrans.position) < 1 && aiDetection.IsPlayerSpotted)
+            if (Vector3.Distance(transform.position, playerTrans.position) < 0.5f && aiDetection.IsPlayerSpotted)
             {
                 GameManager.Instance.GameUIMgr.GameOver();
                 ServiceLocator.Instance.Get<CursorService>().SetActive(true);
@@ -64,26 +64,28 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
                     //repair sfx
                     if (_aiModel._repairTimer < repairTime)
                     {
+                        _aiModel._isRepairing = true;
                         animator.SetBool("ac_isRepairing", true);
                         _aiModel._repairTimer += Time.deltaTime;
-                        agent.isStopped = true;
                     }
                     else
                     {
-                    aiDetection.CurrentPossessable.Destroyed = false;
-                    aiDetection.ForgetPossessable();
-                    AIController.SelectNextWaypoint(_aiModel);
-                    agent.isStopped = false;
-                    animator.SetBool("ac_isRepairing", false);
-                    _aiModel._repairTimer = 0;
+                        StopRepairing();
+                        aiDetection.CurrentPossessable.Destroyed = false;
+                        aiDetection.ForgetPossessable();
+                        AIController.SelectNextWaypoint(_aiModel);
                     } 
                 }
             }
 
             //Suspicious behaviour
             if (aiDetection.IsSuspicious)
+            {
                 AIController.SetCurrentWaypoint(_aiModel, aiDetection.LastKnownPlayerPosition);
-            agent.isStopped = aiDetection.IsSuspicious;
+               StopRepairing(); 
+            }
+
+            agent.isStopped = aiDetection.IsSuspicious || _aiModel._isRepairing;
             animator.SetBool("ac_isSus", aiDetection.IsSuspicious);
             
             if (aiDetection && aiDetection.IsSuspicious && !aiDetection.IsPlayerSpotted)
@@ -141,6 +143,13 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
             {
                 aiMovementDataSo.waypoints[i] = waypoints[i].position;
             }
+        }
+
+        private void StopRepairing()
+        {
+                    _aiModel._isRepairing = false; 
+                    animator.SetBool("ac_isRepairing", false);
+                    _aiModel._repairTimer = 0;
         }
 
 
