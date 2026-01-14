@@ -61,10 +61,18 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
                     distanceToPossessable)
                 {
                     //repair sfx
+                    if (_aiModel._repairTimer < repairTime)
+                    {
+                        _aiModel._repairTimer += Time.deltaTime;
+                    }
+                    else
+                    {
                     aiDetection.CurrentPossessable.Destroyed = false;
                     aiDetection.ForgetPossessable();
                     AIController.SelectNextWaypoint(_aiModel);
                     Debug.Log("repaired");
+                    _aiModel._repairTimer = 0;
+                    } 
                 }
             }
 
@@ -140,6 +148,7 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
         [SerializeField] private AIDetection aiDetection;
         [SerializeField] private NavMeshAgent agent;
         [SerializeField] private Transform playerTrans;
+        [SerializeField] private float repairTime;
 
         private int _index;
         private AIModel _aiModel;
