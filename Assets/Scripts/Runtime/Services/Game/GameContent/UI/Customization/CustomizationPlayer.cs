@@ -299,7 +299,7 @@ namespace Runtime.Services.Game.GameContent.UI.Customization
         #endregion
 
         #region MeshesSaveLoad
-        private void SaveMeshes()
+        public void SaveMeshes()
         {
             List<BodyPartTypeIndex> bodyPartTypeIndexList = new List<BodyPartTypeIndex>();
 
@@ -324,7 +324,7 @@ namespace Runtime.Services.Game.GameContent.UI.Customization
             PlayerPrefs.SetString(PLAYER_PREFS_KEY, json);
         }
 
-        private void LoadMeshes()
+        public void LoadMeshes()
         {
             string json = PlayerPrefs.GetString(PLAYER_PREFS_KEY);
             SaveObject saveObject = JsonUtility.FromJson<SaveObject>(json);

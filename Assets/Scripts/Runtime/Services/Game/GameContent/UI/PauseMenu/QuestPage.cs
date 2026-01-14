@@ -8,16 +8,7 @@ namespace Runtime.Services.Game.GameContent.UI.PauseMenu
 
         public void QuestOpenOrClose()
         {
-            if (IsOpen)
-            {
-                Hide();
-                IsOpen = false;
-            }
-            else
-            {
-                Show();
-                IsOpen = true;
-            }
+            IsOpen = !IsOpen;
         }
         
         public override void Show()
@@ -37,8 +28,19 @@ namespace Runtime.Services.Game.GameContent.UI.PauseMenu
         
         // Temporary quest data list for testing
         [SerializeField] private Animation _animator;
-
-        public bool IsOpen;
+        private bool _isOpen;
+        
+        public bool IsOpen
+        {
+            get => _isOpen;
+            set
+            {
+                if (_isOpen == value) return;
+                _isOpen = value;
+                if (_isOpen) Show();
+                else Hide();
+            }
+        }
 
         #endregion
     }
