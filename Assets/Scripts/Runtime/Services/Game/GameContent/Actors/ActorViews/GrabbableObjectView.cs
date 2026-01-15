@@ -76,6 +76,7 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
 					}
 
 					Flag3 &= ~ElementFlag.CanBurn;
+					Durations.fireTimer = 0;
 					SetParticleOverride(this, ElementFlag.CanBurn, false);
 				}
 			}
