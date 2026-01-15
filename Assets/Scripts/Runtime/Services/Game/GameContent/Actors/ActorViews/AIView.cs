@@ -4,7 +4,9 @@ using Runtime.Services.Game.GameContent.Actors.ActorModels;
 using Runtime.Services.Game.GameContent.Actors.ActorModels.SO;
 using Runtime.Services.Game.GameContent.Actors.ActorModules.AI;
 using Runtime.Services.Cursor;
+using Runtime.Services.Game.GameSystems;
 using UnityEngine.AI;
+using NUnit.Framework;
 
 namespace Runtime.Services.Game.GameContent.Actors.ActorViews
 {
@@ -24,25 +26,29 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
         private void Start()
         {
             _aiModel._currentWaypoint = new mTransform();
-            AIController.SetCurrentWaypoint(_aiModel, aiMovementDataSo.waypoints[0]);
+            AIController.SelectNextWaypoint(_aiModel);
         }
 
         private void Update()
         {
             //Check if Caught
-            if (Vector3.Distance(transform.position, playerTrans.position) < 1 && aiDetection.IsPlayerSpotted)
+            if (Vector3.Distance(transform.position, playerTrans.position) < 0.5f && aiDetection.IsPlayerSpotted)
             {
-                gameOver.SetActive(true);
+                GameManager.Instance.GameUIMgr.GameOver();
                 ServiceLocator.Instance.Get<CursorService>().SetActive(true);
             }
             
             //Drop Object // Check Distance Collectable
             if (aiDetection.CurrentObject != null)
+            {
+                AIController.SetCurrentWaypoint(_aiModel,  aiDetection.CurrentObject.OriginPos);
                 if (Vector3.Distance(transform.position, aiDetection.CurrentObject.OriginPos) < distanceToCollectable)
                 {
+                    aiDetection.CurrentObject.IsResetingPos = true;
                     aiDetection.DropObject();
-                    AIController.SelectRandomWaypoint(_aiModel);
+                    AIController.SelectNextWaypoint(_aiModel);
                 }
+            }
 
             //Check if Repairable
             if (aiDetection.CurrentPossessable != null)
@@ -52,33 +58,49 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
                     ((transform.position - aiDetection.CurrentPossessable.Transform.position).normalized) * 2);
                 
                 // Check Distance Possessable
-                if (Vector3.Distance(gameObject.transform.position, aiDetection.CurrentPossessable.Transform.position) <
+                if (Vector3.Distance(transform.position, aiDetection.CurrentPossessable.Transform.position) <
                     distanceToPossessable)
                 {
                     //repair sfx
-                    aiDetection.CurrentPossessable.Destroyed = false;
-                    aiDetection.ForgetPossessable();
-                    AIController.SelectRandomWaypoint(_aiModel);
+                    if (_aiModel._repairTimer < repairTime)
+                    {
+                        _aiModel._isRepairing = true;
+                        animator.SetBool("ac_isRepairing", true);
+                        _aiModel._repairTimer += Time.deltaTime;
+                    }
+                    else
+                    {
+                        StopRepairing();
+                        aiDetection.CurrentPossessable.Destroyed = false;
+                        aiDetection.ForgetPossessable();
+                        AIController.SelectNextWaypoint(_aiModel);
+                    } 
                 }
             }
 
             //Suspicious behaviour
             if (aiDetection.IsSuspicious)
+            {
                 AIController.SetCurrentWaypoint(_aiModel, aiDetection.LastKnownPlayerPosition);
-            agent.isStopped = aiDetection.IsSuspicious;
-            
-            if (aiDetection && aiDetection.IsSuspicious && !aiDetection.IsPlayerSpotted)
-                return;
+               StopRepairing(); 
+            }
+
+            agent.isStopped = aiDetection.IsSuspicious || _aiModel._isRepairing;
+            animator.SetBool("ac_isSus", aiDetection.IsSuspicious);
 
             if (aiDetection && aiDetection.IsPlayerSpotted)
             {
                 agent.isStopped = false;
                 aiDetection.DropObject();
                 agent.speed = _aiModel.movementData.chaseSpeed;
+                animator.SetBool("ac_isWalking", false);
+                animator.SetBool("ac_isRunning", true);
             }
             else
             {
                 agent.speed = _aiModel.movementData.patrolSpeed;
+                animator.SetBool("ac_isRunning", false);
+                animator.SetBool("ac_isWalking", true);
             }
             
             _aiUpdateSetPositionDelay = aiDetection.IsPlayerSpotted ? 0.01f : 0.2f;
@@ -99,7 +121,7 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
             transform.position = _aiModel.transform.position;
             transform.rotation = _aiModel.transform.rotation;
         
-            //If position is null return
+            //If position is not null return
             if (_aiModel._currentWaypoint.position != Vector3.zero)
                 return;
         
@@ -107,7 +129,7 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
             _aiModel._waitTimer += Time.deltaTime;
             if (!(_aiModel._waitTimer >= aiMovementDataSo.waitDelay)) return;
         
-            AIController.SelectRandomWaypoint(_aiModel);
+            AIController.SelectNextWaypoint(_aiModel);
             _aiModel._waitTimer = 0;
         }
 
@@ -118,6 +140,13 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
             {
                 aiMovementDataSo.waypoints[i] = waypoints[i].position;
             }
+        }
+
+        private void StopRepairing()
+        {
+                    _aiModel._isRepairing = false; 
+                    animator.SetBool("ac_isRepairing", false);
+                    _aiModel._repairTimer = 0;
         }
 
 
@@ -134,7 +163,8 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
         [SerializeField] private AIDetection aiDetection;
         [SerializeField] private NavMeshAgent agent;
         [SerializeField] private Transform playerTrans;
-        [SerializeField] private GameObject gameOver; 
+        [SerializeField] private Animator animator; 
+        [SerializeField] private float repairTime;
 
         private int _index;
         private AIModel _aiModel;

@@ -32,24 +32,20 @@ namespace Runtime.Services.Scene.SceneSystems
                 loadedScenes.Add(SceneManager.GetSceneAt(i).name);
             }
             
-            var totalScenesToLoad = _activeSceneGroup.scenes.Count;
-            
-            var operationGroup = new AsyncOperationGroup(totalScenesToLoad);
+            var operationGroup = new AsyncOperationGroup(_activeSceneGroup.scenes.Count);
 
-            for (var i = 0; i < totalScenesToLoad; i++)
+            foreach (var scene in _activeSceneGroup.scenes)
             {
-                var sceneData = group.scenes[i];
+                /*if (!reloadDupScenes && loadedScenes.Contains(scene.Name))
+                    continue;*/
                 
-                if (reloadDupScenes == false && loadedScenes.Contains(sceneData.Name))
-                    continue;
-                
-                var operation = SceneManager.LoadSceneAsync(sceneData.reference.Path, LoadSceneMode.Additive);
+                var operation = SceneManager.LoadSceneAsync(scene.reference.Path, LoadSceneMode.Additive);
 
                 await Task.Delay(TimeSpan.FromSeconds(2.5f));
                 
                 operationGroup.operations.Add(operation);
                 
-                OnSceneLoaded.Invoke(sceneData.Name);
+                OnSceneLoaded.Invoke(scene.Name);
             }
             
             // Wait until all AsyncOperations in the group are done
@@ -59,12 +55,32 @@ namespace Runtime.Services.Scene.SceneSystems
                 await Task.Delay(100);
             }
             
-            var activeScene = SceneManager.GetSceneByName(_activeSceneGroup.FindSceneNameByType(SceneType.ActiveScene));
+            await Task.Delay(TimeSpan.FromSeconds(0.1f));
+
+            Debug.Log("Cleaning Scenes");
+            
+            var actuallyLoadedScenes = new HashSet<string>();
+            var toRemove = new List<string>();
+            
+            for (var i = 0; i < SceneManager.loadedSceneCount; i++)
+            {
+                if (!actuallyLoadedScenes.Add(SceneManager.GetSceneAt(i).name))
+                {
+                    toRemove.Add(SceneManager.GetSceneAt(i).name);
+                }
+            }
+
+            foreach (var scene in toRemove)
+            {
+                await SceneManager.UnloadSceneAsync(scene);
+            }
+            
+           /*var activeScene = SceneManager.GetSceneByName(_activeSceneGroup.FindSceneNameByType(SceneType.ActiveScene));
             
             if (activeScene.IsValid())
             {
                 SceneManager.SetActiveScene(activeScene);
-            }
+            }*/
             
             OnSceneGroupLoaded.Invoke();
         }
@@ -79,7 +95,6 @@ namespace Runtime.Services.Scene.SceneSystems
             for (var i = 0; i < sceneCount; i++)
             {
                 var sceneAt = SceneManager.GetSceneAt(i);
-                
                 if (!sceneAt.isLoaded)
                     continue;
                 

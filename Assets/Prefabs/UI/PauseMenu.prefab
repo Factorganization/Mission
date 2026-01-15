@@ -96,8 +96,8 @@ RectTransform:
   m_Children:
   - {fileID: 4882433138431972658}
   - {fileID: 7253361540820525783}
-  - {fileID: 6605381345210368321}
   - {fileID: 3108681653082778999}
+  - {fileID: 6605381345210368321}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -121,7 +121,7 @@ MonoBehaviour:
   _settingsButton: {fileID: 1435141569128263185}
   _quitButton: {fileID: 5978151375399909081}
   _settingsUI: {fileID: 4769332608648927753}
-  _questPage: {fileID: 8222380247480406419}
+  _questPage: {fileID: 0}
 --- !u!1 &1359048559810434028
 GameObject:
   m_ObjectHideFlags: 0
@@ -1247,7 +1247,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4907539288525374993, guid: 56969d32d03afe845a5f1a2452061bb2, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -1257,14 +1258,3 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 7902639666033563331, guid: 56969d32d03afe845a5f1a2452061bb2, type: 3}
   m_PrefabInstance: {fileID: 3891347289873454978}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &8222380247480406419 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4907539288525374993, guid: 56969d32d03afe845a5f1a2452061bb2, type: 3}
-  m_PrefabInstance: {fileID: 3891347289873454978}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b27fc8e51b176984c842fe7472096fe2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: '::'

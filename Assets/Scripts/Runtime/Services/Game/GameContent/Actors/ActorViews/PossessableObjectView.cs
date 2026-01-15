@@ -40,6 +40,10 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
 			set
 			{
 				_possessed = value;
+
+				if (_destroyed)
+					return;
+				
 				if (_possessed)
 				{
 					SetModel(2);
@@ -58,7 +62,7 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
 				_destroyed = value;
 				if (_destroyed)
 				{
-					SetModel(4);
+					SetModel(3);
 					return;
 				}
 
@@ -87,12 +91,15 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
 		#region methodes
 
 		#region unity events
-		
+
+		public bool AtOriginPos { get; set; }
+
 		protected override void Start()
 		{
 			base.Start();
 
 			Active = false;
+			AtOriginPos = true;
 			Possessed = false;
 			Destroyed = destroyedAtStart;
 		}
@@ -128,7 +135,6 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
 
 		public void DestructiveAction()
 		{
-			Possessed = false;
 			Destroyed = true;
 			Active = true;
 			Flag3 = Flag1;

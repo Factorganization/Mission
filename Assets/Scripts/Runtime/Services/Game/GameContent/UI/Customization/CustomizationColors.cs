@@ -30,8 +30,18 @@ namespace Runtime.Services.Game.GameContent.UI.Customization
             int clamped = Mathf.Clamp(colorIndex, 0, mats.Count - 1);
             var mat = mats[clamped];
             if (mat == null) return;
-
+            
+            if (_currentBodyPart == CustomizationPlayer.BodyPartType.Eyes && colorIndex < 4)
+            {
+                mats = _skinMats;
+                mat = mats[clamped];
+                _characterPreview.ApplyMaterialToHead(mat);
+                _characterPreview.ApplyMaterialToBodySkin(mat);
+                return;
+            }
+            
             _characterPreview.ApplyMaterialToBodyPart(_currentBodyPart, mat);
+            
         }
         
         public void SetCurrentBodyPart(CustomizationPlayer.BodyPartType bodyPartType)
@@ -66,6 +76,7 @@ namespace Runtime.Services.Game.GameContent.UI.Customization
         #endregion
 
         #region Fields
+        
         [SerializeField] private Button _colorButton1, _colorButton2, _colorButton3, _colorButton4;
         [SerializeField] private List<Material> _colorsMats, _hairMats, _tailMats, _eyesMats, _bodyMats, _skinMats;
         [SerializeField] private CustomizationPlayer _characterPreview;

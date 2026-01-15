@@ -1,6 +1,8 @@
 using Runtime.Services.Game.GameContent.Actors.ActorControllers;
 using Runtime.Services.Game.GameContent.Actors.ActorInterfaces;
 using Runtime.Services.Game.GameContent.Logics.LogicModels.ElementModels;
+using Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Controller;
+using Runtime.Services.Game.GameSystems;
 using Shared.Utils.Listing;
 
 namespace Runtime.Services.Game.GameContent.Actors.ActorViews
@@ -22,6 +24,7 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
 			set => Flag1 = value;
 		}
 		
+		public bool IsResetingPos { get; set; }
 		public override bool Active { get; set; }
 		
 		#endregion
@@ -31,6 +34,8 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
 		public Rigidbody Rigidbody => _rb;
 		
 		public Vector3 OriginPos { get; private set; }
+		
+		public bool Grabbed { get; set; }
 		
 		#endregion
 		
@@ -47,6 +52,46 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
 			_rb = GetComponent<Rigidbody>();
 			OriginPos = transform.position;
 			Active = true;
+			IsResetingPos = false; 
+		}
+
+		protected override void Update()
+		{
+			base.Update();
+
+			if ((Flag3 & ElementFlag.CanBurn) != 0)
+			{
+				_fireDestructionTimer += Time.deltaTime;
+
+				if (_fireDestructionTimer > fireDestructionDuration)
+				{
+					Transform.position = _spawnerRef ? _spawnerRef.SpawnPos.position : OriginPos;
+
+					if (Grabbed)
+					{
+						var p = GameManager.Instance.Player.PlayerModel;
+						p.ResetGrabbedObjectState();
+						p.SetAnimParam(p.isHolding, false);
+						p.SetAnimParam(p.isInteracting, false);
+					}
+
+					Flag3 &= ~ElementFlag.CanBurn;
+					SetParticleOverride(this, ElementFlag.CanBurn, false);
+				}
+			}
+			else
+				_fireDestructionTimer = 0;
+			
+			//IA 
+			if (IsResetingPos)
+			{
+				Transform.position += Math.EasingFunction.SimpleQuadraticEase.V3SimpleQuadraticEaseOut(Transform.position, OriginPos, 0.1f);
+				if (Vector3.Distance(Transform.position, OriginPos) > 0.1f)
+				{
+					Transform.position = OriginPos;
+					IsResetingPos = false;
+				}
+			}
 		}
 
 		#endregion
@@ -58,6 +103,11 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
 			Active = !Active;
 			return Active;
 		}
+
+		public void SetSpawner(SpawnerObjectView spawner)
+		{
+			_spawnerRef = spawner;
+		}
 		
 		#endregion
 
@@ -66,8 +116,14 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
 		#region fields
 
 		[SerializeField] private ElementFlag element;
+
+		[SerializeField] private float fireDestructionDuration;
 		
 		private Rigidbody _rb;
+
+		private SpawnerObjectView _spawnerRef;
+
+		private float _fireDestructionTimer;
 
 		#endregion
 	}

@@ -60,6 +60,9 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Contr
         /// <item>5 : prep throw item</item>
         /// <item>6 : try Grab / Drop</item>
         /// <item>7 : cancel throw</item>
+        /// <item>8 : mission input pressed</item>
+        /// <item>9 : mission input released</item>
+        /// <item>10 : menu input pressed</item>
         /// </list>
         /// </returns>
         internal static byte HandleMonoInputGather(this PlayerModel playerModel)
@@ -84,6 +87,15 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Contr
 
             if (playerModel.data.inputData.throwInput.action.WasReleasedThisFrame())
                 return 7; //not that useful
+
+            if (playerModel.data.inputData.missionInput.action.WasPressedThisFrame())
+                return 8;
+            
+            if (playerModel.data.inputData.missionInput.action.WasReleasedThisFrame())
+                return 9;
+            
+            if (playerModel.data.inputData.menuInput.action.WasPressedThisFrame())
+                return 10;
 
             return 0;
         }
@@ -126,7 +138,7 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Contr
             playerModel.camPitch -= playerModel.lookDir.y
                                     * (playerModel.isUsingMouse ? playerModel.data.cameraData.mouseCamSensitivity : playerModel.data.cameraData.gamepadCamSensitivity)
                                     * Time.fixedDeltaTime;
-            playerModel.camPitch = ClampSymmetric(playerModel.camPitch, playerModel.data.cameraData.maxPitchAngle);
+            playerModel.camPitch = Mathf.Clamp(playerModel.camPitch, playerModel.data.cameraData.maxLowerPitchAngle, playerModel.data.cameraData.maxUpperPitchAngle);
             
             playerModel.cam.localEulerAngles = new Vector3(playerModel.data.cameraData.freeCam ? playerModel.camPitch : playerModel.cam.localEulerAngles.x, playerModel.camYaw, 0);
             //playerModel.cam.localEulerAngles += Math.EasingFunction.SimpleQuadraticEase.V3SimpleQuadraticEaseOut(playerModel.cam.localEulerAngles, playerModel.targetLookDir, 0.1f);
@@ -210,6 +222,21 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Contr
             if ((playerModel.cam.localPosition - targetPos).sqrMagnitude < 0.005f)
                 playerModel.cam.localPosition = targetPos;
         }
+        
+        /// <summary>
+        /// Set Camera Global Position SMOOTHLY on a specified target position
+        /// </summary>
+        /// <param name="playerModel">self</param>
+        /// <param name="targetPos">target position for camera</param>
+        internal static void SetCameraPivotGlobalPos(this PlayerModel playerModel, Vector3 targetPos)
+        {
+            if ((playerModel.cam.position - targetPos).sqrMagnitude < 0.005f)
+                return;
+            
+            playerModel.cam.position += Math.EasingFunction.SimpleQuadraticEase.V3SimpleQuadraticEaseOut(playerModel.cam.position, targetPos, 0.1f);
+            if ((playerModel.cam.position - targetPos).sqrMagnitude < 0.005f)
+                playerModel.cam.position = targetPos;
+        }
 
         /// <summary>
         /// If player is grabbing an object, Set the local position of the object SMOOTHLY on a specified target position
@@ -259,6 +286,7 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Contr
             if (playerModel.currentGrabbedObject is null)
                 return false;
 
+            playerModel.currentGrabbedObject.Grabbed = false;
             playerModel.currentGrabbedObject.Rigidbody.isKinematic = false;
             playerModel.currentGrabbedObject.Transform.SetParent(null, true);
             
@@ -292,6 +320,7 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Contr
         internal static void SetGrabbedObjectState(this PlayerModel playerModel, IGrabbable gb)
         {
             playerModel.currentGrabbedObject = gb;
+            playerModel.currentGrabbedObject.Grabbed = true;
             playerModel.currentGrabbedObject.Rigidbody.isKinematic = true;
             playerModel.currentGrabbedObject.Transform.SetParent(playerModel.grab, true);
             if (playerModel.currentGrabbedObject is IElementHolder e)
@@ -304,6 +333,7 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Contr
         /// <param name="playerModel">self</param>
         internal static void ResetGrabbedObjectState(this PlayerModel playerModel)
         {
+            playerModel.currentGrabbedObject.Grabbed = false;
             playerModel.currentGrabbedObject.Rigidbody.isKinematic = false;
             playerModel.currentGrabbedObject.Transform.SetParent(null, true);
             if (playerModel.currentGrabbedObject is IElementHolder e)

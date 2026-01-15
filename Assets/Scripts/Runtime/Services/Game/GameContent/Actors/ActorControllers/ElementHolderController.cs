@@ -258,6 +258,9 @@ public abstract class ElementHolderController : ActorView, IElementHolder
 			data.Holder1.Active = false;
 		if (data.Holder2 is IPossessable && (data.Holder1.Flag3 & ElementFlag.CanBurn) != 0)
 			data.Holder2.Active = false;
+
+		data.Holder1.Durations.fireTimer = 0;
+		data.Holder2.Durations.fireTimer = 0;
 	}
 
 	private void WetAndElec(ElementInteractionData data)

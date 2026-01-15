@@ -6,28 +6,27 @@ namespace Runtime.Services.Game.GameContent.UI.PauseMenu
     {
         #region Functions
 
-        private void Start()
+        public void QuestOpen()
         {
-            Initialize();
+            if (IsOpen) return;
+            IsOpen = true;
         }
 
-        private void Initialize()
+        public void QuestClose()
         {
-            foreach (var questData in _questList)
-            {
-                var quest = Instantiate(_questPrefab);
-                quest.transform.SetParent(_questDescription.transform, false);
-                
-                var questComponent = quest.GetComponent<Quest.Quest>();
-                questComponent.Bind(questData);
-                
-                _quests.Add(questComponent);
-            }
+            if (!IsOpen) return;
+            IsOpen = false;
+        }
+        
+        public override void Show()
+        {
+            base.Show();
+            _animator.Play("QuestPageAppear");
         }
 
         public override void Hide()
         {
-            _quests.Clear();
+            _animator.Play("QuestPageDisappear");
         }
 
         #endregion
@@ -35,13 +34,21 @@ namespace Runtime.Services.Game.GameContent.UI.PauseMenu
         #region Fields
         
         // Temporary quest data list for testing
-        [SerializeField] private List<QuestData> _questList;
+        [SerializeField] private Animation _animator;
+        private bool _isOpen;
         
-        [SerializeField] private GameObject _questPrefab;
-        [SerializeField] private GameObject _questDescription;
-        
-        public List<Quest.Quest> _quests = new List<Quest.Quest>();
-        
+        public bool IsOpen
+        {
+            get => _isOpen;
+            set
+            {
+                if (_isOpen == value) return;
+                _isOpen = value;
+                if (_isOpen) Show();
+                else Hide();
+            }
+        }
+
         #endregion
     }
 }
