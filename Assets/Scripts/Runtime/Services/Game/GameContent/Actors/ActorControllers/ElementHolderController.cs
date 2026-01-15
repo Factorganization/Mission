@@ -85,13 +85,13 @@ public abstract class ElementHolderController : ActorView, IElementHolder
 #endif
 		
 		//checkup
-		if (((int)Flag3 & 0b0011) == 0b0011)
+		/*if (((int)Flag3 & 0b0011) == 0b0011)
 		{
 			Flag3 &= ~ElementFlag.CanBurn;
 			objectDefinition.durations.fireTimer = 0;
 			SetParticleOverride(this, ElementFlag.CanBurn, false);
 		}
-		
+		*/ 
 		/*if (!Active) //Partons du principe que un objet peut valider ses missions meme inactif
 			return;*/
 		
