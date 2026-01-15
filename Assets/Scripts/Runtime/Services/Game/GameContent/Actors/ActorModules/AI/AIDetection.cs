@@ -44,14 +44,15 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorModules.AI
 
         private void DetectPlayer()
         {
-            Vector3 directionToPlayer = (player.transform.position - transform.position);
+            Vector3 directionToPlayer = (player.transform.position - rcOrigin.position);
             float angleToPlayer = Vector3.Angle(transform.forward, directionToPlayer.normalized);
             if ((((angleToPlayer < unawareDetectionAngle / 2 || (angleToPlayer < awareDetectionAngle && IsPlayerSpotted)) && (directionToPlayer.magnitude <= unawareDetectionDistance) || directionToPlayer.magnitude <= awareDetectionDistance && IsPlayerSpotted) ||
                  Vector3.Distance(player.transform.position, transform.position) < sixthSensDetectionDistance) && player.IsVisible)
             {
                 RaycastHit hit;
-                if (!Physics.Raycast(rcOrigin.position, directionToPlayer.normalized, out hit, awareDetectionDistance))
+                if (!Physics.Raycast(rcOrigin.position, directionToPlayer.normalized, out hit, awareDetectionDistance, ~layerMask))
                     return; 
+                Debug.Log(hit.collider.gameObject.name);
                 if (hit.transform != player.transform)
                     return;
             
@@ -98,7 +99,7 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorModules.AI
                 if (angleToGrabbable < unawareDetectionAngle / 2 && directionToGrabbable.magnitude <= unawareDetectionAngle)
                 {
                     RaycastHit hit;
-                    if (!Physics.Raycast(rcOrigin.position, directionToGrabbable.normalized, out hit))
+                    if (!Physics.Raycast(rcOrigin.position, directionToGrabbable.normalized, out hit, ~layerMask))
                         continue;
                     if (hit.transform != grabbable.Transform)
                         continue;
@@ -126,7 +127,7 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorModules.AI
                 if ((angleToPossess < unawareDetectionAngle / 2 && directionToPossessable.magnitude <= unawareDetectionAngle) || directionToPossessable.magnitude <= sixthSensDetectionDistance)
                 {
                     RaycastHit hit;
-                    if (!Physics.Raycast(rcOrigin.position, directionToPossessable.normalized, out hit))
+                    if (!Physics.Raycast(rcOrigin.position, directionToPossessable.normalized, out hit, ~layerMask))
                         continue; 
                         
                     if  (hit.transform.root != possessable.Transform)
@@ -242,6 +243,8 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorModules.AI
         [SerializeField] private float timeToForget = 5f;
 
         [SerializeField] private Transform rcOrigin;
+        
+        [SerializeField] private LayerMask layerMask;
     
         [SerializeField] private PlayerStateMachine player;
         [SerializeField] private LevelGenerator levelGenerator;
