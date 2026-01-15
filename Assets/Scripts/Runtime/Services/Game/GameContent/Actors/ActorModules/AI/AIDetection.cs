@@ -93,7 +93,7 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorModules.AI
         
             foreach (IGrabbable grabbable in levelGenerator.Grabbables)
             {
-                var directionToGrabbable = (grabbable.Transform.position - transform.position);
+                var directionToGrabbable = (grabbable.Transform.position - rcOrigin.position);
                 float angleToGrabbable = Vector3.Angle(transform.forward, directionToGrabbable.normalized);
 
                 if (angleToGrabbable < unawareDetectionAngle / 2 && directionToGrabbable.magnitude <= unawareDetectionAngle)
@@ -127,7 +127,7 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorModules.AI
                 if ((angleToPossess < unawareDetectionAngle / 2 && directionToPossessable.magnitude <= unawareDetectionAngle) || directionToPossessable.magnitude <= sixthSensDetectionDistance)
                 {
                     RaycastHit hit;
-                    if (!Physics.Raycast(rcOrigin.position, directionToPossessable.normalized, out hit, ~layerMask))
+                    if (!Physics.Raycast(transform.position, directionToPossessable.normalized, out hit, ~layerMask))
                         continue; 
                         
                     if  (hit.transform.root != possessable.Transform)
