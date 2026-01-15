@@ -46,6 +46,7 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
                 {
                     aiDetection.CurrentObject.IsResetingPos = true;
                     aiDetection.DropObject();
+                    aiDetection.CurrentObject.Transform.position = aiDetection.CurrentObject.OriginPos;
                     AIController.SelectNextWaypoint(_aiModel);
                 }
             }
@@ -87,6 +88,9 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
 
             agent.isStopped = aiDetection.IsSuspicious || _aiModel._isRepairing;
             animator.SetBool("ac_isSus", aiDetection.IsSuspicious);
+            
+            if (aiDetection && aiDetection.IsSuspicious && !aiDetection.IsPlayerSpotted)
+                return;
 
             if (aiDetection && aiDetection.IsPlayerSpotted)
             {
