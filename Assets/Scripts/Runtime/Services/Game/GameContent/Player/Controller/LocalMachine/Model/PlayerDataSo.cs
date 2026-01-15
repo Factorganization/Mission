@@ -71,6 +71,9 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Model
         
         [Range(0f, 10f)]
         public float mouseCamSensitivity;
+
+        [Range(0f, 0.3f)]
+        public float smoothCamCoeff;
         
         [Range(-90f, 90f)]
         public float maxUpperPitchAngle;

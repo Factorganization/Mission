@@ -1,4 +1,3 @@
-using System.Threading.Tasks;
 using Runtime.Services.Game.GameContent.Logics.LogicInterfaces;
 
 namespace Runtime.Services.Game.GameSystems
@@ -27,7 +26,7 @@ namespace Runtime.Services.Game.GameSystems
 
             _delay += Time.fixedDeltaTime;
             
-            if (_delay < 1)
+            if (_delay < 0.25f)
                 return;
 
             _delay = 0;
