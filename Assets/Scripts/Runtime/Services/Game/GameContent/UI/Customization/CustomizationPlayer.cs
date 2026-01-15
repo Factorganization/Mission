@@ -164,12 +164,14 @@ namespace Runtime.Services.Game.GameContent.UI.Customization
             public int index;
         }
 
+        [Serializable]
         public class BodyPartMaterialSave
         {
             public BodyPartType bodyPartType;
             public string[] materialNames;
         }
 
+        [Serializable]
         private class SaveObject
         {
             public List<BodyPartTypeIndex> bodyPartTypeIndexList;
@@ -245,6 +247,7 @@ namespace Runtime.Services.Game.GameContent.UI.Customization
 
             string json = JsonUtility.ToJson(saveObject);
             Debug.Log(json);
+            
             PlayerPrefs.SetString(PLAYER_PREFS_SAVE, json);
             PlayerPrefs.Save();
         }
@@ -258,7 +261,7 @@ namespace Runtime.Services.Game.GameContent.UI.Customization
                 return;
             }
 
-            SaveObject saveObject = null;
+            SaveObject saveObject;
             try
             {
                 saveObject = JsonUtility.FromJson<SaveObject>(json);
