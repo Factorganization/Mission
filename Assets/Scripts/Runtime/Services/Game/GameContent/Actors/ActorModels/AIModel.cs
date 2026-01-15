@@ -22,15 +22,15 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorModels
         #region fields
         
         public AIMovementDataSo movementData;
-    
         public mTransform _currentWaypoint;
-        public float _waitTimer;
-        
-        public bool _isSuspicious;
-        public bool _isPlayerDetected;
         public Vector3 _lastKnownPlayerPosition;
-        
         public int[] _excludedWaypoints;
+        public float _waitTimer;
+        public float _repairTimer;
+        public bool _isSuspicious;
+        public bool _isRepairing;
+        public bool _isPlayerDetected;
+        
         
         #endregion
     }

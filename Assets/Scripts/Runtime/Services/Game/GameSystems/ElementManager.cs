@@ -26,8 +26,8 @@ namespace Runtime.Services.Game.GameSystems
 
             _delay += Time.fixedDeltaTime;
             
-            if (_delay < 0.25f)
-                return;
+            /*if (_delay < 0.25f)
+                return;*/
 
             _delay = 0;
             //await Task.Delay(900);
