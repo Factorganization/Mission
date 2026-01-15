@@ -665,6 +665,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 1.25, y: 90, z: 0}
+--- !u!23 &939235580 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 844570432314883188, guid: 2a584f2fd41ae314ea29c2f52fad87bb, type: 3}
+  m_PrefabInstance: {fileID: 1239602947}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1146987002
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1060,11 +1065,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7822830084981103290, guid: 136f3dccbd0eacd4eb0ccebb0a56466d, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 2448496.8
+      value: 2546596.8
       objectReference: {fileID: 0}
     - target: {fileID: 7822830084981103290, guid: 136f3dccbd0eacd4eb0ccebb0a56466d, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 4511130.5
+      value: 4692493
       objectReference: {fileID: 0}
     - target: {fileID: 8194594427064753803, guid: 136f3dccbd0eacd4eb0ccebb0a56466d, type: 3}
       propertyPath: m_AnchorMax.y
@@ -1786,7 +1791,8 @@ MonoBehaviour:
     - {fileID: 11400000, guid: b506699e3169df04fb95ee96cc5ac715, type: 2}
   - bodyPartType: 2
     skinnedMeshRenderer: {fileID: 1239602955}
-    meshArray: []
+    meshArray:
+    - {fileID: 11400000, guid: 8aa173066e91be04a972b11f4c0b2e7b, type: 2}
   - bodyPartType: 1
     skinnedMeshRenderer: {fileID: 1239602951}
     meshArray:
@@ -1800,7 +1806,7 @@ MonoBehaviour:
     skinnedMeshRenderer: {fileID: 1239602956}
     meshArray:
     - {fileID: 11400000, guid: 3c2eef109a350474eaada7161687c580, type: 2}
-  _preloadPrefabs: 1
+  _head: {fileID: 939235580}
 --- !u!1001 &1805177051
 PrefabInstance:
   m_ObjectHideFlags: 0

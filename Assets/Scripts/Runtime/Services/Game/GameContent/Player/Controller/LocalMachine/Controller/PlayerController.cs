@@ -60,6 +60,9 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Contr
         /// <item>5 : prep throw item</item>
         /// <item>6 : try Grab / Drop</item>
         /// <item>7 : cancel throw</item>
+        /// <item>8 : mission input pressed</item>
+        /// <item>9 : mission input released</item>
+        /// <item>10 : menu input pressed</item>
         /// </list>
         /// </returns>
         internal static byte HandleMonoInputGather(this PlayerModel playerModel)
@@ -88,8 +91,11 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Contr
             if (playerModel.data.inputData.missionInput.action.WasPressedThisFrame())
                 return 8;
             
-            if (playerModel.data.inputData.menuInput.action.WasPressedThisFrame())
+            if (playerModel.data.inputData.missionInput.action.WasReleasedThisFrame())
                 return 9;
+            
+            if (playerModel.data.inputData.menuInput.action.WasPressedThisFrame())
+                return 10;
 
             return 0;
         }

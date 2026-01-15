@@ -13,18 +13,6 @@ namespace Runtime.Services.Game.GameContent.UI.Customization
             Body,
             Tail
         }
-
-        /*[Serializable]
-        public class BodyPartDataPrefab
-        {
-            public BodyPartType bodyPartType;
-            public CustomizeItem[] prefabArray;
-            public Transform attachTransform;
-
-            [NonSerialized] public GameObject currentInstance;
-            [NonSerialized] public int currentIndex = 0;
-            [NonSerialized] public List<GameObject> instances;
-        }*/
         
         [Serializable]
         public class BodyPartData
@@ -34,113 +22,6 @@ namespace Runtime.Services.Game.GameContent.UI.Customization
             public CustomizeItem[] meshArray;
         }
         
-        #endregion
-
-        #region PrefabsFunctions
-        private void Start()
-        {
-           
-        }
-
-        /*private void PreloadAllPrefabs()
-        {
-            foreach (var data in bodyPartDataArray)
-            {
-                if (data == null || data.prefabArray == null) continue;
-                data.instances = new List<GameObject>(data.prefabArray.Length);
-                var parent = data.attachTransform != null ? data.attachTransform : transform;
-
-                for (int i = 0; i < data.prefabArray.Length; i++)
-                {
-                    var prefab = data.prefabArray[i].ItemPrefab;
-                    if (prefab == null)
-                    {
-                        data.instances.Add(null);
-                        continue;
-                    }
-
-                    var inst = Instantiate(prefab, parent);
-                    inst.transform.SetParent(parent, false);
-                    inst.transform.localPosition = Vector3.zero;
-                    inst.transform.localRotation = Quaternion.identity;
-                    inst.transform.localScale = Vector3.one;
-
-                    inst.SetActive(false); // keep inactive until selected
-                    data.instances.Add(inst);
-                }
-            }
-        }
-        
-        private void ActivateCurrentInstances()
-        {
-            foreach (var data in bodyPartDataArray)
-            {
-                if (data == null) continue;
-                if (data.instances != null && data.currentIndex >= 0 && data.currentIndex < data.instances.Count)
-                {
-                    data.currentInstance = data.instances[data.currentIndex];
-                    if (data.currentInstance != null)
-                        data.currentInstance.SetActive(true);
-                }
-            }
-        }
-
-        public void SetBodyPartPrefab(BodyPartType bodyPartType, int index)
-        {
-            var data = GetBodyPartDataPrefab(bodyPartType);
-            if (data == null || data.prefabArray == null || data.prefabArray.Length == 0) return;
-            int clamped = Mathf.Clamp(index, 0, data.prefabArray.Length - 1);
-
-            // If we preloaded and have an instance ready, just toggle
-            if (data.instances != null && data.instances.Count > clamped && data.instances[clamped] != null)
-            {
-                if (data.currentInstance != null)
-                    data.currentInstance.SetActive(false);
-
-                data.currentInstance = data.instances[clamped];
-                data.currentInstance.SetActive(true);
-            }
-            else
-            {
-                // Fallback: destroy previous and instantiate the selected prefab (existing behavior)
-                if (data.currentInstance != null)
-                    Destroy(data.currentInstance);
-
-                var prefab = data.prefabArray[clamped].ItemPrefab;
-                if (prefab != null)
-                {
-                    var parent = data.attachTransform != null ? data.attachTransform : transform;
-                    data.currentInstance = Instantiate(prefab, parent);
-                    data.currentInstance.transform.SetParent(parent, false);
-                    data.currentInstance.transform.localPosition = Vector3.zero;
-                    data.currentInstance.transform.localRotation = Quaternion.identity;
-                    data.currentInstance.transform.localScale = Vector3.one;
-                }
-                else
-                {
-                    data.currentInstance = null;
-                }
-            }
-
-            data.currentIndex = clamped;
-        }
-
-        public CustomizeItem[] GetItem(BodyPartType bodyPartType)
-        {
-            var data = GetBodyPartDataPrefab(bodyPartType);
-            if (data == null || data.prefabArray == null) return new CustomizeItem[0];
-            return data.prefabArray;
-        }
-
-        private BodyPartDataPrefab GetBodyPartDataPrefab(BodyPartType bodyPartType)
-        {
-            foreach (var bodyPartData in bodyPartDataArray)
-            {
-                if (bodyPartData.bodyPartType == bodyPartType) return bodyPartData;
-            }
-
-            return null;
-        }*/
         #endregion
 
         #region Meshes
@@ -173,8 +54,6 @@ namespace Runtime.Services.Game.GameContent.UI.Customization
         public void ApplyMaterialToBodyPart(BodyPartType bodyPartType, Material mat, int materialIndex = 0)
         {
             if (mat == null) return;
-            
-            //BodyPartType targetPart = bodyPartType == BodyPartType.Eyes ? BodyPartType.Body : bodyPartType;
 
             Renderer renderer = GetRendererForBodyPart(bodyPartType);
             if (renderer == null) return;
@@ -189,6 +68,22 @@ namespace Runtime.Services.Game.GameContent.UI.Customization
             int idx = Mathf.Clamp(materialIndex, 0, mats.Length - 1);
             mats[idx] = mat;
             renderer.sharedMaterials = mats;
+        }
+        
+        public void ApplyMaterialToHead(Material mat, int materialIndex = 0)
+        {
+            if (mat == null || _head == null) return;
+
+            Material[] mats = _head.sharedMaterials;
+            if (mats == null || mats.Length == 0)
+            {
+                _head.sharedMaterials = new Material[] { mat };
+                return;
+            }
+
+            int idx = Mathf.Clamp(materialIndex, 0, mats.Length - 1);
+            mats[idx] = mat;
+            _head.sharedMaterials = mats;
         }
 
         private Renderer GetRendererForBodyPart(BodyPartType bodyPartType)
@@ -232,7 +127,7 @@ namespace Runtime.Services.Game.GameContent.UI.Customization
             return null;
         }
 
-        public SkinnedMeshRenderer GetSkinnedMeshRenderer(BodyPartType bodyPartType)
+        private SkinnedMeshRenderer GetSkinnedMeshRenderer(BodyPartType bodyPartType)
         {
             BodyPartData bodyPartData = GetBodyPartData(bodyPartType);
             return bodyPartData != null ? bodyPartData.skinnedMeshRenderer : null;
@@ -248,55 +143,10 @@ namespace Runtime.Services.Game.GameContent.UI.Customization
             public int index;
         }
 
-        public class SaveObject
+        private class SaveObject
         {
             public List<BodyPartTypeIndex> bodyPartTypeIndexList;
         }
-        
-        #region PrefabsSaveLoad
-        /*
-        public void Save()
-        {
-            List<BodyPartTypeIndex> bodyPartTypeIndexList = new List<BodyPartTypeIndex>();
-
-            foreach (BodyPartType bodyPartType in Enum.GetValues(typeof(BodyPartType)))
-            {
-                BodyPartDataPrefab bodyPartDataPrefab = GetBodyPartDataPrefab(bodyPartType);
-                int meshIndex = bodyPartDataPrefab != null ? bodyPartDataPrefab.currentIndex : 0;
-                bodyPartTypeIndexList.Add(new BodyPartTypeIndex
-                {
-                    bodyPartType = bodyPartType,
-                    index = meshIndex
-                });
-            }
-
-            SaveObject saveObject = new SaveObject
-            {
-                bodyPartTypeIndexList = bodyPartTypeIndexList
-            };
-
-            string json = JsonUtility.ToJson(saveObject);
-            Debug.Log(json);
-            PlayerPrefs.SetString(PLAYER_PREFS_KEY, json);
-        }
-
-        public void Load()
-        {
-            string json = PlayerPrefs.GetString(PLAYER_PREFS_KEY);
-            if (string.IsNullOrEmpty(json)) return;
-            SaveObject saveObject = JsonUtility.FromJson<SaveObject>(json);
-            if (saveObject == null || saveObject.bodyPartTypeIndexList == null) return;
-
-            foreach (var bodyPartTypeIndex in saveObject.bodyPartTypeIndexList)
-            {
-                BodyPartDataPrefab bodyPartDataPrefab = GetBodyPartDataPrefab(bodyPartTypeIndex.bodyPartType);
-                if (bodyPartDataPrefab == null || bodyPartDataPrefab.prefabArray == null || bodyPartDataPrefab.prefabArray.Length == 0) continue;
-                int clamped = Mathf.Clamp(bodyPartTypeIndex.index, 0, bodyPartDataPrefab.prefabArray.Length - 1);
-                SetBodyPartPrefab(bodyPartTypeIndex.bodyPartType, clamped);
-            }
-        }
-        */
-        #endregion
 
         #region MeshesSaveLoad
         public void SaveMeshes()
@@ -339,13 +189,11 @@ namespace Runtime.Services.Game.GameContent.UI.Customization
         
         #region Fields
         private const string PLAYER_PREFS_KEY = "PlayerCustom";
-
-        //[SerializeField] private BodyPartDataPrefab[] bodyPartDataArray;
         
         [SerializeField] private BodyPartData[] bodyPartMeshDataArray;
-        
-        [Tooltip("If true, all prefabs will be instantiated once at Start and toggled on/off when changing.")]
-        [SerializeField] private bool _preloadPrefabs = true;
+
+        [SerializeField] private MeshRenderer _head;
+
         #endregion
     }
 }

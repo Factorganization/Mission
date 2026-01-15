@@ -87,7 +87,11 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Contr
                     break;
                 
                 case 8:
-                    GameManager.Instance.GameUIMgr.QuestPage.QuestOpenOrClose();
+                    GameManager.Instance.GameUIMgr.QuestPage.QuestOpen();
+                    break;
+                
+                case 9:
+                    GameManager.Instance.GameUIMgr.QuestPage.QuestClose();
                     break;
                 
                 //TODO open menu
