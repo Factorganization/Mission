@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2389508836472214770}
+  - component: {fileID: 5905493657775800756}
   m_Layer: 0
   m_Name: PP_Plant_Preset_01
   m_TagString: Untagged
@@ -33,6 +34,50 @@ Transform:
   - {fileID: 6308987643109646365}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5905493657775800756
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3195587280253379849}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f4a79cb10384649970d65869bbbfe81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Satanic.Runtime::Runtime.GameContent.Actors.ActorViews.NoInteractObjectView
+  objectDefinition:
+    object: 11
+    col: {fileID: 7467788694528989013}
+    blockLayer:
+      serializedVersion: 2
+      m_Bits: 3265
+    durations:
+      fireDuration: 50
+      electricityDuration: 50
+      waterDuration: 50
+      fireTimer: 0
+      electricityTimer: 0
+      waterTimer: 0
+    elementApplicationDistance: 0.75
+    destructionApplicationDistance: 3
+    vfxReferences:
+      fireParticles:
+      - {fileID: 5517586545330116668}
+      waterParticles:
+      - {fileID: 4294582281338589987}
+      electricParticles:
+      - {fileID: 577208864189580432}
+      explosionParticles:
+      - {fileID: 3405055428677537300}
+      firePlaying: 0
+      waterPlaying: 0
+      elecPlaying: 0
+      explodePlaying: 0
+    debugInfo:
+      text: {fileID: 4360024861367481399}
+      debug: 0
+  flag: 3
 --- !u!1001 &8562255900041003082
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -41,9 +86,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2389508836472214770}
     m_Modifications:
+    - target: {fileID: 368205242255210015, guid: fa2553c7a8f55e641bd4fc026edc5888, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 2259213069197064095, guid: fa2553c7a8f55e641bd4fc026edc5888, type: 3}
       propertyPath: m_Name
       value: PP_BathroomTable_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 2259213069197064095, guid: fa2553c7a8f55e641bd4fc026edc5888, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 2404140130052792407, guid: fa2553c7a8f55e641bd4fc026edc5888, type: 3}
       propertyPath: m_LocalPosition.x
@@ -147,13 +200,50 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3564544557803628833, guid: 59f2cc0c4e469e54abacad262807815b, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 59f2cc0c4e469e54abacad262807815b, type: 3}
+--- !u!198 &577208864189580432 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 8160481736986372703, guid: 59f2cc0c4e469e54abacad262807815b, type: 3}
+  m_PrefabInstance: {fileID: 8736264746352291535}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2474865559655483465 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6585687197889177222, guid: 59f2cc0c4e469e54abacad262807815b, type: 3}
+  m_PrefabInstance: {fileID: 8736264746352291535}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &3405055428677537300 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 6231958647594787035, guid: 59f2cc0c4e469e54abacad262807815b, type: 3}
+  m_PrefabInstance: {fileID: 8736264746352291535}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &4294582281338589987 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 4801990954737679852, guid: 59f2cc0c4e469e54abacad262807815b, type: 3}
+  m_PrefabInstance: {fileID: 8736264746352291535}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4360024861367481399 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5025059521726683896, guid: 59f2cc0c4e469e54abacad262807815b, type: 3}
+  m_PrefabInstance: {fileID: 8736264746352291535}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9541d86e2fd84c1d9990edf0852d74ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshPro
+--- !u!198 &5517586545330116668 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 3868333947108259571, guid: 59f2cc0c4e469e54abacad262807815b, type: 3}
+  m_PrefabInstance: {fileID: 8736264746352291535}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &7467788694528989013 stripped
+BoxCollider:
+  m_CorrespondingSourceObject: {fileID: 2206650294665525658, guid: 59f2cc0c4e469e54abacad262807815b, type: 3}
   m_PrefabInstance: {fileID: 8736264746352291535}
   m_PrefabAsset: {fileID: 0}
