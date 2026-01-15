@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Runtime.Services.Game.GameContent.UI.Customization
 {
@@ -25,6 +26,11 @@ namespace Runtime.Services.Game.GameContent.UI.Customization
         #endregion
 
         #region Meshes
+
+        private void Start()
+        {
+            Load();
+        }
 
         public void ChangeBodyPart(BodyPartType bodyPartType)
         {
@@ -72,18 +78,33 @@ namespace Runtime.Services.Game.GameContent.UI.Customization
         
         public void ApplyMaterialToHead(Material mat, int materialIndex = 0)
         {
-            if (mat == null || _head == null) return;
+            if (mat == null || head == null) return;
 
-            Material[] mats = _head.sharedMaterials;
+            Material[] mats = head.sharedMaterials;
             if (mats == null || mats.Length == 0)
             {
-                _head.sharedMaterials = new Material[] { mat };
+                head.sharedMaterials = new Material[] { mat };
                 return;
             }
 
             int idx = Mathf.Clamp(materialIndex, 0, mats.Length - 1);
             mats[idx] = mat;
-            _head.sharedMaterials = mats;
+            head.sharedMaterials = mats;
+        }
+
+        public void ApplyMaterialToBodySkin(Material mat, int materialIndex = 0)
+        {
+            if (mat == null) return;
+            
+            Material[] mats = GetRendererForBodyPart(BodyPartType.Body).sharedMaterials;
+            if (mats == null || mats.Length == 0)
+            {
+                GetRendererForBodyPart(BodyPartType.Body).sharedMaterials = new Material[] { mat };
+                return;
+            }
+            
+            mats[1] = mat;
+            GetRendererForBodyPart(BodyPartType.Body).sharedMaterials = mats;
         }
 
         private Renderer GetRendererForBodyPart(BodyPartType bodyPartType)
@@ -130,7 +151,7 @@ namespace Runtime.Services.Game.GameContent.UI.Customization
         private SkinnedMeshRenderer GetSkinnedMeshRenderer(BodyPartType bodyPartType)
         {
             BodyPartData bodyPartData = GetBodyPartData(bodyPartType);
-            return bodyPartData != null ? bodyPartData.skinnedMeshRenderer : null;
+            return bodyPartData?.skinnedMeshRenderer;
         }
 
         #endregion
@@ -143,57 +164,218 @@ namespace Runtime.Services.Game.GameContent.UI.Customization
             public int index;
         }
 
+        public class BodyPartMaterialSave
+        {
+            public BodyPartType bodyPartType;
+            public string[] materialNames;
+        }
+
         private class SaveObject
         {
             public List<BodyPartTypeIndex> bodyPartTypeIndexList;
+            public List<BodyPartMaterialSave> bodyPartMaterials;
         }
 
         #region MeshesSaveLoad
-        public void SaveMeshes()
+        public void Save()
         {
             List<BodyPartTypeIndex> bodyPartTypeIndexList = new List<BodyPartTypeIndex>();
+            List<BodyPartMaterialSave> bodyPartMaterials = new List<BodyPartMaterialSave>();
 
             foreach (BodyPartType bodyPartType in Enum.GetValues(typeof(BodyPartType)))
             {
                 BodyPartData bodyPartData = GetBodyPartData(bodyPartType);
-                int meshIndex = Array.IndexOf(bodyPartData.meshArray, bodyPartData.skinnedMeshRenderer.sharedMesh);
+                int meshIndex = 0;
+
+                if (bodyPartData != null && bodyPartData.meshArray != null && bodyPartData.meshArray.Length > 0 &&
+                    bodyPartData.skinnedMeshRenderer != null)
+                {
+                    var currentMesh = bodyPartData.skinnedMeshRenderer.sharedMesh;
+
+                    int found = -1;
+                    for (int i = 0; i < bodyPartData.meshArray.Length; i++)
+                    {
+                        var item = bodyPartData.meshArray[i];
+                        if (item != null && item.ItemMesh == currentMesh)
+                        {
+                            found = i;
+                            break;
+                        }
+                    }
+
+                    meshIndex = (found >= 0) ? found : 0;
+                    meshIndex = Mathf.Clamp(meshIndex, 0, bodyPartData.meshArray.Length - 1);
+                }
+
                 bodyPartTypeIndexList.Add(new BodyPartTypeIndex
                 {
                     bodyPartType = bodyPartType,
                     index = meshIndex
                 });
+
+                var renderer = GetRendererForBodyPart(bodyPartType);
+                if (renderer != null)
+                {
+                    var mats = renderer.sharedMaterials;
+                    if (mats != null && mats.Length > 0)
+                    {
+                        string[] names = mats.Select(m => NormalizeMaterialName(m)).ToArray();
+                        bodyPartMaterials.Add(new BodyPartMaterialSave
+                        {
+                            bodyPartType = bodyPartType,
+                            materialNames = names
+                        });
+                    }
+                    else
+                    {
+                        bodyPartMaterials.Add(new BodyPartMaterialSave
+                        {
+                            bodyPartType = bodyPartType,
+                            materialNames = new string[0]
+                        });
+                    }
+                }
             }
 
             SaveObject saveObject = new SaveObject
             {
-                bodyPartTypeIndexList = bodyPartTypeIndexList
+                bodyPartTypeIndexList = bodyPartTypeIndexList,
+                bodyPartMaterials = bodyPartMaterials
             };
 
             string json = JsonUtility.ToJson(saveObject);
             Debug.Log(json);
-            PlayerPrefs.SetString(PLAYER_PREFS_KEY, json);
+            PlayerPrefs.SetString(PLAYER_PREFS_SAVE, json);
+            PlayerPrefs.Save();
         }
 
-        public void LoadMeshes()
+        public void Load()
         {
-            string json = PlayerPrefs.GetString(PLAYER_PREFS_KEY);
-            SaveObject saveObject = JsonUtility.FromJson<SaveObject>(json);
-
-            foreach (var bodyPartTypeIndex in saveObject.bodyPartTypeIndexList)
+            string json = PlayerPrefs.GetString(PLAYER_PREFS_SAVE, string.Empty);
+            if (string.IsNullOrEmpty(json))
             {
-                BodyPartData bodyPartData = GetBodyPartData(bodyPartTypeIndex.bodyPartType);
-                bodyPartData.skinnedMeshRenderer.sharedMesh = bodyPartData.meshArray[bodyPartTypeIndex.index].ItemMesh;
+                Debug.LogWarning("No saved customization found.");
+                return;
+            }
+
+            SaveObject saveObject = null;
+            try
+            {
+                saveObject = JsonUtility.FromJson<SaveObject>(json);
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError("Failed to parse saved customization: " + ex.Message);
+                return;
+            }
+
+            if (saveObject == null)
+            {
+                Debug.LogWarning("Saved customization is empty or invalid.");
+                return;
+            }
+
+            if (saveObject.bodyPartTypeIndexList != null)
+            {
+                foreach (var bodyPartTypeIndex in saveObject.bodyPartTypeIndexList)
+                {
+                    BodyPartData bodyPartData = GetBodyPartData(bodyPartTypeIndex.bodyPartType);
+                    if (bodyPartData == null || bodyPartData.meshArray == null || bodyPartData.meshArray.Length == 0 || bodyPartData.skinnedMeshRenderer == null)
+                    {
+                        Debug.LogWarning($"Skipping load for {bodyPartTypeIndex.bodyPartType}: data missing.");
+                        continue;
+                    }
+                    
+                    int idx = bodyPartTypeIndex.index;
+                    if (idx < 0 || idx >= bodyPartData.meshArray.Length)
+                    {
+                        Debug.LogWarning($"Saved index {idx} out of range for {bodyPartTypeIndex.bodyPartType}. Clamping to valid range.");
+                        idx = Mathf.Clamp(idx, 0, bodyPartData.meshArray.Length - 1);
+                    }
+
+                    var item = bodyPartData.meshArray[idx];
+                    if (item == null || item.ItemMesh == null)
+                    {
+                        Debug.LogWarning($"Mesh at index {idx} for {bodyPartTypeIndex.bodyPartType} is null. Skipping.");
+                        continue;
+                    }
+                        
+                    bodyPartData.skinnedMeshRenderer.sharedMesh = item.ItemMesh;
+                }
+            }
+
+            if (saveObject.bodyPartMaterials != null && saveObject.bodyPartMaterials.Count > 0)
+            {
+                var allMats = Resources.FindObjectsOfTypeAll<Material>();
+
+                foreach (var mat in saveObject.bodyPartMaterials)
+                {
+                    var renderer = GetRendererForBodyPart(mat.bodyPartType);
+                    if (renderer == null) continue;
+                    
+                    if (mat.materialNames == null || mat.materialNames.Length == 0) continue;
+                    
+                    var restored = new List<Material>();
+                    foreach (var matName in mat.materialNames)
+                    {
+                        if (string.IsNullOrEmpty(matName))
+                        {
+                            restored.Add(null);
+                            continue;
+                        }
+                    }
+                    
+                    var found = allMats.FirstOrDefault(m => NormalizeMaterialName(m) == mat.materialNames[0]);
+                    if (found != null)
+                    {
+                        restored.Add(found);
+                    }
+                    else
+                    {
+                        var current = renderer.sharedMaterials;
+                        if (current != null && current.Length > restored.Count)
+                            restored.Add(current[restored.Count]);
+                        else
+                            restored.Add(null);
+                    }
+                    
+                    var currentMats = renderer.sharedMaterials;
+                    int targetLen = Mathf.Max(currentMats != null ? currentMats.Length : 0, restored.Count);
+                    Material[] finalMats = new Material[targetLen];
+                    for (int i = 0; i < targetLen; i++)
+                    {
+                        if (i < restored.Count && restored[i] != null)
+                            finalMats[i] = restored[i];
+                        else if (currentMats != null && i < currentMats.Length)
+                            finalMats[i] = currentMats[i];
+                        else
+                            finalMats[i] = null;
+                    }
+
+                    renderer.sharedMaterials = finalMats;
+                }
             }
         }
         #endregion
         
         #region Fields
-        private const string PLAYER_PREFS_KEY = "PlayerCustom";
+        private const string PLAYER_PREFS_SAVE = "PlayerCustom";
         
         [SerializeField] private BodyPartData[] bodyPartMeshDataArray;
 
-        [SerializeField] private MeshRenderer _head;
+        [SerializeField] private MeshRenderer head;
 
         #endregion
+        
+        private static string NormalizeMaterialName(Material m)
+        {
+            if (m == null) return string.Empty;
+            // strip Unity instance suffix if present
+            var name = m.name;
+            const string instanceSuffix = " (Instance)";
+            if (name.EndsWith(instanceSuffix, StringComparison.Ordinal))
+                name = name.Substring(0, name.Length - instanceSuffix.Length);
+            return name;
+        }
     }
 }

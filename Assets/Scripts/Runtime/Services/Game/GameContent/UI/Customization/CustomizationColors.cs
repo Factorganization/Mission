@@ -36,6 +36,7 @@ namespace Runtime.Services.Game.GameContent.UI.Customization
                 mats = _skinMats;
                 mat = mats[clamped];
                 _characterPreview.ApplyMaterialToHead(mat);
+                _characterPreview.ApplyMaterialToBodySkin(mat);
                 return;
             }
             
@@ -75,6 +76,7 @@ namespace Runtime.Services.Game.GameContent.UI.Customization
         #endregion
 
         #region Fields
+        
         [SerializeField] private Button _colorButton1, _colorButton2, _colorButton3, _colorButton4;
         [SerializeField] private List<Material> _colorsMats, _hairMats, _tailMats, _eyesMats, _bodyMats, _skinMats;
         [SerializeField] private CustomizationPlayer _characterPreview;
