@@ -7,11 +7,9 @@ namespace Runtime.Services.Game.GameContent.UI.Customization
 
         public string ItemName;
         public Sprite ItemIcon;
-        public GameObject ItemPrefab;
         public Mesh ItemMesh;
         public CustomizationPlayer.BodyPartType ItemBodyPart;
         public bool Locked;
-        public bool Mesh;
 
         #endregion
     }
