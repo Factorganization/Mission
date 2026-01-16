@@ -1391,10 +1391,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1741682620}
     m_Modifications:
-    - target: {fileID: 5704001217107678548, guid: 37f6c443bd4d86345a9bcfb03adbdc5c, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
-      value: 
-      objectReference: {fileID: 2100000, guid: ea7f210b01e3e964ca01fd2d0dee49ae, type: 2}
     - target: {fileID: 5218084747482748211, guid: c1e2bea64e3563e47af54cc9497a6781, type: 3}
       propertyPath: m_Name
       value: PV_Affectable_WallLamp_02 Variant (12)
@@ -1439,6 +1435,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5704001217107678548, guid: 37f6c443bd4d86345a9bcfb03adbdc5c, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: ea7f210b01e3e964ca01fd2d0dee49ae, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2013,6 +2013,74 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1014044482}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &657026032
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 285324805812622576, guid: 216113a689b65964c9de6e74e71cc36b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -10.55
+      objectReference: {fileID: 0}
+    - target: {fileID: 285324805812622576, guid: 216113a689b65964c9de6e74e71cc36b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 285324805812622576, guid: 216113a689b65964c9de6e74e71cc36b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -1.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 285324805812622576, guid: 216113a689b65964c9de6e74e71cc36b, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 285324805812622576, guid: 216113a689b65964c9de6e74e71cc36b, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 285324805812622576, guid: 216113a689b65964c9de6e74e71cc36b, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 285324805812622576, guid: 216113a689b65964c9de6e74e71cc36b, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 285324805812622576, guid: 216113a689b65964c9de6e74e71cc36b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 285324805812622576, guid: 216113a689b65964c9de6e74e71cc36b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 285324805812622576, guid: 216113a689b65964c9de6e74e71cc36b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5615409190851126031, guid: 216113a689b65964c9de6e74e71cc36b, type: 3}
+      propertyPath: m_Name
+      value: Avengers EndGame
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 216113a689b65964c9de6e74e71cc36b, type: 3}
+--- !u!114 &657026033 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1322167862504467637, guid: 216113a689b65964c9de6e74e71cc36b, type: 3}
+  m_PrefabInstance: {fileID: 657026032}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebf38266fe984d0d8edf4149f2ffe472, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Satanic.Runtime::Runtime.Services.Game.GameContent.Actors.ActorViews.EndGameView
 --- !u!1001 &680918617
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4944,6 +5012,10 @@ PrefabInstance:
       propertyPath: text
       value: 
       objectReference: {fileID: 1854131371}
+    - target: {fileID: 375215268450755755, guid: 10ce2058a27ca0142a0c1b3f0befdb66, type: 3}
+      propertyPath: endGame
+      value: 
+      objectReference: {fileID: 657026033}
     - target: {fileID: 375215268450755755, guid: 10ce2058a27ca0142a0c1b3f0befdb66, type: 3}
       propertyPath: missions.Array.size
       value: 3
@@ -9087,3 +9159,4 @@ SceneRoots:
   - {fileID: 52025551}
   - {fileID: 1313062729}
   - {fileID: 1854131370}
+  - {fileID: 657026032}

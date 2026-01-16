@@ -3953,6 +3953,78 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6585687197889177222, guid: 11cd56599f65adf43aab9121aef5a21d, type: 3}
   m_PrefabInstance: {fileID: 479367618}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &481324075
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 285324805812622576, guid: 216113a689b65964c9de6e74e71cc36b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -8.593
+      objectReference: {fileID: 0}
+    - target: {fileID: 285324805812622576, guid: 216113a689b65964c9de6e74e71cc36b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 285324805812622576, guid: 216113a689b65964c9de6e74e71cc36b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -2.672
+      objectReference: {fileID: 0}
+    - target: {fileID: 285324805812622576, guid: 216113a689b65964c9de6e74e71cc36b, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 285324805812622576, guid: 216113a689b65964c9de6e74e71cc36b, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 285324805812622576, guid: 216113a689b65964c9de6e74e71cc36b, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 285324805812622576, guid: 216113a689b65964c9de6e74e71cc36b, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 285324805812622576, guid: 216113a689b65964c9de6e74e71cc36b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 285324805812622576, guid: 216113a689b65964c9de6e74e71cc36b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 285324805812622576, guid: 216113a689b65964c9de6e74e71cc36b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5615409190851126031, guid: 216113a689b65964c9de6e74e71cc36b, type: 3}
+      propertyPath: m_Name
+      value: Avengers EndGame
+      objectReference: {fileID: 0}
+    - target: {fileID: 6643971695906297964, guid: 216113a689b65964c9de6e74e71cc36b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 216113a689b65964c9de6e74e71cc36b, type: 3}
+--- !u!114 &481324076 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1322167862504467637, guid: 216113a689b65964c9de6e74e71cc36b, type: 3}
+  m_PrefabInstance: {fileID: 481324075}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebf38266fe984d0d8edf4149f2ffe472, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Satanic.Runtime::Runtime.Services.Game.GameContent.Actors.ActorViews.EndGameView
 --- !u!1001 &483093010
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7291,10 +7363,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 6723645}
     m_Modifications:
-    - target: {fileID: 7878280043943151669, guid: 11cd56599f65adf43aab9121aef5a21d, type: 3}
-      propertyPath: 'm_Materials.Array.data[1]'
-      value: 
-      objectReference: {fileID: 2100000, guid: cb1da835f6e49c54ea0985d60146349a, type: 2}
     - target: {fileID: 5383856568908349303, guid: 1fa001ff93ea6c345ac19a79f8845fd7, type: 3}
       propertyPath: m_Name
       value: PV_Affectable_Frame_01 (3)
@@ -7343,6 +7411,10 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 6c7c07d584e94d74bbfaaef7c031a0f8, type: 2}
+    - target: {fileID: 7878280043943151669, guid: 11cd56599f65adf43aab9121aef5a21d, type: 3}
+      propertyPath: 'm_Materials.Array.data[1]'
+      value: 
+      objectReference: {fileID: 2100000, guid: cb1da835f6e49c54ea0985d60146349a, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -9335,6 +9407,10 @@ PrefabInstance:
       propertyPath: text
       value: 
       objectReference: {fileID: 1915303439}
+    - target: {fileID: 375215268450755755, guid: 10ce2058a27ca0142a0c1b3f0befdb66, type: 3}
+      propertyPath: endGame
+      value: 
+      objectReference: {fileID: 481324076}
     - target: {fileID: 375215268450755755, guid: 10ce2058a27ca0142a0c1b3f0befdb66, type: 3}
       propertyPath: missions.Array.size
       value: 4
@@ -16725,3 +16801,4 @@ SceneRoots:
   - {fileID: 52025551}
   - {fileID: 351798688}
   - {fileID: 1915303437}
+  - {fileID: 481324075}
