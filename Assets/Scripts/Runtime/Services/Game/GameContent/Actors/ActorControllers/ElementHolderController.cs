@@ -84,6 +84,14 @@ public abstract class ElementHolderController : ActorView, IElementHolder
 			objectDefinition.debugInfo.text.text = $"{(Active ? "<color=green>Active</color>" : "<color=red>Inactive</color>")}\n {Convert.ToString((int)Flag1, 2).PadLeft(4, '0')} \n {Convert.ToString((int)Flag2, 2).PadLeft(4, '0')}";
 #endif
 		
+		//checkup
+		if (((int)Flag3 & 0b0011) == 0b0011)
+		{
+			Flag3 &= ~ElementFlag.CanBurn;
+			objectDefinition.durations.fireTimer = 0;
+			SetParticleOverride(this, ElementFlag.CanBurn, false);
+		}
+		
 		/*if (!Active) //Partons du principe que un objet peut valider ses missions meme inactif
 			return;*/
 		
