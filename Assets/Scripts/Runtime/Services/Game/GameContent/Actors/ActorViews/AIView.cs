@@ -32,7 +32,7 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
         private void Update()
         {
             //Check if Caught
-            if (Vector3.Distance(transform.position, playerTrans.position) < 0.5f && aiDetection.IsPlayerSpotted)
+            if (Vector3.Distance(transform.position, playerTrans.position) < 1 && aiDetection.IsPlayerSpotted)
             {
                 GameManager.Instance.GameUIMgr.GameOver();
                 ServiceLocator.Instance.Get<CursorService>().SetActive(true);
