@@ -237,8 +237,8 @@ MonoBehaviour:
   sourceProjectPath: Projet Fmod/ProjetFmod.fspro
   sourceBankPath: Projet Fmod/Build
   sourceBankPathUnformatted: 
-  BankRefreshCooldown: 5
-  ShowBankRefreshWindow: 1
+  BankRefreshCooldown: 1
+  ShowBankRefreshWindow: 0
   AutomaticEventLoading: 0
   BankLoadType: 0
   AutomaticSampleLoading: 0
@@ -258,7 +258,8 @@ MonoBehaviour:
   Plugins: []
   MasterBanks:
   - Master
-  Banks: []
+  Banks:
+  - SFX
   BanksToLoad: []
   LiveUpdatePort: 9264
   EnableMemoryTracking: 0
