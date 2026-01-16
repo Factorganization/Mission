@@ -275,6 +275,9 @@ public abstract class ElementHolderController : ActorView, IElementHolder
 	{
 		data.Holder1.Flag3 |= ElementFlag.CanConduct;
 		data.Holder2.Flag3 |= ElementFlag.CanConduct;
+		
+		data.Holder1.Durations.electricityTimer = data.Holder1.Durations.electricityDuration;
+		data.Holder2.Durations.electricityTimer = data.Holder2.Durations.electricityDuration;
 	}
 
 	#endregion
