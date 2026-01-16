@@ -135,11 +135,9 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Contr
         {
             playerModel.camYaw += playerModel.lookDir.x
                                   * (playerModel.isUsingMouse ? playerModel.data.cameraData.mouseCamSensitivity : playerModel.data.cameraData.gamepadCamSensitivity)
-                                  //* GameManager.Instance.GameUIMgr.PauseMenuUI.Settings.SensitivitySlider.value
                                   * Time.fixedDeltaTime;
             playerModel.camPitch -= playerModel.lookDir.y
                                     * (playerModel.isUsingMouse ? playerModel.data.cameraData.mouseCamSensitivity : playerModel.data.cameraData.gamepadCamSensitivity)
-                                    //* GameManager.Instance.GameUIMgr.PauseMenuUI.Settings.SensitivitySlider.value
                                     * Time.fixedDeltaTime;
             playerModel.camPitch = Mathf.Clamp(playerModel.camPitch, playerModel.data.cameraData.maxLowerPitchAngle, playerModel.data.cameraData.maxUpperPitchAngle);
 

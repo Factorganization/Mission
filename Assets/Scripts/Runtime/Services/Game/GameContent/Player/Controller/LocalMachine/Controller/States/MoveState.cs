@@ -96,6 +96,7 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Contr
                     break;
                 
                 case 10:
+                    stateMachine.TrySwitchState("menu", (int)playerModel.data.activeStates);
                     GameManager.Instance.GameUIMgr.PauseMenuUI.OpenPauseMenu();
                     break;
                 
