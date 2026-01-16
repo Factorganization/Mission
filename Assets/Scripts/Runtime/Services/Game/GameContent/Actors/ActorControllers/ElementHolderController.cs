@@ -79,19 +79,19 @@ public abstract class ElementHolderController : ActorView, IElementHolder
 	
 	protected virtual void Update()
 	{
-#if UNITY_EDITOR
+//#if UNITY_EDITOR
 		if (objectDefinition.debugInfo.debug)
 			objectDefinition.debugInfo.text.text = $"{(Active ? "<color=green>Active</color>" : "<color=red>Inactive</color>")}\n {Convert.ToString((int)Flag1, 2).PadLeft(4, '0')} \n {Convert.ToString((int)Flag2, 2).PadLeft(4, '0')}";
-#endif
+//#endif
 		
 		//checkup
-		if (((int)Flag3 & 0b0011) == 0b0011)
+		/*if (((int)Flag3 & 0b0011) == 0b0011)
 		{
 			Flag3 &= ~ElementFlag.CanBurn;
 			objectDefinition.durations.fireTimer = 0;
 			SetParticleOverride(this, ElementFlag.CanBurn, false);
 		}
-		
+		*/ 
 		/*if (!Active) //Partons du principe que un objet peut valider ses missions meme inactif
 			return;*/
 		
@@ -283,9 +283,9 @@ public abstract class ElementHolderController : ActorView, IElementHolder
 
 	private void BurnToBurn(ElementInteractionData data)
 	{
-		objectDefinition.durations.fireTimer = objectDefinition.durations.fireDuration; //TODO
-		
+		data.Holder2.Durations.fireTimer = objectDefinition.durations.fireDuration; //TODO
 		data.Holder2.Flag3 |= ElementFlag.CanBurn;
+		
 		if (!_missionDone[1])
 		{
 			MissionManager.Manager.TryGetAndSetMission(new MissionModel(MissionType.ElementAffection, objectDefinition.@object, ElementFlag.CanBurn, RoomType));
@@ -297,6 +297,7 @@ public abstract class ElementHolderController : ActorView, IElementHolder
 	{
 		data.Holder2.Flag3 |= ElementFlag.CanExplode;
 		Explode(data.Holder2);
+		
 		if (_missionDone[3])
 		{
 			MissionManager.Manager.TryGetAndSetMission(new MissionModel(MissionType.ElementAffection, objectDefinition.@object, ElementFlag.CanExplode, RoomType));
@@ -306,9 +307,9 @@ public abstract class ElementHolderController : ActorView, IElementHolder
 
 	private void ElectricToBurn(ElementInteractionData data)
 	{
-		objectDefinition.durations.fireTimer = objectDefinition.durations.fireDuration;
-		
+		data.Holder2.Durations.fireTimer = objectDefinition.durations.fireDuration;
 		data.Holder2.Flag3 |= ElementFlag.CanBurn;
+		
 		if (!_missionDone[1])
 		{
 			MissionManager.Manager.TryGetAndSetMission(new MissionModel(MissionType.ElementAffection, objectDefinition.@object, ElementFlag.CanBurn, RoomType));
@@ -318,9 +319,9 @@ public abstract class ElementHolderController : ActorView, IElementHolder
 
 	private void ElectricToElectric(ElementInteractionData data)
 	{
-		objectDefinition.durations.electricityTimer = objectDefinition.durations.electricityDuration;
-		
+		data.Holder2.Durations.electricityTimer = objectDefinition.durations.electricityDuration;
 		data.Holder2.Flag3 |= ElementFlag.CanConduct;
+		
 		if (!_missionDone[2])
 		{
 			MissionManager.Manager.TryGetAndSetMission(new MissionModel(MissionType.ElementAffection, objectDefinition.@object, ElementFlag.CanConduct, RoomType));
@@ -332,6 +333,7 @@ public abstract class ElementHolderController : ActorView, IElementHolder
 	{
 		data.Holder2.Flag3 |= ElementFlag.CanExplode;
 		Explode(data.Holder2);
+		
 		if (_missionDone[3])
 		{
 			MissionManager.Manager.TryGetAndSetMission(new MissionModel(MissionType.ElementAffection, objectDefinition.@object, ElementFlag.CanExplode, RoomType));
@@ -341,9 +343,9 @@ public abstract class ElementHolderController : ActorView, IElementHolder
 
 	private void WetToWet(ElementInteractionData data)
 	{
-		objectDefinition.durations.waterTimer = objectDefinition.durations.waterDuration;
-		
+		data.Holder2.Durations.waterTimer = objectDefinition.durations.waterDuration;
 		data.Holder2.Flag3 |= ElementFlag.CanBeWet;
+		
 		if (!_missionDone[0])
 		{
 			MissionManager.Manager.TryGetAndSetMission(new MissionModel(MissionType.ElementAffection, objectDefinition.@object, ElementFlag.CanBeWet, RoomType));
