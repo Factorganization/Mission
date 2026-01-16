@@ -6,9 +6,16 @@ namespace Runtime.Services.Game.GameContent.UI.PauseMenu
     {
         #region Functions
 
-        public void QuestOpenOrClose()
+        public void QuestOpen()
         {
-            IsOpen = !IsOpen;
+            if (IsOpen) return;
+            IsOpen = true;
+        }
+
+        public void QuestClose()
+        {
+            if (!IsOpen) return;
+            IsOpen = false;
         }
         
         public override void Show()

@@ -87,7 +87,16 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Contr
                     break;
                 
                 case 8:
-                    GameManager.Instance.GameUIMgr.QuestPage.QuestOpenOrClose();
+                    GameManager.Instance.GameUIMgr.QuestPage.QuestOpen();
+                    break;
+                
+                case 9:
+                    GameManager.Instance.GameUIMgr.QuestPage.QuestClose();
+                    break;
+                
+                case 10:
+                    stateMachine.TrySwitchState("menu", (int)playerModel.data.activeStates);
+                    GameManager.Instance.GameUIMgr.PauseMenuUI.OpenPauseMenu();
                     break;
                 
                 //TODO open menu
