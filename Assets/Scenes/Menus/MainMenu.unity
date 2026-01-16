@@ -675,11 +675,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 1.25, y: 90, z: 0}
---- !u!23 &939235580 stripped
-MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 844570432314883188, guid: 2a584f2fd41ae314ea29c2f52fad87bb, type: 3}
-  m_PrefabInstance: {fileID: 1239602947}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1146987002
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2071,7 +2066,7 @@ MonoBehaviour:
     skinnedMeshRenderer: {fileID: 1239602956}
     meshArray:
     - {fileID: 11400000, guid: 3c2eef109a350474eaada7161687c580, type: 2}
-  head: {fileID: 939235580}
+  head: {fileID: 0}
 --- !u!1001 &1805177051
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2407,6 +2402,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92299397f612baa44ae0e535aff239a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Satanic.Runtime::Runtime.GameContent.UI.MainMenu.MainMenuCamMgr
+  startInput: {fileID: 8930604116637505277, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   _mainMenuCam: {fileID: 579612465}
   _startPos: {fileID: 160960406}
   _endPos: {fileID: 751735950}
