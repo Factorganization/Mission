@@ -22,7 +22,7 @@ namespace Runtime.Services.Cursor
                 return;
             }
 
-            var mousePos = moveInput.action.ReadValue<Vector2>() * mouseSpeed;
+            var mousePos = moveInput.action.ReadValue<Vector2>() * (moveInput.action.activeControl?.name == "delta" ? mouseSpeed : controllerSpeed);
             _mousePos += new Vector2(mousePos.x * 1920 / Screen.width, mousePos.y * 1080 / Screen.height);
 
 			_mousePos.x =  Mathf.Clamp(_mousePos.x, 0, Screen.width);
@@ -44,6 +44,8 @@ namespace Runtime.Services.Cursor
         [SerializeField] private InputActionReference moveInput;
 
         [SerializeField] private float mouseSpeed;
+        
+        [SerializeField] private float controllerSpeed;
         
         private Vector2 _mousePos;
 
