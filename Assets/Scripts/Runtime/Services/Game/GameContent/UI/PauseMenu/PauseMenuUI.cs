@@ -1,4 +1,5 @@
 using Runtime.Service;
+using Runtime.Services.Cursor;
 using Runtime.Services.Scene;
 using UnityEngine.UI;
 
@@ -24,7 +25,7 @@ namespace Runtime.Services.Game.GameContent.UI.PauseMenu
                 _quitButton.onClick.AddListener(ReturnToMainMenu);
         }
 
-        private void OpenPauseMenu()
+        public void OpenPauseMenu()
         {
             Show();
             Time.timeScale = 0f;
@@ -32,13 +33,14 @@ namespace Runtime.Services.Game.GameContent.UI.PauseMenu
         
         private async void ReturnToMainMenu()
         {
+            ServiceLocator.Instance.Get<CursorService>().SetActive(true);
             await ServiceLocator.Instance.Get<SceneService>().LoadSceneGroup(0);
         }
 
         public override void Hide()
         {
             base.Hide();
-            Time.timeScale = 1f; // Resume the game
+            Time.timeScale = 1f;
         }
         
         #endregion

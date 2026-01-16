@@ -1362,6 +1362,7 @@ MonoBehaviour:
   _gameOverUI: {fileID: 6330491790597971511}
   _winUI: {fileID: 6781080428523241071}
   _questPage: {fileID: 4589737676111121314}
+  _pauseMenuUI: {fileID: 813776179727219122}
 --- !u!1 &5830434482583977133
 GameObject:
   m_ObjectHideFlags: 0
@@ -2211,7 +2212,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Satanic.Runtime::Runtime.Services.Game.GameContent.UI.PauseMenu.QuestPage
   _animator: {fileID: 8262878467555249392}
-  IsOpen: 1
 --- !u!224 &4912092554132817178 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6987733520192807201, guid: 56969d32d03afe845a5f1a2452061bb2, type: 3}
@@ -2473,6 +2473,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 60b00874aa166af44afbf62b15e4796f, type: 3}
+--- !u!114 &813776179727219122 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2377564375278218886, guid: 60b00874aa166af44afbf62b15e4796f, type: 3}
+  m_PrefabInstance: {fileID: 3149655702029752116}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 683dccd431f5fac40899737420463f8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
 --- !u!224 &3258838241297931505 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 471869919923915717, guid: 60b00874aa166af44afbf62b15e4796f, type: 3}

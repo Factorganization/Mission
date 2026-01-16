@@ -48,8 +48,10 @@ namespace Runtime.Services.Game.GameContent.UI.GameUI
         [SerializeField] private GameObject _gameOverUI;
         [SerializeField] private GameObject _winUI;
         [SerializeField] private QuestPage _questPage;
+        [SerializeField] private PauseMenuUI _pauseMenuUI;
 
         public QuestPage QuestPage => _questPage;
+        public PauseMenuUI PauseMenuUI => _pauseMenuUI;
         
         #endregion
     }

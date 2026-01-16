@@ -94,6 +94,10 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Contr
                     GameManager.Instance.GameUIMgr.QuestPage.QuestClose();
                     break;
                 
+                case 10:
+                    GameManager.Instance.GameUIMgr.PauseMenuUI.OpenPauseMenu();
+                    break;
+                
                 //TODO open menu
             }
 

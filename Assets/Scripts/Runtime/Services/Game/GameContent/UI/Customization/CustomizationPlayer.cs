@@ -29,7 +29,11 @@ namespace Runtime.Services.Game.GameContent.UI.Customization
 
         private void Start()
         {
-            Load();
+            string json = PlayerPrefs.GetString(PLAYER_PREFS_SAVE, string.Empty);
+            if (!string.IsNullOrEmpty(json))
+            {
+                Load();
+            }
         }
 
         public void ChangeBodyPart(BodyPartType bodyPartType)
