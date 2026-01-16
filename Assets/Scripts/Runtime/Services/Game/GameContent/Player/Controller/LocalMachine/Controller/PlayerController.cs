@@ -85,6 +85,12 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Contr
             if (playerModel.data.inputData.throwInput.action.WasReleasedThisFrame())
                 return 7; //not that useful
 
+            if (playerModel.data.inputData.missionInput.action.WasPressedThisFrame())
+                return 8;
+            
+            if (playerModel.data.inputData.menuInput.action.WasPressedThisFrame())
+                return 9;
+
             return 0;
         }
         
@@ -274,6 +280,7 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Contr
             if (playerModel.currentGrabbedObject is null)
                 return false;
 
+            playerModel.currentGrabbedObject.Grabbed = false;
             playerModel.currentGrabbedObject.Rigidbody.isKinematic = false;
             playerModel.currentGrabbedObject.Transform.SetParent(null, true);
             
@@ -307,6 +314,7 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Contr
         internal static void SetGrabbedObjectState(this PlayerModel playerModel, IGrabbable gb)
         {
             playerModel.currentGrabbedObject = gb;
+            playerModel.currentGrabbedObject.Grabbed = true;
             playerModel.currentGrabbedObject.Rigidbody.isKinematic = true;
             playerModel.currentGrabbedObject.Transform.SetParent(playerModel.grab, true);
             if (playerModel.currentGrabbedObject is IElementHolder e)
@@ -319,6 +327,7 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Contr
         /// <param name="playerModel">self</param>
         internal static void ResetGrabbedObjectState(this PlayerModel playerModel)
         {
+            playerModel.currentGrabbedObject.Grabbed = false;
             playerModel.currentGrabbedObject.Rigidbody.isKinematic = false;
             playerModel.currentGrabbedObject.Transform.SetParent(null, true);
             if (playerModel.currentGrabbedObject is IElementHolder e)

@@ -4,6 +4,7 @@ using Runtime.Services.Game.GameContent.Actors.ActorModels;
 using Runtime.Services.Game.GameContent.Actors.ActorModels.SO;
 using Runtime.Services.Game.GameContent.Actors.ActorModules.AI;
 using Runtime.Services.Cursor;
+using Runtime.Services.Game.GameSystems;
 using UnityEngine.AI;
 
 namespace Runtime.Services.Game.GameContent.Actors.ActorViews
@@ -32,7 +33,7 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
             //Check if Caught
             if (Vector3.Distance(transform.position, playerTrans.position) < 1 && aiDetection.IsPlayerSpotted)
             {
-                gameOver.SetActive(true);
+                GameManager.Instance.GameUIMgr.GameOver();
                 ServiceLocator.Instance.Get<CursorService>().SetActive(true);
             }
             
@@ -139,7 +140,6 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
         [SerializeField] private AIDetection aiDetection;
         [SerializeField] private NavMeshAgent agent;
         [SerializeField] private Transform playerTrans;
-        [SerializeField] private GameObject gameOver; 
 
         private int _index;
         private AIModel _aiModel;

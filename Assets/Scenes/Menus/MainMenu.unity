@@ -697,6 +697,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 233005647470503902, guid: 136f3dccbd0eacd4eb0ccebb0a56466d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 840572237113341661, guid: 136f3dccbd0eacd4eb0ccebb0a56466d, type: 3}
       propertyPath: m_PresetInfoIsWorld
       value: 1
@@ -773,6 +777,19 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1685416831686263975, guid: 136f3dccbd0eacd4eb0ccebb0a56466d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1239602957}
+    - target: {fileID: 1685416831686263975, guid: 136f3dccbd0eacd4eb0ccebb0a56466d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SaveMeshes
+      objectReference: {fileID: 0}
+    - target: {fileID: 1685416831686263975, guid: 136f3dccbd0eacd4eb0ccebb0a56466d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Runtime.Services.Game.GameContent.UI.Customization.CustomizationPlayer,
+        Satanic.Runtime
+      objectReference: {fileID: 0}
     - target: {fileID: 1720587323862238795, guid: 136f3dccbd0eacd4eb0ccebb0a56466d, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -788,6 +805,14 @@ PrefabInstance:
     - target: {fileID: 1720587323862238795, guid: 136f3dccbd0eacd4eb0ccebb0a56466d, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1739009379079943231, guid: 136f3dccbd0eacd4eb0ccebb0a56466d, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1739009379079943231, guid: 136f3dccbd0eacd4eb0ccebb0a56466d, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3039916059635547349, guid: 136f3dccbd0eacd4eb0ccebb0a56466d, type: 3}
       propertyPath: m_Name
@@ -1035,11 +1060,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7822830084981103290, guid: 136f3dccbd0eacd4eb0ccebb0a56466d, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 1950121.8
+      value: 2448496.8
       objectReference: {fileID: 0}
     - target: {fileID: 7822830084981103290, guid: 136f3dccbd0eacd4eb0ccebb0a56466d, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 3585343
+      value: 4511130.5
       objectReference: {fileID: 0}
     - target: {fileID: 8194594427064753803, guid: 136f3dccbd0eacd4eb0ccebb0a56466d, type: 3}
       propertyPath: m_AnchorMax.y
@@ -1056,6 +1081,19 @@ PrefabInstance:
     - target: {fileID: 8194594427064753803, guid: 136f3dccbd0eacd4eb0ccebb0a56466d, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8760400453022793555, guid: 136f3dccbd0eacd4eb0ccebb0a56466d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1239602957}
+    - target: {fileID: 8760400453022793555, guid: 136f3dccbd0eacd4eb0ccebb0a56466d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: LoadMeshes
+      objectReference: {fileID: 0}
+    - target: {fileID: 8760400453022793555, guid: 136f3dccbd0eacd4eb0ccebb0a56466d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Runtime.Services.Game.GameContent.UI.Customization.CustomizationPlayer,
+        Satanic.Runtime
       objectReference: {fileID: 0}
     - target: {fileID: 9162727227752242270, guid: 136f3dccbd0eacd4eb0ccebb0a56466d, type: 3}
       propertyPath: m_AnchorMax.y
@@ -2105,7 +2143,7 @@ MonoBehaviour:
   _rotationSpeed: 8
   _stopPositionThreshold: 0.01
   _stopRotationThreshold: 0.5
-  _firstTimeGameOpened: 0
+  _firstTimeGameOpened: 1
 --- !u!1 &2124226892
 GameObject:
   m_ObjectHideFlags: 0

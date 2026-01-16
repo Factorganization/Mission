@@ -1,7 +1,9 @@
 using Runtime.Service;
 using Runtime.Services.Cursor;
 using Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.View;
+using Runtime.Services.Game.GameContent.UI.GameUI;
 using Runtime.Services.Scene;
+using Runtime.Utils.Singleton;
 
 namespace Runtime.Services.Game.GameSystems
 {
@@ -9,11 +11,19 @@ namespace Runtime.Services.Game.GameSystems
     {
         #region properties
 
+        public static GameManager Instance { get; private set; }
+
         public PlayerStateMachine Player => player;
+        public GameUIMgr GameUIMgr => gameUIMgr;
 
         #endregion
-        
+
         #region methodes
+
+        private void Awake()
+        {
+            Instance = this;
+        }
 
         private void Start()
         {
@@ -25,18 +35,13 @@ namespace Runtime.Services.Game.GameSystems
 			var s = ServiceLocator.Instance.Get<SceneService>();
             await s.LoadSceneGroup(s.CurrentActiveSceneGroup);
         }
-
-        public void EndGame()
-        {
-            // Show end game UI
-        }
         
         #endregion
 
         #region fields
 
         [SerializeField] private PlayerStateMachine player;
-
+        [SerializeField] private GameUIMgr gameUIMgr;
         #endregion
     }
 }

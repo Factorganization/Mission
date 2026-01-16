@@ -7,13 +7,13 @@ namespace Runtime.Services.Game
     {
         #region properties
 
-        public GameManager GameManager => gameManager;
+        //public GameManager GameManager => gameManager;
         
-        public LevelGenerator LevelManager => levelManager;
+        //public LevelGenerator LevelManager => levelManager;
         
-        public ElementManager ElementManager => elementManager;
+        //public ElementManager ElementManager => elementManager;
         
-        public MissionManager MissionManager => missionManager;
+        //public MissionManager MissionManager => missionManager;
 
         #endregion
         
