@@ -57,9 +57,11 @@ namespace Runtime.Services.Game.GameSystems
                     e.RoomType = RoomType.House;
                 }
             }
+            
+            ElementManager.Element.SetThreshold(_elementHolders.Count);
         }
 
-        private void Update()
+        private void FixedUpdate()
         {
             _delay += Time.deltaTime;
 

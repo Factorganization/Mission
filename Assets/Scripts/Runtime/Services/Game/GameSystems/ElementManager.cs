@@ -20,21 +20,24 @@ namespace Runtime.Services.Game.GameSystems
             Element = this;
         }
 
-        private /*async*/ void FixedUpdate()
+        private void FixedUpdate()
         {
             var c = LevelGenerator.Generator.ElementHolders.Count;
 
             _delay += Time.fixedDeltaTime;
             
-            /*if (_delay < 0.25f)
+            /*if (_delay < 0.15f)
                 return;*/
 
             _delay = 0;
-            //await Task.Delay(900);
-            for (var i = 0; i < c; i++)
+            
+            for (var i = _lowerThreshold; i < _upperThreshold; i++)
             {
-                for (var j = 0; j < c; j++) // Tant pis on fait une loop en plus //TODO tester le async
+                for (var j = 0; j < c; j++) 
                 {
+                    if (i == j)
+                        continue;
+
                     var ei = LevelGenerator.Generator.ElementHolders[i];
                     var ej = LevelGenerator.Generator.ElementHolders[j];
                     
@@ -51,6 +54,26 @@ namespace Runtime.Services.Game.GameSystems
                     ei.CheckOtherElement(ej);
                 }
             }
+
+            _upperThreshold += _threshold;
+            if (_upperThreshold > _total)
+                _upperThreshold = _total;
+            
+            _lowerThreshold += _threshold;
+            if (_lowerThreshold > _total)
+            {
+                _lowerThreshold = 0;
+                _upperThreshold = _threshold;
+            }
+        }
+
+        public void SetThreshold(int total)
+        {
+            _total = total;
+            _threshold = (int)Mathf.Floor(total / 10f);
+
+            _lowerThreshold = 0;
+            _upperThreshold = _threshold;
         }
 
         #endregion
@@ -60,6 +83,14 @@ namespace Runtime.Services.Game.GameSystems
         [SerializeField] private LayerMask blockLayer;
         
         private float _delay;
+
+        private int _threshold;
+
+        private int _total;
+        
+        private int _lowerThreshold;
+        
+        private int _upperThreshold;
 
         #endregion
     }
