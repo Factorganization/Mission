@@ -28,11 +28,13 @@ namespace Runtime.Services.Game.GameContent.UI.PauseMenu
         public void OpenPauseMenu()
         {
             Show();
+            ServiceLocator.Instance.Get<CursorService>().SetActive(true);
             Time.timeScale = 0f;
         }
         
         private async void ReturnToMainMenu()
         {
+            Time.timeScale = 1f;
             ServiceLocator.Instance.Get<CursorService>().SetActive(true);
             await ServiceLocator.Instance.Get<SceneService>().LoadSceneGroup(0);
         }
@@ -40,6 +42,7 @@ namespace Runtime.Services.Game.GameContent.UI.PauseMenu
         public override void Hide()
         {
             base.Hide();
+            ServiceLocator.Instance.Get<CursorService>().SetActive(false);
             Time.timeScale = 1f;
         }
         
@@ -49,7 +52,8 @@ namespace Runtime.Services.Game.GameContent.UI.PauseMenu
         
         [SerializeField] private Button _resumeButton, _settingsButton, _quitButton;
         [SerializeField] private Settings _settingsUI;
-        [SerializeField] private QuestPage _questPage;
+        
+        public Settings Settings => _settingsUI;
         
         #endregion
     }

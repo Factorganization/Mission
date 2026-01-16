@@ -68,13 +68,12 @@ namespace Runtime.Services.Game.GameContent.UI
         public override void Show()
         {
             base.Show();
-            _animator.Play("SettingsOpen");
+            StartCoroutine(AnimationExtensions.Play(_animator, "SettingsOpen", false, null));
         }
 
         public override void Hide()
         {
-            _animator.Play("SettingsClose");
-            base.Hide();
+            StartCoroutine(AnimationExtensions.Play(_animator, "SettingsClose", false, () => base.Hide()));
         }
 
         #endregion

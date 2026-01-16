@@ -2,6 +2,7 @@ using System.Runtime.CompilerServices;
 using Runtime.Services.Game.GameContent.Actors.ActorInterfaces;
 using Runtime.Services.Game.GameContent.Logics.LogicInterfaces;
 using Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Model;
+using Runtime.Services.Game.GameSystems;
 
 namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Controller
 {
@@ -134,9 +135,11 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Contr
         {
             playerModel.camYaw += playerModel.lookDir.x
                                   * (playerModel.isUsingMouse ? playerModel.data.cameraData.mouseCamSensitivity : playerModel.data.cameraData.gamepadCamSensitivity)
+                                  //* GameManager.Instance.GameUIMgr.PauseMenuUI.Settings.SensitivitySlider.value
                                   * Time.fixedDeltaTime;
             playerModel.camPitch -= playerModel.lookDir.y
                                     * (playerModel.isUsingMouse ? playerModel.data.cameraData.mouseCamSensitivity : playerModel.data.cameraData.gamepadCamSensitivity)
+                                    //* GameManager.Instance.GameUIMgr.PauseMenuUI.Settings.SensitivitySlider.value
                                     * Time.fixedDeltaTime;
             playerModel.camPitch = Mathf.Clamp(playerModel.camPitch, playerModel.data.cameraData.maxLowerPitchAngle, playerModel.data.cameraData.maxUpperPitchAngle);
 
