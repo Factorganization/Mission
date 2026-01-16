@@ -1,4 +1,5 @@
 using Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Model;
+using Runtime.Services.Game.GameSystems;
 using Shared.Utils.BaseMachine;
 
 namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Controller.States
@@ -63,6 +64,19 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Contr
                 
                 case 3:
                     _destructTimer = 0;
+                    break;
+                
+                case 8:
+                    GameManager.Instance.GameUIMgr.SetMissionPos(1);
+                    break;
+                
+                case 9:
+                    GameManager.Instance.GameUIMgr.SetMissionPos(0);
+                    break;
+                
+                case 10:
+                    stateMachine.TrySwitchState("menu", (int)playerModel.data.activeStates);
+                    GameManager.Instance.GameUIMgr.PauseMenuUI.OpenPauseMenu();
                     break;
             }
             

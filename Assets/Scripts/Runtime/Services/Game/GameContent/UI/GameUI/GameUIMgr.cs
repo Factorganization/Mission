@@ -48,6 +48,11 @@ namespace Runtime.Services.Game.GameContent.UI.GameUI
             Time.timeScale = 0f;
         }
 
+        public void SetMissionPos(int i)
+        {
+            QuestPage.SetMissionPos(i);
+        }
+
         #endregion
 
         #region Fields

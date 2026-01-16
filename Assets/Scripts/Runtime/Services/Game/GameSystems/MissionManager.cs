@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Runtime.Services.Game.GameContent.Actors.ActorViews;
 using Runtime.Services.Game.GameContent.Logics.LogicModels.ElementModels;
 using Runtime.Services.Game.GameContent.Logics.LogicModels.MissionModels;
 using TMPro;
@@ -127,7 +128,9 @@ namespace Runtime.Services.Game.GameSystems
                     return;
             }
             
-            GameManager.Instance.GameUIMgr.WinGame();
+            //TODO
+            //GameManager.Instance.GameUIMgr.WinGame();
+            endGame.OnActivate();
         }
 
 		private void SetTextOnBoard()
@@ -239,6 +242,8 @@ namespace Runtime.Services.Game.GameSystems
 
         #region fields
 
+        [SerializeField] private EndGameView endGame;
+        
         [SerializeField] private MissionModel[] missions;
 
         [SerializeField] private TMP_Text text;
