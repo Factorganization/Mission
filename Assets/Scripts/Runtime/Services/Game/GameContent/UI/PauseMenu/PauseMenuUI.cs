@@ -1,4 +1,5 @@
 using Runtime.Service;
+using Runtime.Services.Cursor;
 using Runtime.Services.Scene;
 using UnityEngine.UI;
 
@@ -24,21 +25,25 @@ namespace Runtime.Services.Game.GameContent.UI.PauseMenu
                 _quitButton.onClick.AddListener(ReturnToMainMenu);
         }
 
-        private void OpenPauseMenu()
+        public void OpenPauseMenu()
         {
             Show();
+            ServiceLocator.Instance.Get<CursorService>().SetActive(true);
             Time.timeScale = 0f;
         }
         
         private async void ReturnToMainMenu()
         {
+            Time.timeScale = 1f;
+            ServiceLocator.Instance.Get<CursorService>().SetActive(true);
             await ServiceLocator.Instance.Get<SceneService>().LoadSceneGroup(0);
         }
 
         public override void Hide()
         {
             base.Hide();
-            Time.timeScale = 1f; // Resume the game
+            ServiceLocator.Instance.Get<CursorService>().SetActive(false);
+            Time.timeScale = 1f;
         }
         
         #endregion
@@ -47,7 +52,8 @@ namespace Runtime.Services.Game.GameContent.UI.PauseMenu
         
         [SerializeField] private Button _resumeButton, _settingsButton, _quitButton;
         [SerializeField] private Settings _settingsUI;
-        [SerializeField] private QuestPage _questPage;
+        
+        public Settings Settings => _settingsUI;
         
         #endregion
     }
