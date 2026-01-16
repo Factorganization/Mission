@@ -20,7 +20,7 @@ namespace Runtime.Services.Game.GameContent.UI.MainMenu
 
         private void Update()
         {
-            if (Mouse.current.leftButton.wasPressedThisFrame && !_isAtEndPos && _firstTimeGameOpened)
+            if ((Mouse.current.leftButton.wasPressedThisFrame || startInput.action.WasPressedThisFrame())&& !_isAtEndPos && _firstTimeGameOpened)
             {
                 StartMoveTo(_endPos);
                 _isAtEndPos = true;
@@ -73,7 +73,8 @@ namespace Runtime.Services.Game.GameContent.UI.MainMenu
         #endregion
 
         #region Fields
-        
+
+        [SerializeField] private InputActionReference startInput;
         [SerializeField] private Camera _mainMenuCam;
         [SerializeField] private Transform _startPos, _endPos;
         
