@@ -89,10 +89,10 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Contr
             if (playerModel.data.inputData.throwInput.action.WasReleasedThisFrame())
                 return 7; //not that useful
 
-            if (playerModel.data.inputData.missionInput.action.WasPressedThisFrame())
+            if (playerModel.data.inputData.missionInput.action.IsPressed())
                 return 8;
             
-            if (playerModel.data.inputData.missionInput.action.WasReleasedThisFrame())
+            if (!playerModel.data.inputData.missionInput.action.IsPressed())
                 return 9;
             
             if (playerModel.data.inputData.menuInput.action.WasPressedThisFrame())
@@ -343,6 +343,16 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Contr
             if (playerModel.currentGrabbedObject is IElementHolder e)
                 e.Active = true; //TODO a corriger apres refonte archi
             playerModel.currentGrabbedObject = null;
+        }
+
+        /// <summary>
+        /// Allow the player to end the level in addition to an interaction input
+        /// </summary>
+        /// <param name="playerModel">self</param>
+        /// <param name="canEndLevel">true if player can End Level</param>
+        public static void SetEndLevel(this PlayerModel playerModel, bool canEndLevel)
+        {
+            playerModel.canEndLevel = canEndLevel;
         }
 
         /// <summary>

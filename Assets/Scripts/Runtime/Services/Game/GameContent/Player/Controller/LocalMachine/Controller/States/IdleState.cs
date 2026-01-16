@@ -60,6 +60,12 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Contr
                     break;
                 
                 case 4:
+                    if (playerModel.currentGrabbedObject is null && playerModel.canEndLevel)
+                    {
+                        GameManager.Instance.GameUIMgr.WinGame();
+                        return 1;
+                    }
+                    
                     if (playerModel.TryInteractGrabbedObject())
                     {
                         playerModel.SetAnimParam(playerModel.isInteracting, true);
@@ -87,11 +93,11 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Contr
                     break;
                 
                 case 8:
-                    GameManager.Instance.GameUIMgr.QuestPage.QuestOpen();
+                    GameManager.Instance.GameUIMgr.SetMissionPos(1);
                     break;
                 
                 case 9:
-                    GameManager.Instance.GameUIMgr.QuestPage.QuestClose();
+                    GameManager.Instance.GameUIMgr.SetMissionPos(0);
                     break;
                 
                 case 10:

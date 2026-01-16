@@ -21,7 +21,7 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Contr
             if (playerModel.data.inputData.menuInput.action.WasPressedThisFrame())
             {
                 GameManager.Instance.GameUIMgr.PauseMenuUI.Hide();
-                stateMachine.TrySwitchState("menu", (int)playerModel.data.activeStates);
+                stateMachine.TrySwitchState(playerModel.currentPossessedObject is not null ? "possess" : "idle", (int)playerModel.data.activeStates);
             }
             
             return base.OnUpdate();
