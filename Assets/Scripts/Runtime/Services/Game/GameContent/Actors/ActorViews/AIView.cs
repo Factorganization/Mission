@@ -34,6 +34,7 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
             //Check if Caught
             if (Vector3.Distance(transform.position, playerTrans.position) < 1 && aiDetection.IsPlayerSpotted)
             {
+                animator.SetBool("ac_playerCaught", true);
                 GameManager.Instance.GameUIMgr.GameOver();
                 ServiceLocator.Instance.Get<CursorService>().SetActive(true);
             }
