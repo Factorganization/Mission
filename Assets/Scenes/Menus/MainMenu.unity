@@ -1073,6 +1073,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1239602957}
     - target: {fileID: 5747861615970380229, guid: 136f3dccbd0eacd4eb0ccebb0a56466d, type: 3}
+      propertyPath: _bodyMats.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5747861615970380229, guid: 136f3dccbd0eacd4eb0ccebb0a56466d, type: 3}
       propertyPath: _eyesMats.Array.size
       value: 6
       objectReference: {fileID: 0}
@@ -1084,6 +1088,22 @@ PrefabInstance:
       propertyPath: _colorsMats.Array.size
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 5747861615970380229, guid: 136f3dccbd0eacd4eb0ccebb0a56466d, type: 3}
+      propertyPath: '_bodyMats.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 6803e5bce54737a43bd05a03eb30f999, type: 2}
+    - target: {fileID: 5747861615970380229, guid: 136f3dccbd0eacd4eb0ccebb0a56466d, type: 3}
+      propertyPath: '_bodyMats.Array.data[1]'
+      value: 
+      objectReference: {fileID: 2100000, guid: c45205896c992c64ca00c560f1704d2d, type: 2}
+    - target: {fileID: 5747861615970380229, guid: 136f3dccbd0eacd4eb0ccebb0a56466d, type: 3}
+      propertyPath: '_bodyMats.Array.data[2]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 64acafc1034f4584a9f950c6c88ffa75, type: 2}
+    - target: {fileID: 5747861615970380229, guid: 136f3dccbd0eacd4eb0ccebb0a56466d, type: 3}
+      propertyPath: '_bodyMats.Array.data[3]'
+      value: 
+      objectReference: {fileID: 2100000, guid: e70d44c0967452d4ca5cee8c7db985d9, type: 2}
     - target: {fileID: 5747861615970380229, guid: 136f3dccbd0eacd4eb0ccebb0a56466d, type: 3}
       propertyPath: '_eyesMats.Array.data[0]'
       value: 
@@ -2062,11 +2082,18 @@ MonoBehaviour:
     meshArray:
     - {fileID: 11400000, guid: c55c248a3784b7e4081c59af0edaaa80, type: 2}
     - {fileID: 11400000, guid: 6bf60782b76133d4bb46510c49c2ec4a, type: 2}
+    - {fileID: 11400000, guid: b68da709656e3b545aa6046c27e0b0f4, type: 2}
+    - {fileID: 11400000, guid: eb2d4950d2bb53548974b257bec6cdd6, type: 2}
   - bodyPartType: 4
     skinnedMeshRenderer: {fileID: 1239602956}
     meshArray:
     - {fileID: 11400000, guid: 3c2eef109a350474eaada7161687c580, type: 2}
-  head: {fileID: 0}
+  head: {fileID: 1551820025}
+--- !u!23 &1551820025 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 3389275581910607526, guid: 8a09bc541e16cff478d93f221598a4b7, type: 3}
+  m_PrefabInstance: {fileID: 1805177051}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1805177051
 PrefabInstance:
   m_ObjectHideFlags: 0
