@@ -123,7 +123,7 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Contr
                     playerModel.data.interactData.grabDistance,
                     playerModel.data.interactData.grabbableBlockLayer);
                 
-                if (d <= playerModel.data.interactData.securityMinGrabDistance)
+                if (d <= playerModel.data.interactData.securityMinGrabDistance && hit.transform.root.TryGetComponent<IGrabbable>(out _) && d < minDist)
                 {
                     minDist = d;
                     gb = g;
