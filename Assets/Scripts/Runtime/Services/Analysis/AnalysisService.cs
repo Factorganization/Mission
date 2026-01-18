@@ -45,6 +45,8 @@ namespace Runtime.Services.Analysis
             }
             else
                 text.text = "";
+
+            graphy.enabled = perfDebug;
         }
 
         #endregion
@@ -52,10 +54,14 @@ namespace Runtime.Services.Analysis
         #region fields
 
         [SerializeField] private TMP_Text text;
+
+        [SerializeField] private Canvas graphy;
         
         [SerializeField] private bool managerDebug;
 
         [SerializeField] private bool sceneDebug;
+        
+        [SerializeField] private bool perfDebug;
 
         #endregion
     }
