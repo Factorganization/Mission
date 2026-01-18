@@ -150,10 +150,29 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
 			//TODO what ?
 			SetParticle(this);
 
-			if (!MissionDone[^1])
+			if ((Flag1 & ElementFlag.CanBeWet) != 0 && !MissionDone[0])
 			{
-				if (MissionManager.Manager.TryGetAndSetMission(new MissionModel(MissionType.Action, objectDefinition.@object, ElementFlag.CanExplode, RoomType)))
-					MissionDone[^1] = true;
+				MissionManager.Manager.TryGetAndSetMission(new MissionModel(MissionType.ElementAffection, objectDefinition.@object, ElementFlag.CanBeWet, RoomType));
+				MissionManager.Manager.TryGetAndSetMission(new MissionModel(MissionType.Action, objectDefinition.@object, ElementFlag.CanBeWet, RoomType));
+				MissionDone[0] = true;
+			}
+			if ((Flag1 & ElementFlag.CanBurn) != 0 && !MissionDone[1])
+			{
+				MissionManager.Manager.TryGetAndSetMission(new MissionModel(MissionType.ElementAffection, objectDefinition.@object, ElementFlag.CanBurn, RoomType));
+				MissionManager.Manager.TryGetAndSetMission(new MissionModel(MissionType.Action, objectDefinition.@object, ElementFlag.CanBurn, RoomType));
+				MissionDone[1] = true;
+			}
+			if ((Flag1 & ElementFlag.CanConduct) != 0 && !MissionDone[2])
+			{
+				MissionManager.Manager.TryGetAndSetMission(new MissionModel(MissionType.ElementAffection, objectDefinition.@object, ElementFlag.CanConduct, RoomType));
+				MissionManager.Manager.TryGetAndSetMission(new MissionModel(MissionType.Action, objectDefinition.@object, ElementFlag.CanConduct, RoomType));
+				MissionDone[2] = true;
+			}
+			if ((Flag1 & ElementFlag.CanExplode) != 0 && !MissionDone[^1])
+			{
+				MissionManager.Manager.TryGetAndSetMission(new MissionModel(MissionType.ElementAffection, objectDefinition.@object, ElementFlag.CanExplode, RoomType));
+				MissionManager.Manager.TryGetAndSetMission(new MissionModel(MissionType.Action, objectDefinition.@object, ElementFlag.CanExplode, RoomType));
+				MissionDone[^1] = true;
 			}
             
 			if ((Flag3 & ElementFlag.CanExplode) != 0)

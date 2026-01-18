@@ -41,24 +41,6 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Contr
                     }
                     break;
                 
-                case 6:
-                    if (playerModel.currentGrabbedObject is not null)
-                    {
-                        playerModel.ResetGrabbedObjectState();
-                        playerModel.SetAnimParam(playerModel.isHolding, false);
-                        playerModel.SetAnimParam(playerModel.isInteracting, false);
-                        break;
-                    }
-                    
-                    var tg = playerModel.OnTryGrab(out var gb);
-                    if (tg == 1)
-                    {
-                        playerModel.SetGrabbedObjectState(gb);
-                        playerModel.SetAnimParam(playerModel.isHolding, true);
-                        playerModel.SetAnimParam(playerModel.isInteracting, false);
-                    }
-                    break;
-                
                 case 4:
                     if (playerModel.currentGrabbedObject is null && playerModel.canEndLevel)
                     {
@@ -75,12 +57,16 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Contr
                     break;
                 
                 case 5:
+                    if (playerModel.currentGrabbedObject is null)
+                        break;
+
                     playerModel.throwTimer += Time.deltaTime;
                     if (playerModel.throwTimer > playerModel.data.interactData.throwTimer)
                     {
                         playerModel.throwTimer = 0;
                         if (playerModel.TryThrowGrabbedObject())
                         {
+                            playerModel.canThrow = false;
                             playerModel.SetAnimParam(playerModel.isInteracting, false);
                             playerModel.SetAnimParam(playerModel.isHolding, false);
                             playerModel.SetAnimParam(playerModel.@throw);
@@ -88,7 +74,30 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Contr
                     }
                     break;
                 
+                case 6:
+                    if (playerModel.currentGrabbedObject is not null)
+                    {
+                        playerModel.canThrow = true;
+                        break;
+                    }
+                                    
+                    var tg = playerModel.OnTryGrab(out var gb);
+                    if (tg == 1)
+                    {
+                        playerModel.SetGrabbedObjectState(gb);
+                        playerModel.SetAnimParam(playerModel.isHolding, true);
+                        playerModel.SetAnimParam(playerModel.isInteracting, false);
+                    }
+                    break;
+                
                 case 7:
+                    if (playerModel.currentGrabbedObject is null || !playerModel.canThrow)
+                        break;
+
+                    playerModel.canThrow = false;
+                    playerModel.ResetGrabbedObjectState();
+                    playerModel.SetAnimParam(playerModel.isHolding, false);
+                    playerModel.SetAnimParam(playerModel.isInteracting, false);
                     playerModel.throwTimer = 0;
                     break;
                 
@@ -103,7 +112,7 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Contr
                 case 10:
                     stateMachine.TrySwitchState("menu", (int)playerModel.data.activeStates);
                     GameManager.Instance.GameUIMgr.PauseMenuUI.OpenPauseMenu();
-                    break;
+                    return 1;
                 
                 //TODO open menu
             }

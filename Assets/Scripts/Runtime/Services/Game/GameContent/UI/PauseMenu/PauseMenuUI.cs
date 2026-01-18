@@ -27,6 +27,7 @@ namespace Runtime.Services.Game.GameContent.UI.PauseMenu
 
         public void OpenPauseMenu()
         {
+            Debug.LogError("PauseMenuUI opened");
             Show();
             ServiceLocator.Instance.Get<CursorService>().SetActive(true);
             Time.timeScale = 0f;

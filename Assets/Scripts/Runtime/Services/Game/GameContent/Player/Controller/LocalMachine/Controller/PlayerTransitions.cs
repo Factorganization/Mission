@@ -71,10 +71,10 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Contr
                 Physics.Raycast(playerModel.rb.position, 
                     (p.Transform.position + p.Collider.center - playerModel.rb.position).normalized,
                     out var hit,
-                    GameConstants.MaxPossessDistance,
+                    playerModel.data.interactData.possessDistance,
                     playerModel.data.interactData.possessedBlockLayer);
                 
-                if (d >= GameConstants.MaxPossessDistance || a > GameConstants.MaxInteractionAngle || d > minDist || a > minAngle || !hit.transform.root.TryGetComponent<IPossessable>(out _))
+                if (d >= playerModel.data.interactData.possessDistance || a > GameConstants.MaxInteractionAngle || d > minDist || a > minAngle || !hit.transform.root.TryGetComponent<IPossessable>(out _))
                     continue;
                 
                 minDist = d;
@@ -120,10 +120,17 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Contr
                 Physics.Raycast(playerModel.rb.position, 
                     (g.Transform.position - playerModel.rb.position).normalized,
                     out var hit,
-                    GameConstants.MaxPossessDistance,
+                    playerModel.data.interactData.grabDistance,
                     playerModel.data.interactData.grabbableBlockLayer);
                 
-                if (d >= GameConstants.MaxPossessDistance || a > GameConstants.MaxInteractionAngle || d > minDist || a > minAngle || !hit.transform.root.TryGetComponent<IGrabbable>(out _))
+                if (d <= playerModel.data.interactData.securityMinGrabDistance)
+                {
+                    minDist = d;
+                    gb = g;
+                    continue;
+                }
+                
+                if (d >= playerModel.data.interactData.grabDistance || a > GameConstants.MaxInteractionAngle || d > minDist || a > minAngle || !hit.transform.root.TryGetComponent<IGrabbable>(out _))
                     continue;
                 
                 minDist = d;
