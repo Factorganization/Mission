@@ -1655,6 +1655,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 4871793923599364168, guid: 2a584f2fd41ae314ea29c2f52fad87bb, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4942932157351541861, guid: 2a584f2fd41ae314ea29c2f52fad87bb, type: 3}
       propertyPath: m_Layer
       value: 3
@@ -1836,9 +1840,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2771106646296613132, guid: 2a584f2fd41ae314ea29c2f52fad87bb, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1239602956}
-    - targetCorrespondingSourceObject: {fileID: 8717863001325711586, guid: 2a584f2fd41ae314ea29c2f52fad87bb, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1239602954}
     - targetCorrespondingSourceObject: {fileID: 5376226735552599523, guid: 2a584f2fd41ae314ea29c2f52fad87bb, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1239602955}
@@ -1848,9 +1849,9 @@ SkinnedMeshRenderer:
   m_CorrespondingSourceObject: {fileID: 7699587315015171474, guid: 2a584f2fd41ae314ea29c2f52fad87bb, type: 3}
   m_PrefabInstance: {fileID: 1239602947}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1239602949 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8717863001325711586, guid: 2a584f2fd41ae314ea29c2f52fad87bb, type: 3}
+--- !u!137 &1239602949 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 6164449194471406979, guid: 2a584f2fd41ae314ea29c2f52fad87bb, type: 3}
   m_PrefabInstance: {fileID: 1239602947}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1239602950 stripped
@@ -1868,66 +1869,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 5963111747219532178, guid: 2a584f2fd41ae314ea29c2f52fad87bb, type: 3}
   m_PrefabInstance: {fileID: 1239602947}
   m_PrefabAsset: {fileID: 0}
---- !u!137 &1239602954
-SkinnedMeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1239602949}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 3
-  m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_ForceMeshLod: -1
-  m_MeshLodSelectionBias: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: 877ed5cd1b047164c98a4f07bdd3e70b, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_MaskInteraction: 0
-  serializedVersion: 2
-  m_Quality: 0
-  m_UpdateWhenOffscreen: 0
-  m_SkinnedMotionVectors: 1
-  m_Mesh: {fileID: -4842819407843136649, guid: c5c91dd547b971742b6e506a1e461fa4, type: 3}
-  m_Bones: []
-  m_BlendShapeWeights: []
-  m_RootBone: {fileID: 0}
-  m_AABB:
-    m_Center: {x: 0, y: 0, z: 0}
-    m_Extent: {x: 0, y: 0, z: 0}
-  m_DirtyAABB: 0
 --- !u!137 &1239602955
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 0
@@ -2062,7 +2003,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Satanic.Runtime::Runtime.GameContent.UI.Customization.CustomizationPlayer
   bodyPartMeshDataArray:
   - bodyPartType: 0
-    skinnedMeshRenderer: {fileID: 1239602954}
+    skinnedMeshRenderer: {fileID: 1239602949}
     meshArray:
     - {fileID: 11400000, guid: b506699e3169df04fb95ee96cc5ac715, type: 2}
     - {fileID: 11400000, guid: ca524f4d9d9c1144594be729b59a8959, type: 2}
