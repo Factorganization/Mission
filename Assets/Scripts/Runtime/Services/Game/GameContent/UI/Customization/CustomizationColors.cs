@@ -27,26 +27,44 @@ namespace Runtime.Services.Game.GameContent.UI.Customization
             var mats = GetMatsForCurrentBodyPart();
             if (mats == null || mats.Count == 0) return;
 
-            int clamped = Mathf.Clamp(colorIndex, 0, mats.Count - 1);
-            var mat = mats[clamped];
-            if (mat == null) return;
-            
-            if (_currentBodyPart == CustomizationPlayer.BodyPartType.Eyes && colorIndex < 4)
+            if ((_currentBodyPart == CustomizationPlayer.BodyPartType.Hair || _currentBodyPart == CustomizationPlayer.BodyPartType.Body))
             {
-                mats = _skinMats;
-                mat = mats[clamped];
-                _characterPreview.ApplyMaterialToHead(mat);
-                _characterPreview.ApplyMaterialToBodySkin(mat);
+                int baseIndex = _currentItemIndex * 4;
+                int targetIndex = Mathf.Clamp(baseIndex + colorIndex, 0, mats.Count - 1);
+                var mat = mats[targetIndex];
+                if (mat == null) return;
+                _characterPreview.ApplyMaterialToBodyPart(_currentBodyPart, mat);
                 return;
             }
             
-            _characterPreview.ApplyMaterialToBodyPart(_currentBodyPart, mat);
+            int clamped = Mathf.Clamp(colorIndex, 0, mats.Count - 1);
+            var matNormal = mats[clamped];
+            if (matNormal == null) return;
+            
+            if (_currentBodyPart == CustomizationPlayer.BodyPartType.Eyes && colorIndex < 4)
+            {
+                var skinMats = _skinMats;
+                if (skinMats == null || skinMats.Count == 0) return;
+                int skinClamped = Mathf.Clamp(colorIndex, 0, skinMats.Count - 1);
+                var skinMat = skinMats[skinClamped];
+                if (skinMat == null) return;
+                _characterPreview.ApplyMaterialToHead(skinMat);
+                _characterPreview.ApplyMaterialToBodySkin(skinMat);
+                return;
+            }
+            
+            _characterPreview.ApplyMaterialToBodyPart(_currentBodyPart, matNormal);
             
         }
         
         public void SetCurrentBodyPart(CustomizationPlayer.BodyPartType bodyPartType)
         {
             _currentBodyPart = bodyPartType;
+        }
+        
+        public void SetCurrentItemIndex(int idx)
+        {
+            _currentItemIndex = Mathf.Max(0, idx);
         }
         
         public List<Material> GetMaterialsForBodyPart(CustomizationPlayer.BodyPartType bodyPartType)
@@ -82,6 +100,7 @@ namespace Runtime.Services.Game.GameContent.UI.Customization
         [SerializeField] private CustomizationPlayer _characterPreview;
 
         private CustomizationPlayer.BodyPartType _currentBodyPart = CustomizationPlayer.BodyPartType.Hair;
+        private int _currentItemIndex;
         #endregion
     }
 }
