@@ -370,7 +370,7 @@ namespace Runtime.Services.Game.GameContent.UI.Customization
         
         [SerializeField] private BodyPartData[] bodyPartMeshDataArray;
 
-        [SerializeField] private MeshRenderer head;
+        [SerializeField] private SkinnedMeshRenderer head;
 
         #endregion
         
