@@ -23,21 +23,25 @@ namespace Runtime.Services.Game.GameContent.UI
             if (_mailApp != null)
                 _mailApp.onClick.AddListener(() => _mailContainer.Show());
             
+            if (_creditsApp != null)
+                _creditsApp.onClick.AddListener(() => _creditsContainer.Show());
+            
             if (_quitApp != null)
                 _quitApp.onClick.AddListener(Application.Quit);
             
             _mailContainer.gameObject.SetActive(false);
             _settingsContainer.gameObject.SetActive(false);
             _customizeContainer.gameObject.SetActive(false);
+            _creditsContainer.gameObject.SetActive(false);
         }
 
         #endregion
 
         #region Fields
 
-        [SerializeField] private Button _mailApp, _settingsApp, _customizeApp, _quitApp;
+        [SerializeField] private Button _mailApp, _settingsApp, _customizeApp, _creditsApp, _quitApp;
     
-        [SerializeField] private UIParent _mailContainer, _settingsContainer, _customizeContainer;
+        [SerializeField] private UIParent _mailContainer, _settingsContainer, _customizeContainer, _creditsContainer;
     
         #endregion
     }
