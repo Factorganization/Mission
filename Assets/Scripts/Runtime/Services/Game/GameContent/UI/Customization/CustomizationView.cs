@@ -35,6 +35,8 @@ namespace Runtime.Services.Game.GameContent.UI.Customization
                  _customizationPooler.Populate(meshes, (btn) =>
                  {
                      _characterPreview.SetBodyPartMesh(CustomizationPlayer.BodyPartType.Hair, btn.ItemIndex);
+                     if (_customizationColors != null)
+                         _customizationColors.SetCurrentItemIndex(btn.ItemIndex);
                  });
              });
              
@@ -60,6 +62,8 @@ namespace Runtime.Services.Game.GameContent.UI.Customization
                  _customizationPooler.Populate(meshes, (btn) =>
                  {
                      _characterPreview.SetBodyPartMesh(CustomizationPlayer.BodyPartType.Body, btn.ItemIndex);
+                     if (_customizationColors != null)
+                         _customizationColors.SetCurrentItemIndex(btn.ItemIndex);
                  });
              });
             

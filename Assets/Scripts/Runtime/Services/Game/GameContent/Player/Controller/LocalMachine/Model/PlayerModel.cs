@@ -85,6 +85,8 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Model
         
         public bool isUsingMouse = false;
         
+        public bool canThrow = false;
+        
         public bool canEndLevel = false;
 
         #endregion

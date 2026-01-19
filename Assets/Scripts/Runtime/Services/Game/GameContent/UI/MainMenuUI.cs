@@ -9,6 +9,7 @@ namespace Runtime.Services.Game.GameContent.UI
         private void Start()
         {
             Initialize();
+            Time.timeScale = 1.0f;
         }
 
         private void Initialize()
