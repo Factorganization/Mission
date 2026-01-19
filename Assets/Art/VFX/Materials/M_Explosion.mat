@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: M_Shockwave
-  m_Shader: {fileID: -6465566751694194690, guid: 1b04a4cbb93858f49a8adbad2a871ca8, type: 3}
+  m_Name: M_Explosion
+  m_Shader: {fileID: -6465566751694194690, guid: d58c53b51c5d9524d8160bde22554703, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -49,7 +49,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: a9be345f73e0e4341a372882e2debff4, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -62,6 +62,18 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _ParallaxMap:
         m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_ab29006d767f4c5ca2d0949b8f7ea0b5_Texture_1_Texture2D:
+        m_Texture: {fileID: 2800000, guid: 6ec9bebcd12017c4bb9310e084251ead, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_d9596cb1c8824c90ad82cc96d83152c7_Texture_1_Texture2D:
+        m_Texture: {fileID: 2800000, guid: 66df39bae21ea674185314971c5de88b, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_f9586d25af64445f8558f59e8acd60c7_Texture_1_Texture2D:
+        m_Texture: {fileID: 2800000, guid: 1ed155f85263845439de4a96a6cb5013, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:
@@ -103,30 +115,26 @@ Material:
     - _Metallic: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.005
-    - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
-    - _Size: 0.1
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
-    - _Speed: 1
     - _SrcBlend: 1
     - _SrcBlendAlpha: 1
-    - _Strengh: 0.15
     - _Surface: 0
     - _WorkflowMode: 1
     - _XRMotionVectorsPass: 1
     - _ZWrite: 1
     m_Colors:
+    - White: {r: 1, g: 1, b: 1, a: 1}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
-    - _Center: {r: 0.5, g: 0.5, b: 0, a: 0}
-    - _Color: {r: 5.5849056, g: 0.0627451, b: 0.84705883, a: 1}
+    - _Color: {r: 6.792453, g: 0.032039948, b: 0.59199494, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
---- !u!114 &2573219818659035664
+--- !u!114 &72357218492603018
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
