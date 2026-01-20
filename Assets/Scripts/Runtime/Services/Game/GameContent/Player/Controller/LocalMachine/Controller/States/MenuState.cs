@@ -1,4 +1,5 @@
 using Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Model;
+using Runtime.Services.Game.GameSystems;
 using Shared.Utils.BaseMachine;
 
 namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Controller.States
@@ -19,13 +20,14 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Contr
         {
             if (playerModel.data.inputData.menuInput.action.WasPressedThisFrame())
             {
-                //TODO close menu
-                stateMachine.TrySwitchState("menu", (int)playerModel.data.activeStates);
+                GameManager.Instance.GameUIMgr.PauseMenuUI.Hide();
+                stateMachine.TrySwitchState(playerModel.currentPossessedObject is not null ? "possess" : "idle", (int)playerModel.data.activeStates);
             }
             
             return base.OnUpdate();
         }
 
         #endregion
+        
     }
 }

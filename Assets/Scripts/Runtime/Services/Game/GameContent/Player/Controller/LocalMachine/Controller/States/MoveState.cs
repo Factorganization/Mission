@@ -41,13 +41,44 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Contr
                         playerModel.currentPossessedObject = null;
                     }
                     break;
+
+                case 4:
+                    if (playerModel.currentGrabbedObject is null && playerModel.canEndLevel)
+                    {
+                        GameManager.Instance.GameUIMgr.WinGame();
+                        return 1;
+                    }
+                    
+                    if (playerModel.TryInteractGrabbedObject())
+                    {
+                        playerModel.SetAnimParam(playerModel.isInteracting, true);
+                        break;
+                    }
+                    playerModel.SetAnimParam(playerModel.isInteracting, false);
+                    break;
+                
+                case 5:
+                    if (playerModel.currentGrabbedObject is null)
+                        break;
+                    
+                    playerModel.throwTimer += Time.deltaTime;
+                    if (playerModel.throwTimer > playerModel.data.interactData.throwTimer)
+                    {
+                        playerModel.throwTimer = 0;
+                        if (playerModel.TryThrowGrabbedObject())
+                        {
+                            playerModel.canThrow = false;
+                            playerModel.SetAnimParam(playerModel.isInteracting, false);
+                            playerModel.SetAnimParam(playerModel.isHolding, false);
+                            playerModel.SetAnimParam(playerModel.@throw);
+                        }
+                    }
+                    break;
                 
                 case 6:
                     if (playerModel.currentGrabbedObject is not null)
                     {
-                        playerModel.ResetGrabbedObjectState();
-                        playerModel.SetAnimParam(playerModel.isHolding, false);
-                        playerModel.SetAnimParam(playerModel.isInteracting, false);
+                        playerModel.canThrow = true;
                         break;
                     }
                     
@@ -59,37 +90,30 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Contr
                         playerModel.SetAnimParam(playerModel.isInteracting, false);
                     }
                     break;
-
-                case 4:
-                    if (playerModel.TryInteractGrabbedObject())
-                    {
-                        playerModel.SetAnimParam(playerModel.isInteracting, true);
-                        break;
-                    }
-                    playerModel.SetAnimParam(playerModel.isInteracting, false);
-                    break;
-                
-                case 5:
-                    playerModel.throwTimer += Time.deltaTime;
-                    if (playerModel.throwTimer > playerModel.data.interactData.throwTimer)
-                    {
-                        playerModel.throwTimer = 0;
-                        if (playerModel.TryThrowGrabbedObject())
-                        {
-                            playerModel.SetAnimParam(playerModel.isInteracting, false);
-                            playerModel.SetAnimParam(playerModel.isHolding, false);
-                            playerModel.SetAnimParam(playerModel.@throw);
-                        }
-                    }
-                    break;
                 
                 case 7:
+                    if (playerModel.currentGrabbedObject is null || !playerModel.canThrow)
+                        break;
+
+                    playerModel.canThrow = false;
+                    playerModel.ResetGrabbedObjectState();
+                    playerModel.SetAnimParam(playerModel.isHolding, false);
+                    playerModel.SetAnimParam(playerModel.isInteracting, false);
                     playerModel.throwTimer = 0;
                     break;
                 
                 case 8:
-                    GameManager.Instance.GameUIMgr.QuestPage.QuestOpenOrClose();
+                    GameManager.Instance.GameUIMgr.SetMissionPos(1);
                     break;
+                
+                case 9:
+                    GameManager.Instance.GameUIMgr.SetMissionPos(0);
+                    break;
+                
+                case 10:
+                    stateMachine.TrySwitchState("menu", (int)playerModel.data.activeStates);
+                    GameManager.Instance.GameUIMgr.PauseMenuUI.OpenPauseMenu();
+                    return 1;
                 
                 //TODO
             }

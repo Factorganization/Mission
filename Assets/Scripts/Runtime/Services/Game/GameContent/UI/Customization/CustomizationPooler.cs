@@ -50,8 +50,7 @@ namespace Runtime.Services.Game.GameContent.UI.Customization
                 
                 if (customItems[i].ItemMesh != null)
                     btn.SetDataMesh(customItems[i].ItemMesh, icon, customItems[i].Locked, i);
-                else
-                    btn.SetDataPrefab(customItems[i].ItemPrefab, icon, customItems[i].Locked, i);
+
                 if (onSelected != null)
                     btn.OnChangeSkin.AddListener(onSelected);
                 else

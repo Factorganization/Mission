@@ -20,6 +20,12 @@ namespace Runtime.Services.Scene.SceneSystems
         
         public async Task LoadScenes(SceneGroup group, IProgress<float> progress, bool reloadDupScenes = false)
         {
+            if (_loading)
+                return;
+
+            _loading = true;
+            Debug.Log("Loading scenes");
+            
             _activeSceneGroup = group;
             var loadedScenes = new List<string>();
 
@@ -83,6 +89,9 @@ namespace Runtime.Services.Scene.SceneSystems
             }*/
             
             OnSceneGroupLoaded.Invoke();
+            
+            _loading = false;
+            Debug.Log("Ending Loading");
         }
 
         public async Task UnloadScenes()
@@ -157,6 +166,8 @@ namespace Runtime.Services.Scene.SceneSystems
         public event Action OnSceneGroupLoaded = delegate { };
 
         private SceneGroup _activeSceneGroup;
+
+        private bool _loading;
 
         #endregion
     }

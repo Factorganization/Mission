@@ -41,25 +41,13 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Contr
                     }
                     break;
                 
-                case 6:
-                    if (playerModel.currentGrabbedObject is not null)
+                case 4:
+                    if (playerModel.currentGrabbedObject is null && playerModel.canEndLevel)
                     {
-                        playerModel.ResetGrabbedObjectState();
-                        playerModel.SetAnimParam(playerModel.isHolding, false);
-                        playerModel.SetAnimParam(playerModel.isInteracting, false);
-                        break;
+                        GameManager.Instance.GameUIMgr.WinGame();
+                        return 1;
                     }
                     
-                    var tg = playerModel.OnTryGrab(out var gb);
-                    if (tg == 1)
-                    {
-                        playerModel.SetGrabbedObjectState(gb);
-                        playerModel.SetAnimParam(playerModel.isHolding, true);
-                        playerModel.SetAnimParam(playerModel.isInteracting, false);
-                    }
-                    break;
-                
-                case 4:
                     if (playerModel.TryInteractGrabbedObject())
                     {
                         playerModel.SetAnimParam(playerModel.isInteracting, true);
@@ -69,12 +57,16 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Contr
                     break;
                 
                 case 5:
+                    if (playerModel.currentGrabbedObject is null)
+                        break;
+
                     playerModel.throwTimer += Time.deltaTime;
                     if (playerModel.throwTimer > playerModel.data.interactData.throwTimer)
                     {
                         playerModel.throwTimer = 0;
                         if (playerModel.TryThrowGrabbedObject())
                         {
+                            playerModel.canThrow = false;
                             playerModel.SetAnimParam(playerModel.isInteracting, false);
                             playerModel.SetAnimParam(playerModel.isHolding, false);
                             playerModel.SetAnimParam(playerModel.@throw);
@@ -82,13 +74,45 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Contr
                     }
                     break;
                 
+                case 6:
+                    if (playerModel.currentGrabbedObject is not null)
+                    {
+                        playerModel.canThrow = true;
+                        break;
+                    }
+                                    
+                    var tg = playerModel.OnTryGrab(out var gb);
+                    if (tg == 1)
+                    {
+                        playerModel.SetGrabbedObjectState(gb);
+                        playerModel.SetAnimParam(playerModel.isHolding, true);
+                        playerModel.SetAnimParam(playerModel.isInteracting, false);
+                    }
+                    break;
+                
                 case 7:
+                    if (playerModel.currentGrabbedObject is null || !playerModel.canThrow)
+                        break;
+
+                    playerModel.canThrow = false;
+                    playerModel.ResetGrabbedObjectState();
+                    playerModel.SetAnimParam(playerModel.isHolding, false);
+                    playerModel.SetAnimParam(playerModel.isInteracting, false);
                     playerModel.throwTimer = 0;
                     break;
                 
                 case 8:
-                    GameManager.Instance.GameUIMgr.QuestPage.QuestOpenOrClose();
+                    GameManager.Instance.GameUIMgr.SetMissionPos(1);
                     break;
+                
+                case 9:
+                    GameManager.Instance.GameUIMgr.SetMissionPos(0);
+                    break;
+                
+                case 10:
+                    stateMachine.TrySwitchState("menu", (int)playerModel.data.activeStates);
+                    GameManager.Instance.GameUIMgr.PauseMenuUI.OpenPauseMenu();
+                    return 1;
                 
                 //TODO open menu
             }

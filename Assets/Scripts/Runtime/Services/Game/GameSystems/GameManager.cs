@@ -28,6 +28,7 @@ namespace Runtime.Services.Game.GameSystems
         private void Start()
         {
             ServiceLocator.Instance.Get<CursorService>().SetActive(false);
+            Time.timeScale = 1;
         }
 
         public async void ReloadScene()

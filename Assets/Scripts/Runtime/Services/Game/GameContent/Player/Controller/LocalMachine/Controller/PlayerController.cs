@@ -2,6 +2,7 @@ using System.Runtime.CompilerServices;
 using Runtime.Services.Game.GameContent.Actors.ActorInterfaces;
 using Runtime.Services.Game.GameContent.Logics.LogicInterfaces;
 using Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Model;
+using Runtime.Services.Game.GameSystems;
 
 namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Controller
 {
@@ -60,9 +61,12 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Contr
         /// <item>5 : prep throw item</item>
         /// <item>6 : try Grab / Drop</item>
         /// <item>7 : cancel throw</item>
+        /// <item>8 : mission input pressed</item>
+        /// <item>9 : mission input released</item>
+        /// <item>10 : menu input pressed</item>
         /// </list>
         /// </returns>
-        internal static byte HandleMonoInputGather(this PlayerModel playerModel)
+        internal static byte HandleMonoInputGather(this PlayerModel playerModel) //TODO  nettoyer
         {
             if (playerModel.data.inputData.tryPossessInput.action.WasPressedThisFrame())
                 return 1;
@@ -79,16 +83,19 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Contr
             if (playerModel.data.inputData.tryGrabInput.action.WasPressedThisFrame())
                 return 6;
 
-            if (playerModel.data.inputData.throwInput.action.IsPressed())
+            if (playerModel.data.inputData.tryGrabInput.action.IsPressed())
                 return 5;
 
-            if (playerModel.data.inputData.throwInput.action.WasReleasedThisFrame())
+            if (playerModel.data.inputData.tryGrabInput.action.WasReleasedThisFrame())
                 return 7; //not that useful
 
-            if (playerModel.data.inputData.missionInput.action.WasPressedThisFrame())
+            if (playerModel.data.inputData.missionInput.action.IsPressed())
                 return 8;
             
             if (playerModel.data.inputData.menuInput.action.WasPressedThisFrame())
+                return 10;
+            
+            if (!playerModel.data.inputData.missionInput.action.IsPressed())
                 return 9;
 
             return 0;
@@ -133,8 +140,11 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Contr
                                     * (playerModel.isUsingMouse ? playerModel.data.cameraData.mouseCamSensitivity : playerModel.data.cameraData.gamepadCamSensitivity)
                                     * Time.fixedDeltaTime;
             playerModel.camPitch = Mathf.Clamp(playerModel.camPitch, playerModel.data.cameraData.maxLowerPitchAngle, playerModel.data.cameraData.maxUpperPitchAngle);
+
+            playerModel.cYsD = Mathf.SmoothDamp(playerModel.cYsD, playerModel.camYaw, ref playerModel.cVcY, playerModel.data.cameraData.smoothCamCoeff);
+            playerModel.cPsD = Mathf.SmoothDamp(playerModel.cPsD, playerModel.camPitch, ref playerModel.cVcP, playerModel.data.cameraData.smoothCamCoeff);
             
-            playerModel.cam.localEulerAngles = new Vector3(playerModel.data.cameraData.freeCam ? playerModel.camPitch : playerModel.cam.localEulerAngles.x, playerModel.camYaw, 0);
+            playerModel.cam.localEulerAngles = new Vector3(playerModel.data.cameraData.freeCam ? playerModel.cPsD : playerModel.cam.localEulerAngles.x, playerModel.cYsD, 0);
             //playerModel.cam.localEulerAngles += Math.EasingFunction.SimpleQuadraticEase.V3SimpleQuadraticEaseOut(playerModel.cam.localEulerAngles, playerModel.targetLookDir, 0.1f);
         }
         
@@ -333,6 +343,16 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Contr
             if (playerModel.currentGrabbedObject is IElementHolder e)
                 e.Active = true; //TODO a corriger apres refonte archi
             playerModel.currentGrabbedObject = null;
+        }
+
+        /// <summary>
+        /// Allow the player to end the level in addition to an interaction input
+        /// </summary>
+        /// <param name="playerModel">self</param>
+        /// <param name="canEndLevel">true if player can End Level</param>
+        public static void SetEndLevel(this PlayerModel playerModel, bool canEndLevel)
+        {
+            playerModel.canEndLevel = canEndLevel;
         }
 
         /// <summary>

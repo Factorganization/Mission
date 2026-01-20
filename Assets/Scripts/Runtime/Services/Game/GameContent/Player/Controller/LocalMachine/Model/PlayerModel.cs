@@ -53,6 +53,14 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Model
 
         public float camPitch = 0;
 
+        public float cYsD = 0;
+
+        public float cPsD = 0;
+
+        public float cVcY = 0;
+        
+        public float cVcP = 0;
+
         public float castAddLength = 0;
 
         public float vertVelocity = 0;
@@ -76,6 +84,10 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Model
         public bool isCrouching = false;
         
         public bool isUsingMouse = false;
+        
+        public bool canThrow = false;
+        
+        public bool canEndLevel = false;
 
         #endregion
 
