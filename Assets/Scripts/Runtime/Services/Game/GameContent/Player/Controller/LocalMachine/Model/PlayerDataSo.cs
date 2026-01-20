@@ -102,6 +102,12 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Model
         public float bigPossessActionTimer;
 
         public float throwTimer;
+
+        public float grabDistance;
+
+        public float possessDistance;
+
+        public float securityMinGrabDistance;
         
         public LayerMask grabbableBlockLayer;
         

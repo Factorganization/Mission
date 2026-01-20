@@ -4180,6 +4180,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1342249611}
     m_Modifications:
+    - target: {fileID: 7878280043943151669, guid: 1fa001ff93ea6c345ac19a79f8845fd7, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 1eaef7bcf5d7e7f4f8b2100c862ff8e9, type: 2}
     - target: {fileID: 5383856568908349303, guid: 11cd56599f65adf43aab9121aef5a21d, type: 3}
       propertyPath: m_Name
       value: PV_Affectable_Frame_02 (3)
@@ -4224,10 +4228,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7878280043943151669, guid: 1fa001ff93ea6c345ac19a79f8845fd7, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
-      value: 
-      objectReference: {fileID: 2100000, guid: 1eaef7bcf5d7e7f4f8b2100c862ff8e9, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4244,6 +4244,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1342249611}
     m_Modifications:
+    - target: {fileID: 7878280043943151669, guid: 1fa001ff93ea6c345ac19a79f8845fd7, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 1eaef7bcf5d7e7f4f8b2100c862ff8e9, type: 2}
     - target: {fileID: 5383856568908349303, guid: 11cd56599f65adf43aab9121aef5a21d, type: 3}
       propertyPath: m_Name
       value: PV_Affectable_Frame_02 (2)
@@ -4288,10 +4292,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7878280043943151669, guid: 1fa001ff93ea6c345ac19a79f8845fd7, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
-      value: 
-      objectReference: {fileID: 2100000, guid: 1eaef7bcf5d7e7f4f8b2100c862ff8e9, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4589,6 +4589,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1342249611}
     m_Modifications:
+    - target: {fileID: 7878280043943151669, guid: 1fa001ff93ea6c345ac19a79f8845fd7, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 1eaef7bcf5d7e7f4f8b2100c862ff8e9, type: 2}
     - target: {fileID: 5383856568908349303, guid: 11cd56599f65adf43aab9121aef5a21d, type: 3}
       propertyPath: m_Name
       value: PV_Affectable_Frame_02 (1)
@@ -4633,10 +4637,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7878280043943151669, guid: 1fa001ff93ea6c345ac19a79f8845fd7, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
-      value: 
-      objectReference: {fileID: 2100000, guid: 1eaef7bcf5d7e7f4f8b2100c862ff8e9, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6880,6 +6880,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1947480076}
     - target: {fileID: 375215268450755755, guid: 10ce2058a27ca0142a0c1b3f0befdb66, type: 3}
+      propertyPath: endGame
+      value: 
+      objectReference: {fileID: 1248636987}
+    - target: {fileID: 375215268450755755, guid: 10ce2058a27ca0142a0c1b3f0befdb66, type: 3}
       propertyPath: missions.Array.size
       value: 3
       objectReference: {fileID: 0}
@@ -7075,6 +7079,78 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9769280811ff40baa3e35756cc72cd21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Satanic.Runtime::Runtime.Management.GameManagement.LevelGenerator
+--- !u!1001 &1248636986
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 285324805812622576, guid: 216113a689b65964c9de6e74e71cc36b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -8
+      objectReference: {fileID: 0}
+    - target: {fileID: 285324805812622576, guid: 216113a689b65964c9de6e74e71cc36b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 285324805812622576, guid: 216113a689b65964c9de6e74e71cc36b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -3.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 285324805812622576, guid: 216113a689b65964c9de6e74e71cc36b, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.70710784
+      objectReference: {fileID: 0}
+    - target: {fileID: 285324805812622576, guid: 216113a689b65964c9de6e74e71cc36b, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 285324805812622576, guid: 216113a689b65964c9de6e74e71cc36b, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.70710576
+      objectReference: {fileID: 0}
+    - target: {fileID: 285324805812622576, guid: 216113a689b65964c9de6e74e71cc36b, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 285324805812622576, guid: 216113a689b65964c9de6e74e71cc36b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 285324805812622576, guid: 216113a689b65964c9de6e74e71cc36b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 285324805812622576, guid: 216113a689b65964c9de6e74e71cc36b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5615409190851126031, guid: 216113a689b65964c9de6e74e71cc36b, type: 3}
+      propertyPath: m_Name
+      value: Avengers EndGame
+      objectReference: {fileID: 0}
+    - target: {fileID: 6643971695906297964, guid: 216113a689b65964c9de6e74e71cc36b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 216113a689b65964c9de6e74e71cc36b, type: 3}
+--- !u!114 &1248636987 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1322167862504467637, guid: 216113a689b65964c9de6e74e71cc36b, type: 3}
+  m_PrefabInstance: {fileID: 1248636986}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebf38266fe984d0d8edf4149f2ffe472, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Satanic.Runtime::Runtime.Services.Game.GameContent.Actors.ActorViews.EndGameView
 --- !u!1001 &1262287200
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7208,6 +7284,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1342249611}
     m_Modifications:
+    - target: {fileID: 7878280043943151669, guid: 1fa001ff93ea6c345ac19a79f8845fd7, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 1eaef7bcf5d7e7f4f8b2100c862ff8e9, type: 2}
     - target: {fileID: 5383856568908349303, guid: 11cd56599f65adf43aab9121aef5a21d, type: 3}
       propertyPath: m_Name
       value: PV_Affectable_Frame_02
@@ -7252,10 +7332,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7878280043943151669, guid: 1fa001ff93ea6c345ac19a79f8845fd7, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
-      value: 
-      objectReference: {fileID: 2100000, guid: 1eaef7bcf5d7e7f4f8b2100c862ff8e9, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -8097,6 +8173,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1342249611}
     m_Modifications:
+    - target: {fileID: 7878280043943151669, guid: 1fa001ff93ea6c345ac19a79f8845fd7, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 1eaef7bcf5d7e7f4f8b2100c862ff8e9, type: 2}
     - target: {fileID: 5383856568908349303, guid: 11cd56599f65adf43aab9121aef5a21d, type: 3}
       propertyPath: m_Name
       value: PV_Affectable_Frame_02 (4)
@@ -8141,10 +8221,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7878280043943151669, guid: 1fa001ff93ea6c345ac19a79f8845fd7, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
-      value: 
-      objectReference: {fileID: 2100000, guid: 1eaef7bcf5d7e7f4f8b2100c862ff8e9, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -9704,7 +9780,7 @@ GameObject:
   m_Icon: {fileID: 2800000, guid: 4445790c252970d45ae069bd9011b484, type: 3}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1955108944
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10786,3 +10862,4 @@ SceneRoots:
   - {fileID: 1202307998}
   - {fileID: 1883192788}
   - {fileID: 1947480074}
+  - {fileID: 1248636986}

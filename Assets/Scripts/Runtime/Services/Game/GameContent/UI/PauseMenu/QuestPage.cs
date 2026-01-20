@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+using UnityEngine.UI;
 
 namespace Runtime.Services.Game.GameContent.UI.PauseMenu
 {
@@ -6,35 +6,23 @@ namespace Runtime.Services.Game.GameContent.UI.PauseMenu
     {
         #region Functions
 
-        public void QuestOpen()
+        private void FixedUpdate()
         {
-            if (IsOpen) return;
-            IsOpen = true;
+            holder.rectTransform.anchoredPosition += Math.EasingFunction.SimpleQuadraticEase.V2SimpleQuadraticEaseOut(holder.rectTransform.anchoredPosition, _missionTargetPosition, 0.5f);
         }
 
-        public void QuestClose()
+        public void SetMissionPos(int i)
         {
-            if (!IsOpen) return;
-            IsOpen = false;
-        }
-        
-        public override void Show()
-        {
-            base.Show();
-            _animator.Play("QuestPageAppear");
-        }
-
-        public override void Hide()
-        {
-            _animator.Play("QuestPageDisappear");
+            _missionTargetPosition = new Vector2(-363.13f + i * 728.13f, 0);
         }
 
         #endregion
 
         #region Fields
+
+        [SerializeField] private Image holder;
         
         // Temporary quest data list for testing
-        [SerializeField] private Animation _animator;
         private bool _isOpen;
         
         public bool IsOpen
@@ -48,6 +36,8 @@ namespace Runtime.Services.Game.GameContent.UI.PauseMenu
                 else Hide();
             }
         }
+        
+        private Vector2 _missionTargetPosition;
 
         #endregion
     }

@@ -289,10 +289,10 @@ public abstract class ElementHolderController : ActorView, IElementHolder
 		data.Holder2.Durations.fireTimer = objectDefinition.durations.fireDuration; //TODO
 		data.Holder2.Flag3 |= ElementFlag.CanBurn;
 		
-		if (!_missionDone[1])
+		if (!data.Holder2.MissionDone[1])
 		{
-			MissionManager.Manager.TryGetAndSetMission(new MissionModel(MissionType.ElementAffection, objectDefinition.@object, ElementFlag.CanBurn, RoomType));
-			_missionDone[1] = true;
+			MissionManager.Manager.TryGetAndSetMission(new MissionModel(MissionType.ElementAffection, data.Holder2.ObjectType, ElementFlag.CanBurn, data.Holder2.RoomType));
+			data.Holder2.MissionDone[1] = true;
 		}
 	}
 
@@ -301,10 +301,10 @@ public abstract class ElementHolderController : ActorView, IElementHolder
 		data.Holder2.Flag3 |= ElementFlag.CanExplode;
 		Explode(data.Holder2);
 		
-		if (_missionDone[3])
+		if (!data.Holder2.MissionDone[3])
 		{
-			MissionManager.Manager.TryGetAndSetMission(new MissionModel(MissionType.ElementAffection, objectDefinition.@object, ElementFlag.CanExplode, RoomType));
-			_missionDone[3] = true;
+			MissionManager.Manager.TryGetAndSetMission(new MissionModel(MissionType.ElementAffection, data.Holder2.ObjectType, ElementFlag.CanExplode, data.Holder2.RoomType));
+			data.Holder2.MissionDone[3] = true;
 		}
 	}
 
@@ -313,10 +313,10 @@ public abstract class ElementHolderController : ActorView, IElementHolder
 		data.Holder2.Durations.fireTimer = objectDefinition.durations.fireDuration;
 		data.Holder2.Flag3 |= ElementFlag.CanBurn;
 		
-		if (!_missionDone[1])
+		if (!data.Holder2.MissionDone[1])
 		{
-			MissionManager.Manager.TryGetAndSetMission(new MissionModel(MissionType.ElementAffection, objectDefinition.@object, ElementFlag.CanBurn, RoomType));
-			_missionDone[1] = true;
+			MissionManager.Manager.TryGetAndSetMission(new MissionModel(MissionType.ElementAffection, data.Holder2.ObjectType, ElementFlag.CanBurn, data.Holder2.RoomType));
+			data.Holder2.MissionDone[1] = true;
 		}
 	}
 
@@ -325,10 +325,10 @@ public abstract class ElementHolderController : ActorView, IElementHolder
 		data.Holder2.Durations.electricityTimer = objectDefinition.durations.electricityDuration;
 		data.Holder2.Flag3 |= ElementFlag.CanConduct;
 		
-		if (!_missionDone[2])
+		if (!data.Holder2.MissionDone[2])
 		{
-			MissionManager.Manager.TryGetAndSetMission(new MissionModel(MissionType.ElementAffection, objectDefinition.@object, ElementFlag.CanConduct, RoomType));
-			_missionDone[2] = true;
+			MissionManager.Manager.TryGetAndSetMission(new MissionModel(MissionType.ElementAffection, data.Holder2.ObjectType, ElementFlag.CanConduct, data.Holder2.RoomType));
+			data.Holder2.MissionDone[2] = true;
 		}
 	}
 
@@ -337,10 +337,10 @@ public abstract class ElementHolderController : ActorView, IElementHolder
 		data.Holder2.Flag3 |= ElementFlag.CanExplode;
 		Explode(data.Holder2);
 		
-		if (_missionDone[3])
+		if (!data.Holder2.MissionDone[3])
 		{
-			MissionManager.Manager.TryGetAndSetMission(new MissionModel(MissionType.ElementAffection, objectDefinition.@object, ElementFlag.CanExplode, RoomType));
-			_missionDone[3] = true;
+			MissionManager.Manager.TryGetAndSetMission(new MissionModel(MissionType.ElementAffection, data.Holder2.ObjectType, ElementFlag.CanExplode, data.Holder2.RoomType));
+			data.Holder2.MissionDone[3] = true;
 		}
 	}
 
@@ -349,10 +349,10 @@ public abstract class ElementHolderController : ActorView, IElementHolder
 		data.Holder2.Durations.waterTimer = objectDefinition.durations.waterDuration;
 		data.Holder2.Flag3 |= ElementFlag.CanBeWet;
 		
-		if (!_missionDone[0])
+		if (!data.Holder2.MissionDone[0])
 		{
-			MissionManager.Manager.TryGetAndSetMission(new MissionModel(MissionType.ElementAffection, objectDefinition.@object, ElementFlag.CanBeWet, RoomType));
-			_missionDone[0] = true;
+			MissionManager.Manager.TryGetAndSetMission(new MissionModel(MissionType.ElementAffection, data.Holder2.ObjectType, ElementFlag.CanBeWet, data.Holder2.RoomType));
+			data.Holder2.MissionDone[0] = true;
 		}
 	}
 
