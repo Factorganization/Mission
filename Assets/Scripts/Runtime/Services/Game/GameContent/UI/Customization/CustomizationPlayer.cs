@@ -36,13 +36,6 @@ namespace Runtime.Services.Game.GameContent.UI.Customization
             }
         }
 
-        public void ChangeBodyPart(BodyPartType bodyPartType)
-        {
-            BodyPartData bodyPartData = GetBodyPartData(bodyPartType);
-            int meshIndex = Array.IndexOf(bodyPartData.meshArray, bodyPartData.skinnedMeshRenderer.sharedMesh);
-            bodyPartData.skinnedMeshRenderer.sharedMesh = bodyPartData.meshArray[(meshIndex + 1) % bodyPartData.meshArray.Length].ItemMesh;
-        }
-
         // Set a specific mesh by index for a body part
         public void SetBodyPartMesh(BodyPartType bodyPartType, int index)
         {
