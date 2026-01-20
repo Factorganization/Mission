@@ -22,10 +22,12 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
 
         private void Awake()
         {
-            _aiModel = new AIModel(aiMovementDataSo ,aiDetectionDataSo ,refData.animator, refData.agent, rcOrigin, player, excludedLayers);
-            _aiModel.transform = transform; 
-            
-           _stateMachine = new GenericStateMachine(Enum.GetNames(typeof(AIControllerState)).Length);
+            _aiModel = new AIModel(aiMovementDataSo ,aiDetectionDataSo ,refData.animator, refData.agent, rcOrigin, player, excludedLayers)
+            {
+                transform = transform
+            };
+
+            _stateMachine = new GenericStateMachine(Enum.GetNames(typeof(AIControllerState)).Length);
 
            var idle = new AIIdleState(_stateMachine, gameObject, _aiModel, AIControllerState.Idle);
            var move = new AIMoveState(_stateMachine, gameObject, _aiModel, AIControllerState.Move);
@@ -79,6 +81,7 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
             return i;
         }
         
+        //To move in model constructor
         private void UpdateMovementData()
         {
             aiMovementDataSo.waypoints = new Vector3[waypoints.Length];
