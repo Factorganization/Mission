@@ -7,15 +7,15 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: MV_DarkBrown_Stripes
+  m_Name: MV_Gray_Blank 4
   m_Shader: {fileID: 4800000, guid: be891319084e9d147b09d89e80ce60e0, type: 3}
-  m_Parent: {fileID: 2100000, guid: e556ad42da4a44840bb28bf3700b3ba6, type: 2}
+  m_Parent: {fileID: 2100000, guid: 801626ccde3278549a2571e15c9f027b, type: 2}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - _EMISSIVE_SIMPLE
   - _IS_ANGELRING_OFF
   - _IS_TRANSCLIPPING_OFF
-  - _OUTLINE_POS
+  - _OUTLINE_NML
   - _SHADINGGRADEMAP
   m_InvalidKeywords: []
   m_LightmapFlags: 4
@@ -31,18 +31,20 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 79cdabb55afd86642b51ac4a4c06a5e7, type: 3}
-        m_Scale: {x: 3, y: 3}
+        m_Texture: {fileID: 2800000, guid: 8df0f021ce7808d4480b3396ecbd65c9, type: 3}
+        m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _Farthest_Distance: 100
+    - _OUTLINE: 0
     - _Offset_Z: 0
     - _Use_1stAs2nd: 0
     - _Use_BaseAs1st: 1
     m_Colors:
-    - _1st_ShadeColor: {r: 0.41509432, g: 0.2116201, b: 0.1194375, a: 1}
-    - _2nd_ShadeColor: {r: 0.3018868, g: 0.12528518, b: 0.064079754, a: 1}
-    - _BaseColor: {r: 0.5137255, g: 0.30980393, b: 0.15294118, a: 1}
-    - _Color: {r: 0.5137254, g: 0.3098039, b: 0.15294114, a: 1}
+    - _1st_ShadeColor: {r: 0.8113208, g: 0.6869626, b: 0.53960484, a: 1}
+    - _2nd_ShadeColor: {r: 0.33962262, g: 0.29389518, b: 0.24830899, a: 1}
+    - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
