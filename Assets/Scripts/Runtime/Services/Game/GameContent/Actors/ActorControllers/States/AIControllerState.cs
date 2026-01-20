@@ -8,6 +8,7 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorControllers.States
         Idle = 1,
         Move = 2,
         Suspicious = 4,
+        Chase = 8,
     }
 }
 

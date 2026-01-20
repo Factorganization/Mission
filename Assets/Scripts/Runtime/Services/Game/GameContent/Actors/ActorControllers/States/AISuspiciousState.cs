@@ -17,11 +17,37 @@ public class AISuspiciousState : BaseAiState
 
     public override void OnEnterState()
     {
-        Debug.Log("IdleAI");
+        Debug.Log("suspicious");
+        aiModel._agentRef.isStopped = true;
     }
 
     public override sbyte OnUpdate()
     {
+        if (AIController.DetectPlayer(aiModel))
+        {
+            AIController.RotateToPlayer(aiModel);
+            _detectionTimer += Time.deltaTime;
+            _forgetTimer = 0;
+        }
+        else
+        {
+            _forgetTimer += Time.deltaTime;
+        }
+        
+        if (_forgetTimer >= aiModel.detectionData.timeToForget)
+        {
+            _detectionTimer = 0;
+            _forgetTimer = 0;
+            stateMachine.SwitchState("idle");
+        }
+
+        if (_detectionTimer >= aiModel.detectionData.detectionTime)
+        {
+            _detectionTimer = 0;
+            _forgetTimer = 0;
+            stateMachine.SwitchState("chase");
+        }
+        
         return 0;
     }
 
@@ -32,10 +58,18 @@ public class AISuspiciousState : BaseAiState
 
     public override void OnExitState()
     {
+        aiModel._agentRef.isStopped = false;
     }
 
     public override IEnumerator OnCoroutine()
     {
         yield return null;
     }
+
+    #region fields
+
+    protected float _forgetTimer;
+    protected float _detectionTimer;
+
+    #endregion
 }

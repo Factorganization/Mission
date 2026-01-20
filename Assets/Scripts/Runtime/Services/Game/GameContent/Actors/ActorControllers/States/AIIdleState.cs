@@ -22,7 +22,17 @@ public class AIIdleState : BaseAiState
 
     public override sbyte OnUpdate()
     {
-        stateMachine.SwitchState("AIMoveState");
+        base.OnUpdate();
+        
+        if (aiModel._currentWaypoint.position != Vector3.zero)
+            stateMachine.SwitchState("move");
+        
+        _waitTimer += Time.deltaTime;
+        if (_waitTimer >= aiModel.movementData.waitDelay)
+        {
+            AIController.SelectNextWaypoint(aiModel);
+            _waitTimer = 0;
+        }
         return 0;
     }
 
@@ -33,10 +43,17 @@ public class AIIdleState : BaseAiState
 
     public override void OnExitState()
     {
+        _waitTimer = 0;
     }
 
     public override IEnumerator OnCoroutine()
     {
         yield return null;
     }
+    
+    #region fields
+    
+    private float _waitTimer;
+    
+    #endregion
 }

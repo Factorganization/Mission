@@ -1,6 +1,5 @@
 using System.Collections;
 using Runtime.Services.Game.GameContent.Actors.ActorModels;
-using Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Model;
 using Shared.Utils.BaseMachine;
 
 namespace Runtime.Services.Game.GameContent.Actors.ActorControllers.States
@@ -28,19 +27,10 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorControllers.States
 
         public override sbyte OnUpdate()
         {
-            //Update Destination
-            _agentDestinationUpdateDelay = aiModel._isPlayerDetected
-                ? aiModel.movementData.DestinationUpdateDelayPatrol
-                : aiModel.movementData.DestinationUpdateDelayChase;
+            if (AIController.DetectPlayer(aiModel))
+                stateMachine.SwitchState("suspicious");
             
-            _agentDestinationUpdateTimer += Time.deltaTime;
-            if (_agentDestinationUpdateTimer >= _agentDestinationUpdateDelay)
-            {
-                _agentDestinationUpdateTimer = 0;
-
-                if (aiModel._currentWaypoint.position != Vector3.zero)
-                    aiModel._agentRef.SetDestination(aiModel._currentWaypoint.position);
-            }
+            AIController.UpdateAgent(aiModel);
             
             return 0;
         }
@@ -65,9 +55,6 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorControllers.States
         
         protected readonly AIModel aiModel;
         
-        protected float _agentDestinationUpdateTimer;
-        protected float _agentDestinationUpdateDelay;
-
         #endregion
     }
 }

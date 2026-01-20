@@ -16,7 +16,7 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
         
         private void Awake()
         {
-            _aiModel = new AIModel(aiMovementDataSo, animator, agent);
+           //_aiModel = new AIModel(aiMovementDataSo, animator, agent);
             _aiModel.transform = transform;
             agent.speed = _aiModel.movementData.patrolSpeed;
             agent.angularSpeed = _aiModel.movementData.rotateSpeed;
