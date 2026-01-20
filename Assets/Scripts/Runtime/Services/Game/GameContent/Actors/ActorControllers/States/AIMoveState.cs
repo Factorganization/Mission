@@ -1,11 +1,12 @@
 using System.Collections;
+using Runtime.Services.Game.GameContent.Actors.ActorModels;
 using Shared.Utils.BaseMachine;
 
-namespace Runtime.Services.Game.GameContent.Actors.ActorControllers.AIControllerStates
+namespace Runtime.Services.Game.GameContent.Actors.ActorControllers.States
 {
-    public class AIIdleState : BaseState
+    public class AIMoveState : BaseState
     {
-        public AIIdleState(GenericStateMachine machine, GameObject go) : base(machine, go)
+        public AIMoveState(GenericStateMachine machine, GameObject go, AIModel model, AIControllerState state) : base(machine, go)
         {
         }
 
@@ -19,9 +20,9 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorControllers.AIController
 
         public override sbyte OnUpdate()
         {
-                stateMachine.SwitchState("AIMoveState");
+            stateMachine.SwitchState("AIIdleState");
             
-            Debug.Log("IdleAI");
+            Debug.Log("MoveAI");
             return 0;
         }
 

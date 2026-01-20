@@ -195,29 +195,7 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorModules.AI
             
             Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(transform.position, sixthSensDetectionDistance);
-
-            foreach (IPossessable possessable in levelGenerator.Possessables)
-            {
-                if (possessable.Destroyed)
-                {
-                    Gizmos.color = Color.red;
-                    Gizmos.DrawWireSphere(possessable.Transform.position,1);
-                }
-                else
-                {
-                    Gizmos.color = Color.green;
-                    Gizmos.DrawWireSphere(possessable.Transform.position, 1);
-                }
-                
-                var directionToPossessable = (new Vector3(possessable.Transform.position.x, 0, possessable.Transform.position.z) - new Vector3(transform.position.x, 0, transform.position.z)).normalized;
-                float angleToPossess = Vector3.Angle(transform.forward, directionToPossessable);
-
-                if (angleToPossess < unawareDetectionAngle / 2 && directionToPossessable.magnitude <= unawareDetectionAngle)
-                {
-                    Gizmos.color = Color.blue;
-                    Gizmos.DrawLine(transform.position, possessable.Transform.position);
-                }
-            }
+            
         }
 #endif
     
