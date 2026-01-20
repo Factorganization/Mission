@@ -1,12 +1,13 @@
 using System.Collections;
 using Runtime.Services.Game.GameContent.Actors.ActorModels;
 using Shared.Utils.BaseMachine;
+using TMPro;
 
 namespace Runtime.Services.Game.GameContent.Actors.ActorControllers.States
 {
-    public class AIMoveState : BaseState
+    public class AIMoveState : BaseAiState
     {
-        public AIMoveState(GenericStateMachine machine, GameObject go, AIModel model, AIControllerState state) : base(machine, go)
+        public AIMoveState(GenericStateMachine machine, GameObject go, AIModel model, AIControllerState state) : base(machine, go, model, state)
         {
         }
 
@@ -16,13 +17,18 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorControllers.States
 
         public override void OnEnterState()
         {
+            Debug.Log("MoveAI");
         }
 
         public override sbyte OnUpdate()
         {
+            base.OnUpdate();
+            
+            //test to remove
             stateMachine.SwitchState("AIIdleState");
             
-            Debug.Log("MoveAI");
+
+            
             return 0;
         }
 
@@ -39,5 +45,10 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorControllers.States
         {
             yield return null;
         }
+        
+        #region fields
+        
+
+        #endregion
     }
 }

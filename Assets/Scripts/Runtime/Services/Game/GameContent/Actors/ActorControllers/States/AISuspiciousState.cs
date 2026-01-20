@@ -4,9 +4,9 @@ using Shared.Utils.BaseMachine;
 
 namespace Runtime.Services.Game.GameContent.Actors.ActorControllers.States;
 
-public class AIIdleState : BaseAiState
+public class AISuspiciousState : BaseAiState
 {
-    public AIIdleState(GenericStateMachine machine, GameObject go, AIModel model, AIControllerState state) : base(machine, go, model, state)
+    public AISuspiciousState(GenericStateMachine machine, GameObject go, AIModel model, AIControllerState state) : base(machine, go, model, state)
     {
        
     }
@@ -22,7 +22,6 @@ public class AIIdleState : BaseAiState
 
     public override sbyte OnUpdate()
     {
-        stateMachine.SwitchState("AIMoveState");
         return 0;
     }
 

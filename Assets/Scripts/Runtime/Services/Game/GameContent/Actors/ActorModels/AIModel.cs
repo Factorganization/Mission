@@ -1,14 +1,17 @@
 using Runtime.Services.Game.GameContent.Actors.ActorModels.SO;
 using Runtime.Services.Game.GameContent.Actors.ActorViews;
+using UnityEngine.AI;
 
 namespace Runtime.Services.Game.GameContent.Actors.ActorModels
 {
     public class AIModel : ActorModel
     {
         #region methodes
-        public AIModel(AIMovementDataSo movementDataSo)
+        public AIModel(AIMovementDataSo movementDataSo, Animator animator, NavMeshAgent agent)
         {
             movementData =  movementDataSo;
+            _agentRef = agent;
+            _animatorRef = animator; 
 
             _isSuspicious = false;
             _isPlayerDetected = false; 
@@ -22,6 +25,8 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorModels
         #region fields
         
         public AIMovementDataSo movementData;
+        public NavMeshAgent _agentRef;
+        public Animator _animatorRef;
         public mTransform _currentWaypoint;
         public Vector3 _lastKnownPlayerPosition;
         public int[] _excludedWaypoints;
@@ -30,8 +35,7 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorModels
         public bool _isSuspicious;
         public bool _isRepairing;
         public bool _isPlayerDetected;
-        
-        
+
         #endregion
     }
 }

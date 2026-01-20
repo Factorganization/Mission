@@ -7,6 +7,7 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorControllers.States
         None = 0,
         Idle = 1,
         Move = 2,
+        Suspicious = 4,
     }
 }
 

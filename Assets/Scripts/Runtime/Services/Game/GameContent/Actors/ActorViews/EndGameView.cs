@@ -13,11 +13,12 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
         void Start()
         {
             graph.SetActive(false);
+            _egModel = new EndGameModel();
         }
 
         private void Update()
         {
-            if (!_EGModel._active)
+            if (!_egModel._active)
                 return;
 
             var p = GameManager.Instance.Player;
@@ -27,7 +28,7 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
         public void OnActivate()
         {
             graph.SetActive(true);
-            EndGameController.SetActive(_EGModel, true);
+            EndGameController.SetActive(_egModel, true);
         }
         
         //peu appueyer sur interact
@@ -38,7 +39,7 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
 
         [SerializeField] private GameObject graph;
 
-        private EndGameModel _EGModel; 
+        private EndGameModel _egModel; 
 
     
 

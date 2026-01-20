@@ -8,6 +8,9 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorModels.SO
         public float rotateSpeed;
         public float waitDelay;
 
+        public float DestinationUpdateDelayPatrol;
+        public float DestinationUpdateDelayChase;
+
         public WaypointChoiceType WaypointChoiceType;
         public int NotImmediateRepeatCount;
 

@@ -14,7 +14,7 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
         
         private void Awake()
         {
-            _aiModel = new AIModel(aiMovementDataSo);
+            //_aiModel = new AIModel(aiMovementDataSo);
             _aiModel.transform = transform;
         }
 
