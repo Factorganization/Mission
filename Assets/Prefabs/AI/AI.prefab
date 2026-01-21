@@ -43,10 +43,9 @@ GameObject:
   - component: {fileID: 9135731664357284211}
   - component: {fileID: 4421294758590639313}
   - component: {fileID: 6230815859547935742}
-  - component: {fileID: 8089260054410516500}
-  - component: {fileID: 3672969848448794975}
   - component: {fileID: 7035192699167535349}
   - component: {fileID: 7615620390992700468}
+  - component: {fileID: 7971482351919388200}
   m_Layer: 0
   m_Name: AI
   m_TagString: Untagged
@@ -149,52 +148,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.7, y: 1.8938879, z: 0.7}
   m_Center: {x: 0, y: 0.44694394, z: 0}
---- !u!114 &8089260054410516500
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7910978268368340886}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 68c025b8462ef5f418c67539d1abf01c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::IA_Detection
-  unawareDetectionAngle: 45
-  awareDetectionAngle: 60
-  unawareDetectionDistance: 10
-  awareDetectionDistance: 8
-  sixthSensDetectionDistance: 4
-  timeToDetect: 2
-  timeToForget: 3
-  rcOrigin: {fileID: 7902555594598868112}
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 512
-  player: {fileID: 0}
-  levelGenerator: {fileID: 0}
---- !u!114 &3672969848448794975
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7910978268368340886}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13770f5d5b18aa94cafae8a4f2bc4e58, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::AIView
-  distanceToPossessable: 2
-  distanceToCollectable: 2
-  waypoints: []
-  aiMovementDataSo: {fileID: 0}
-  aiDetection: {fileID: 8089260054410516500}
-  agent: {fileID: 7035192699167535349}
-  playerTrans: {fileID: 0}
-  animator: {fileID: 7615620390992700468}
-  repairTime: 5
 --- !u!195 &7035192699167535349
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -226,7 +179,7 @@ Animator:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7910978268368340886}
   m_Enabled: 1
-  m_Avatar: {fileID: 0}
+  m_Avatar: {fileID: 9000000, guid: 0eb2a18dd62bf1e458f0183784820197, type: 3}
   m_Controller: {fileID: 9100000, guid: 4ec8c3304fcaf4846b7e7981155e68a2, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
@@ -239,6 +192,30 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &7971482351919388200
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7910978268368340886}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10ef7e7809837c440b5804a2b893ca6f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Satanic.Runtime::Runtime.Services.Game.GameContent.Actors.ActorViews.AIStateMachine
+  waypoints: []
+  aiMovementDataSo: {fileID: 11400000, guid: 71d44d3234b358f40a68f0bf64a98142, type: 2}
+  aiDetectionDataSo: {fileID: 11400000, guid: 4c0a3656308087741ab81ca7f8dc3075, type: 2}
+  rcOrigin: {fileID: 7902555594598868112}
+  excludedLayers:
+    serializedVersion: 2
+    m_Bits: 512
+  player: {fileID: 0}
+  repairTime: 5
+  refData:
+    agent: {fileID: 7035192699167535349}
+    animator: {fileID: 7615620390992700468}
 --- !u!1001 &1051032745574680457
 PrefabInstance:
   m_ObjectHideFlags: 0

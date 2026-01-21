@@ -8,12 +8,11 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorModels.SO
         public float rotateSpeed;
         public float waitDelay;
 
+        public float DestinationUpdateDelayPatrol;
+        public float DestinationUpdateDelayChase;
+
         public WaypointChoiceType WaypointChoiceType;
         public int NotImmediateRepeatCount;
-
-        [HideInInspector] 
-        public Vector3[] waypoints;
-        
     }
     
     public enum WaypointChoiceType

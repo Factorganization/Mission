@@ -52,7 +52,6 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorModules.AI
                 RaycastHit hit;
                 if (!Physics.Raycast(rcOrigin.position, directionToPlayer.normalized, out hit, awareDetectionDistance, ~layerMask))
                     return; 
-                Debug.Log(hit.collider.gameObject.name);
                 if (hit.transform != player.transform)
                     return;
             
@@ -96,18 +95,17 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorModules.AI
                 var directionToGrabbable = (grabbable.Transform.position - transform.position);
                 float angleToGrabbable = Vector3.Angle(transform.forward, directionToGrabbable.normalized);
 
-                if (angleToGrabbable < unawareDetectionAngle / 2 && directionToGrabbable.magnitude <= unawareDetectionAngle)
+                if (angleToGrabbable < unawareDetectionAngle / 2 && directionToGrabbable.magnitude <= unawareDetectionAngle || directionToGrabbable.magnitude <= awareDetectionDistance)
                 {
                     RaycastHit hit;
-                    if (!Physics.Raycast(rcOrigin.position, directionToGrabbable.normalized, out hit, ~layerMask))
+                    if (!Physics.Raycast(transform.position, directionToGrabbable.normalized, out hit, unawareDetectionAngle, ~layerMask))
                         continue;
                     if (hit.transform != grabbable.Transform)
                         continue;
                     
-                    if (Vector3.Distance(grabbable.OriginPos, grabbable.Transform.position) > 0.5f)
+                    if ((Vector3.Distance(grabbable.OriginPos, grabbable.Transform.position) > 0.5f) && !grabbable.Grabbed)
                     {
                         CurrentObject = grabbable;
-                        CurrentObject.IsResetingPos = false;
                         return;
                     }
                 }
@@ -121,15 +119,14 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorModules.AI
         
             foreach (IPossessable possessable in levelGenerator.Possessables)
             {
-                var directionToPossessable = (new Vector3(possessable.Transform.position.x, 0, possessable.Transform.position.z) - new Vector3(transform.position.x, 0, transform.position.z)).normalized;
+                var directionToPossessable = new Vector3(possessable.Transform.position.x, 0, possessable.Transform.position.z) - new Vector3(transform.position.x, 0, transform.position.z);
                 float angleToPossess = Vector3.Angle(transform.forward, directionToPossessable);
 
-                if ((angleToPossess < unawareDetectionAngle / 2 && directionToPossessable.magnitude <= unawareDetectionAngle) || directionToPossessable.magnitude <= sixthSensDetectionDistance)
+                if (angleToPossess < unawareDetectionAngle / 2 && directionToPossessable.magnitude <= unawareDetectionAngle ||  directionToPossessable.magnitude <= awareDetectionDistance)
                 {
                     RaycastHit hit;
-                    if (!Physics.Raycast(rcOrigin.position, directionToPossessable.normalized, out hit, ~layerMask))
-                        continue; 
-                        
+                    if (!Physics.Raycast(transform.position, directionToPossessable.normalized, out hit, unawareDetectionAngle, ~layerMask))
+                        continue;
                     if  (hit.transform.root != possessable.Transform)
                         continue;
 
@@ -197,29 +194,7 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorModules.AI
             
             Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(transform.position, sixthSensDetectionDistance);
-
-            foreach (IPossessable possessable in levelGenerator.Possessables)
-            {
-                if (possessable.Destroyed)
-                {
-                    Gizmos.color = Color.red;
-                    Gizmos.DrawWireSphere(possessable.Transform.position,1);
-                }
-                else
-                {
-                    Gizmos.color = Color.green;
-                    Gizmos.DrawWireSphere(possessable.Transform.position, 1);
-                }
-                
-                var directionToPossessable = (new Vector3(possessable.Transform.position.x, 0, possessable.Transform.position.z) - new Vector3(transform.position.x, 0, transform.position.z)).normalized;
-                float angleToPossess = Vector3.Angle(transform.forward, directionToPossessable);
-
-                if (angleToPossess < unawareDetectionAngle / 2 && directionToPossessable.magnitude <= unawareDetectionAngle)
-                {
-                    Gizmos.color = Color.blue;
-                    Gizmos.DrawLine(transform.position, possessable.Transform.position);
-                }
-            }
+            
         }
 #endif
     
