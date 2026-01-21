@@ -1,3 +1,5 @@
+using Runtime.Services.Game.GameContent.Actors.ActorControllers;
+using Runtime.Services.Game.GameContent.Actors.ActorModels;
 using Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Controller;
 using Runtime.Services.Game.GameSystems;
 using Vector3 = UnityEngine.Vector3;
@@ -8,9 +10,15 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
     {
         #region methodes
 
+        void Start()
+        {
+            graph.SetActive(false);
+            _egModel = new EndGameModel();
+        }
+
         private void Update()
         {
-            if (!_active)
+            if (!_egModel._active)
                 return;
 
             var p = GameManager.Instance.Player;
@@ -20,15 +28,10 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
         public void OnActivate()
         {
             graph.SetActive(true);
-            _active = true;
+            EndGameController.SetActive(_egModel, true);
         }
         
-        //TODO il é dan la room au dépar
-        //mé il  é desactivé
-        //if distance courte
         //peu appueyer sur interact
-        //lui il sactiv kan missions done
-        //MissionManager.ChackAndgema
 
         #endregion
 
@@ -36,7 +39,9 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
 
         [SerializeField] private GameObject graph;
 
-        private bool _active;
+        private EndGameModel _egModel; 
+
+    
 
         #endregion
     }

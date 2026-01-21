@@ -16,7 +16,7 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
         
         private void Awake()
         {
-            _aiModel = new AIModel(aiMovementDataSo);
+           //_aiModel = new AIModel(aiMovementDataSo, animator, agent);
             _aiModel.transform = transform;
             agent.speed = _aiModel.movementData.patrolSpeed;
             agent.angularSpeed = _aiModel.movementData.rotateSpeed;
@@ -34,6 +34,7 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
             //Check if Caught
             if (Vector3.Distance(transform.position, playerTrans.position) < 1 && aiDetection.IsPlayerSpotted)
             {
+                animator.SetBool("ac_playerCaught", true);
                 GameManager.Instance.GameUIMgr.GameOver();
                 ServiceLocator.Instance.Get<CursorService>().SetActive(true);
             }
@@ -44,8 +45,8 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
                 AIController.SetCurrentWaypoint(_aiModel,  aiDetection.CurrentObject.OriginPos);
                 if (Vector3.Distance(transform.position, aiDetection.CurrentObject.OriginPos) < distanceToCollectable)
                 {
-                    aiDetection.CurrentObject.IsResetingPos = true;
                     aiDetection.DropObject();
+                    aiDetection.CurrentObject.Transform.position = aiDetection.CurrentObject.OriginPos;
                     AIController.SelectNextWaypoint(_aiModel);
                 }
             }
@@ -87,6 +88,9 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
 
             agent.isStopped = aiDetection.IsSuspicious || _aiModel._isRepairing;
             animator.SetBool("ac_isSus", aiDetection.IsSuspicious);
+            
+            if (aiDetection && aiDetection.IsSuspicious && !aiDetection.IsPlayerSpotted)
+                return;
 
             if (aiDetection && aiDetection.IsPlayerSpotted)
             {
@@ -135,10 +139,10 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
 
         private void UpdateMovementData()
         {
-            aiMovementDataSo.waypoints = new Vector3[waypoints.Length];
+            _aiModel.waypoints = new Vector3[waypoints.Length];
             for (int i = 0; i < waypoints.Length; i++)
             {
-                aiMovementDataSo.waypoints[i] = waypoints[i].position;
+                _aiModel.waypoints[i] = waypoints[i].position;
             }
         }
 
