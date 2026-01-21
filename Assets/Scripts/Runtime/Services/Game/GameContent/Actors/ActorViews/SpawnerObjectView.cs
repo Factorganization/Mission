@@ -15,7 +15,7 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
 
 		private void Start()
 		{
-			grabbable.SetSpawner(this);
+			grabbable?.SetSpawner(this);
 		}
 
 		#endregion
