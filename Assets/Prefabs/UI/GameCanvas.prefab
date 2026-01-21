@@ -67,8 +67,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: d35a58649808a964d8700022b69a99cf, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -443,7 +443,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 1239, y: 0}
   m_SizeDelta: {x: 550, y: 500}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4271690305637317419
@@ -474,7 +474,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: d35a58649808a964d8700022b69a99cf, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -899,7 +899,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: d35a58649808a964d8700022b69a99cf, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1112,8 +1112,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: d35a58649808a964d8700022b69a99cf, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -1434,8 +1434,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54fe66a93da6d0940a02212d99e2385b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Satanic.Runtime::Runtime.Services.Game.GameContent.UI.GameUI.GameUIMgr
-  _gameOverUI: {fileID: 6330491790597971511}
-  _winUI: {fileID: 6781080428523241071}
+  _gameOverUI: {fileID: 168981096770664979}
+  _winUI: {fileID: 5059509892129568069}
   _questPage: {fileID: 4589737676111121314}
   _pauseMenuUI: {fileID: 813776179727219122}
 --- !u!1 &5830434482583977133
@@ -1649,6 +1649,8 @@ GameObject:
   - component: {fileID: 8158794600434318449}
   - component: {fileID: 5077833986540373509}
   - component: {fileID: 5458572321574593318}
+  - component: {fileID: 168981096770664979}
+  - component: {fileID: 1984798649043164662}
   m_Layer: 5
   m_Name: GameOverScreen
   m_TagString: Untagged
@@ -1714,6 +1716,36 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &168981096770664979
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6330491790597971511}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33ead0aafe32e33418be300726a88a72, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Satanic.Runtime::Runtime.Services.Game.GameContent.UI.GameUI.LoseScreen
+  _isOpen: 0
+  _loseScreenAnimator: {fileID: 1984798649043164662}
+--- !u!111 &1984798649043164662
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6330491790597971511}
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Animation: {fileID: 0}
+  m_Animations: []
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_UpdateMode: 0
+  m_CullingType: 0
 --- !u!1 &6781080428523241071
 GameObject:
   m_ObjectHideFlags: 0
@@ -1725,13 +1757,15 @@ GameObject:
   - component: {fileID: 4204942418000386292}
   - component: {fileID: 3646662307462595702}
   - component: {fileID: 5840186923423401213}
+  - component: {fileID: 5059509892129568069}
+  - component: {fileID: 5015554123578131987}
   m_Layer: 5
   m_Name: VictoryScreen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &4204942418000386292
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1790,6 +1824,37 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &5059509892129568069
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6781080428523241071}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8b7eaef3e4925741ae764664f7fe1af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Satanic.Runtime::Runtime.Services.Game.GameContent.UI.GameUI.WinScreen
+  _isOpen: 0
+  _winScreenAnimator: {fileID: 5015554123578131987}
+--- !u!111 &5015554123578131987
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6781080428523241071}
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Animation: {fileID: 0}
+  m_Animations:
+  - {fileID: 7400000, guid: bcc2d138ba02d3d48a29b69880c6f4e1, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_UpdateMode: 0
+  m_CullingType: 0
 --- !u!1 &8117828571455184781
 GameObject:
   m_ObjectHideFlags: 0
@@ -1993,8 +2058,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: d35a58649808a964d8700022b69a99cf, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -2402,6 +2467,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 471869919923915717, guid: 60b00874aa166af44afbf62b15e4796f, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 549811257607296263, guid: 60b00874aa166af44afbf62b15e4796f, type: 3}
       propertyPath: m_Name
       value: PauseMenu
@@ -2505,6 +2574,26 @@ PrefabInstance:
     - target: {fileID: 4499418446131776332, guid: 60b00874aa166af44afbf62b15e4796f, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -83.33333
+      objectReference: {fileID: 0}
+    - target: {fileID: 4808905079564512864, guid: 60b00874aa166af44afbf62b15e4796f, type: 3}
+      propertyPath: m_Type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4808905079564512864, guid: 60b00874aa166af44afbf62b15e4796f, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: d35a58649808a964d8700022b69a99cf, type: 3}
+    - target: {fileID: 4808905079564512864, guid: 60b00874aa166af44afbf62b15e4796f, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4808905079564512864, guid: 60b00874aa166af44afbf62b15e4796f, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4808905079564512864, guid: 60b00874aa166af44afbf62b15e4796f, type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5257544939664519298, guid: 60b00874aa166af44afbf62b15e4796f, type: 3}
       propertyPath: m_Type
@@ -2742,10 +2831,12 @@ Animation:
   m_GameObject: {fileID: 3176305751689118259}
   m_Enabled: 1
   serializedVersion: 4
-  m_Animation: {fileID: 0}
-  m_Animations: []
+  m_Animation: {fileID: 7400000, guid: 23778b4515fd8214e90f2f824f9859c3, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: 23778b4515fd8214e90f2f824f9859c3, type: 2}
+  - {fileID: 7400000, guid: 046cc9162c6184042a7d64258d1c58dc, type: 2}
   m_WrapMode: 0
-  m_PlayAutomatically: 1
+  m_PlayAutomatically: 0
   m_AnimatePhysics: 0
   m_UpdateMode: 0
   m_CullingType: 0
