@@ -39,13 +39,16 @@ public class AISuspiciousState : BaseAiState
             _detectionTimer = 0;
             _forgetTimer = 0;
             stateMachine.SwitchState("idle");
+            return 0;
         }
 
         if (_detectionTimer >= aiModel.detectionData.detectionTime)
         {
             _detectionTimer = 0;
             _forgetTimer = 0;
+            AIController.DropObject(aiModel);
             stateMachine.SwitchState("chase");
+            return 0;
         }
         
         return 0;

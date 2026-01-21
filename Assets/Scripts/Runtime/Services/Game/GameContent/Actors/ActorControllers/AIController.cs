@@ -1,5 +1,7 @@
+using Runtime.Services.Game.GameContent.Actors.ActorInterfaces;
 using Runtime.Services.Game.GameContent.Actors.ActorModels;
 using Runtime.Services.Game.GameContent.Actors.ActorModels.SO;
+using Runtime.Services.Game.GameSystems;
 
 namespace Runtime.Services.Game.GameContent.Actors.ActorControllers
 {
@@ -130,6 +132,66 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorControllers
             return true;
         }
 
+        public static bool DetectDestroyedPossessable(AIModel model)
+        {
+            if (model._currentPossessable != null)
+                return false;
+
+            foreach (var possessable in LevelGenerator.Generator.Possessables)
+            {
+                var directionToPossessable = possessable.Transform.position - model._rcOrigin.transform.position;
+                var angleToPossessable = Vector3.Angle(directionToPossessable.normalized, model.transform.forward);
+
+                if (angleToPossessable < model.detectionData.unawareDetectionAngle / 2 &&
+                    directionToPossessable.magnitude <= model.detectionData.unawareDetectionDistance ||
+                    directionToPossessable.magnitude <= model.detectionData.sixthSensDetectionDistance)
+                {
+                    RaycastHit hit;
+                    if (!Physics.Raycast(model._rcOrigin.position, directionToPossessable.normalized, out hit, model.detectionData.unawareDetectionAngle, ~model._excludedLayers))
+                        continue;
+                    if  (hit.transform.root != possessable.Transform)
+                        continue;
+
+                    if (possessable.Destroyed)
+                    {
+                        DropObject(model);
+                        model._currentPossessable = possessable;
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        public static bool DetectGrabbable(AIModel model)
+        {
+            if (model._currentGrabbable != null)
+                return false;
+        
+            foreach (var grabbable in LevelGenerator.Generator.Grabbables)
+            {
+                var directionToGrabbable = (grabbable.Transform.position - model.transform.position);
+                float angleToGrabbable = Vector3.Angle(model.transform.forward, directionToGrabbable.normalized);
+
+                if (angleToGrabbable < model.detectionData.unawareDetectionAngle / 2 && directionToGrabbable.magnitude <= model.detectionData.unawareDetectionDistance || directionToGrabbable.magnitude <= model.detectionData.sixthSensDetectionDistance)
+                {
+                    RaycastHit hit;
+                    if (!Physics.Raycast(model.transform.position, directionToGrabbable.normalized, out hit, model.detectionData.unawareDetectionDistance, ~model._excludedLayers))
+                        continue;
+                    if (hit.transform != grabbable.Transform)
+                        continue;
+                    
+                    if ((Vector3.Distance(grabbable.OriginPos, grabbable.Transform.position) > 0.5f) && !grabbable.Grabbed)
+                    {
+                        model._currentGrabbable = grabbable;
+                        model._currentGrabbable.IsResetingPos = false;
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
         public static void UpdateAgent(AIModel model)
         {
             //Update Destination
@@ -145,6 +207,23 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorControllers
                 if (model._currentWaypoint.position != Vector3.zero)
                     model._agentRef.SetDestination(model._currentWaypoint.position);
             }
+        }
+
+        public static void DropObject(AIModel model)
+        {
+            if (model._currentGrabbable == null)
+                return; 
+            model._currentGrabbable.Transform.parent = null;
+            model._currentGrabbable.Rigidbody.isKinematic = false;
+            model._currentGrabbable.Rigidbody.useGravity = true;
+            model._currentGrabbable = null;
+        }
+
+        public static void ForgetPossessable(AIModel model)
+        {
+            if (model._currentPossessable == null)
+                return;
+            model._currentPossessable = null;
         }
 
         private static int _currentExclusionIndex = 0;

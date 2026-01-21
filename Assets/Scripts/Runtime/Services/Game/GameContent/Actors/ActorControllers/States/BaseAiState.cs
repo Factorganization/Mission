@@ -28,7 +28,20 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorControllers.States
         public override sbyte OnUpdate()
         {
             if (AIController.DetectPlayer(aiModel))
+            {
                 stateMachine.SwitchState("suspicious");
+                return 0;
+            }
+            if (AIController.DetectDestroyedPossessable(aiModel))
+            {
+                stateMachine.SwitchState("move");
+                return 0;
+            }
+            if (AIController.DetectGrabbable(aiModel))
+            {
+                stateMachine.SwitchState("move");
+                return 0;
+            }
             
             AIController.UpdateAgent(aiModel);
             

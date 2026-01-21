@@ -25,7 +25,10 @@ public class AIIdleState : BaseAiState
         base.OnUpdate();
         
         if (aiModel._currentWaypoint.position != Vector3.zero)
+        {
             stateMachine.SwitchState("move");
+            return 0;
+        }
         
         _waitTimer += Time.deltaTime;
         if (_waitTimer >= aiModel.movementData.waitDelay)

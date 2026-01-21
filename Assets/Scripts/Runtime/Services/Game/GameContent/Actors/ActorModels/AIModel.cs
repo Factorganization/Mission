@@ -1,3 +1,4 @@
+using Runtime.Services.Game.GameContent.Actors.ActorInterfaces;
 using Runtime.Services.Game.GameContent.Actors.ActorModels.SO;
 using Runtime.Services.Game.GameContent.Actors.ActorModules.AI;
 using Runtime.Services.Game.GameContent.Actors.ActorViews;
@@ -9,7 +10,7 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorModels
     public class AIModel : ActorModel
     {
         #region methodes
-        public AIModel(AIMovementDataSo movementDataSo,AIDetectionDataSo detectionSo ,Animator animator, NavMeshAgent agent, Transform rcOrigin, PlayerStateMachine player, LayerMask excludedLayers)
+        public AIModel(AIMovementDataSo movementDataSo,AIDetectionDataSo detectionSo ,Animator animator, NavMeshAgent agent, Transform rcOrigin, PlayerStateMachine player, LayerMask excludedLayers, float repairTime, Transform[] waypoints)
         {
             movementData =  movementDataSo;
             detectionData = detectionSo;
@@ -18,6 +19,8 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorModels
             _rcOrigin = rcOrigin;
             _player = player;
             _excludedLayers = excludedLayers;
+            _repairTime = repairTime;
+            
 
             _isSuspicious = false;
             _isPlayerDetected = false; 
@@ -25,6 +28,12 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorModels
             if (movementData.NotImmediateRepeatCount >= movementData.waypoints.Length)
                 movementData.NotImmediateRepeatCount = movementData.waypoints.Length - 1;
             _excludedWaypoints = new int[movementData.NotImmediateRepeatCount];
+            
+            movementData.waypoints = new Vector3[waypoints.Length];
+            for (int i = 0; i < waypoints.Length; i++)
+            {
+                movementData.waypoints[i] = waypoints[i].position;
+            }
         }
         #endregion
         
@@ -33,13 +42,16 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorModels
         public NavMeshAgent _agentRef;
         public Animator _animatorRef;
         public PlayerStateMachine _player;
-        public AIMovementDataSo movementData;
         public Transform _rcOrigin;
+        public AIMovementDataSo movementData;
         public AIDetectionDataSo detectionData;
         public mTransform _currentWaypoint;
         public LayerMask _excludedLayers; 
         public Vector3 _lastKnownPlayerPosition;
+        public IGrabbable _currentGrabbable;
+        public IPossessable _currentPossessable;
         public int[] _excludedWaypoints;
+        public float _repairTime; 
         //To Remove
         public float _waitTimer;
         //To Remove

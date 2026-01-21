@@ -1,5 +1,6 @@
 using System.Collections;
 using Runtime.Services.Game.GameContent.Actors.ActorModels;
+using Runtime.Services.Game.GameContent.Actors.ActorViews;
 using Shared.Utils.BaseMachine;
 
 namespace Runtime.Services.Game.GameContent.Actors.ActorControllers.States
@@ -22,6 +23,22 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorControllers.States
         public override sbyte OnUpdate()
         {
             base.OnUpdate();
+            if (aiModel._currentPossessable != null)
+            {
+                AIController.SetCurrentWaypoint(aiModel, aiModel._currentPossessable.Transform.position);
+                
+                if (Vector3.Distance(aiModel.transform.position, aiModel._currentPossessable.Transform.position) < 2)
+                    stateMachine.SwitchState("repair");
+            }
+
+            if (aiModel._currentGrabbable != null)
+            {
+                AIController.SetCurrentWaypoint(aiModel, aiModel._currentGrabbable.Transform.position);
+                
+                if (Vector3.Distance(aiModel.transform.position, aiModel._currentGrabbable.Transform.position) < 2)
+                    stateMachine.SwitchState("bbgrabbable");
+                
+            }
             
             if (aiModel._currentWaypoint.position == Vector3.zero)
             {
@@ -53,3 +70,4 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorControllers.States
         #endregion
     }
 }
+
