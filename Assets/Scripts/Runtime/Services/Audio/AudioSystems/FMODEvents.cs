@@ -7,7 +7,7 @@ namespace Runtime.Services.Audio.AudioSystems
         [field : Header("MasterVolume")]
         [field: SerializeField] public EventReference MasterVolume { get; private set; }
         
-        [field : Header("MusicVolume")]
+        [Header("MusicVolume")]
         [field: SerializeField] public EventReference MusicVolume { get; private set; }
         
         [field : Header("SFXVolume")]

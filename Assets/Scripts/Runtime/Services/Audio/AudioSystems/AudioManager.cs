@@ -30,7 +30,7 @@ namespace Runtime.Services.Audio.AudioSystems
             // Initialize ambience and music here with appropriate event references
             // Example:
             //InitializeAmbience(FMODEvents.Instance.MasterVolume);
-            //InitializeMusic(FMODEvents.Instance.MusicVolume);
+            InitializeMusic(FMODEvents.Instance.MusicVolume);
         }
 
         private void Update()

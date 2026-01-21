@@ -10,7 +10,7 @@ namespace Runtime.Services.Cursor
         public override void Begin()
         {
             UnityEngine.Cursor.visible = true;
-            UnityEngine.Cursor.lockState = CursorLockMode.Confined;
+            UnityEngine.Cursor.lockState = CursorLockMode.None;
             _mouseVisible = true;
         }
 
