@@ -1175,11 +1175,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 9034616284544694657, guid: 93722fdaf4ca1ff408d1c4894148d084, type: 3}
   m_PrefabInstance: {fileID: 151941755}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &152304181 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7902555594598868112, guid: be8c6de8453500e46928f9750792260a, type: 3}
-  m_PrefabInstance: {fileID: 2074717993}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &171854345
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12605,6 +12600,50 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7971482351919388200, guid: be8c6de8453500e46928f9750792260a, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 1026490575}
+    - target: {fileID: 7971482351919388200, guid: be8c6de8453500e46928f9750792260a, type: 3}
+      propertyPath: waypoints.Array.size
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 7971482351919388200, guid: be8c6de8453500e46928f9750792260a, type: 3}
+      propertyPath: 'waypoints.Array.data[0]'
+      value: 
+      objectReference: {fileID: 633053888}
+    - target: {fileID: 7971482351919388200, guid: be8c6de8453500e46928f9750792260a, type: 3}
+      propertyPath: 'waypoints.Array.data[1]'
+      value: 
+      objectReference: {fileID: 1529563006}
+    - target: {fileID: 7971482351919388200, guid: be8c6de8453500e46928f9750792260a, type: 3}
+      propertyPath: 'waypoints.Array.data[2]'
+      value: 
+      objectReference: {fileID: 1881619351}
+    - target: {fileID: 7971482351919388200, guid: be8c6de8453500e46928f9750792260a, type: 3}
+      propertyPath: 'waypoints.Array.data[3]'
+      value: 
+      objectReference: {fileID: 1521417350}
+    - target: {fileID: 7971482351919388200, guid: be8c6de8453500e46928f9750792260a, type: 3}
+      propertyPath: 'waypoints.Array.data[4]'
+      value: 
+      objectReference: {fileID: 1525675698}
+    - target: {fileID: 7971482351919388200, guid: be8c6de8453500e46928f9750792260a, type: 3}
+      propertyPath: 'waypoints.Array.data[5]'
+      value: 
+      objectReference: {fileID: 1512892750}
+    - target: {fileID: 7971482351919388200, guid: be8c6de8453500e46928f9750792260a, type: 3}
+      propertyPath: 'waypoints.Array.data[6]'
+      value: 
+      objectReference: {fileID: 83230279}
+    - target: {fileID: 7971482351919388200, guid: be8c6de8453500e46928f9750792260a, type: 3}
+      propertyPath: 'waypoints.Array.data[7]'
+      value: 
+      objectReference: {fileID: 1870626102}
+    - target: {fileID: 7971482351919388200, guid: be8c6de8453500e46928f9750792260a, type: 3}
+      propertyPath: 'waypoints.Array.data[8]'
+      value: 
+      objectReference: {fileID: 1507892833}
     - target: {fileID: 8089260054410516500, guid: be8c6de8453500e46928f9750792260a, type: 3}
       propertyPath: player
       value: 
@@ -12624,58 +12663,8 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3114228853063616445, guid: be8c6de8453500e46928f9750792260a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1474151614}
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 7910978268368340886, guid: be8c6de8453500e46928f9750792260a, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2074717997}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: be8c6de8453500e46928f9750792260a, type: 3}
---- !u!1 &2074717994 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7910978268368340886, guid: be8c6de8453500e46928f9750792260a, type: 3}
-  m_PrefabInstance: {fileID: 2074717993}
-  m_PrefabAsset: {fileID: 0}
---- !u!95 &2074717995 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 7615620390992700468, guid: be8c6de8453500e46928f9750792260a, type: 3}
-  m_PrefabInstance: {fileID: 2074717993}
-  m_PrefabAsset: {fileID: 0}
---- !u!195 &2074717996 stripped
-NavMeshAgent:
-  m_CorrespondingSourceObject: {fileID: 7035192699167535349, guid: be8c6de8453500e46928f9750792260a, type: 3}
-  m_PrefabInstance: {fileID: 2074717993}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &2074717997
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2074717994}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 10ef7e7809837c440b5804a2b893ca6f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Satanic.Runtime::Runtime.Services.Game.GameContent.Actors.ActorViews.AIStateMachine
-  waypoints:
-  - {fileID: 633053888}
-  - {fileID: 1529563006}
-  - {fileID: 1881619351}
-  - {fileID: 1521417350}
-  - {fileID: 1525675698}
-  - {fileID: 1512892750}
-  - {fileID: 83230279}
-  - {fileID: 1870626102}
-  - {fileID: 1507892833}
-  aiMovementDataSo: {fileID: 11400000, guid: 71d44d3234b358f40a68f0bf64a98142, type: 2}
-  aiDetectionDataSo: {fileID: 11400000, guid: 4c0a3656308087741ab81ca7f8dc3075, type: 2}
-  rcOrigin: {fileID: 152304181}
-  excludedLayers:
-    serializedVersion: 2
-    m_Bits: 512
-  player: {fileID: 1026490575}
-  refData:
-    agent: {fileID: 2074717996}
-    animator: {fileID: 2074717995}
 --- !u!1001 &2080559895
 PrefabInstance:
   m_ObjectHideFlags: 0

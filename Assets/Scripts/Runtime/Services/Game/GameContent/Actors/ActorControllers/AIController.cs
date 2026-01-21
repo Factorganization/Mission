@@ -15,36 +15,36 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorControllers
 
         public static void SelectRandomWaypoint(AIModel model)
         {
-            model._currentWaypoint.position = model.movementData.waypoints[Random.Range(0, model.movementData.waypoints.Length)];
+            model._currentWaypoint.position = model.waypoints[Random.Range(0, model.waypoints.Length)];
         }
         
         public static void SelectRandomNoImmediateRepeatWaypoint(AIModel model)
         {
             if (model.movementData.WaypointChoiceType == WaypointChoiceType.RandomNoImmediateRepeat)
             {
-                int newIndex = Random.Range(0, model.movementData.waypoints.Length);
+                int newIndex = Random.Range(0, model.waypoints.Length);
                 
                 while (Array.IndexOf(model._excludedWaypoints, newIndex) != -1)
                 {
-                    newIndex = (newIndex + 1) % model.movementData.waypoints.Length;
+                    newIndex = (newIndex + 1) % model.waypoints.Length;
                 }
-                SetCurrentWaypoint(model, model.movementData.waypoints[newIndex]);
+                SetCurrentWaypoint(model, model.waypoints[newIndex]);
                 model._excludedWaypoints[_currentExclusionIndex] = newIndex;
-                _currentExclusionIndex = (_currentExclusionIndex + 1) % model.movementData.NotImmediateRepeatCount;
+                _currentExclusionIndex = (_currentExclusionIndex + 1) % model._excludedWaypoints.Length;
             }
         }
         
         public static void SelectSequentialWaypoint(AIModel model)
         {
-            int nextIndex = (_currentIndex + 1) % model.movementData.waypoints.Length;
-            model._currentWaypoint.position = model.movementData.waypoints[nextIndex];
+            int nextIndex = (_currentIndex + 1) % model.waypoints.Length;
+            model._currentWaypoint.position = model.waypoints[nextIndex];
             _currentIndex = nextIndex;
         }
         
         public static void SelectReverseSequentialWaypoint(AIModel model)
         {
-            int nextIndex = (_currentIndex - 1 + model.movementData.waypoints.Length) % model.movementData.waypoints.Length;
-            model._currentWaypoint.position = model.movementData.waypoints[nextIndex];
+            int nextIndex = (_currentIndex - 1 + model.waypoints.Length) % model.waypoints.Length;
+            model._currentWaypoint.position = model.waypoints[nextIndex];
             _currentIndex = nextIndex;
         }
         
@@ -184,7 +184,6 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorControllers
                     if ((Vector3.Distance(grabbable.OriginPos, grabbable.Transform.position) > 0.5f) && !grabbable.Grabbed)
                     {
                         model._currentGrabbable = grabbable;
-                        model._currentGrabbable.IsResetingPos = false;
                         return true;
                     }
                 }

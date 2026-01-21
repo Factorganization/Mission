@@ -17,7 +17,7 @@ public class AIIdleState : BaseAiState
 
     public override void OnEnterState()
     {
-        Debug.Log("IdleAI");
+        AIController.SetCurrentWaypoint(aiModel, Vector3.zero);
     }
 
     public override sbyte OnUpdate()

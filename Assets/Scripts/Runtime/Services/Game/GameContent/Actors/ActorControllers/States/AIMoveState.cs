@@ -17,7 +17,7 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorControllers.States
 
         public override void OnEnterState()
         {
-            Debug.Log("MoveAI");
+
         }
 
         public override sbyte OnUpdate()

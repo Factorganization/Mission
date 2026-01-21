@@ -17,7 +17,6 @@ public class AIRepairState : BaseAiState
 
     public override void OnEnterState()
     {
-        Debug.Log("Entering AI Repair State");
         aiModel._agentRef.isStopped = true;
         _repairTimer = 0; 
     }

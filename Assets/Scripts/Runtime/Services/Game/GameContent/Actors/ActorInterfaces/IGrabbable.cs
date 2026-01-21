@@ -16,7 +16,6 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorInterfaces
 		/// Spawn Position of the grabbable obj
 		/// </summary>
 		public Vector3 OriginPos { get; }
-		public bool IsResetingPos { get; set; }
 
 		/// <summary>
 		/// Return True if object is active

@@ -25,15 +25,15 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorModels
             _isSuspicious = false;
             _isPlayerDetected = false; 
             
-            if (movementData.NotImmediateRepeatCount >= movementData.waypoints.Length)
-                movementData.NotImmediateRepeatCount = movementData.waypoints.Length - 1;
-            _excludedWaypoints = new int[movementData.NotImmediateRepeatCount];
-            
-            movementData.waypoints = new Vector3[waypoints.Length];
+            this.waypoints = new Vector3[waypoints.Length];
             for (int i = 0; i < waypoints.Length; i++)
             {
-                movementData.waypoints[i] = waypoints[i].position;
+                this.waypoints[i] = waypoints[i].position;
             }
+
+            notImmediateRepeatCount = movementData.NotImmediateRepeatCount >= this.waypoints.Length
+                ? this.waypoints.Length - 1 : movementData.NotImmediateRepeatCount;
+            _excludedWaypoints = new int[notImmediateRepeatCount];
         }
         #endregion
         
@@ -50,7 +50,9 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorModels
         public Vector3 _lastKnownPlayerPosition;
         public IGrabbable _currentGrabbable;
         public IPossessable _currentPossessable;
+        public Vector3[] waypoints;
         public int[] _excludedWaypoints;
+        public int notImmediateRepeatCount;
         public float _repairTime; 
         //To Remove
         public float _waitTimer;
@@ -59,6 +61,7 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorModels
         public bool _isSuspicious;
         public bool _isRepairing;
         public bool _isPlayerDetected;
+        
 
         #endregion
     }

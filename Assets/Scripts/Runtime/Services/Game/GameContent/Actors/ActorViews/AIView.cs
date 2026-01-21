@@ -45,7 +45,6 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
                 AIController.SetCurrentWaypoint(_aiModel,  aiDetection.CurrentObject.OriginPos);
                 if (Vector3.Distance(transform.position, aiDetection.CurrentObject.OriginPos) < distanceToCollectable)
                 {
-                    aiDetection.CurrentObject.IsResetingPos = true;
                     aiDetection.DropObject();
                     aiDetection.CurrentObject.Transform.position = aiDetection.CurrentObject.OriginPos;
                     AIController.SelectNextWaypoint(_aiModel);
@@ -140,10 +139,10 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
 
         private void UpdateMovementData()
         {
-            aiMovementDataSo.waypoints = new Vector3[waypoints.Length];
+            _aiModel.waypoints = new Vector3[waypoints.Length];
             for (int i = 0; i < waypoints.Length; i++)
             {
-                aiMovementDataSo.waypoints[i] = waypoints[i].position;
+                _aiModel.waypoints[i] = waypoints[i].position;
             }
         }
 

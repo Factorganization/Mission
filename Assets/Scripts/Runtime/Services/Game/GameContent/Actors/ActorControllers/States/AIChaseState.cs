@@ -16,7 +16,6 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorControllers.States
 
         public override void OnEnterState()
         {
-            Debug.Log("Chase State");
             aiModel._agentRef.speed = aiModel.movementData.chaseSpeed;
         }
 

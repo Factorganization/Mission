@@ -17,7 +17,6 @@ public class AIBBGrabbableState : BaseAiState
 
     public override void OnEnterState()
     {
-        Debug.Log("Entering AI Grab State");
         aiModel._currentGrabbable.Rigidbody.isKinematic = true;
         aiModel._currentGrabbable.Rigidbody.useGravity = false;
         aiModel._currentGrabbable.Transform.SetParent(aiModel.transform);
@@ -42,9 +41,8 @@ public class AIBBGrabbableState : BaseAiState
         
         if (Vector3.Distance(aiModel.transform.position, aiModel._currentGrabbable.OriginPos) < 2)
         {
-            aiModel._currentGrabbable.IsResetingPos = true;
+            aiModel._currentGrabbable.StartSmoothPosition(aiModel._currentGrabbable.OriginPos);
             AIController.DropObject(aiModel);
-            aiModel._currentGrabbable.Transform.position = aiModel._currentGrabbable.OriginPos;
             stateMachine.SwitchState("idle");
             return 0;
         }

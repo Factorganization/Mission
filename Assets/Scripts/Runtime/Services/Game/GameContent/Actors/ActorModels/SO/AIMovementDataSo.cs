@@ -13,10 +13,6 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorModels.SO
 
         public WaypointChoiceType WaypointChoiceType;
         public int NotImmediateRepeatCount;
-
-        [HideInInspector] 
-        public Vector3[] waypoints;
-        
     }
     
     public enum WaypointChoiceType

@@ -51,7 +51,7 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
            
            //Set AI Position to first waypoint
            _aiModel._currentWaypoint = new mTransform();
-           AIController.SetCurrentWaypoint(_aiModel, aiMovementDataSo.waypoints[0]);
+           AIController.SetCurrentWaypoint(_aiModel, _aiModel.waypoints[0]);
             _stateMachine.InitMachine();
         }
 
@@ -63,10 +63,6 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
         private void Update()
         {
             _stateMachine.UpdateMachine();
-            
-            //Display Player
-            transform.position = _aiModel.transform.position;
-            transform.rotation = _aiModel.transform.rotation;
         }
 
         private void FixedUpdate()

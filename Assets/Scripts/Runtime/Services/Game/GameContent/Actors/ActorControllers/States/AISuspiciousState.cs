@@ -17,7 +17,6 @@ public class AISuspiciousState : BaseAiState
 
     public override void OnEnterState()
     {
-        Debug.Log("suspicious");
         aiModel._agentRef.isStopped = true;
     }
 
