@@ -93,6 +93,8 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
 					IsResetingPos = false;
 				}
 			}
+			
+			SetSmoothPosition();
 		}
 
 		#endregion
@@ -109,6 +111,26 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
 		{
 			_spawnerRef = spawner;
 		}
+
+		public void StartSmoothPosition(Vector3 targetPos)
+		{
+			_returning = true;
+			_targetPos = targetPos;
+		}
+
+		private void SetSmoothPosition()
+		{
+			if (!_returning)
+				return;
+
+			if (Grabbed)
+			{
+				_returning = false;
+				return;
+			}
+			
+			Transform.position += Math.EasingFunction.SimpleQuadraticEase.V3SimpleQuadraticEaseOut(Transform.position, _targetPos, 0.1f);
+		}
 		
 		#endregion
 
@@ -124,7 +146,11 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
 
 		private SpawnerObjectView _spawnerRef;
 
+		private Vector3 _targetPos;
+		
 		private float _fireDestructionTimer;
+
+		private bool _returning;
 
 		#endregion
 	}
