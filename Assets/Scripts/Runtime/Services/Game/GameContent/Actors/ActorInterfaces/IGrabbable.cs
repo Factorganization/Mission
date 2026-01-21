@@ -33,5 +33,11 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorInterfaces
 		/// </summary>
 		/// <returns></returns>
 		public bool Action();
+
+		/// <summary>
+		/// Set object position smoothly to target position
+		/// </summary>
+		/// <param name="targetPos">target position</param>
+		public void StartSmoothPosition(Vector3 targetPos);
     }
 }
