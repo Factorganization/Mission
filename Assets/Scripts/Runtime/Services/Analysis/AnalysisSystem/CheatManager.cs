@@ -20,7 +20,8 @@ namespace Runtime.Services.Analysis.AnalysisSystem
 
         public void SetId(string id)
         {
-            _id = int.Parse(id);
+            if (int.TryParse(id, out var i))
+                _id = i;
         }
 
         public void PlayerNoClip()

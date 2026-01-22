@@ -1,6 +1,7 @@
 using Runtime.Service;
 using Runtime.Services.Cursor;
 using Runtime.Services.Game.GameSystems;
+using Runtime.Services.Scene;
 using TMPro;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -41,7 +42,7 @@ namespace Runtime.Services.Analysis
                     c.SetActive(true);
                 }
                 else
-                    c.SetActive(_mousePreviousState);
+                    c.SetActive(ServiceLocator.Instance.Get<SceneService>().CurrentActiveSceneGroup == 0); // et au pire blk fallait pas cheat voila
             }
             
             if (_loadedDebug)
