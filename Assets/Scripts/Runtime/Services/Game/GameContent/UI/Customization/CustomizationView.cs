@@ -36,7 +36,10 @@ namespace Runtime.Services.Game.GameContent.UI.Customization
                  {
                      _characterPreview.SetBodyPartMesh(CustomizationPlayer.BodyPartType.Hair, btn.ItemIndex);
                      if (_customizationColors != null)
+                     {
                          _customizationColors.SetCurrentItemIndex(btn.ItemIndex);
+                         _customizationColors.ApplyColor(0);
+                     }
                  });
              });
              
@@ -63,7 +66,10 @@ namespace Runtime.Services.Game.GameContent.UI.Customization
                  {
                      _characterPreview.SetBodyPartMesh(CustomizationPlayer.BodyPartType.Body, btn.ItemIndex);
                      if (_customizationColors != null)
+                     {
                          _customizationColors.SetCurrentItemIndex(btn.ItemIndex);
+                         _customizationColors.ApplyColor(0);
+                     }
                  });
              });
             

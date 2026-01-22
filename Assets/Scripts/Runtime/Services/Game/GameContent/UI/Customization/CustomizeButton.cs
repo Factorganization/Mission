@@ -5,6 +5,9 @@ namespace Runtime.Services.Game.GameContent.UI.Customization
 {
     [Serializable]
     public class ChangeSkin : UnityEvent<CustomizeButton> { }
+    
+    [Serializable]
+    public class UnlockItemEvent : UnityEvent<CustomizeButton> { }
 
     public class CustomizeButton : MonoBehaviour
     {
@@ -23,26 +26,17 @@ namespace Runtime.Services.Game.GameContent.UI.Customization
 
             if (_lockImage != null)
                 _lockImage.gameObject.SetActive(_locked);
+                
         }
 
         public void OnSelected()
         {
-            if (_locked) return;
+            if (_locked)
+            {
+                UnlockItemEvent.Invoke(this);
+                return;
+            }
             OnChangeSkin.Invoke(this);
-        }
-
-        public void SetDataPrefab(GameObject prefab, Sprite icon, bool locked, int index)
-        {
-            _customizeItem = null;
-            SelectedPrefab = prefab;
-            ItemIndex = index;
-            _locked = locked;
-
-            if (_image != null)
-                _image.sprite = icon;
-
-            if (_lockImage != null)
-                _lockImage.gameObject.SetActive(_locked);
         }
 
         public void SetDataMesh(Mesh mesh, Sprite icon, bool locked, int index)
@@ -77,6 +71,11 @@ namespace Runtime.Services.Game.GameContent.UI.Customization
                 _lockImage.gameObject.SetActive(_locked);
         }
 
+        public void UnlockItem()
+        {
+            
+        }
+
         public void ResetForPool()
         {
             OnChangeSkin.RemoveAllListeners();
@@ -97,6 +96,7 @@ namespace Runtime.Services.Game.GameContent.UI.Customization
         [SerializeField] private bool _locked;
 
         public ChangeSkin OnChangeSkin = new ChangeSkin();
+        public UnlockItemEvent UnlockItemEvent = new UnlockItemEvent();
 
         public GameObject SelectedPrefab { get; private set; }
         public Material SelectedMaterial { get; private set; }
