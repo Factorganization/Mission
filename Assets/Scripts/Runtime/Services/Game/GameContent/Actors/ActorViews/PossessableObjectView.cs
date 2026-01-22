@@ -69,6 +69,8 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
 				SetModel(1);
 				Active = false;
 				Flag3 = Flag1;
+				exploded = false;
+				
 				foreach (var p in VFX.waterParticles)
 					p.Stop();
 				VFX.waterPlaying = false;

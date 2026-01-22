@@ -1,5 +1,6 @@
 using Runtime.Services.Game.GameContent.Actors.ActorControllers;
 using Runtime.Services.Game.GameContent.Actors.ActorInterfaces;
+using Runtime.Services.Game.GameContent.Logics.LogicInterfaces;
 using Runtime.Services.Game.GameContent.Logics.LogicModels.ElementModels;
 using Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Controller;
 using Runtime.Services.Game.GameSystems;
@@ -85,6 +86,22 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
 		private void FixedUpdate()
 		{
 			SetSmoothPosition();
+		}
+
+		#endregion
+
+		#region element holder
+
+		protected override void Explode(IElementHolder holder)
+		{
+			base.Explode(holder);
+			
+			var p = GameManager.Instance.Player.PlayerModel;
+			p.ResetGrabbedObjectState();
+			p.SetAnimParam(p.isHolding, false);
+			p.SetAnimParam(p.isInteracting, false);
+			Transform.position = _spawnerRef ? _spawnerRef.SpawnPos.position : OriginPos;
+			exploded = false;
 		}
 
 		#endregion

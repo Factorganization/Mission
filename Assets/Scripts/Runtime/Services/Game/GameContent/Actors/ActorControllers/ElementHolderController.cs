@@ -1,3 +1,4 @@
+using Runtime.Service;
 using Runtime.Services.Game.GameContent.Actors.ActorInterfaces;
 using Runtime.Services.Game.GameContent.Actors.ActorViews;
 using Runtime.Services.Game.GameContent.Logics.LogicInterfaces;
@@ -12,6 +13,14 @@ public abstract class ElementHolderController : ActorView, IElementHolder
 {
     #region properties
 
+    #region actorComparable
+
+    [field : SerializeField] public int Id { get; private set; }
+
+    #endregion
+    
+    #region elementHolder
+    
 	public Transform Transform => transform;
 
 	public ObjectType ObjectType => objectDefinition.@object;
@@ -37,10 +46,17 @@ public abstract class ElementHolderController : ActorView, IElementHolder
 	public virtual BoxCollider Collider => objectDefinition.col;
 	
 	#endregion
+	
+	#endregion
 
 	#region methodes
 
 	#region Unity Events
+
+	protected virtual void Awake()
+	{
+		SetId();
+	}
 	
 	protected virtual void Start()
 	{
@@ -127,6 +143,17 @@ public abstract class ElementHolderController : ActorView, IElementHolder
 		}
 	}
 	
+	#endregion
+
+	#region actorComparison
+
+	public void SetId()
+	{
+		var g = ServiceLocator.Instance.Get<GameService>();
+		Id = g.GeneralId;
+		g.GeneralId++;
+	}
+
 	#endregion
 	
 	#region element holder implementation
@@ -284,6 +311,18 @@ public abstract class ElementHolderController : ActorView, IElementHolder
 		
 		data.Holder1.Durations.electricityTimer = data.Holder1.Durations.electricityDuration;
 		data.Holder2.Durations.electricityTimer = data.Holder2.Durations.electricityDuration;
+
+		if (!data.Holder1.MissionDone[2])
+		{
+			MissionManager.Manager.TryGetAndSetMission(new MissionModel(MissionType.ElementAffection, data.Holder1.ObjectType, ElementFlag.CanConduct, data.Holder1.RoomType));
+			data.Holder1.MissionDone[2] = true;
+		}
+
+		if (!data.Holder2.MissionDone[2])
+		{
+			MissionManager.Manager.TryGetAndSetMission(new MissionModel(MissionType.ElementAffection, data.Holder2.ObjectType, ElementFlag.CanConduct, data.Holder2.RoomType));
+			data.Holder2.MissionDone[2] = true;
+		}
 	}
 
 	#endregion
@@ -366,15 +405,27 @@ public abstract class ElementHolderController : ActorView, IElementHolder
 
 	#region instant methodes
 	
-	protected void Explode(IElementHolder holder)
+	protected virtual void Explode(IElementHolder holder)
 	{
+		if (exploded)
+			return;
+		
+		exploded = true;
+		
 		foreach (var e in LevelGenerator.Generator.ElementHolders)
 		{
 			if (Vector3.Distance(e.Transform.position, holder.Transform.position) > objectDefinition.destructionApplicationDistance)
 				continue;
 
-			Physics.Linecast(e.Transform.position + e.Collider.center, holder.Transform.position + holder.Collider.center, out var hit, objectDefinition.blockLayer);
-			if (hit.transform is not null && !hit.transform.TryGetComponent<IElementHolder>(out _))
+			Physics.Linecast(holder.Transform.position + holder.Collider.center, e.Transform.position + e.Collider.center, out var hit, objectDefinition.blockLayer);
+			
+			if (hit.transform is null)
+				continue;
+			
+			if (!hit.transform.root.TryGetComponent<IElementHolder>(out var h))
+				continue;
+			
+			if (h.Id != e.Id)
 				continue;
 			
 			if ((e.Flag2 & ElementFlag.CanBurn) == 0)
@@ -405,6 +456,8 @@ public abstract class ElementHolderController : ActorView, IElementHolder
 	private ElementInteractionDataPair[] _nextInteractions;
 
 	private bool[] _missionDone;
+
+	protected bool exploded;
 
 	#endregion
 }
