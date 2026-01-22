@@ -25,7 +25,7 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorControllers.States
             base.OnUpdate();
             if (aiModel._currentPossessable != null)
             {
-                AIController.SetCurrentWaypoint(aiModel, aiModel._currentPossessable.Transform.position);
+                AIController.SetCurrentWaypoint(aiModel, aiModel._currentPossessable.TargetPosition);
                 
                 if (Vector3.Distance(aiModel.transform.position, aiModel._currentPossessable.Transform.position) < 2)
                     stateMachine.SwitchState("repair");
