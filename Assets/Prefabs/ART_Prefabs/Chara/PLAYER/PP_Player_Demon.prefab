@@ -42,7 +42,7 @@ GameObject:
   m_Component:
   - component: {fileID: 886458596459054453}
   - component: {fileID: 3056788540151394783}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: PP_Player_Demon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -59,7 +59,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 20, y: 10, z: 20}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1755177164479413004}
@@ -107,6 +107,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 3c2eef109a350474eaada7161687c580, type: 2}
     - {fileID: 11400000, guid: 68ca3f94ec3007542b557a5d11c80679, type: 2}
   head: {fileID: 7776735505280512268}
+  tail: {fileID: 3353565553586374180}
 --- !u!1 &7548349888574499900
 GameObject:
   m_ObjectHideFlags: 0
@@ -240,7 +241,7 @@ PrefabInstance:
       objectReference: {fileID: -7067387614219275289, guid: 1fb6df797af009642a782706d6f21b61, type: 3}
     - target: {fileID: 3813395244306653626, guid: 1fb6df797af009642a782706d6f21b61, type: 3}
       propertyPath: m_Materials.Array.size
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3813395244306653626, guid: 1fb6df797af009642a782706d6f21b61, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
@@ -590,6 +591,11 @@ PrefabInstance:
 --- !u!4 &2821413874156056592 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -7148980929729145060, guid: f7699d435bc59c140ba701fbdc5117e4, type: 3}
+  m_PrefabInstance: {fileID: 4318419058616559372}
+  m_PrefabAsset: {fileID: 0}
+--- !u!137 &3353565553586374180 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7681916818677735128, guid: f7699d435bc59c140ba701fbdc5117e4, type: 3}
   m_PrefabInstance: {fileID: 4318419058616559372}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &3976522963491019357 stripped
