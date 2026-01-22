@@ -1,6 +1,9 @@
 using Runtime.Service;
+using Runtime.Services.Cursor;
 using Runtime.Services.Game.GameSystems;
+using Runtime.Services.Scene;
 using TMPro;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 namespace Runtime.Services.Analysis
@@ -16,9 +19,33 @@ namespace Runtime.Services.Analysis
 
         public override void Tick()
         {
-            text.text = "";
+            if (!allowDebug)
+                return;
             
-            if (managerDebug)
+            text.text = "";
+            if (cheatCanvas.gameObject.activeSelf)
+                ServiceLocator.Instance.Get<CursorService>().SetActive(true);
+            
+            if (loadedInput.action.WasPressedThisFrame())
+                _loadedDebug = !_loadedDebug;
+
+            if (perfInput.action.WasPressedThisFrame())
+                graphy.gameObject.SetActive(!graphy.gameObject.activeSelf);
+
+            if (cheatInput.action.WasPressedThisFrame())
+            {
+                cheatCanvas.gameObject.SetActive(!cheatCanvas.gameObject.activeSelf);
+                var c = ServiceLocator.Instance.Get<CursorService>();
+                if (cheatCanvas.gameObject.activeSelf)
+                {
+                    _mousePreviousState = c.MouseVisible;
+                    c.SetActive(true);
+                }
+                else
+                    c.SetActive(ServiceLocator.Instance.Get<SceneService>().CurrentActiveSceneGroup == 0); // et au pire blk fallait pas cheat voila
+            }
+            
+            if (_loadedDebug)
             {
                 text.text += "Managers : \n";
 
@@ -30,14 +57,9 @@ namespace Runtime.Services.Analysis
                     text.text += "ElementManager\n";
                 if (MissionManager.Manager)
                     text.text += "MissionManager\n";
-            }
-            else
-                text.text = "";
-
-            if (sceneDebug)
-            {
-                text.text += "Scenes : \n";
                 
+                text.text += "Scenes : \n";
+                                                                    
                 for (var i = 0; i < SceneManager.sceneCount; i++)
                 {
                     text.text += $"{SceneManager.GetSceneAt(i).name}\n";
@@ -45,8 +67,6 @@ namespace Runtime.Services.Analysis
             }
             else
                 text.text = "";
-
-            graphy.enabled = perfDebug;
         }
 
         #endregion
@@ -56,12 +76,20 @@ namespace Runtime.Services.Analysis
         [SerializeField] private TMP_Text text;
 
         [SerializeField] private Canvas graphy;
-        
-        [SerializeField] private bool managerDebug;
 
-        [SerializeField] private bool sceneDebug;
+        [SerializeField] private Canvas cheatCanvas;
         
-        [SerializeField] private bool perfDebug;
+        [SerializeField] private InputActionReference loadedInput;
+        
+        [SerializeField] private InputActionReference perfInput;
+        
+        [SerializeField] private InputActionReference cheatInput;
+        
+        [SerializeField] private bool allowDebug;
+        
+        private bool _loadedDebug;
+
+        private bool _mousePreviousState;
 
         #endregion
     }

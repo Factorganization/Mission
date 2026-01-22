@@ -1,4 +1,5 @@
-using Runtime.Services.Audio.AudioSystems;
+using Runtime.Service;
+using Runtime.Services.Audio;
 using UnityEngine.UI;
 
 namespace Runtime.Services.Game.GameContent.UI
@@ -13,32 +14,36 @@ namespace Runtime.Services.Game.GameContent.UI
 
         private void Update()
         {
+            var s = ServiceLocator.Instance.Get<AudioService>();
+            
             switch (volumeType)
             {
                 case VolumeType.Master:
-                    volumeSlider.value = AudioManager.Instance.masterVolume;
+                    volumeSlider.value = s.MasterVolume;
                     break;
                 case VolumeType.Music:
-                    volumeSlider.value = AudioManager.Instance.musicVolume;
+                    volumeSlider.value = s.MusicVolume;
                     break;
                 case VolumeType.SFX:
-                    volumeSlider.value = AudioManager.Instance.SFXVolume;
+                    volumeSlider.value = s.SfxVolume;
                     break;
             }
         }
     
         public void OnSliderValueChanged()
         {
+            var s = ServiceLocator.Instance.Get<AudioService>();
+            
             switch (volumeType)
             {
                 case VolumeType.Master:
-                    AudioManager.Instance.masterVolume = volumeSlider.value;
+                    s.MasterVolume = volumeSlider.value;
                     break;
                 case VolumeType.Music:
-                    AudioManager.Instance.musicVolume = volumeSlider.value;
+                    s.MusicVolume = volumeSlider.value;
                     break;
                 case VolumeType.SFX:
-                    AudioManager.Instance.SFXVolume = volumeSlider.value;
+                    s.SfxVolume = volumeSlider.value;
                     break;
             }
         }
