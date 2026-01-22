@@ -22,21 +22,6 @@ namespace Runtime.Services.Game.GameContent.UI.PauseMenu
 
         [SerializeField] private Image holder;
         
-        // Temporary quest data list for testing
-        private bool _isOpen;
-        
-        public bool IsOpen
-        {
-            get => _isOpen;
-            set
-            {
-                if (_isOpen == value) return;
-                _isOpen = value;
-                if (_isOpen) Show();
-                else Hide();
-            }
-        }
-        
         private Vector2 _missionTargetPosition;
 
         #endregion

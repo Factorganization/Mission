@@ -10,16 +10,6 @@ namespace Runtime.Services.Game.GameContent.UI.GameUI
     {
         #region Functions
 
-        private void Start()
-        {
-            Initialize();
-        }
-
-        private void Initialize()
-        {
-        
-        }
-
         public async void ReturnToMainMenu()
         {
             Time.timeScale = 1f;
@@ -36,7 +26,7 @@ namespace Runtime.Services.Game.GameContent.UI.GameUI
         {
             // Show end game UI
             ServiceLocator.Instance.Get<CursorService>().SetActive(true);
-            _gameOverUI.SetActive(true);
+            _gameOverUI.Show();
             Time.timeScale = 0f;
         }
         
@@ -44,7 +34,7 @@ namespace Runtime.Services.Game.GameContent.UI.GameUI
         {
             // Show win game UI
             ServiceLocator.Instance.Get<CursorService>().SetActive(true);
-            _winUI.SetActive(true);
+            _winUI.Show();
             Time.timeScale = 0f;
         }
 
@@ -57,8 +47,8 @@ namespace Runtime.Services.Game.GameContent.UI.GameUI
 
         #region Fields
 
-        [SerializeField] private GameObject _gameOverUI;
-        [SerializeField] private GameObject _winUI;
+        [SerializeField] private LoseScreen _gameOverUI;
+        [SerializeField] private WinScreen _winUI;
         [SerializeField] private QuestPage _questPage;
         [SerializeField] private PauseMenuUI _pauseMenuUI;
 
