@@ -2,7 +2,6 @@ using Runtime.Services.Game.GameContent.Actors.ActorControllers;
 using Runtime.Services.Game.GameContent.Actors.ActorControllers.States;
 using Runtime.Services.Game.GameContent.Actors.ActorModels;
 using Runtime.Services.Game.GameContent.Actors.ActorModels.SO;
-using Runtime.Services.Game.GameContent.Actors.ActorModules.AI;
 using Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.View;
 using Shared.Utils.BaseMachine;
 using UnityEngine.AI;
