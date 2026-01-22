@@ -18,6 +18,7 @@ public class AISuspiciousState : BaseAiState
     public override void OnEnterState()
     {
         aiModel._agentRef.isStopped = true;
+        aiModel._animatorRef.SetBool("ac_isSus", true);
     }
 
     public override sbyte OnUpdate()
@@ -61,6 +62,7 @@ public class AISuspiciousState : BaseAiState
     public override void OnExitState()
     {
         aiModel._agentRef.isStopped = false;
+        aiModel._animatorRef.SetBool("ac_isSus", false);
     }
 
     public override IEnumerator OnCoroutine()
