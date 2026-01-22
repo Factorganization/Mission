@@ -72,22 +72,6 @@ namespace Runtime.Services.Game.GameContent.UI.Customization
             mats[idx] = mat;
             renderer.sharedMaterials = mats;
         }
-        
-        /*public void ApplyMaterialToHead(Material mat, int materialIndex = 0)
-        {
-            if (mat == null || head == null) return;
-
-            Material[] mats = head.sharedMaterials;
-            if (mats == null || mats.Length == 0)
-            {
-                head.sharedMaterials = new Material[] { mat };
-                return;
-            }
-
-            int idx = Mathf.Clamp(materialIndex, 0, mats.Length - 1);
-            mats[idx] = mat;
-            head.sharedMaterials = mats;
-        }*/
 
         public void ApplyMaterialToBodySkin(Material mat)
         {

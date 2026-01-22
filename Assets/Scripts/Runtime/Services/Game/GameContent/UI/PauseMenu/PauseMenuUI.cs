@@ -27,7 +27,8 @@ namespace Runtime.Services.Game.GameContent.UI.PauseMenu
 
         public void OpenPauseMenu()
         {
-            StartCoroutine(AnimationExtensions.Play(_pauseMenuAnimator, "OpenPauseMenu", false, () => Show()));
+            base.Show();
+            StartCoroutine(AnimationExtensions.Play(_pauseMenuAnimator, "OpenPauseMenu", false, null));
             ServiceLocator.Instance.Get<CursorService>().SetActive(true);
             Time.timeScale = 0f;
         }
