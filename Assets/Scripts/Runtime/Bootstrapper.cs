@@ -19,8 +19,12 @@ namespace Runtime
                 {
                     foreach (var s in services)
                     {
+                        if (!s.Init())
+                        {
+                            Debug.LogError("Service didn't initialize properly");
+                            continue;
+                        }
                         serviceLocator.Register(s.GetType(), s);
-                        s.Init();
                         Debug.Log($"Service registered: {s}");
                     }
                 }

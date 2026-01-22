@@ -6,10 +6,11 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Model
     {
         #region constuctors
 
-        public PlayerModel(PlayerDataSo data, Rigidbody rb, Transform graph, Transform cam, Transform grab, Transform activeGrab, Animator animator)
+        public PlayerModel(PlayerDataSo data, Rigidbody rb, Collider col, Transform graph, Transform cam, Transform grab, Transform activeGrab, Animator animator)
         {
             this.data = data;
             this.rb = rb;
+            this.col = col;
             this.graph = graph;
             this.cam = cam;
             this.grab = grab;
@@ -26,6 +27,8 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Model
         public readonly PlayerDataSo data;
         
         public readonly Rigidbody rb;
+
+        public readonly Collider col;
 
         public readonly Transform cam;
 

@@ -17,7 +17,7 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorControllers.States
 
         public override void OnEnterState()
         {
-
+            aiModel._animatorRef.SetBool("ac_isWalking", true);
         }
 
         public override sbyte OnUpdate()
@@ -57,6 +57,7 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorControllers.States
 
         public override void OnExitState()
         {
+            aiModel._animatorRef.SetBool("ac_isWalking", false);
         }
 
         public override IEnumerator OnCoroutine()
