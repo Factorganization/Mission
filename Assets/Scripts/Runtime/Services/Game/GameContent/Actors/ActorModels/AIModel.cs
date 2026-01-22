@@ -1,6 +1,5 @@
 using Runtime.Services.Game.GameContent.Actors.ActorInterfaces;
 using Runtime.Services.Game.GameContent.Actors.ActorModels.SO;
-using Runtime.Services.Game.GameContent.Actors.ActorModules.AI;
 using Runtime.Services.Game.GameContent.Actors.ActorViews;
 using Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.View;
 using UnityEngine.AI;
@@ -31,6 +30,14 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorModels
                 this.waypoints[i] = waypoints[i].position;
             }
 
+            if (this.waypoints.Length == 0)
+            {
+                notImmediateRepeatCount = 0;
+                _excludedWaypoints = Array.Empty<int>(); 
+                return; 
+            }
+
+            
             notImmediateRepeatCount = movementData.NotImmediateRepeatCount >= this.waypoints.Length
                 ? this.waypoints.Length - 1 : movementData.NotImmediateRepeatCount;
             _excludedWaypoints = new int[notImmediateRepeatCount];
