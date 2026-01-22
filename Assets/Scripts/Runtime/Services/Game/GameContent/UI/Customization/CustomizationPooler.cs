@@ -52,7 +52,9 @@ namespace Runtime.Services.Game.GameContent.UI.Customization
                     btn.SetDataMesh(customItems[i].ItemMesh, icon, customItems[i].Locked, i);
 
                 if (onSelected != null)
+                {
                     btn.OnChangeSkin.AddListener(onSelected);
+                }
                 else
                     btn.OnChangeSkin.RemoveAllListeners();
             }
@@ -114,6 +116,7 @@ namespace Runtime.Services.Game.GameContent.UI.Customization
         
         [SerializeField] private GameObject _customizeButtonPrefab;
         [SerializeField] private GameObject _contentArea;
+        [SerializeField] private CustomizationColors _customizationColors;
         [SerializeField] private int _initialPoolSize = 20;
         
         private readonly List<CustomizeButton> _pool = new List<CustomizeButton>();

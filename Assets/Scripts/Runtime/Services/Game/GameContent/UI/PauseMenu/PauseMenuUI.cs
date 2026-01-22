@@ -27,7 +27,7 @@ namespace Runtime.Services.Game.GameContent.UI.PauseMenu
 
         public void OpenPauseMenu()
         {
-            Show();
+            StartCoroutine(AnimationExtensions.Play(_pauseMenuAnimator, "OpenPauseMenu", false, () => Show()));
             ServiceLocator.Instance.Get<CursorService>().SetActive(true);
             Time.timeScale = 0f;
         }
@@ -41,7 +41,7 @@ namespace Runtime.Services.Game.GameContent.UI.PauseMenu
 
         public override void Hide()
         {
-            base.Hide();
+            StartCoroutine(AnimationExtensions.Play(_pauseMenuAnimator, "ClosePauseMenu", false, () => base.Hide()));
             ServiceLocator.Instance.Get<CursorService>().SetActive(false);
             Time.timeScale = 1f;
         }
@@ -52,6 +52,7 @@ namespace Runtime.Services.Game.GameContent.UI.PauseMenu
         
         [SerializeField] private Button _resumeButton, _settingsButton, _quitButton;
         [SerializeField] private Settings _settingsUI;
+        [SerializeField] private Animation _pauseMenuAnimator;
         
         public Settings Settings => _settingsUI;
         

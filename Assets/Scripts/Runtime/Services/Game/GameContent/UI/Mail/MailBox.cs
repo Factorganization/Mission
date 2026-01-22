@@ -38,8 +38,8 @@ namespace Runtime.Services.Game.GameContent.UI.Mail
             
             _closeMailButton.onClick.AddListener(() => Hide());
         }
-        
-        public void OnMailSelected(MailLevel mailLevel)
+
+        private void OnMailSelected(MailLevel mailLevel)
         {
             Debug.Log(mailLevel.LevelName);
             _levelData._mailLevel = mailLevel;

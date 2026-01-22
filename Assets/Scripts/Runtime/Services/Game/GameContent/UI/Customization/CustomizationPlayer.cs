@@ -36,13 +36,6 @@ namespace Runtime.Services.Game.GameContent.UI.Customization
             }
         }
 
-        public void ChangeBodyPart(BodyPartType bodyPartType)
-        {
-            BodyPartData bodyPartData = GetBodyPartData(bodyPartType);
-            int meshIndex = Array.IndexOf(bodyPartData.meshArray, bodyPartData.skinnedMeshRenderer.sharedMesh);
-            bodyPartData.skinnedMeshRenderer.sharedMesh = bodyPartData.meshArray[(meshIndex + 1) % bodyPartData.meshArray.Length].ItemMesh;
-        }
-
         // Set a specific mesh by index for a body part
         public void SetBodyPartMesh(BodyPartType bodyPartType, int index)
         {
@@ -80,7 +73,7 @@ namespace Runtime.Services.Game.GameContent.UI.Customization
             renderer.sharedMaterials = mats;
         }
         
-        public void ApplyMaterialToHead(Material mat, int materialIndex = 0)
+        /*public void ApplyMaterialToHead(Material mat, int materialIndex = 0)
         {
             if (mat == null || head == null) return;
 
@@ -94,21 +87,36 @@ namespace Runtime.Services.Game.GameContent.UI.Customization
             int idx = Mathf.Clamp(materialIndex, 0, mats.Length - 1);
             mats[idx] = mat;
             head.sharedMaterials = mats;
-        }
+        }*/
 
-        public void ApplyMaterialToBodySkin(Material mat, int materialIndex = 0)
+        public void ApplyMaterialToBodySkin(Material mat)
         {
             if (mat == null) return;
-            
+
             Material[] mats = GetRendererForBodyPart(BodyPartType.Body).sharedMaterials;
             if (mats == null || mats.Length == 0)
             {
                 GetRendererForBodyPart(BodyPartType.Body).sharedMaterials = new Material[] { mat };
                 return;
             }
-            
+
             mats[1] = mat;
             GetRendererForBodyPart(BodyPartType.Body).sharedMaterials = mats;
+        }
+
+        public void ApplyMatToSkinnedMesh(SkinnedMeshRenderer skinnedMeshRenderer, Material mat,int materialIndex = 0)
+        {
+            if (mat == null) return;
+            
+            Material[] mats = skinnedMeshRenderer.sharedMaterials;
+            if (mats == null || mats.Length == 0)
+            {
+                skinnedMeshRenderer.sharedMaterials = new Material[] { mat };
+                return;
+            }
+            
+            mats[materialIndex] = mat;
+            skinnedMeshRenderer.sharedMaterials = mats;
         }
 
         private Renderer GetRendererForBodyPart(BodyPartType bodyPartType)
@@ -209,7 +217,7 @@ namespace Runtime.Services.Game.GameContent.UI.Customization
                         }
                     }
 
-                    meshIndex = (found >= 0) ? found : 0;
+                    meshIndex = found >= 0 ? found : 0;
                     meshIndex = Mathf.Clamp(meshIndex, 0, bodyPartData.meshArray.Length - 1);
                 }
 
@@ -370,8 +378,11 @@ namespace Runtime.Services.Game.GameContent.UI.Customization
         
         [SerializeField] private BodyPartData[] bodyPartMeshDataArray;
 
-        [SerializeField] private SkinnedMeshRenderer head;
+        [SerializeField] private SkinnedMeshRenderer head, tail;
 
+        public SkinnedMeshRenderer Head => head;
+        public SkinnedMeshRenderer Tail => tail;
+        
         #endregion
         
         private static string NormalizeMaterialName(Material m)
