@@ -9,6 +9,8 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.View
     {
         #region properties
 
+        public GenericStateMachine StateMachine => _stateMachine;
+        
         public PlayerModel PlayerModel => _playerModel;
         
         public bool IsVisible => _playerModel.isVisible;

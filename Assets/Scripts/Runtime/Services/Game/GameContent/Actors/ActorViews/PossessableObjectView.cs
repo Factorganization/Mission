@@ -83,6 +83,13 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
 				VFX.explodePlaying = false;
 			}
 		}
+
+		public Vector3 TargetPosition
+		{
+			get => aiTargetPosition.position;
+			private set => aiTargetPosition.position = value;
+		}
+		
 		
 		#endregion
 
@@ -102,6 +109,9 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
 			AtOriginPos = true;
 			Possessed = false;
 			Destroyed = destroyedAtStart;
+
+			if (aiTargetPosition == null)
+				aiTargetPosition = Transform;
 		}
 		
 		#endregion
@@ -202,6 +212,8 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
 
 		[SerializeField] private GameObject destroyedModel;
 
+		[SerializeField] private Transform aiTargetPosition;
+			
 		[SerializeField] private bool destroyedAtStart;
 
 		private bool _active;

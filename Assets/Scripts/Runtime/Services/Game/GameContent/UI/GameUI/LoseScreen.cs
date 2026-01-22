@@ -9,7 +9,8 @@ namespace Runtime.Services.Game.GameContent.UI.GameUI
 
         public override void Show()
         {
-            StartCoroutine(AnimationExtensions.Play(_loseScreenAnimator, "OpenLoseScreen", false, () => base.Show()));
+            base.Show();
+            StartCoroutine(AnimationExtensions.Play(_loseScreenAnimator, "OpenLoseScreen", false, null));
         }
 
         #endregion
