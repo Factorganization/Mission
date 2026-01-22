@@ -673,6 +673,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1365168525814712963, guid: 136f3dccbd0eacd4eb0ccebb0a56466d, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 2100000, guid: 9cdca8bfff65b284d85d8ceeba5fd258, type: 2}
     - target: {fileID: 1685416831686263975, guid: 136f3dccbd0eacd4eb0ccebb0a56466d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -809,11 +813,47 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1239602957}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1365168525814712963, guid: 136f3dccbd0eacd4eb0ccebb0a56466d, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2152553954579711388, guid: 136f3dccbd0eacd4eb0ccebb0a56466d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1146987004}
   m_SourcePrefab: {fileID: 100100000, guid: 136f3dccbd0eacd4eb0ccebb0a56466d, type: 3}
+--- !u!1 &1146987003 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2152553954579711388, guid: 136f3dccbd0eacd4eb0ccebb0a56466d, type: 3}
+  m_PrefabInstance: {fileID: 1146987002}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1146987004
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1146987003}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.RawImage
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.9528302, g: 0.29214135, b: 0.6491943, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Texture: {fileID: 2800000, guid: 464e1c66fd853c24884e167b0bb75537, type: 3}
+  m_UVRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
 --- !u!1001 &1239602947
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1284,6 +1324,19 @@ PrefabInstance:
     - target: {fileID: 6368222262910606495, guid: 8a09bc541e16cff478d93f221598a4b7, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6568845045868515533, guid: 8a09bc541e16cff478d93f221598a4b7, type: 3}
+      propertyPath: m_WarningMessage
+      value: "\nBinding warning: Some generic clip(s) animate transforms that are
+        already bound by a Humanoid avatar. These transforms can only be changed
+        by Humanoid clips.\n\tTransform 'Base HumanPelvis001'\n\tTransform 'Base
+        HumanLArmDigit52'\n\tTransform 'Base HumanSpine'\n\tTransform 'Base HumanLArmDigit41'\n\tTransform
+        'Base HumanLArmDigit12'\n\tTransform 'Base HumanRArmDigit32'\n\tTransform
+        'Base HumanRArmPalm'\n\tTransform 'Base HumanLArmDigit51'\n\tTransform 'Base
+        HumanRArmDigit23'\n\tTransform 'Base HumanPelvis002'\n\tand more ...\n\tFrom
+        animation clip 'A_IDLE_Player_V1'\n\tFrom animation clip 'A_WALK_Player_V1'\n\tFrom
+        animation clip 'A_THROW_Player_V1'\n\tFrom animation clip 'A_INTERRACT_Player_V1'\n\tFrom
+        animation clip 'A_IDLE_Player_V1'\n\tFrom animation clip 'A_WALK_Player_V1'"
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
