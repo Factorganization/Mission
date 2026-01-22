@@ -74,6 +74,7 @@ GameObject:
   - component: {fileID: 4034187260966608129}
   - component: {fileID: 5905231900939503578}
   - component: {fileID: 4511347459420995163}
+  - component: {fileID: 2252223992985130816}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -113,6 +114,7 @@ MonoBehaviour:
   dataSo: {fileID: 11400000, guid: 22b00bd9813903b47a0a240136a22fce, type: 2}
   referenceData:
     rb: {fileID: 4511347459420995163}
+    col: {fileID: 5905231900939503578}
     cam: {fileID: 1399114592452773791}
     graph: {fileID: 5839700932067306762}
     grab: {fileID: 9003621708099694763}
@@ -168,6 +170,20 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!114 &2252223992985130816
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3684857271434410580}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86c6556701af9e04380698b89f691b6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: FMODUnity::FMODUnity.StudioListener
+  nonRigidbodyVelocity: 0
+  attenuationObject: {fileID: 0}
 --- !u!1 &4215339222236215039
 GameObject:
   m_ObjectHideFlags: 0
@@ -426,8 +442,8 @@ GameObject:
   - component: {fileID: 5661183953541509531}
   - component: {fileID: 238655495856722804}
   - component: {fileID: 5277432148175890142}
+  - component: {fileID: 1651046808663682369}
   - component: {fileID: 5287829356932450347}
-  - component: {fileID: 9118558439291724213}
   - component: {fileID: 5009008472815766561}
   m_Layer: 3
   m_Name: Main Camera
@@ -571,6 +587,30 @@ MonoBehaviour:
     CameraRadius: 0.001
     DampingIntoCollision: 0
     DampingFromCollision: 0
+--- !u!114 &1651046808663682369
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7654993678154730405}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00b2d199b96b516448144ab30fb26aed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineImpulseListener
+  ApplyAfter: 2
+  ChannelMask: 1
+  Gain: 1
+  Use2DDistance: 0
+  UseCameraSpace: 1
+  SignalCombinationMode: 0
+  ReactionSettings:
+    m_SecondaryNoise: {fileID: 11400000, guid: 69ce8388f6785dd4c8c39915efece2f4, type: 2}
+    AmplitudeGain: 1
+    FrequencyGain: 1
+    Duration: 1
+    m_NoiseOffsets: {x: 0, y: 0, z: 0}
 --- !u!114 &5287829356932450347
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -615,20 +655,6 @@ MonoBehaviour:
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
   m_Version: 2
---- !u!114 &9118558439291724213
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7654993678154730405}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 86c6556701af9e04380698b89f691b6e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: FMODUnity::FMODUnity.StudioListener
-  nonRigidbodyVelocity: 0
-  attenuationObject: {fileID: 0}
 --- !u!114 &5009008472815766561
 MonoBehaviour:
   m_ObjectHideFlags: 0
