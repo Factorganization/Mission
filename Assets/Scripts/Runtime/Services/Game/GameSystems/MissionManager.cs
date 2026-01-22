@@ -76,6 +76,14 @@ namespace Runtime.Services.Game.GameSystems
 
 		#region missions callbacks
 
+        public void ResetMissions()
+        {
+            for (var i = 0; i < missions.Length; i++)
+            {
+                _currentMissionsCount[i] = missions[i].number;
+            }
+        }
+        
         public bool TryGetAndSetMission(MissionModel mission)
         {
             var l = FindMission(missions, mission);
@@ -130,6 +138,7 @@ namespace Runtime.Services.Game.GameSystems
             
             //TODO
             //GameManager.Instance.GameUIMgr.WinGame();
+            //en fait c'est réglé
             endGame.OnActivate();
         }
 
@@ -252,7 +261,7 @@ namespace Runtime.Services.Game.GameSystems
 
         [SerializeField] private bool onBoardingMode;
 
-		private Dictionary<int, MissionModel> _presenceMissions = new();
+		private readonly Dictionary<int, MissionModel> _presenceMissions = new();
 
         private int[] _currentMissionsCount;
 

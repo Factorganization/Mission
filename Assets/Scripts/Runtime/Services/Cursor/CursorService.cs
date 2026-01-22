@@ -5,12 +5,18 @@ namespace Runtime.Services.Cursor
 {
     public class CursorService : AService
     {
+        #region properties
+
+        public bool MouseVisible => _mouseVisible;
+
+        #endregion
+        
         #region methodes
 
         public override void Begin()
         {
             UnityEngine.Cursor.visible = true;
-            UnityEngine.Cursor.lockState = CursorLockMode.None;
+            UnityEngine.Cursor.lockState = CursorLockMode.Confined;
             _mouseVisible = true;
         }
 
