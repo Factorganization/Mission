@@ -5771,10 +5771,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 928062394}
     m_Modifications:
-    - target: {fileID: 8884148358411798142, guid: 9d888abf23716ab4fb23bc98386d592c, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
-      value: 
-      objectReference: {fileID: 2100000, guid: 3e2d52620b659fc4681ca6c424a83e1f, type: 2}
+    - target: {fileID: 7313748957529948064, guid: 9d888abf23716ab4fb23bc98386d592c, type: 3}
+      propertyPath: m_Name
+      value: PV_Affectable_Bench_01 (4)
+      objectReference: {fileID: 0}
     - target: {fileID: 8407628375322945105, guid: 9d888abf23716ab4fb23bc98386d592c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 7
@@ -5815,10 +5815,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7313748957529948064, guid: 9d888abf23716ab4fb23bc98386d592c, type: 3}
-      propertyPath: m_Name
-      value: PV_Affectable_Bench_01 (4)
-      objectReference: {fileID: 0}
+    - target: {fileID: 8884148358411798142, guid: 9d888abf23716ab4fb23bc98386d592c, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 3e2d52620b659fc4681ca6c424a83e1f, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6101,6 +6101,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 198788154}
     m_Modifications:
+    - target: {fileID: 5383856568908349303, guid: 9af2bc6614d0fb94d8adee567eb45495, type: 3}
+      propertyPath: m_Name
+      value: PV_Affectable_Plant_04 (1)
+      objectReference: {fileID: 0}
     - target: {fileID: 6585687197889177222, guid: 9af2bc6614d0fb94d8adee567eb45495, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.173
@@ -6140,10 +6144,6 @@ PrefabInstance:
     - target: {fileID: 6585687197889177222, guid: 9af2bc6614d0fb94d8adee567eb45495, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5383856568908349303, guid: 9af2bc6614d0fb94d8adee567eb45495, type: 3}
-      propertyPath: m_Name
-      value: PV_Affectable_Plant_04 (1)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -9410,6 +9410,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 928062394}
     m_Modifications:
+    - target: {fileID: 5383856568908349303, guid: 9af2bc6614d0fb94d8adee567eb45495, type: 3}
+      propertyPath: m_Name
+      value: PV_Affectable_Plant_04
+      objectReference: {fileID: 0}
     - target: {fileID: 6585687197889177222, guid: 9af2bc6614d0fb94d8adee567eb45495, type: 3}
       propertyPath: m_LocalPosition.x
       value: 8.5
@@ -9449,10 +9453,6 @@ PrefabInstance:
     - target: {fileID: 6585687197889177222, guid: 9af2bc6614d0fb94d8adee567eb45495, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5383856568908349303, guid: 9af2bc6614d0fb94d8adee567eb45495, type: 3}
-      propertyPath: m_Name
-      value: PV_Affectable_Plant_04
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -9568,7 +9568,7 @@ MonoBehaviour:
   m_Center: {x: 0, y: 2, z: 0}
   m_LayerMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 3137
   m_UseGeometry: 0
   m_DefaultArea: 0
   m_GenerateLinks: 0
@@ -11558,10 +11558,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1460030944}
     m_Modifications:
-    - target: {fileID: 3613386772653617739, guid: f986ceed48ac8684fbae046deab9b49c, type: 3}
-      propertyPath: m_Name
-      value: PV_Spawner_ToiletPaper
-      objectReference: {fileID: 0}
     - target: {fileID: 3469046781710824810, guid: f986ceed48ac8684fbae046deab9b49c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 7.571
@@ -11601,6 +11597,10 @@ PrefabInstance:
     - target: {fileID: 3469046781710824810, guid: f986ceed48ac8684fbae046deab9b49c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3613386772653617739, guid: f986ceed48ac8684fbae046deab9b49c, type: 3}
+      propertyPath: m_Name
+      value: PV_Spawner_ToiletPaper
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -11923,6 +11923,50 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7971482351919388200, guid: be8c6de8453500e46928f9750792260a, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 1026490575}
+    - target: {fileID: 7971482351919388200, guid: be8c6de8453500e46928f9750792260a, type: 3}
+      propertyPath: waypoints.Array.size
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 7971482351919388200, guid: be8c6de8453500e46928f9750792260a, type: 3}
+      propertyPath: 'waypoints.Array.data[0]'
+      value: 
+      objectReference: {fileID: 633053888}
+    - target: {fileID: 7971482351919388200, guid: be8c6de8453500e46928f9750792260a, type: 3}
+      propertyPath: 'waypoints.Array.data[1]'
+      value: 
+      objectReference: {fileID: 1477938239}
+    - target: {fileID: 7971482351919388200, guid: be8c6de8453500e46928f9750792260a, type: 3}
+      propertyPath: 'waypoints.Array.data[2]'
+      value: 
+      objectReference: {fileID: 435448113}
+    - target: {fileID: 7971482351919388200, guid: be8c6de8453500e46928f9750792260a, type: 3}
+      propertyPath: 'waypoints.Array.data[3]'
+      value: 
+      objectReference: {fileID: 1116612912}
+    - target: {fileID: 7971482351919388200, guid: be8c6de8453500e46928f9750792260a, type: 3}
+      propertyPath: 'waypoints.Array.data[4]'
+      value: 
+      objectReference: {fileID: 790883763}
+    - target: {fileID: 7971482351919388200, guid: be8c6de8453500e46928f9750792260a, type: 3}
+      propertyPath: 'waypoints.Array.data[5]'
+      value: 
+      objectReference: {fileID: 431342801}
+    - target: {fileID: 7971482351919388200, guid: be8c6de8453500e46928f9750792260a, type: 3}
+      propertyPath: 'waypoints.Array.data[6]'
+      value: 
+      objectReference: {fileID: 1862332153}
+    - target: {fileID: 7971482351919388200, guid: be8c6de8453500e46928f9750792260a, type: 3}
+      propertyPath: 'waypoints.Array.data[7]'
+      value: 
+      objectReference: {fileID: 1112479464}
+    - target: {fileID: 7971482351919388200, guid: be8c6de8453500e46928f9750792260a, type: 3}
+      propertyPath: 'waypoints.Array.data[8]'
+      value: 
+      objectReference: {fileID: 752944067}
     - target: {fileID: 8089260054410516500, guid: be8c6de8453500e46928f9750792260a, type: 3}
       propertyPath: player
       value: 
