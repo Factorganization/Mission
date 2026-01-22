@@ -1,4 +1,5 @@
 using Runtime.Service;
+using Runtime.Services.Cursor;
 using Runtime.Services.Game.GameSystems;
 using TMPro;
 using UnityEngine.InputSystem;
@@ -17,18 +18,33 @@ namespace Runtime.Services.Analysis
 
         public override void Tick()
         {
+            if (!allowDebug)
+                return;
+            
             text.text = "";
+            if (cheatCanvas.gameObject.activeSelf)
+                ServiceLocator.Instance.Get<CursorService>().SetActive(true);
             
             if (loadedInput.action.WasPressedThisFrame())
-                loadedDebug = !loadedDebug;
+                _loadedDebug = !_loadedDebug;
 
             if (perfInput.action.WasPressedThisFrame())
-                graphy.enabled = !graphy.enabled;
-            
+                graphy.gameObject.SetActive(!graphy.gameObject.activeSelf);
+
             if (cheatInput.action.WasPressedThisFrame())
-                cheatCanvas.enabled = !cheatCanvas.enabled;
+            {
+                cheatCanvas.gameObject.SetActive(!cheatCanvas.gameObject.activeSelf);
+                var c = ServiceLocator.Instance.Get<CursorService>();
+                if (cheatCanvas.gameObject.activeSelf)
+                {
+                    _mousePreviousState = c.MouseVisible;
+                    c.SetActive(true);
+                }
+                else
+                    c.SetActive(_mousePreviousState);
+            }
             
-            if (loadedDebug)
+            if (_loadedDebug)
             {
                 text.text += "Managers : \n";
 
@@ -68,7 +84,11 @@ namespace Runtime.Services.Analysis
         
         [SerializeField] private InputActionReference cheatInput;
         
-        [SerializeField] private bool loadedDebug;
+        [SerializeField] private bool allowDebug;
+        
+        private bool _loadedDebug;
+
+        private bool _mousePreviousState;
 
         #endregion
     }

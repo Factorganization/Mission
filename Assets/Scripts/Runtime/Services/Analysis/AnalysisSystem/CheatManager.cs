@@ -3,70 +3,77 @@ using Runtime.Services.Game.GameContent.Actors.ActorViews;
 using Runtime.Services.Game.GameSystems;
 using Runtime.Services.Scene;
 
-namespace Runtime.Services.Analysis.AnalysisSystem;
-
-public class CheatManager : MonoBehaviour
+namespace Runtime.Services.Analysis.AnalysisSystem
 {
-    #region methodes
-
-    public async void LoadSceneGroup(string sceneGroup)
+    public class CheatManager : MonoBehaviour
     {
-        await ServiceLocator.Instance.Get<SceneService>().LoadSceneGroup(sceneGroup);
-    }
+        #region methodes
 
-    public void PlayerToPosition(Vector3 position)
-    {
-        if (GameManager.Instance is not null)
-            GameManager.Instance.Player.PlayerModel.rb.position = position;
-    }
-
-    public void PlayerNoClip()
-    {
-        /*if (GameManager.Instance is not null)
-            GameManager.Instance.Player.PlayerModel*/ //TODO le ptn de collider 
-    }
-
-    public void SetAi(bool active)
-    {
-        var ais = FindObjectsByType<AIStateMachine>(FindObjectsSortMode.None);
-
-        foreach (var ai in ais)
-            ai.gameObject.SetActive(active);
-    }
-
-    public void ResetAllElements()
-    {
-        if (LevelGenerator.Generator is null)
-            return;
-
-        foreach (var e in LevelGenerator.Generator.ElementHolders)
+        public async void LoadSceneGroup()
         {
-            e.Flag3 = 0;
+            var s = ServiceLocator.Instance.Get<SceneService>();
+            if (_id >= s.Count)
+                return;
+            
+            await s.LoadSceneGroup(_id);
         }
-    }
 
-    public void ResetAllMissions()
-    {
-        if (LevelGenerator.Generator is null)
-            return;
-
-        foreach (var e in LevelGenerator.Generator.ElementHolders)
+        public void SetId(string id)
         {
-            e.Flag3 = 0;
-            for (var i = 0; i < e.MissionDone.Length; i++)
+            _id = int.Parse(id);
+        }
+
+        public void PlayerNoClip()
+        {
+            if (GameManager.Instance is not null)
+                GameManager.Instance.Player.PlayerModel.col.enabled = !GameManager.Instance.Player.PlayerModel.col.enabled;
+        }
+
+        public void SetAi()
+        {
+            var ais = FindObjectsByType<AIStateMachine>(FindObjectsSortMode.None);
+
+            foreach (var ai in ais)
+                ai.gameObject.SetActive(!ai.gameObject.activeSelf);
+        }
+
+        public void ResetAllElements()
+        {
+            if (LevelGenerator.Generator is null)
+                return;
+
+            foreach (var e in LevelGenerator.Generator.ElementHolders)
             {
-                e.MissionDone[i] = false;
+                e.Flag3 = 0;
             }
         }
 
-        if (MissionManager.Manager is null)
-            return;
-        
-        /*foreach (var VARIABLE in MissionManager.Manager.)
+        public void ResetAllMissions()
         {
-            
-        }*/ //TODO choper les missions
-    }
+            if (LevelGenerator.Generator is null)
+                return;
 
-    #endregion
+            foreach (var e in LevelGenerator.Generator.ElementHolders)
+            {
+                e.Flag3 = 0;
+                for (var i = 0; i < e.MissionDone.Length; i++)
+                {
+                    e.MissionDone[i] = false;
+                }
+            }
+
+            if (MissionManager.Manager is null)
+                return;
+        
+            MissionManager.Manager.ResetMissions();
+        }
+
+        #endregion
+
+        #region fields
+
+        private int _id;
+
+        #endregion
+    }
 }
