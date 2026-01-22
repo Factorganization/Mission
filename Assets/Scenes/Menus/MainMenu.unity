@@ -185,54 +185,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6021832158478481491, guid: edd2e4ba9c80f8c4c96bc78f4254836d, type: 3}
   m_PrefabInstance: {fileID: 36648605}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &108437264
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 108437265}
-  - component: {fileID: 108437266}
-  m_Layer: 0
-  m_Name: AudioManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &108437265
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 108437264}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.07633, y: 1.24261, z: 0.89213}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1807325904}
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &108437266
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 108437264}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a81f89a50ff5274481b79b3f2fddec0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Satanic.Runtime::Runtime.Management.GameManagement.AudioManager.AudioManager
-  masterVolume: 1
-  musicVolume: 1
-  SFXVolume: 1
 --- !u!1 &160960405
 GameObject:
   m_ObjectHideFlags: 0
@@ -697,6 +649,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2161681501391016956, guid: 136f3dccbd0eacd4eb0ccebb0a56466d, type: 3}
+      propertyPath: _backgroundImage
+      value: 
+      objectReference: {fileID: 1146987004}
     - target: {fileID: 3039916059635547349, guid: 136f3dccbd0eacd4eb0ccebb0a56466d, type: 3}
       propertyPath: m_Name
       value: MainMenuUI
@@ -1074,6 +1030,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 4532331178550974592, guid: 2a584f2fd41ae314ea29c2f52fad87bb, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4871793923599364168, guid: 2a584f2fd41ae314ea29c2f52fad87bb, type: 3}
       propertyPath: m_Layer
       value: 3
@@ -1354,71 +1314,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 886458596459054453, guid: 2a584f2fd41ae314ea29c2f52fad87bb, type: 3}
   m_PrefabInstance: {fileID: 1239602947}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1807325903
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1807325904}
-  - component: {fileID: 1807325905}
-  m_Layer: 0
-  m_Name: FMODEvents
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1807325904
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1807325903}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 108437265}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1807325905
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1807325903}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c4cfc4a827bece047b84d77e3096591b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Satanic.Runtime::Runtime.GameContent.AudioManager.FMODEvents
-  <MasterVolume>k__BackingField:
-    Guid:
-      Data1: 202733564
-      Data2: 1203744823
-      Data3: 281580973
-      Data4: -658308982
-    Path: "event:/Ambiance/For\xEAt"
-  <MusicVolume>k__BackingField:
-    Guid:
-      Data1: -1805981034
-      Data2: 1165421858
-      Data3: -2145313134
-      Data4: -2007869815
-    Path: "event:/Ambiance/For\xEAtPostMort"
-  <SFXVolume>k__BackingField:
-    Guid:
-      Data1: -1543676055
-      Data2: 1087335726
-      Data3: -573164631
-      Data4: -847377312
-    Path: "event:/Ambiance/Rivi\xE8re"
 --- !u!1 &1808331376
 GameObject:
   m_ObjectHideFlags: 0
@@ -1699,7 +1594,6 @@ SceneRoots:
   - {fileID: 160960406}
   - {fileID: 751735950}
   - {fileID: 2124226895}
-  - {fileID: 108437265}
   - {fileID: 1949220624}
   - {fileID: 606907898}
   - {fileID: 1808331380}

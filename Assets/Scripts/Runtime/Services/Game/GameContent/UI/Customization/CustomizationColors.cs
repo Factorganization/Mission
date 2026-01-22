@@ -20,7 +20,7 @@ namespace Runtime.Services.Game.GameContent.UI.Customization
             if (_colorButton4 != null) _colorButton4.onClick.AddListener(() => ApplyColor(3));
         }
 
-        private void ApplyColor(int colorIndex)
+        public void ApplyColor(int colorIndex)
         {
             if (_characterPreview == null) return;
 
@@ -41,15 +41,20 @@ namespace Runtime.Services.Game.GameContent.UI.Customization
             var matNormal = mats[clamped];
             if (matNormal == null) return;
             
-            if (_currentBodyPart == CustomizationPlayer.BodyPartType.Eyes && colorIndex < 4)
+            if (_currentBodyPart == CustomizationPlayer.BodyPartType.Eyes && colorIndex < 4
+                || _currentBodyPart == CustomizationPlayer.BodyPartType.Horns && colorIndex < 4
+                || _currentBodyPart == CustomizationPlayer.BodyPartType.Tail && colorIndex < 4)
             {
                 var skinMats = _skinMats;
                 if (skinMats == null || skinMats.Count == 0) return;
                 int skinClamped = Mathf.Clamp(colorIndex, 0, skinMats.Count - 1);
                 var skinMat = skinMats[skinClamped];
                 if (skinMat == null) return;
-                _characterPreview.ApplyMaterialToHead(skinMat);
+                _characterPreview.ApplyMatToSkinnedMesh(_characterPreview.Head, skinMat);
+                _characterPreview.ApplyMatToSkinnedMesh(_characterPreview.Tail, skinMat);
                 _characterPreview.ApplyMaterialToBodySkin(skinMat);
+                _characterPreview.ApplyMaterialToBodyPart(CustomizationPlayer.BodyPartType.Horns, skinMat);
+                _characterPreview.ApplyMaterialToBodyPart(CustomizationPlayer.BodyPartType.Tail, skinMat);
                 return;
             }
             

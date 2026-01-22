@@ -12,6 +12,11 @@ namespace Runtime.Services.Game.GameContent.UI
             Time.timeScale = 1.0f;
         }
 
+        private void Update()
+        {
+            _backgroundImage.uvRect = new Rect(_backgroundImage.uvRect.position + new Vector2(0.2f, 0) * Time.deltaTime, _backgroundImage.uvRect.size);
+        }
+
         private void Initialize()
         {
             if (_customizeApp != null)
@@ -42,6 +47,8 @@ namespace Runtime.Services.Game.GameContent.UI
         [SerializeField] private Button _mailApp, _settingsApp, _customizeApp, _creditsApp, _quitApp;
     
         [SerializeField] private UIParent _mailContainer, _settingsContainer, _customizeContainer, _creditsContainer;
+            
+        [SerializeField] private RawImage _backgroundImage;
     
         #endregion
     }
