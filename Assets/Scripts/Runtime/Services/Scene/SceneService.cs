@@ -13,6 +13,8 @@ namespace Runtime.Services.Scene
 
 		public int CurrentActiveSceneGroup { get; private set; }
 
+        public int Count => sceneGroups.Length;
+
         #endregion
         
         #region methodes

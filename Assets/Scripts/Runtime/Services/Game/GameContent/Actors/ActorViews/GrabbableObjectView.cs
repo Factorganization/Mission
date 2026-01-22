@@ -24,7 +24,6 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
 			set => Flag1 = value;
 		}
 		
-		public bool IsResetingPos { get; set; }
 		public override bool Active { get; set; }
 		
 		#endregion
@@ -52,7 +51,6 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
 			_rb = GetComponent<Rigidbody>();
 			OriginPos = transform.position;
 			Active = true;
-			IsResetingPos = false; 
 		}
 
 		protected override void Update()
@@ -82,17 +80,11 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
 			}
 			else
 				_fireDestructionTimer = 0;
-			
-			//IA 
-			if (IsResetingPos)
-			{
-				Transform.position += Math.EasingFunction.SimpleQuadraticEase.V3SimpleQuadraticEaseOut(Transform.position, OriginPos, 0.1f);
-				if (Vector3.Distance(Transform.position, OriginPos) > 0.1f)
-				{
-					Transform.position = OriginPos;
-					IsResetingPos = false;
-				}
-			}
+		}
+
+		private void FixedUpdate()
+		{
+			SetSmoothPosition();
 		}
 
 		#endregion
@@ -109,6 +101,33 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
 		{
 			_spawnerRef = spawner;
 		}
+
+		public void StartSmoothPosition(Vector3 targetPos)
+		{
+			_returning = true;
+			_targetPos = targetPos;
+		}
+
+		private void SetSmoothPosition()
+		{
+			if (!_returning)
+				return;
+
+			if (Grabbed)
+			{
+				_returning = false;
+				return;
+			}
+
+			if (Vector3.Distance(Transform.position, _targetPos) < 0.2f)
+			{
+				Transform.position = _targetPos;
+				_returning =  false;
+				return;
+			}
+			
+			Transform.position += Math.EasingFunction.SimpleQuadraticEase.V3SimpleQuadraticEaseOut(Transform.position, _targetPos, 0.05f);
+		}
 		
 		#endregion
 
@@ -124,7 +143,11 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
 
 		private SpawnerObjectView _spawnerRef;
 
+		private Vector3 _targetPos;
+		
 		private float _fireDestructionTimer;
+
+		private bool _returning;
 
 		#endregion
 	}

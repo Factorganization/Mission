@@ -5,6 +5,12 @@ namespace Runtime.Services.Cursor
 {
     public class CursorService : AService
     {
+        #region properties
+
+        public bool MouseVisible => _mouseVisible;
+
+        #endregion
+        
         #region methodes
 
         public override void Begin()

@@ -135,6 +135,12 @@ public abstract class ElementHolderController : ActorView, IElementHolder
 
 	public void CheckOtherElement(IElementHolder holder)
 	{
+		if (_resolveInteractions is null || _nextInteractions is null)
+		{
+			Debug.Log($"Object not properly initialized {name}");
+			return;
+		}
+		
 		foreach (var i in _resolveInteractions)
 		{
 			var key = GetKey(i);

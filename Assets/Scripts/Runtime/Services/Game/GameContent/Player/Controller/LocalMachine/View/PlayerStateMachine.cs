@@ -19,7 +19,7 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.View
 
         private void Awake()
         {
-            _playerModel = new PlayerModel(dataSo, referenceData.rb, referenceData.graph, referenceData.cam, referenceData.grab, referenceData.activeGrab, referenceData.animator);
+            _playerModel = new PlayerModel(dataSo, referenceData.rb, referenceData.col, referenceData.graph, referenceData.cam, referenceData.grab, referenceData.activeGrab, referenceData.animator);
             _stateMachine = new GenericStateMachine(Enum.GetNames(typeof(ControllerState)).Length);
 
             var idle = new IdleState(_stateMachine, gameObject, _playerModel, ControllerState.Idle);
@@ -113,6 +113,8 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.View
         private class ReferenceData
         {
             [SerializeField] internal Rigidbody rb;
+            
+            [SerializeField] internal Collider col;
                     
             [SerializeField] internal Transform cam;
             
