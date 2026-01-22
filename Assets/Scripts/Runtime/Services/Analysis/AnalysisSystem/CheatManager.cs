@@ -32,7 +32,7 @@ namespace Runtime.Services.Analysis.AnalysisSystem
 
         public void SetAi()
         {
-            var ais = FindObjectsByType<AIStateMachine>(FindObjectsSortMode.None);
+            var ais = FindObjectsByType<AIStateMachine>(FindObjectsInactive.Include, FindObjectsSortMode.None);
 
             foreach (var ai in ais)
                 ai.gameObject.SetActive(!ai.gameObject.activeSelf);
