@@ -47,13 +47,7 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorControllers.States
             
             if (Vector3.Distance(aiModel.transform.position, aiModel._lastKnownPlayerPosition) < 1f)
             {
-                aiModel._animatorRef.SetBool("ac_isRunning", false);
-                aiModel._animatorRef.SetBool("ac_isSus", true);
-            }
-            else
-            {
-                aiModel._animatorRef.SetBool("ac_isRunning", true);
-                aiModel._animatorRef.SetBool("ac_isSus", false);
+                stateMachine.SwitchState("suspicious");
             }
             
             
