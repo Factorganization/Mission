@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using Runtime.Service;
+using Runtime.Services.Game;
 using Runtime.Services.Scene.SceneSystems;
 using UnityEngine.UI;
 
@@ -52,6 +53,7 @@ namespace Runtime.Services.Scene
         
         public async Task LoadSceneGroup(int index)
         {
+            ServiceLocator.Instance.Get<GameService>().GeneralId = 0;
             loadingBar.fillAmount = 0f;
             _targetProgress = 1f;
 

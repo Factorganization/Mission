@@ -1,5 +1,6 @@
 using System.Collections;
 using Runtime.Services.Game.GameContent.Actors.ActorModels;
+using Runtime.Services.Game.GameSystems;
 using Shared.Utils.BaseMachine;
 
 namespace Runtime.Services.Game.GameContent.Actors.ActorControllers.States
@@ -21,6 +22,13 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorControllers.States
 
         public override sbyte OnUpdate()
         {
+            if (Vector3.Distance(aiModel.transform.position, aiModel._player.transform.position) <= 1f)
+            {
+                var p = aiModel._player;
+                p.StateMachine.ForceState("locked");
+                GameManager.Instance.GameUIMgr.GameOver();
+            }
+            
             if (_forgetTimer >= aiModel.detectionData.timeToForget)
             {
                 _forgetTimer = 0;

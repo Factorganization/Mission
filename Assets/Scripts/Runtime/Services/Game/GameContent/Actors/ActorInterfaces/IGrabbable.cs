@@ -1,6 +1,8 @@
+using Runtime.Services.Game.GameContent.Logics.LogicInterfaces;
+
 namespace Runtime.Services.Game.GameContent.Actors.ActorInterfaces
 {
-    public interface IGrabbable
+    public interface IGrabbable : IActorComparable
     {
         /// <summary>
         /// Transform of the grabbed object

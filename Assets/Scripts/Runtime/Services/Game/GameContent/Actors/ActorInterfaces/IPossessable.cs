@@ -1,6 +1,8 @@
+using Runtime.Services.Game.GameContent.Logics.LogicInterfaces;
+
 namespace Runtime.Services.Game.GameContent.Actors.ActorInterfaces
 {
-	public interface IPossessable
+	public interface IPossessable : IActorComparable
 	{
 		/// <summary>
 		/// Transform of the possessed object
@@ -11,6 +13,11 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorInterfaces
 		/// Collider of the possessable object 
 		/// </summary>
 		public BoxCollider Collider { get; }
+		
+		/// <summary>
+		/// Traget position for AI to go if not reachable
+		/// </summary>
+		public Vector3 TargetPosition { get; }
         
 		/// <summary>
 		/// True if the object is being possessed, False otherwise 
