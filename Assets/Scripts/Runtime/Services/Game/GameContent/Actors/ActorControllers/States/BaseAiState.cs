@@ -27,6 +27,7 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorControllers.States
 
         public override sbyte OnUpdate()
         {
+            aiModel._animatorRef.SetFloat("speed", aiModel._agentRef.velocity.magnitude);
             if (AIController.DetectPlayer(aiModel))
             {
                 stateMachine.SwitchState("suspicious");
