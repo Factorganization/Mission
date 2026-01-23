@@ -25,12 +25,12 @@ namespace Runtime.Services.Game.GameContent.UI.MainMenu
             base.Show();
             if (!_isOpen)
             {
-                StartCoroutine(AnimationExtensions.Play(_animator, "OpenQuit", true, null));
+                StartCoroutine(AnimationExtensions.Play(_animator, "OpenQuitPopup", true, null));
                 _isOpen = true;
             }
             else
             {
-                StartCoroutine(AnimationExtensions.Play(_animator, "CloseQuit", true, Hide));
+                StartCoroutine(AnimationExtensions.Play(_animator, "CloseQuitPopup", true, Hide));
             }
         }
 
