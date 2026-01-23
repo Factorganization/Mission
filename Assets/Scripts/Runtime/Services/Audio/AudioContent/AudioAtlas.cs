@@ -274,6 +274,7 @@ public class SFX
         [Serializable]
         public class WaterPossessables
         {
+            [Header("A intégrer au moment où le joueur entre dans un Possessable X")]
             public EventReference PossessSink;
 
             public EventReference PossessBath;
@@ -286,6 +287,7 @@ public class SFX
         [Serializable]
         public class FirePossessables
         {
+            [Header("A intégrer au moment où le joueur entre dans un Possessable X")]
             public EventReference PossessRadiateur;
 
             public EventReference PossessCar;
@@ -296,6 +298,7 @@ public class SFX
         [Serializable]
         public class ElectricPossessables
         {
+            [Header("A intégrer au moment où le joueur entre dans un Possessable X")]
             public EventReference PossessFridge;
 
             public EventReference PossessElectricBox;
