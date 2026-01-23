@@ -1,5 +1,6 @@
 using FMODUnity;
 using System.Runtime.ExceptionServices;
+using UnityEngine.UIElements.Experimental;
 
 namespace Runtime.Services.Audio.AudioContent;
 
@@ -14,7 +15,22 @@ public class AudioAtlas
 [Serializable]
 public class Musics
 {
-    
+    public InGameMusic InGame;
+
+    public UIMusic UIMusics;
+
+    [Serializable]
+    public class InGameMusic
+    {
+        public EventReference InGameOST1;
+
+    }
+
+    [Serializable]
+    public class UIMusic
+    {
+        public EventReference MainMenu;
+    }
 }
 
 [Serializable]
@@ -23,6 +39,8 @@ public class SFX
     public EffectsSfx effects;
     
     public ObjectsSfx objects;
+
+    public PossessableSfx possessable;
 
     public PlayerSfx player;
 
@@ -98,6 +116,8 @@ public class SFX
 
         public BookSfx book;
 
+        public CandleSfx candle;
+
         [Header("Couteaux / Fourchettes")]
         public CutlerySfx cutlery;
 
@@ -117,6 +137,10 @@ public class SFX
         
         public PhoneSfx phone;
 
+        public RadioSfx radio;
+
+        public ReveilSfx reveil;
+
         [Header("Serviettes/Tshirts")]
         public TShirtSfx tshirt;
         
@@ -128,10 +152,17 @@ public class SFX
         [Serializable]
         public class BookSfx
         {
-
             public EventReference bookHit;
             
             public EventReference bookPick;
+        }
+
+        [Serializable]
+        public class CandleSfx
+        {
+            public EventReference CandleHit;
+
+            public EventReference CandlePick;
         }
 
         [Serializable]
@@ -191,6 +222,22 @@ public class SFX
         }
 
         [Serializable]
+        public class RadioSfx
+        {
+            public EventReference radiolHit;
+
+            public EventReference radioPickUp;
+        }
+
+        [Serializable]
+        public class ReveilSfx
+        {
+            public EventReference reveilHit;
+
+            public EventReference reveilPickUp;
+        }
+
+        [Serializable]
         public class TShirtSfx
         {
             public EventReference tshirtHit;
@@ -214,7 +261,51 @@ public class SFX
             public EventReference woodPick;
         }
     }
-    
+
+    [Serializable]
+    public class PossessableSfx
+    {
+        public WaterPossessables WaterPossess;
+
+        public FirePossessables FirePossess;
+
+        public ElectricPossessables ElectricPossess;
+
+        [Serializable]
+        public class WaterPossessables
+        {
+            public EventReference PossessSink;
+
+            public EventReference PossessBath;
+
+            public EventReference PossessToilets;
+
+            public EventReference PossessShower;
+        }
+
+        [Serializable]
+        public class FirePossessables
+        {
+            public EventReference PossessRadiateur;
+
+            public EventReference PossessCar;
+
+            public EventReference PossessOven;
+        }
+
+        [Serializable]
+        public class ElectricPossessables
+        {
+            public EventReference PossessFridge;
+
+            public EventReference PossessElectricBox;
+
+            public EventReference PossessTV;
+
+            public EventReference PossessPc;
+        }
+    }
+
     [Serializable]
     public class PlayerSfx
     {
