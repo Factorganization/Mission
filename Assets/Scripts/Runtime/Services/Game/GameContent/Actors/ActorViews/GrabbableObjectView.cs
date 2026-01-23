@@ -97,9 +97,14 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
 			base.Explode(holder);
 			
 			var p = GameManager.Instance.Player.PlayerModel;
-			p.ResetGrabbedObjectState();
-			p.SetAnimParam(p.isHolding, false);
-			p.SetAnimParam(p.isInteracting, false);
+
+			if (Grabbed)
+			{
+				p.ResetGrabbedObjectState();
+				p.SetAnimParam(p.isHolding, false);
+				p.SetAnimParam(p.isInteracting, false);
+			}
+			
 			Transform.position = _spawnerRef ? _spawnerRef.SpawnPos.position : OriginPos;
 			exploded = false;
 		}

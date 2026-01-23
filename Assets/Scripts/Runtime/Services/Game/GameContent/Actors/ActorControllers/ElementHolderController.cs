@@ -6,6 +6,7 @@ using Runtime.Services.Game.GameContent.Logics.LogicModels;
 using Runtime.Services.Game.GameContent.Logics.LogicModels.ElementModels;
 using Runtime.Services.Game.GameContent.Logics.LogicModels.MissionModels;
 using Runtime.Services.Game.GameSystems;
+using Unity.Cinemachine;
 
 namespace Runtime.Services.Game.GameContent.Actors.ActorControllers;
 
@@ -56,6 +57,9 @@ public abstract class ElementHolderController : ActorView, IElementHolder
 	protected virtual void Awake()
 	{
 		SetId();
+
+		if (TryGetComponent<CinemachineImpulseSource>(out var i))
+			_impulseSource = i;
 	}
 	
 	protected virtual void Start()
@@ -412,6 +416,8 @@ public abstract class ElementHolderController : ActorView, IElementHolder
 		
 		exploded = true;
 		
+		_impulseSource?.GenerateImpulseAt(Transform.position, Vector3.one);
+		
 		foreach (var e in LevelGenerator.Generator.ElementHolders)
 		{
 			if (Vector3.Distance(e.Transform.position, holder.Transform.position) > objectDefinition.destructionApplicationDistance)
@@ -455,6 +461,8 @@ public abstract class ElementHolderController : ActorView, IElementHolder
 
 	private ElementInteractionDataPair[] _nextInteractions;
 
+	private CinemachineImpulseSource _impulseSource;
+	
 	private bool[] _missionDone;
 
 	protected bool exploded;
