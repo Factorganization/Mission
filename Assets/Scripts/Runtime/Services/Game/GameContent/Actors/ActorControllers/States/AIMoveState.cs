@@ -1,6 +1,5 @@
 using System.Collections;
 using Runtime.Services.Game.GameContent.Actors.ActorModels;
-using Runtime.Services.Game.GameContent.Actors.ActorViews;
 using Shared.Utils.BaseMachine;
 
 namespace Runtime.Services.Game.GameContent.Actors.ActorControllers.States
