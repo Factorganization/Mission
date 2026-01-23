@@ -1,5 +1,3 @@
-using Runtime.Services.Game.GameContent.UI;
-using UnityEngine;
 using UnityEngine.UI;
 
 namespace Runtime.Services.Game.GameContent.UI.MainMenu

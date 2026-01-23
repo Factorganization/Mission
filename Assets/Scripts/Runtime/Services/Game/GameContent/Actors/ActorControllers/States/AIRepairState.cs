@@ -19,6 +19,7 @@ public class AIRepairState : BaseAiState
     {
         aiModel._agentRef.isStopped = true;
         _repairTimer = 0; 
+        aiModel._animatorRef.SetBool("ac_isRepairing", true);
     }
 
     public override sbyte OnUpdate()
@@ -45,6 +46,7 @@ public class AIRepairState : BaseAiState
     public override void OnExitState()
     {
         aiModel._agentRef.isStopped = false;
+        aiModel._animatorRef.SetBool("ac_isRepairing", false);
     }
 
     public override IEnumerator OnCoroutine()

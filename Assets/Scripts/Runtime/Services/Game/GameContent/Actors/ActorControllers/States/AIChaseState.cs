@@ -18,6 +18,7 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorControllers.States
         public override void OnEnterState()
         {
             aiModel._agentRef.speed = aiModel.movementData.chaseSpeed;
+            aiModel._animatorRef.SetBool("ac_isRunning", true);
         }
 
         public override sbyte OnUpdate()
@@ -25,6 +26,7 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorControllers.States
             if (Vector3.Distance(aiModel.transform.position, aiModel._player.transform.position) <= 1f)
             {
                 var p = aiModel._player;
+                aiModel._animatorRef.SetBool("ac_playerCaught", true);
                 p.StateMachine.ForceState("locked");
                 GameManager.Instance.GameUIMgr.GameOver();
             }
@@ -43,7 +45,17 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorControllers.States
             }
             else _forgetTimer += Time.deltaTime;
             
-
+            if (Vector3.Distance(aiModel.transform.position, aiModel._lastKnownPlayerPosition) < 1f)
+            {
+                aiModel._animatorRef.SetBool("ac_isRunning", false);
+                aiModel._animatorRef.SetBool("ac_isSus", true);
+            }
+            else
+            {
+                aiModel._animatorRef.SetBool("ac_isRunning", true);
+                aiModel._animatorRef.SetBool("ac_isSus", false);
+            }
+            
             
             return 0;
         }
@@ -56,6 +68,7 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorControllers.States
         public override void OnExitState()
         {
             aiModel._agentRef.speed = aiModel.movementData.patrolSpeed;
+            aiModel._animatorRef.SetBool("ac_isRunning", false);
         }
 
         public override IEnumerator OnCoroutine()
