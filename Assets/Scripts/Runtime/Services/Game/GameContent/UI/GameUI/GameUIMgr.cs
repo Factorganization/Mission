@@ -10,6 +10,13 @@ namespace Runtime.Services.Game.GameContent.UI.GameUI
     {
         #region Functions
 
+        private void Start()
+        {
+            _gameOverUI.Hide();
+            _winUI.Hide();
+            _pauseMenuUI.Hide();
+        }
+
         public async void ReturnToMainMenu()
         {
             Time.timeScale = 1f;
