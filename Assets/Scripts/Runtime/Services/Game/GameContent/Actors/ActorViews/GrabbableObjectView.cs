@@ -1,5 +1,8 @@
+using Runtime.Service;
+using Runtime.Services.Audio;
 using Runtime.Services.Game.GameContent.Actors.ActorControllers;
 using Runtime.Services.Game.GameContent.Actors.ActorInterfaces;
+using Runtime.Services.Game.GameContent.Logics.LogicInterfaces;
 using Runtime.Services.Game.GameContent.Logics.LogicModels.ElementModels;
 using Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Controller;
 using Runtime.Services.Game.GameSystems;
@@ -88,6 +91,36 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
 		}
 
 		#endregion
+
+		#region element holder
+
+		protected override void Explode(IElementHolder holder)
+		{
+			base.Explode(holder);
+			
+			var p = GameManager.Instance.Player.PlayerModel;
+
+			if (Grabbed)
+			{
+				p.ResetGrabbedObjectState();
+				p.SetAnimParam(p.isHolding, false);
+				p.SetAnimParam(p.isInteracting, false);
+			}
+			
+			Transform.position = _spawnerRef ? _spawnerRef.SpawnPos.position : OriginPos;
+			exploded = false;
+			
+			if (_alreadyExploded)
+				return;
+
+			_alreadyExploded = true;
+			
+			impulseSource?.GenerateImpulseAt(Transform.position, Vector3.one);
+			var a = ServiceLocator.Instance.Get<AudioService>();
+			a.PlayOneShot(a.Atlas.sfx.effects.fire.bigExplosion, Transform.position);
+		}
+
+		#endregion
 		
 		#region grabbable
 		
@@ -148,6 +181,8 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
 		private float _fireDestructionTimer;
 
 		private bool _returning;
+
+		private bool _alreadyExploded;
 
 		#endregion
 	}

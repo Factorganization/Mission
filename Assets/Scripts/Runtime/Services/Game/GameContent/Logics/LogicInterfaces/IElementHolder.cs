@@ -4,7 +4,7 @@ using Runtime.Services.Game.GameContent.Logics.LogicModels.MissionModels;
 
 namespace Runtime.Services.Game.GameContent.Logics.LogicInterfaces
 {
-    public interface IElementHolder
+    public interface IElementHolder : IActorComparable
     {
         /// <summary>
         /// Transform of the Element Holder

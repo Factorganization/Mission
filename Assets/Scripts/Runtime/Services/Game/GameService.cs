@@ -7,6 +7,12 @@ namespace Runtime.Services.Game
     {
         #region properties
 
+        public int GeneralId { get; set; }
+
+        #endregion
+        
+        #region properties
+
         //public GameManager GameManager => gameManager;
         
         //public LevelGenerator LevelManager => levelManager;

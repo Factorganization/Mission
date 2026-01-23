@@ -73,8 +73,14 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Contr
                     out var hit,
                     playerModel.data.interactData.possessDistance,
                     playerModel.data.interactData.possessedBlockLayer);
+
+                if (hit.transform is null)
+                    continue;
                 
-                if (d >= playerModel.data.interactData.possessDistance || a > GameConstants.MaxInteractionAngle || d > minDist || a > minAngle || !hit.transform.root.TryGetComponent<IPossessable>(out _))
+                if (d >= playerModel.data.interactData.possessDistance || a > GameConstants.MaxInteractionAngle || d > minDist || a > minAngle || !hit.transform.root.TryGetComponent<IPossessable>(out var h))
+                    continue;
+                
+                if (h.Id != p.Id)
                     continue;
                 
                 minDist = d;
@@ -123,14 +129,22 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Contr
                     playerModel.data.interactData.grabDistance,
                     playerModel.data.interactData.grabbableBlockLayer);
                 
-                if (d <= playerModel.data.interactData.securityMinGrabDistance && hit.transform.root.TryGetComponent<IGrabbable>(out _) && d < minDist)
+                if (hit.transform is null)
+                    continue;
+                
+                var b = hit.transform.root.TryGetComponent<IGrabbable>(out var h);
+                
+                if (d <= playerModel.data.interactData.securityMinGrabDistance && b && d < minDist)
                 {
                     minDist = d;
                     gb = g;
                     continue;
                 }
                 
-                if (d >= playerModel.data.interactData.grabDistance || a > GameConstants.MaxInteractionAngle || d > minDist || a > minAngle || !hit.transform.root.TryGetComponent<IGrabbable>(out _))
+                if (d >= playerModel.data.interactData.grabDistance || a > GameConstants.MaxInteractionAngle || d > minDist || a > minAngle || !b)
+                    continue;
+                
+                if (h.Id != g.Id)
                     continue;
                 
                 minDist = d;
