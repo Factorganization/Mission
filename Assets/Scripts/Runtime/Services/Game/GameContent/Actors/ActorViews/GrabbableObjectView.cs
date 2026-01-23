@@ -1,3 +1,5 @@
+using Runtime.Service;
+using Runtime.Services.Audio;
 using Runtime.Services.Game.GameContent.Actors.ActorControllers;
 using Runtime.Services.Game.GameContent.Actors.ActorInterfaces;
 using Runtime.Services.Game.GameContent.Logics.LogicInterfaces;
@@ -107,6 +109,15 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
 			
 			Transform.position = _spawnerRef ? _spawnerRef.SpawnPos.position : OriginPos;
 			exploded = false;
+			
+			if (_alreadyExploded)
+				return;
+
+			_alreadyExploded = true;
+			
+			impulseSource?.GenerateImpulseAt(Transform.position, Vector3.one);
+			var a = ServiceLocator.Instance.Get<AudioService>();
+			a.PlayOneShot(a.Atlas.sfx.effects.fire.bigExplosion, Transform.position);
 		}
 
 		#endregion
@@ -170,6 +181,8 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
 		private float _fireDestructionTimer;
 
 		private bool _returning;
+
+		private bool _alreadyExploded;
 
 		#endregion
 	}

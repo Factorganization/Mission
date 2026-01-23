@@ -1,5 +1,8 @@
+using Runtime.Service;
+using Runtime.Services.Audio;
 using Runtime.Services.Game.GameContent.Actors.ActorControllers;
 using Runtime.Services.Game.GameContent.Actors.ActorInterfaces;
+using Runtime.Services.Game.GameContent.Logics.LogicInterfaces;
 using Runtime.Services.Game.GameContent.Logics.LogicModels.ElementModels;
 using Runtime.Services.Game.GameContent.Logics.LogicModels.MissionModels;
 using Runtime.Services.Game.GameSystems;
@@ -70,6 +73,7 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
 				Active = false;
 				Flag3 = Flag1;
 				exploded = false;
+				_alreadyExploded = false;
 				
 				foreach (var p in VFX.waterParticles)
 					p.Stop();
@@ -199,6 +203,24 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
 		}
 
 		#endregion
+
+		#region elements
+
+		protected override void Explode(IElementHolder holder)
+		{
+			base.Explode(holder);
+			
+			if (_alreadyExploded)
+				return;
+			
+			_alreadyExploded = true;
+			
+			impulseSource?.GenerateImpulseAt(Transform.position, Vector3.one);
+			var a = ServiceLocator.Instance.Get<AudioService>();
+			a.PlayOneShot(a.Atlas.sfx.effects.fire.bigExplosion, Transform.position);
+		}
+
+		#endregion
 		
 		#endregion
 
@@ -223,6 +245,8 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
 		private bool _possessed;
 
 		private bool _destroyed;
+		
+		private bool _alreadyExploded;
 
 		#endregion
 	}

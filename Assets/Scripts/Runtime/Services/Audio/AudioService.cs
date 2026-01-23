@@ -42,9 +42,9 @@ namespace Runtime.Services.Audio
 
         public override void Tick()
         {
-            _masterBus.setVolume(MasterVolume);
-            _musicBus.setVolume(MusicVolume);
-            _sfxBus.setVolume(SfxVolume);
+            _masterBus.setVolume(1);
+            _musicBus.setVolume(1);
+            _sfxBus.setVolume(1);
         }
 
         public override void Delete()

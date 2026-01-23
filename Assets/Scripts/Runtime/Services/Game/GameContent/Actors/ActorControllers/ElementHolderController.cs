@@ -59,7 +59,7 @@ public abstract class ElementHolderController : ActorView, IElementHolder
 		SetId();
 
 		if (TryGetComponent<CinemachineImpulseSource>(out var i))
-			_impulseSource = i;
+			impulseSource = i;
 	}
 	
 	protected virtual void Start()
@@ -416,8 +416,6 @@ public abstract class ElementHolderController : ActorView, IElementHolder
 		
 		exploded = true;
 		
-		_impulseSource?.GenerateImpulseAt(Transform.position, Vector3.one);
-		
 		foreach (var e in LevelGenerator.Generator.ElementHolders)
 		{
 			if (Vector3.Distance(e.Transform.position, holder.Transform.position) > objectDefinition.destructionApplicationDistance)
@@ -461,7 +459,7 @@ public abstract class ElementHolderController : ActorView, IElementHolder
 
 	private ElementInteractionDataPair[] _nextInteractions;
 
-	private CinemachineImpulseSource _impulseSource;
+	protected CinemachineImpulseSource impulseSource;
 	
 	private bool[] _missionDone;
 

@@ -1,5 +1,8 @@
+using Runtime.Service;
+using Runtime.Services.Audio;
 using Runtime.Services.Game.GameContent.Actors.ActorControllers;
 using Runtime.Services.Game.GameContent.Actors.ActorInterfaces;
+using Runtime.Services.Game.GameContent.Logics.LogicInterfaces;
 using Runtime.Services.Game.GameContent.Logics.LogicModels.ElementModels;
 using Shared.Utils.Listing;
 
@@ -30,9 +33,29 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
         
 		#endregion
 
+		#region methodes
+
+		protected override void Explode(IElementHolder holder)
+		{
+			base.Explode(holder);
+			
+			if (_alreadyExploded)
+				return;
+			
+			_alreadyExploded = true;
+			
+			impulseSource?.GenerateImpulseAt(Transform.position, Vector3.one);
+			var a = ServiceLocator.Instance.Get<AudioService>();
+			a.PlayOneShot(a.Atlas.sfx.effects.fire.bigExplosion, Transform.position);
+		}
+
+		#endregion
+		
 		#region fields
 
 		[SerializeField] private ElementFlag flag;
+		
+		private bool _alreadyExploded;
 
 		#endregion
 	}
