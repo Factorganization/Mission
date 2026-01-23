@@ -1,10 +1,9 @@
 using Runtime.Services.Game.GameContent.UI;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Runtime.Services.Game.GameContent.UI.MainMenu
 {
-    public class Credits : UIParent
+    public class QuitPopup : UIParent
     {
         #region Functions
 
@@ -15,7 +14,10 @@ namespace Runtime.Services.Game.GameContent.UI.MainMenu
 
         private void Initialize()
         {
-            _closeButton.onClick.AddListener(Show);
+            if (_closeButton != null)
+                _closeButton.onClick.AddListener(() => Show());
+            if (_confirmButton != null)
+                _confirmButton.onClick.AddListener(Application.Quit);
         }
 
         public override void Show()
@@ -23,23 +25,22 @@ namespace Runtime.Services.Game.GameContent.UI.MainMenu
             base.Show();
             if (!_isOpen)
             {
-                StartCoroutine(AnimationExtensions.Play(_animator, "OpenCredits", true, null));
+                StartCoroutine(AnimationExtensions.Play(_animator, "OpenQuitPopup", true, null));
                 _isOpen = true;
             }
             else
             {
-                StartCoroutine(AnimationExtensions.Play(_animator, "CloseCredits", true, Hide));
+                StartCoroutine(AnimationExtensions.Play(_animator, "CloseQuitPopup", true, Hide));
             }
         }
 
         #endregion
-
+        
         #region Fields
-
-        [SerializeField] private Button _closeButton;
+        
         [SerializeField] private Animation _animator;
-
+        [SerializeField] private UIButton _closeButton, _confirmButton;
+        
         #endregion
     }
 }
-
