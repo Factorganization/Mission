@@ -1,4 +1,5 @@
 using Runtime.Services.Cursor;
+using Runtime.Services.Game.GameSystems;
 using Runtime.Services.Scene;
 using UnityEngine.UI;
 
@@ -15,7 +16,6 @@ namespace Runtime.Services.Game.GameContent.UI.PauseMenu
 
         private void Initialize()
         {
-            //Hide();
             if (_resumeButton != null)
                 _resumeButton.onClick.AddListener(Hide);
             if (_settingsButton != null && _settingsUI != null)
@@ -26,10 +26,19 @@ namespace Runtime.Services.Game.GameContent.UI.PauseMenu
 
         public void OpenPauseMenu()
         {
-            base.Show();
+            if (gameObject.activeSelf == false)
+            {
+                base.Show();
+            }
+           
             StartCoroutine(AnimationExtensions.Play(_pauseMenuAnimator, "OpenPauseMenu", false, null));
+            _isOpen = true;
             ServiceLocator.Instance.Get<CursorService>().SetActive(true);
             Time.timeScale = 0f;
+
+            var playerModel = GameManager.Instance.Player;
+            
+            playerModel.StateMachine.TrySwitchState(playerModel.PlayerModel.currentPossessedObject is not null ? "possess" : "idle", (int)playerModel.PlayerModel.data.activeStates);
         }
         
         private async void ReturnToMainMenu()
@@ -41,7 +50,8 @@ namespace Runtime.Services.Game.GameContent.UI.PauseMenu
 
         public override void Hide()
         {
-            StartCoroutine(AnimationExtensions.Play(_pauseMenuAnimator, "ClosePauseMenu", false, () => base.Hide()));
+            StartCoroutine(AnimationExtensions.Play(_pauseMenuAnimator, "ClosePauseMenu", false, null));
+            _isOpen = false;
             ServiceLocator.Instance.Get<CursorService>().SetActive(false);
             Time.timeScale = 1f;
         }
@@ -53,8 +63,6 @@ namespace Runtime.Services.Game.GameContent.UI.PauseMenu
         [SerializeField] private Button _resumeButton, _settingsButton, _quitButton;
         [SerializeField] private Settings _settingsUI;
         [SerializeField] private Animation _pauseMenuAnimator;
-        
-        public Settings Settings => _settingsUI;
         
         #endregion
     }

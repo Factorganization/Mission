@@ -16,7 +16,7 @@ namespace Runtime.Services.Game.GameContent.UI
         private void Initialize()
         {
             if (_closeSettingsButton != null)
-                _closeSettingsButton.onClick.AddListener(Hide);
+                _closeSettingsButton.onClick.AddListener(Show);
             if (_fullscreenToggle != null)
                 _fullscreenToggle.onValueChanged.AddListener(ToggleFullscreen);
             if (_screenSizeDropdown != null)
@@ -68,12 +68,16 @@ namespace Runtime.Services.Game.GameContent.UI
         public override void Show()
         {
             base.Show();
-            StartCoroutine(AnimationExtensions.Play(_animator, "SettingsOpen", false, null));
-        }
-
-        public override void Hide()
-        {
-            StartCoroutine(AnimationExtensions.Play(_animator, "SettingsClose", false, () => base.Hide()));
+            if (!_isOpen)
+            {
+                StartCoroutine(AnimationExtensions.Play(_animator, "SettingsOpen", true, null));
+                _isOpen = true;
+            }
+            else
+            {
+                StartCoroutine(AnimationExtensions.Play(_animator, "SettingsClose", true, Hide));
+                _isOpen = false;
+            }
         }
 
         #endregion

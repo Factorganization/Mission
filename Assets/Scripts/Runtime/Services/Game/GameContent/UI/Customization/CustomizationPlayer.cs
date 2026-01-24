@@ -151,7 +151,6 @@ namespace Runtime.Services.Game.GameContent.UI.Customization
         }
 
         #endregion
-        
 
         [Serializable]
         public class BodyPartTypeIndex
@@ -172,6 +171,9 @@ namespace Runtime.Services.Game.GameContent.UI.Customization
         {
             public List<BodyPartTypeIndex> bodyPartTypeIndexList;
             public List<BodyPartMaterialSave> bodyPartMaterials;
+            public string[] headMaterialNames;
+            public string[] tailMaterialNames;
+            public string[] bodyMaterialNames;
         }
 
         #region MeshesSaveLoad
@@ -234,11 +236,36 @@ namespace Runtime.Services.Game.GameContent.UI.Customization
                     }
                 }
             }
+            
+            string[] headNames = new string[0];
+            if (Head != null)
+            {
+                var hm = Head.sharedMaterials;
+                headNames = hm != null && hm.Length > 0 ? hm.Select(m => NormalizeMaterialName(m)).ToArray() : new string[0];
+            }
+
+            string[] tailNames = new string[0];
+            if (Tail != null)
+            {
+                var tm = Tail.sharedMaterials;
+                tailNames = tm != null && tm.Length > 0 ? tm.Select(m => NormalizeMaterialName(m)).ToArray() : new string[0];
+            }
+
+            string[] bodyNames = new string[0];
+            var bodyRenderer = GetRendererForBodyPart(BodyPartType.Body);
+            if (bodyRenderer != null)
+            {
+                var bm = bodyRenderer.sharedMaterials;
+                bodyNames = bm != null && bm.Length > 0 ? bm.Select(m => NormalizeMaterialName(m)).ToArray() : new string[0];
+            }
 
             SaveObject saveObject = new SaveObject
             {
                 bodyPartTypeIndexList = bodyPartTypeIndexList,
-                bodyPartMaterials = bodyPartMaterials
+                bodyPartMaterials = bodyPartMaterials,
+                headMaterialNames = headNames,
+                tailMaterialNames = tailNames,
+                bodyMaterialNames = bodyNames
             };
 
             string json = JsonUtility.ToJson(saveObject);
@@ -322,22 +349,76 @@ namespace Runtime.Services.Game.GameContent.UI.Customization
                             restored.Add(null);
                             continue;
                         }
-                    }
-                    
-                    var found = allMats.FirstOrDefault(m => NormalizeMaterialName(m) == mat.materialNames[0]);
-                    if (found != null)
-                    {
+
+                        var found = allMats.FirstOrDefault(m => NormalizeMaterialName(m) == matName);
                         restored.Add(found);
                     }
-                    else
-                    {
-                        var current = renderer.sharedMaterials;
-                        if (current != null && current.Length > restored.Count)
-                            restored.Add(current[restored.Count]);
-                        else
-                            restored.Add(null);
-                    }
                     
+                    var currentMats = renderer.sharedMaterials;
+                    int targetLen = Mathf.Max(currentMats != null ? currentMats.Length : 0, restored.Count);
+                    Material[] finalMats = new Material[targetLen];
+                    for (int i = 0; i < targetLen; i++)
+                    {
+                        if (i < restored.Count && restored[i] != null)
+                            finalMats[i] = restored[i];
+                        else if (currentMats != null && i < currentMats.Length)
+                            finalMats[i] = currentMats[i];
+                        else
+                            finalMats[i] = null;
+                    }
+
+                    renderer.sharedMaterials = finalMats;
+                }
+            }
+            // Restore explicit Head materials
+            if (saveObject.headMaterialNames != null && Head != null)
+            {
+                var allMats = Resources.FindObjectsOfTypeAll<Material>();
+                var restored = saveObject.headMaterialNames.Select(n => string.IsNullOrEmpty(n) ? null : allMats.FirstOrDefault(m => NormalizeMaterialName(m) == n)).ToArray();
+                var current = Head.sharedMaterials;
+                int targetLen = Mathf.Max(current != null ? current.Length : 0, restored.Length);
+                Material[] finalMats = new Material[targetLen];
+                for (int i = 0; i < targetLen; i++)
+                {
+                    if (i < restored.Length && restored[i] != null)
+                        finalMats[i] = restored[i];
+                    else if (current != null && i < current.Length)
+                        finalMats[i] = current[i];
+                    else
+                        finalMats[i] = null;
+                }
+                Head.sharedMaterials = finalMats;
+            }
+
+            // Restore explicit Tail materials
+            if (saveObject.tailMaterialNames != null && Tail != null)
+            {
+                var allMats = Resources.FindObjectsOfTypeAll<Material>();
+                var restored = saveObject.tailMaterialNames.Select(n => string.IsNullOrEmpty(n) ? null : allMats.FirstOrDefault(m => NormalizeMaterialName(m) == n)).ToArray();
+                var current = Tail.sharedMaterials;
+                int targetLen = Mathf.Max(current != null ? current.Length : 0, restored.Length);
+                Material[] finalMats = new Material[targetLen];
+                for (int i = 0; i < targetLen; i++)
+                {
+                    if (i < restored.Length && restored[i] != null)
+                        finalMats[i] = restored[i];
+                    else if (current != null && i < current.Length)
+                        finalMats[i] = current[i];
+                    else
+                        finalMats[i] = null;
+                }
+                Tail.sharedMaterials = finalMats;
+            }
+
+            // Restore explicit Body materials and ensure the body uses the saved slot (commonly index 1)
+            if (saveObject.bodyMaterialNames != null)
+            {
+                var renderer = GetRendererForBodyPart(BodyPartType.Body);
+                if (renderer != null)
+                {
+                    var allMats = Resources.FindObjectsOfTypeAll<Material>();
+                    var restored = saveObject.bodyMaterialNames.Select(n => string.IsNullOrEmpty(n) ? null : allMats.FirstOrDefault(m => NormalizeMaterialName(m) == n)).ToList();
+
                     var currentMats = renderer.sharedMaterials;
                     int targetLen = Mathf.Max(currentMats != null ? currentMats.Length : 0, restored.Count);
                     Material[] finalMats = new Material[targetLen];
