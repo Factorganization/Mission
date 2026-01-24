@@ -7,12 +7,6 @@ namespace Runtime.Services.Game.GameContent.UI.GameUI
     {
         #region Functions
 
-        public override void Show()
-        {
-            base.Show();
-            StartCoroutine(AnimationExtensions.Play(_loseScreenAnimator, "OpenLoseScreen", false, null));
-        }
-
         #endregion
         
         #region Fields

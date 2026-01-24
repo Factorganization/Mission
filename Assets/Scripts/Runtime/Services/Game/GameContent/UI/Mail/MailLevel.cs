@@ -10,6 +10,8 @@ namespace Runtime.Services.Game.GameContent.UI.Mail
         public string Sender;
         public string Description;
         public string Objective;
+        public bool isMailUnlocked;
+        public bool isMailNew;
 
         #endregion
     }

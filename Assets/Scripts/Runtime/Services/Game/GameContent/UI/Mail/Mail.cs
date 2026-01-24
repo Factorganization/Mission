@@ -21,6 +21,12 @@ namespace Runtime.Services.Game.GameContent.UI.Mail
             OnMailSelected.Invoke(_mailLevel);
         }
 
+		public void UnlockMail()
+        {
+			_mailLevel.isMailUnlocked = true;
+			_mailLevel.isMailNew = true;
+		}	
+
         #endregion
 
         #region Fields
