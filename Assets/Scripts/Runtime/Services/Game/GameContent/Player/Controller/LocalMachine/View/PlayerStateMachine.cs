@@ -24,6 +24,7 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.View
             _playerModel = new PlayerModel(dataSo, referenceData.rb, referenceData.col, referenceData.graph, referenceData.cam, referenceData.grab, referenceData.activeGrab, referenceData.animator);
             _stateMachine = new GenericStateMachine(Enum.GetNames(typeof(ControllerState)).Length);
 
+            var start = new StartState(_stateMachine, gameObject, _playerModel, ControllerState.Start);
             var idle = new IdleState(_stateMachine, gameObject, _playerModel, ControllerState.Idle);
             var move = new MoveState(_stateMachine, gameObject, _playerModel, ControllerState.Move);
             var jump = new JumpState(_stateMachine, gameObject, _playerModel, ControllerState.Jump);
@@ -32,6 +33,9 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.View
             var possess =  new PossessState(_stateMachine, gameObject, _playerModel, ControllerState.Possess);
             var menu = new MenuState(_stateMachine, gameObject, _playerModel, ControllerState.Menu);
             var locked = new LockedState(_stateMachine, gameObject, _playerModel, ControllerState.Locked);
+
+            _stateMachine.SetCallBacks(SetId((int)ControllerState.Start), "start", start.OnInit, start.OnEnterState,
+                start.OnUpdate, start.OnFixedUpdate, start.OnExitState, start.OnCoroutine);
             
             _stateMachine.SetCallBacks(SetId((int)ControllerState.Idle), "idle", idle.OnInit, idle.OnEnterState,
                 idle.OnUpdate, idle.OnFixedUpdate, idle.OnExitState, idle.OnCoroutine);
@@ -56,17 +60,18 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.View
             
             _stateMachine.SetCallBacks(SetId((int)ControllerState.Locked), "locked", locked.OnInit, locked.OnEnterState,
                 locked.OnUpdate, locked.OnFixedUpdate, locked.OnExitState, locked.OnCoroutine);
+            
+            _stateMachine.InitMachine();
         }
 
         private void Start()
         {
-            _stateMachine.InitMachine();
+            _stateMachine.StartMachine();
         }
 
         private void Update()
         {
             _stateMachine.UpdateMachine();
-            NON = 0;
         }
 
         private void FixedUpdate()
@@ -96,20 +101,6 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.View
         private GenericStateMachine _stateMachine;
 
         private PlayerModel _playerModel;
-
-        private float NON
-        {
-            set
-            {
-                if (dataSo.cameraData.maxUpperPitchAngle <= 89)
-                    return;
-                
-                var color = Color.red;
-                dataSo.cameraData.maxUpperPitchAngle = 89;
-                Debug.LogError(
-                    $"<color=#{(byte)(color.r * 255f):X2}{(byte)(color.g * 255f):X2}{(byte)(color.b * 255f):X2}>par pitié depassez pas 89</color>");
-            }
-        }
 
         [Serializable]
         private class ReferenceData

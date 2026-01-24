@@ -1,3 +1,5 @@
+using Runtime.Service;
+using Runtime.Services.Data;
 using TMPro;
 using UnityEngine.Events;
 
@@ -20,6 +22,15 @@ namespace Runtime.Services.Game.GameContent.UI.Mail
         {
             OnMailSelected.Invoke(_mailLevel);
         }
+
+		public void UnlockMail()
+        {
+            if (ServiceLocator.Instance.Get<DataService>().MalicePoints > _mailLevel.ThresholdScore)
+            {
+                _mailLevel.isMailUnlocked = true;
+                _mailLevel.isMailNew = true;
+            }
+		}	
 
         #endregion
 

@@ -65,8 +65,9 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
 
 				if (_fireDestructionTimer > fireDestructionDuration)
 				{
+					smoke.Emit(10);
 					Transform.position = _spawnerRef ? _spawnerRef.SpawnPos.position : OriginPos;
-
+					
 					if (Grabbed)
 					{
 						var p = GameManager.Instance.Player.PlayerModel;
@@ -105,6 +106,7 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
 				p.SetAnimParam(p.isHolding, false);
 				p.SetAnimParam(p.isInteracting, false);
 			}
+			
 			
 			Transform.position = _spawnerRef ? _spawnerRef.SpawnPos.position : OriginPos;
 			exploded = false;
@@ -169,6 +171,8 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
 
 		[SerializeField] private ElementFlag element;
 
+		[SerializeField] private ParticleSystem smoke;
+		
 		[SerializeField] private float fireDestructionDuration;
 		
 		private Rigidbody _rb;

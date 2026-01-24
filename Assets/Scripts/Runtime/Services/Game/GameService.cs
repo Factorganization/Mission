@@ -1,3 +1,4 @@
+using System.Collections;
 using Runtime.Services.Game.GameSystems;
 
 namespace Runtime.Services.Game
@@ -19,6 +20,15 @@ namespace Runtime.Services.Game
         //public ElementManager ElementManager => elementManager;
         
         //public MissionManager MissionManager => missionManager;
+
+        #endregion
+
+        #region methodes
+
+        public void OnCoroutine(IEnumerator enumerator)
+        {
+            StartCoroutine(enumerator);
+        }
 
         #endregion
         

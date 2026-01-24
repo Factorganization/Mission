@@ -21,36 +21,42 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
 
         private void Awake()
         {
-            _aiModel = new AIModel(aiMovementDataSo ,aiDetectionDataSo ,refData.animator, refData.agent, rcOrigin, player, excludedLayers, repairTime, waypoints)
+            _aiModel = new AIModel(aiMovementDataSo ,aiDetectionDataSo ,refData.animator, refData.agent, rcOrigin, player, excludedLayers, repairTime, waypoints, refData.male)
             {
                 transform = transform
             };
 
             _stateMachine = new GenericStateMachine(Enum.GetNames(typeof(AIControllerState)).Length);
 
-           var idle = new AIIdleState(_stateMachine, gameObject, _aiModel, AIControllerState.Idle);
-           var move = new AIMoveState(_stateMachine, gameObject, _aiModel, AIControllerState.Move);
-           var suspicious = new AISuspiciousState(_stateMachine, gameObject, _aiModel, AIControllerState.Suspicious);
-           var chase = new AIChaseState(_stateMachine, gameObject, _aiModel, AIControllerState.Chase);
-           var repair = new AIRepairState(_stateMachine, gameObject, _aiModel, AIControllerState.Repair);
-           var bbgrabbable = new AIBBGrabbableState(_stateMachine, gameObject, _aiModel, AIControllerState.BBGrabbable);
-           
-           _stateMachine.SetCallBacks(SetId((int)AIControllerState.Idle), "idle", idle.OnInit, idle.OnEnterState,
-               idle.OnUpdate, idle.OnFixedUpdate, idle.OnExitState, idle.OnCoroutine);
-           _stateMachine.SetCallBacks(SetId((int)AIControllerState.Move), "move", move.OnInit, move.OnEnterState,
-               move.OnUpdate, move.OnFixedUpdate, move.OnExitState, move.OnCoroutine);
-           _stateMachine.SetCallBacks(SetId((int)AIControllerState.Suspicious), "suspicious", suspicious.OnInit, suspicious.OnEnterState,
-               suspicious.OnUpdate, suspicious.OnFixedUpdate, suspicious.OnExitState, suspicious.OnCoroutine);
-           _stateMachine.SetCallBacks(SetId((int)AIControllerState.Chase), "chase", chase.OnInit, chase.OnEnterState,
-               chase.OnUpdate, chase.OnFixedUpdate, chase.OnExitState, chase.OnCoroutine);
-           _stateMachine.SetCallBacks(SetId((int)AIControllerState.Repair), "repair", repair.OnInit, repair.OnEnterState, 
-               repair.OnUpdate, repair.OnFixedUpdate, repair.OnExitState, repair.OnCoroutine);
-           _stateMachine.SetCallBacks(SetId((int)AIControllerState.BBGrabbable), "bbgrabbable", bbgrabbable.OnInit, bbgrabbable.OnEnterState, 
-               bbgrabbable.OnUpdate, bbgrabbable.OnFixedUpdate, bbgrabbable.OnExitState, repair.OnCoroutine);
+            var start = new AIStartState(_stateMachine, gameObject, _aiModel, AIControllerState.Start);
+            var idle = new AIIdleState(_stateMachine, gameObject, _aiModel, AIControllerState.Idle);
+            var move = new AIMoveState(_stateMachine, gameObject, _aiModel, AIControllerState.Move);
+            var suspicious = new AISuspiciousState(_stateMachine, gameObject, _aiModel, AIControllerState.Suspicious);
+            var chase = new AIChaseState(_stateMachine, gameObject, _aiModel, AIControllerState.Chase);
+            var repair = new AIRepairState(_stateMachine, gameObject, _aiModel, AIControllerState.Repair);
+            var bbgrabbable = new AIBBGrabbableState(_stateMachine, gameObject, _aiModel, AIControllerState.BBGrabbable);
+            var spotted = new AISpottedState(_stateMachine, gameObject, _aiModel, AIControllerState.Spotted);
+
+            _stateMachine.SetCallBacks(SetId((int)AIControllerState.Start), "start", start.OnInit, start.OnEnterState,
+                start.OnUpdate, start.OnFixedUpdate, start.OnExitState, start.OnCoroutine);
+            _stateMachine.SetCallBacks(SetId((int)AIControllerState.Idle), "idle", idle.OnInit, idle.OnEnterState, 
+                idle.OnUpdate, idle.OnFixedUpdate, idle.OnExitState, idle.OnCoroutine);
+            _stateMachine.SetCallBacks(SetId((int)AIControllerState.Move), "move", move.OnInit, move.OnEnterState,
+                move.OnUpdate, move.OnFixedUpdate, move.OnExitState, move.OnCoroutine);
+            _stateMachine.SetCallBacks(SetId((int)AIControllerState.Suspicious), "suspicious", suspicious.OnInit, suspicious.OnEnterState,
+                suspicious.OnUpdate, suspicious.OnFixedUpdate, suspicious.OnExitState, suspicious.OnCoroutine);
+            _stateMachine.SetCallBacks(SetId((int)AIControllerState.Chase), "chase", chase.OnInit, chase.OnEnterState,
+                chase.OnUpdate, chase.OnFixedUpdate, chase.OnExitState, chase.OnCoroutine);
+            _stateMachine.SetCallBacks(SetId((int)AIControllerState.Repair), "repair", repair.OnInit, repair.OnEnterState, 
+                repair.OnUpdate, repair.OnFixedUpdate, repair.OnExitState, repair.OnCoroutine);
+            _stateMachine.SetCallBacks(SetId((int)AIControllerState.BBGrabbable), "bbgrabbable", bbgrabbable.OnInit, bbgrabbable.OnEnterState, 
+                bbgrabbable.OnUpdate, bbgrabbable.OnFixedUpdate, bbgrabbable.OnExitState, repair.OnCoroutine);
+           _stateMachine.SetCallBacks(SetId((int)AIControllerState.Spotted), "spotted", spotted.OnInit, spotted.OnEnterState, 
+               spotted.OnUpdate, spotted.OnFixedUpdate, spotted.OnExitState, spotted.OnCoroutine);
            
            //Set AI Position to first waypoint
-           _aiModel._currentWaypoint = new mTransform();
-           AIController.SetCurrentWaypoint(_aiModel, _aiModel.waypoints[0]);
+            _aiModel._currentWaypoint = new mTransform();
+            AIController.SetCurrentWaypoint(_aiModel, _aiModel.waypoints[0]);
             _stateMachine.InitMachine();
         }
 
@@ -108,6 +114,7 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
         {
             [SerializeField] internal NavMeshAgent agent;
             [SerializeField] internal Animator animator;
+            [SerializeField] internal bool male;
         }
         #endregion
     }

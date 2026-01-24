@@ -1,4 +1,5 @@
 using System.Collections;
+using Runtime.Services.Audio;
 using Runtime.Services.Game.GameContent.Actors.ActorModels;
 using Shared.Utils.BaseMachine;
 
@@ -20,6 +21,8 @@ public class AIRepairState : BaseAiState
         aiModel._agentRef.isStopped = true;
         _repairTimer = 0; 
         aiModel._animatorRef.SetBool("ac_isRepairing", true);
+        var a = ServiceLocator.Instance.Get<AudioService>();
+        a.PlayOneShot(a.Atlas.sfx.pnj.repair, aiModel.transform.position);
     }
 
     public override sbyte OnUpdate()

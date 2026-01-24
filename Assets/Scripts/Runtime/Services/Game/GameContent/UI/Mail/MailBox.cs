@@ -34,6 +34,11 @@ namespace Runtime.Services.Game.GameContent.UI.Mail
                 var mailComponent = mailGO.GetComponent<Mail>();
                 mailComponent.Bind(mail);
                 mailComponent.OnMailSelected.AddListener(OnMailSelected);
+			
+				if (mail.isMailUnlocked == false)
+                {
+					mailGO.SetActive(false);
+				}
             }
             
             _closeMailButton.onClick.AddListener(Show);

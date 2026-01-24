@@ -49,7 +49,7 @@ namespace Runtime.Services.Game.GameContent.UI.Customization
                 Sprite icon = (customItems[i].ItemIcon != null && i < customItems.Length) ? customItems[i].ItemIcon : null;
                 
                 if (customItems[i].ItemMesh != null)
-                    btn.SetDataMesh(customItems[i].ItemMesh, icon, customItems[i].Locked, i);
+                    btn.SetDataMesh(customItems[i], customItems[i].ItemMesh, icon, customItems[i].Locked, i, customItems[i].ItemPrice);
 
                 if (onSelected != null)
                 {

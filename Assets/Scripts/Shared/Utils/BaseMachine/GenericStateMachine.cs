@@ -20,6 +20,9 @@ namespace Shared.Utils.BaseMachine
             _fixedUpdateStates = new Func<sbyte>[stateNumber];
             _exitStates = new Action[stateNumber];
             _coroutineStates = new Func<IEnumerator>[stateNumber];
+            _currentState = 0;
+            _cine = false;
+            _locked = false;
         }
 
         ~GenericStateMachine()
@@ -40,9 +43,6 @@ namespace Shared.Utils.BaseMachine
             Action exit,
             Func<IEnumerator> coroutines)
         {
-            _currentState = 0;
-            _cine = false;
-            _locked = false;
             _stateDict.Add(stateName, stateID);
             _stateNames[stateID] = stateName;
             _initStates[stateID] = init;

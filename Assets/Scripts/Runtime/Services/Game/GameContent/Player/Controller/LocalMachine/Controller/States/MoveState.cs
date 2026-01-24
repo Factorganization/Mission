@@ -1,3 +1,5 @@
+using Runtime.Services.Audio;
+using Runtime.Services.Game.GameContent.Logics.LogicModels.MissionModels;
 using Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Model;
 using Runtime.Services.Game.GameSystems;
 using Shared.Utils.BaseMachine;
@@ -88,6 +90,46 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Contr
                         playerModel.SetGrabbedObjectState(gb);
                         playerModel.SetAnimParam(playerModel.isHolding, true);
                         playerModel.SetAnimParam(playerModel.isInteracting, false);
+                        
+                        var t = playerModel.currentGrabbedObject.ObjectType;
+                        var a = ServiceLocator.Instance.Get<AudioService>();
+
+                        switch (t)
+                        {
+                            // Book type ? Also for PQ ?
+                            case ObjectType.I_Paper : 
+                                a.PlayOneShot(a.Atlas.sfx.objects.book.bookPick, playerModel.currentGrabbedObject.Transform.position);
+                                break;
+                            
+                            // Also for Glass Type ? also for Pans ? 
+                            case ObjectType.I_Cookware : 
+                                a.PlayOneShot(a.Atlas.sfx.objects.cutlery.cutleryPick, playerModel.currentGrabbedObject.Transform.position);
+                                break;
+                            
+                            // Jerrican type ?
+                            case ObjectType.I_Bucket : 
+                                a.PlayOneShot(a.Atlas.sfx.objects.jerrican.jerricanPick, playerModel.currentGrabbedObject.Transform.position);
+                                break;
+                            
+                            // Metal type ?
+                            case ObjectType.I_Tool :
+                                a.PlayOneShot(a.Atlas.sfx.objects.metal.metalPick, playerModel.currentGrabbedObject.Transform.position);
+                                break;
+                            
+                            // Phone ? 
+                            case ObjectType.I_Device : 
+                                a.PlayOneShot(a.Atlas.sfx.objects.phone.phonePick, playerModel.currentGrabbedObject.Transform.position);
+                                break;
+                            
+                            case ObjectType.I_Cloth :
+                                a.PlayOneShot(a.Atlas.sfx.objects.tshirt.tshirtPick, playerModel.currentGrabbedObject.Transform.position);
+                                break;
+                            
+                            default:
+                                a.PlayOneShot(a.Atlas.sfx.objects.wood.woodPick, playerModel.currentGrabbedObject.Transform.position);
+                                break;
+                            
+                        }
                     }
                     break;
                 

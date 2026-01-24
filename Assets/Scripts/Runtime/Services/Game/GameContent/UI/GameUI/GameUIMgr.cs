@@ -9,6 +9,13 @@ namespace Runtime.Services.Game.GameContent.UI.GameUI
     {
         #region Functions
 
+        private void Start()
+        {
+            _gameOverUI.Hide();
+            _winUI.Hide();
+            _pauseMenuUI.Hide();
+        }
+
         public async void ReturnToMainMenu()
         {
             Time.timeScale = 1f;
@@ -24,16 +31,16 @@ namespace Runtime.Services.Game.GameContent.UI.GameUI
         public void GameOver()
         {
             // Show end game UI
-            ServiceLocator.Instance.Get<CursorService>().SetActive(true);
             _gameOverUI.Show();
+            ServiceLocator.Instance.Get<CursorService>().SetActive(true);
             Time.timeScale = 0f;
         }
         
         public void WinGame()
         {
             // Show win game UI
-            ServiceLocator.Instance.Get<CursorService>().SetActive(true);
             _winUI.Show();
+            ServiceLocator.Instance.Get<CursorService>().SetActive(true);
             Time.timeScale = 0f;
         }
 

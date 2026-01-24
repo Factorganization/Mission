@@ -67,15 +67,24 @@ namespace Runtime.Services.Game.GameContent.UI.Customization
             var meshes= _characterPreview.GetItem(bodyPart);
             _customizationPooler.Populate(meshes, (btn) =>
             {
-                _characterPreview.SetBodyPartMesh(bodyPart, btn.ItemIndex);
-                if (_customizationColors != null)
+                if (!btn.CustomizeItem.Locked)
                 {
-                    if (bodyPart == CustomizationPlayer.BodyPartType.Hair ||
-                        bodyPart == CustomizationPlayer.BodyPartType.Body)
+                    _characterPreview.SetBodyPartMesh(bodyPart, btn.ItemIndex);
+                    if (_customizationColors != null)
                     {
-                        _customizationColors.SetCurrentItemIndex(btn.ItemIndex);
-                        _customizationColors.ApplyColor(0);
+                        if (bodyPart == CustomizationPlayer.BodyPartType.Hair ||
+                            bodyPart == CustomizationPlayer.BodyPartType.Body)
+                        {
+                            _customizationColors.SetCurrentItemIndex(btn.ItemIndex);
+                            _customizationColors.ApplyColor(0);
+                        }
                     }
+                }
+                else
+                {
+                    MainMenuUI.Instance.PurchaseContainer.Show();
+                    MainMenuUI.Instance.PurchaseContainer.ConfirmButton.onClick.AddListener(btn.UnlockItem);
+                    MainMenuUI.Instance.PurchaseContainer.ConfirmButton.onClick.AddListener(Initialize);
                 }
             });
             
@@ -92,6 +101,7 @@ namespace Runtime.Services.Game.GameContent.UI.Customization
         [SerializeField] CustomizationPooler _customizationPooler;
         [SerializeField] private CustomizationPlayer _characterPreview;
         [SerializeField] private CustomizationColors _customizationColors;
+        
         [SerializeField] private Scrollbar _scrollbar;
         
         #endregion
