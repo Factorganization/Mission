@@ -1,10 +1,25 @@
+using Runtime.Services.Game.GameContent.UI.MainMenu;
 using UnityEngine.UI;
 
 namespace Runtime.Services.Game.GameContent.UI
 {
     public class MainMenuUI : MonoBehaviour
     {
+        #region properties
+
+        public static MainMenuUI Instance { get; private set; }
+
+        #endregion
+        
         #region Functions
+
+        private void Awake()
+        {
+            if (Instance == null)
+                Instance = this;
+            else
+                Destroy(gameObject);
+        }
 
         private void Start()
         {
@@ -39,6 +54,7 @@ namespace Runtime.Services.Game.GameContent.UI
             _customizeContainer.gameObject.SetActive(false);
             _creditsContainer.gameObject.SetActive(false);
             _quitContainer.gameObject.SetActive(false);
+            _purchaseContainer.gameObject.SetActive(false);
         }
 
         #endregion
@@ -50,6 +66,10 @@ namespace Runtime.Services.Game.GameContent.UI
         [SerializeField] private UIParent _mailContainer, _settingsContainer, _customizeContainer, _creditsContainer, _quitContainer;
             
         [SerializeField] private RawImage _backgroundImage;
+        
+        [SerializeField] ConfirmPurchasePopup _purchaseContainer;
+        
+        public ConfirmPurchasePopup PurchaseContainer => _purchaseContainer;
     
         #endregion
     }

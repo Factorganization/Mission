@@ -8,6 +8,7 @@ namespace Runtime.Services.Game.GameContent.UI.Customization
         public string ItemName;
         public Sprite ItemIcon;
         public Mesh ItemMesh;
+        public int ItemPrice;
         public CustomizationPlayer.BodyPartType ItemBodyPart;
         public bool Locked;
 

@@ -16,7 +16,6 @@ namespace Runtime.Services.Game.GameContent.UI
             _levelSender.text = "From : " + mailLevel._mailLevel.Sender;
             _levelDescription.text = mailLevel._mailLevel.Description;
             _levelData = mailLevel._mailLevel;
-            _objectiveText.text = "Objective: " + mailLevel._mailLevel.Objective;
             _acceptButton.onClick.AddListener(OpenLevel);
             _closeButton.onClick.AddListener(Hide);
         }
@@ -35,7 +34,6 @@ namespace Runtime.Services.Game.GameContent.UI
             _levelSender.text = "";
             _levelDescription.text = "";
             _levelData = null;
-            _objectiveText.text = "";
             _acceptButton.onClick.RemoveListener(OpenLevel);
             _closeButton.onClick.RemoveListener(Hide);
         }
@@ -45,7 +43,7 @@ namespace Runtime.Services.Game.GameContent.UI
         #region Fields
         
         private MailLevel _levelData;
-        [SerializeField] private TextMeshProUGUI _levelName, _levelSender, _levelDescription, _objectiveText;
+        [SerializeField] private TextMeshProUGUI _levelName, _levelSender, _levelDescription;
         [SerializeField] private Button _acceptButton, _closeButton;
 
         #endregion
