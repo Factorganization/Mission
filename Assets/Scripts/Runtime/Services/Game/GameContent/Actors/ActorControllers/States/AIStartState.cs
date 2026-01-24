@@ -19,7 +19,7 @@ public class AIStartState : BaseAiState
 
     public override void OnEnterState()
     {
-        
+        ServiceLocator.Instance.Get<GameService>().OnCoroutine(OnCoroutine());
     }
     
     public override sbyte OnUpdate()
