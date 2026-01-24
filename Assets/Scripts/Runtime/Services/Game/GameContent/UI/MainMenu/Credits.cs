@@ -27,6 +27,7 @@ namespace Runtime.Services.Game.GameContent.UI.MainMenu
             else
             {
                 StartCoroutine(AnimationExtensions.Play(_animator, "CloseCredits", true, Hide));
+                _isOpen = false;
             }
         }
 

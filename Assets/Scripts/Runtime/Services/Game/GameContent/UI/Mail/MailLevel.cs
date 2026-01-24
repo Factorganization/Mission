@@ -8,8 +8,13 @@ namespace Runtime.Services.Game.GameContent.UI.Mail
         public string Subject;
         public string LevelName;
         public string Sender;
+        
+        [TextArea]
         public string Description;
-        public string Objective;
+        
+        public int ThresholdScore;
+        public bool isMailUnlocked;
+        public bool isMailNew;
 
         #endregion
     }

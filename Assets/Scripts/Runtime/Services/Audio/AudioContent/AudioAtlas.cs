@@ -1,4 +1,6 @@
 using FMODUnity;
+using System.Runtime.ExceptionServices;
+using UnityEngine.UIElements.Experimental;
 
 namespace Runtime.Services.Audio.AudioContent;
 
@@ -13,7 +15,22 @@ public class AudioAtlas
 [Serializable]
 public class Musics
 {
-    
+    public InGameMusic InGame;
+
+    public UIMusic UIMusics;
+
+    [Serializable]
+    public class InGameMusic
+    {
+        public EventReference InGameOST1;
+
+    }
+
+    [Serializable]
+    public class UIMusic
+    {
+        public EventReference MainMenu;
+    }
 }
 
 [Serializable]
@@ -22,6 +39,8 @@ public class SFX
     public EffectsSfx effects;
     
     public ObjectsSfx objects;
+
+    public PossessableSfx possessable;
 
     public PlayerSfx player;
 
@@ -44,7 +63,7 @@ public class SFX
             [Header("A jouer quand un objet electrique explose (PC/Frigo/Compteur Electrique)")]
             public EventReference electricStart;
 
-            [Header("A jouer quand un objet est chargï¿½ electriquement")]
+            [Header("A jouer quand un objet est charge electriquement")]
             public EventReference explosionElectric;
         }
         
@@ -55,15 +74,15 @@ public class SFX
             [Tooltip("Playoneshot sur la Voiture")]
             public EventReference bigExplosion;
 
-            [Header("Son ï¿½ jouer en continu lorsqu'un ï¿½lï¿½ment est en feu")]
-            [Tooltip("Event Emitter Continu qui s'active lorsque l'objet est en feu et se desactive quand il est dï¿½truit / s'ï¿½teint")]
+            [Header("Son à jouer en continu lorsqu'un element est en feu")]
+            [Tooltip("Event Emitter Continu qui s'active lorsque l'objet est en feu et se desactive quand il est detruit / s'eteint")]
             public EventReference constantFire;
 
-            [Header ("Son ï¿½ jouer lors d'une plus petite explosion comme : Le Four / Le Jerrican / Le Radiateur")]
-            [Tooltip ("Playoneshot ï¿½ l'ï¿½picentre de l'explosion")]
+            [Header ("Son à jouer lors d'une plus petite explosion comme : Le Four / Le Jerrican / Le Radiateur")]
+            [Tooltip ("Playoneshot à l'epicentre de l'explosion")]
             public EventReference smallExplosion;
 
-            [Header("Son ï¿½ jouer lorsqu'un objet prend feu")]
+            [Header("Son à jouer lorsqu'un objet prend feu")]
             [Tooltip("Playoneshot sur l'objet qui prend feu. Si possible : lorsque plusieurs objets prennent feu jouer une seule fois ce son mais en volume plus puissant")]
             public EventReference takingFire;
         }
@@ -71,7 +90,7 @@ public class SFX
         [Serializable]
         public class WaterSfx
         {
-            [Header("Son ï¿½ jouer quand le joueur dï¿½truit : Lavabo, Baignoire, Toilettes, Douche")]
+            [Header("Son à jouer quand le joueur detruit : Lavabo, Baignoire, Toilettes, Douche")]
             [Tooltip("Playoneshot sur l'epicentre de l'explosion")]
             public EventReference explosionWater;
 
@@ -79,11 +98,11 @@ public class SFX
             [Tooltip("")]
             public EventReference waterDrip;
 
-            [Header("A jouer aprï¿½s l'explosion Water")]
-            [Tooltip("Event Emitter continu qui commence aprï¿½s l'explosion et se termine quand l'objet est rï¿½parï¿½")]
+            [Header("A jouer apres l'explosion Water")]
+            [Tooltip("Event Emitter continu qui commence apres l'explosion et se termine quand l'objet est repare")]
             public EventReference waterStream;
 
-            [Header("Quand un objet est rendu mouillï¿½")]
+            [Header("Quand un objet est rendu mouille")]
             [Tooltip("Playone shot sur l'objet")]
             public EventReference WettingWater;
         }
@@ -92,10 +111,12 @@ public class SFX
     [Serializable]
     public class ObjectsSfx
     {
-        [Header("Quand l'objet X touche ou est pick up si spï¿½cificitï¿½ je le prï¿½cise sinon c'est dans le titre")]
-        [Header("Le Reveil/LaRadio/Bougie sont encore ï¿½ faires je les avais pas vu lors de la collecte")]
+        [Header("Quand l'objet X touche ou est pick up si specificite je le precise sinon c'est dans le titre")]
+        [Header("Le Reveil/LaRadio/Bougie sont encore à faires je les avais pas vu lors de la collecte")]
 
         public BookSfx book;
+
+        public CandleSfx candle;
 
         [Header("Couteaux / Fourchettes")]
         public CutlerySfx cutlery;
@@ -105,7 +126,7 @@ public class SFX
         
         public JerricanSfx jerrican;
 
-        [Header("Seau / Scie / Clï¿½ ï¿½ Molette / Tournevis")]
+        [Header("Seau / Scie / Cle à Molette / Tournevis")]
         public MetalSfx metal;
 
         [Header("Casseroles / Poeles")]
@@ -116,21 +137,32 @@ public class SFX
         
         public PhoneSfx phone;
 
+        public RadioSfx radio;
+
+        public ReveilSfx reveil;
+
         [Header("Serviettes/Tshirts")]
         public TShirtSfx tshirt;
         
         public ToasterSfx toaster;
 
-        [Header("Rï¿½gle (Tool_04)")]
+        [Header("Regle (Tool_04)")]
         public WoodSfx wood;
         
         [Serializable]
         public class BookSfx
         {
-
             public EventReference bookHit;
             
             public EventReference bookPick;
+        }
+
+        [Serializable]
+        public class CandleSfx
+        {
+            public EventReference CandleHit;
+
+            public EventReference CandlePick;
         }
 
         [Serializable]
@@ -190,6 +222,22 @@ public class SFX
         }
 
         [Serializable]
+        public class RadioSfx
+        {
+            public EventReference radiolHit;
+
+            public EventReference radioPickUp;
+        }
+
+        [Serializable]
+        public class ReveilSfx
+        {
+            public EventReference reveilHit;
+
+            public EventReference reveilPickUp;
+        }
+
+        [Serializable]
         public class TShirtSfx
         {
             public EventReference tshirtHit;
@@ -213,21 +261,68 @@ public class SFX
             public EventReference woodPick;
         }
     }
-    
+
+    [Serializable]
+    public class PossessableSfx
+    {
+        public WaterPossessables WaterPossess;
+
+        public FirePossessables FirePossess;
+
+        public ElectricPossessables ElectricPossess;
+
+        [Serializable]
+        public class WaterPossessables
+        {
+            [Header("A integrer au moment où le joueur entre dans un Possessable X")]
+            public EventReference PossessSink;
+
+            public EventReference PossessBath;
+
+            public EventReference PossessToilets;
+
+            public EventReference PossessShower;
+        }
+
+        [Serializable]
+        public class FirePossessables
+        {
+            [Header("A integrer au moment où le joueur entre dans un Possessable X")]
+            public EventReference PossessRadiateur;
+
+            public EventReference PossessCar;
+
+            public EventReference PossessOven;
+        }
+
+        [Serializable]
+        public class ElectricPossessables
+        {
+            [Header("A integrer au moment où le joueur entre dans un Possessable X")]
+            public EventReference PossessFridge;
+
+            public EventReference PossessElectricBox;
+
+            public EventReference PossessTV;
+
+            public EventReference PossessPc;
+        }
+    }
+
     [Serializable]
     public class PlayerSfx
     {
         [Header("Quand le joueur maintient son lancer")]
-        [Tooltip("Playoneshot qui doit se jouer quand la touche est maintenue plus longtemps que la moitï¿½ du temps necessaire au Lancer ")]
+        [Tooltip("Playoneshot qui doit se jouer quand la touche est maintenue plus longtemps que la moitie du temps necessaire au Lancer ")]
         public EventReference playerChargeThrow;
 
         [Header("Ckanonmeur")]
         public EventReference playerDeath;
 
-        [Header("Se joue quand le joueur se dï¿½place, je vais randomiser le pitch")]
+        [Header("Se joue quand le joueur se deplace, je vais randomiser le pitch")]
         public EventReference playerFootStep;
 
-        [Header("Quand le joueur sort d'un possï¿½dable en l'explosant ou non")]
+        [Header("Quand le joueur sort d'un possedable en l'explosant ou non")]
         [Tooltip("Il est a revoir")]
         public EventReference playerGetOutObject;
 
@@ -239,7 +334,7 @@ public class SFX
     [Serializable]
     public class PNJSfx
     {
-        [Header("Quand le PNJ repare un possï¿½dable")]
+        [Header("Quand le PNJ repare un possedable")]
         [Tooltip("A stopper s'il cesse son action")]
         public EventReference repair;
 
@@ -250,7 +345,7 @@ public class SFX
         [Serializable]
         public class FemaleSfx
         {
-            [Header("Quand le PNJ se met ï¿½ courser le joueur")]
+            [Header("Quand le PNJ se met à courser le joueur")]
             public EventReference femaleChase;
 
             [Header("A jouer quand le PNJ se balade toutes les 20 secondes")]
@@ -259,14 +354,14 @@ public class SFX
             [Header("Quand le joueur entre dans le champ de vision du PNJ")]
             public EventReference femaleSpotPlayer;
 
-            [Tooltip("A jouer quand le joueur quitte le champ de vision du PNJ pendant le <Spot> ou aprï¿½s avoir fini une chase")]
+            [Tooltip("A jouer quand le joueur quitte le champ de vision du PNJ pendant le <Spot> ou apres avoir fini une chase")]
             public EventReference femaleSuspicious;
         }
 
         [Serializable]
         public class MaleSfx
         {
-            [Header("Quand le PNJ se met ï¿½ courser le joueur")]
+            [Header("Quand le PNJ se met à courser le joueur")]
             public EventReference maleChase;
 
             [Header("A jouer quand le PNJ se balade toutes les 20 secondes")]
@@ -275,7 +370,7 @@ public class SFX
             [Header("Quand le joueur entre dans le champ de vision du PNJ")]
             public EventReference maleSpotPlayer;
 
-            [Tooltip("A jouer quand le joueur quitte le champ de vision du PNJ pendant le <Spot> ou aprï¿½s avoir fini une chase")]
+            [Tooltip("A jouer quand le joueur quitte le champ de vision du PNJ pendant le <Spot> ou apres avoir fini une chase")]
             public EventReference maleSuspicious;
         }
     }
@@ -286,10 +381,10 @@ public class SFX
         [Header("Quand le joueur clique sur le Main Menu et le Menu Pause")]
         public EventReference uiClick;
 
-        [Tooltip("Quand le joueur passe du menu de base au pc (la transition entre l'image avec le dï¿½mon a la chaise et l'ï¿½cran de PC)")]
+        [Tooltip("Quand le joueur passe du menu de base au pc (la transition entre l'image avec le demon a la chaise et l'ecran de PC)")]
         public EventReference uiOpenPc;
 
-        [Tooltip("Quand le joueur appuie sur Tab et regarde ses missions, ï¿½ aussi jouer quand il ferme le menu")]
+        [Tooltip("Quand le joueur appuie sur Tab et regarde ses missions, à aussi jouer quand il ferme le menu")]
         public EventReference uiPaperOpen;
     }
 }
