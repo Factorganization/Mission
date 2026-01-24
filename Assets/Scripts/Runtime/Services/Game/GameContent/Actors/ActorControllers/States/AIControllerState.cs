@@ -5,13 +5,14 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorControllers.States
     public enum AIControllerState
     {
         None = 0,
-        Idle = 1,
-        Move = 2,
-        Suspicious = 4,
-        Chase = 8,
-        Repair = 16,
-        BBGrabbable = 32, 
-        Spotted = 64
+        Start = 1,
+        Idle = 2,
+        Move = 4,
+        Suspicious = 8,
+        Chase = 16,
+        Repair = 32,
+        BBGrabbable = 64,
+        Spotted = 128
     }
 }
 

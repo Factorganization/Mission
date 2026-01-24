@@ -4,13 +4,14 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Model
     public enum ControllerState
     {
         None = 0,
-        Idle = 1,
-        Move = 2,
-        Jump = 4,
-        Fall = 8,
-        Interact = 16,
-        Possess = 32,
-        Menu = 64,
-        Locked = 128
+        Start = 1,
+        Idle = 2,
+        Move = 4,
+        Jump = 8,
+        Fall = 16,
+        Interact = 32,
+        Possess = 64,
+        Menu = 128,
+        Locked = 256
     }
 }
