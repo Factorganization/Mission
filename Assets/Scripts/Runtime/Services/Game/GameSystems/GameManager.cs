@@ -1,9 +1,7 @@
-using Runtime.Service;
 using Runtime.Services.Cursor;
 using Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.View;
 using Runtime.Services.Game.GameContent.UI.GameUI;
 using Runtime.Services.Scene;
-using Runtime.Utils.Singleton;
 
 namespace Runtime.Services.Game.GameSystems
 {
