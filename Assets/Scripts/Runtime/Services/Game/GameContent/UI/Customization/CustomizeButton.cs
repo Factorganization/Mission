@@ -80,7 +80,8 @@ namespace Runtime.Services.Game.GameContent.UI.Customization
             if (_lockImage != null)
                 _lockImage.gameObject.SetActive(false);
             MainMenuUI.Instance.PurchaseContainer.Hide();
-            ServiceLocator.Instance.Get<DataService>().DevilDollars -= _customizeItem.ItemPrice;
+            ServiceLocator.Instance.Get<DataService>().SubtractMoney(_customizeItem.ItemPrice);
+            MainMenuUI.Instance.UpdateDataInfo.UpdateData();
         }
 
         public void ResetForPool()
