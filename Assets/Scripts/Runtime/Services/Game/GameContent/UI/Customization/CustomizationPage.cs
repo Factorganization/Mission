@@ -13,19 +13,22 @@ namespace Runtime.Services.Game.GameContent.UI.Customization
 
         private void Initialize()
         {
-            _closeButton.onClick.AddListener(() => Hide());
+            _closeButton.onClick.AddListener(Show);
         }
 
         public override void Show()
         {
             base.Show();
-            _animator.Play("OpenCustomPage");
-        }
-        
-        
-        public override void Hide()
-        {
-            _animator.Play("CloseCustomPage");
+            if (!_isOpen)
+            {
+                StartCoroutine(AnimationExtensions.Play(_animator, "OpenCustomPage", true, null));
+                _isOpen = true;
+            }
+            else
+            {
+                StartCoroutine(AnimationExtensions.Play(_animator, "CloseCustomPage", true, Hide));
+                _isOpen = false;
+            }
         }
 
         #endregion

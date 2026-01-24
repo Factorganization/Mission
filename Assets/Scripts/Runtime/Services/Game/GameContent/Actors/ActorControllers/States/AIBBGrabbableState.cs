@@ -20,6 +20,7 @@ public class AIBBGrabbableState : BaseAiState
         aiModel._currentGrabbable.Rigidbody.isKinematic = true;
         aiModel._currentGrabbable.Rigidbody.useGravity = false;
         aiModel._currentGrabbable.Transform.SetParent(aiModel.transform);
+        aiModel._animatorRef.SetBool("ac_isWalking", true);
 
     }
 
@@ -64,6 +65,7 @@ public class AIBBGrabbableState : BaseAiState
     public override void OnExitState()
     {
         AIController.DropObject(aiModel);
+        aiModel._animatorRef.SetBool("ac_isWalking", false);
     }
 
     public override IEnumerator OnCoroutine()

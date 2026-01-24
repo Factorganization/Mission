@@ -36,12 +36,11 @@ namespace Runtime.Services.Game.GameContent.UI.Mail
                 mailComponent.OnMailSelected.AddListener(OnMailSelected);
             }
             
-            _closeMailButton.onClick.AddListener(() => Hide());
+            _closeMailButton.onClick.AddListener(Show);
         }
 
         private void OnMailSelected(MailLevel mailLevel)
         {
-            Debug.Log(mailLevel.LevelName);
             _levelData._mailLevel = mailLevel;
             _mailLevelPopup.Bind(_levelData);
             _mailLevelPopup.Show();
@@ -50,12 +49,15 @@ namespace Runtime.Services.Game.GameContent.UI.Mail
         public override void Show()
         {
             base.Show();
-            _animator.Play("OpenMailPage");
-        }
-        
-        public override void Hide()
-        {
-            _animator.Play("CloseMailPage");
+            if (!_isOpen)
+            {
+                StartCoroutine(AnimationExtensions.Play(_animator, "OpenMailPage", true, null));
+                _isOpen = true;
+            }
+            else
+            {
+                StartCoroutine(AnimationExtensions.Play(_animator, "CloseMailPage", true, Hide));
+            }
         }
         
         #endregion

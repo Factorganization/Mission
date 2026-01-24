@@ -1,3 +1,4 @@
+using Runtime.Services.Audio;
 using Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Model;
 using Runtime.Services.Game.GameSystems;
 using Shared.Utils.BaseMachine;
@@ -100,6 +101,9 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Contr
             //playerModel.cam.SetParent(playerModel.rb.transform, true);
             playerModel.isVisible = true;
             playerModel.graph.gameObject.SetActive(true);
+            
+            var a = ServiceLocator.Instance.Get<AudioService>();
+            a.PlayOneShot(a.Atlas.sfx.player.playerGetOutObject, playerModel.rb.position);
         }
 
         #endregion

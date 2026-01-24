@@ -10,7 +10,8 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorControllers.States
         Suspicious = 4,
         Chase = 8,
         Repair = 16,
-        BBGrabbable = 32
+        BBGrabbable = 32, 
+        Spotted = 64
     }
 }
 

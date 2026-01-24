@@ -1,5 +1,3 @@
-using Runtime.Services.Game.GameContent.UI;
-using UnityEngine;
 using UnityEngine.UI;
 
 namespace Runtime.Services.Game.GameContent.UI.MainMenu
@@ -15,20 +13,21 @@ namespace Runtime.Services.Game.GameContent.UI.MainMenu
 
         private void Initialize()
         {
-            _closeButton.onClick.AddListener(() => Hide());
+            _closeButton.onClick.AddListener(Show);
         }
 
         public override void Show()
         {
             base.Show();
-            //_animator.Play("OpenCredits");
-        }
-        
-        
-        public override void Hide()
-        {
-            base.Hide();
-            //_animator.Play("CloseCredits");
+            if (!_isOpen)
+            {
+                StartCoroutine(AnimationExtensions.Play(_animator, "OpenCredits", true, null));
+                _isOpen = true;
+            }
+            else
+            {
+                StartCoroutine(AnimationExtensions.Play(_animator, "CloseCredits", true, Hide));
+            }
         }
 
         #endregion
