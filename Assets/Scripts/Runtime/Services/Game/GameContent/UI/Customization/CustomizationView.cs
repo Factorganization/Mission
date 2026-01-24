@@ -9,6 +9,8 @@ namespace Runtime.Services.Game.GameContent.UI.Customization
         private void Start()
         {
             Initialize();
+            
+            CustomizationEvent(CustomizationPlayer.BodyPartType.Hair);
         }
 
         private void Initialize()
@@ -20,27 +22,14 @@ namespace Runtime.Services.Game.GameContent.UI.Customization
              {
                  if (_customizationColors != null)
                      _customizationColors.SetCurrentBodyPart(CustomizationPlayer.BodyPartType.Horns);
-                 var meshes = _characterPreview.GetItem(CustomizationPlayer.BodyPartType.Horns);
-                 _customizationPooler.Populate(meshes, (btn) =>
-                 {
-                     _characterPreview.SetBodyPartMesh(CustomizationPlayer.BodyPartType.Horns, btn.ItemIndex);
-                 });
+                 CustomizationEvent(CustomizationPlayer.BodyPartType.Horns);
              });
             
              _hairButton.onClick.AddListener(() =>
              {
                  if (_customizationColors != null)
                      _customizationColors.SetCurrentBodyPart(CustomizationPlayer.BodyPartType.Hair);
-                 var meshes= _characterPreview.GetItem(CustomizationPlayer.BodyPartType.Hair);
-                 _customizationPooler.Populate(meshes, (btn) =>
-                 {
-                     _characterPreview.SetBodyPartMesh(CustomizationPlayer.BodyPartType.Hair, btn.ItemIndex);
-                     if (_customizationColors != null)
-                     {
-                         _customizationColors.SetCurrentItemIndex(btn.ItemIndex);
-                         _customizationColors.ApplyColor(0);
-                     }
-                 });
+                 CustomizationEvent(CustomizationPlayer.BodyPartType.Hair);
              });
              
              _eyesButton.onClick.AddListener(() =>
@@ -61,28 +50,36 @@ namespace Runtime.Services.Game.GameContent.UI.Customization
              {
                  if (_customizationColors != null)
                      _customizationColors.SetCurrentBodyPart(CustomizationPlayer.BodyPartType.Body);
-                 var meshes = _characterPreview.GetItem(CustomizationPlayer.BodyPartType.Body);
-                 _customizationPooler.Populate(meshes, (btn) =>
-                 {
-                     _characterPreview.SetBodyPartMesh(CustomizationPlayer.BodyPartType.Body, btn.ItemIndex);
-                     if (_customizationColors != null)
-                     {
-                         _customizationColors.SetCurrentItemIndex(btn.ItemIndex);
-                         _customizationColors.ApplyColor(0);
-                     }
-                 });
+                 CustomizationEvent(CustomizationPlayer.BodyPartType.Body);
              });
             
              _tailButton.onClick.AddListener(() =>
              {
                  if (_customizationColors != null)
                      _customizationColors.SetCurrentBodyPart(CustomizationPlayer.BodyPartType.Tail);
-                 var meshes = _characterPreview.GetItem(CustomizationPlayer.BodyPartType.Tail);
-                 _customizationPooler.Populate(meshes, (btn) =>
-                 {
-                     _characterPreview.SetBodyPartMesh(CustomizationPlayer.BodyPartType.Tail, btn.ItemIndex);
-                 });
+                 CustomizationEvent(CustomizationPlayer.BodyPartType.Tail);
              });
+        }
+
+        private void CustomizationEvent(CustomizationPlayer.BodyPartType bodyPart)
+        {
+            _customizationColors.SetCurrentBodyPart(bodyPart);
+            var meshes= _characterPreview.GetItem(bodyPart);
+            _customizationPooler.Populate(meshes, (btn) =>
+            {
+                _characterPreview.SetBodyPartMesh(bodyPart, btn.ItemIndex);
+                if (_customizationColors != null)
+                {
+                    if (bodyPart == CustomizationPlayer.BodyPartType.Hair ||
+                        bodyPart == CustomizationPlayer.BodyPartType.Body)
+                    {
+                        _customizationColors.SetCurrentItemIndex(btn.ItemIndex);
+                        _customizationColors.ApplyColor(0);
+                    }
+                }
+            });
+            
+            _scrollbar.value = 1;
         }
         
         #endregion
@@ -95,6 +92,7 @@ namespace Runtime.Services.Game.GameContent.UI.Customization
         [SerializeField] CustomizationPooler _customizationPooler;
         [SerializeField] private CustomizationPlayer _characterPreview;
         [SerializeField] private CustomizationColors _customizationColors;
+        [SerializeField] private Scrollbar _scrollbar;
         
         #endregion
 

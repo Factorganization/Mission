@@ -32,12 +32,13 @@ namespace Runtime.Services.Game.GameContent.UI
                 _creditsApp.onClick.AddListener(() => _creditsContainer.Show());
             
             if (_quitApp != null)
-                _quitApp.onClick.AddListener(Application.Quit);
+                _quitApp.onClick.AddListener(() => _quitContainer.Show());
             
             _mailContainer.gameObject.SetActive(false);
             _settingsContainer.gameObject.SetActive(false);
             _customizeContainer.gameObject.SetActive(false);
             _creditsContainer.gameObject.SetActive(false);
+            _quitContainer.gameObject.SetActive(false);
         }
 
         #endregion
@@ -46,7 +47,7 @@ namespace Runtime.Services.Game.GameContent.UI
 
         [SerializeField] private Button _mailApp, _settingsApp, _customizeApp, _creditsApp, _quitApp;
     
-        [SerializeField] private UIParent _mailContainer, _settingsContainer, _customizeContainer, _creditsContainer;
+        [SerializeField] private UIParent _mailContainer, _settingsContainer, _customizeContainer, _creditsContainer, _quitContainer;
             
         [SerializeField] private RawImage _backgroundImage;
     
