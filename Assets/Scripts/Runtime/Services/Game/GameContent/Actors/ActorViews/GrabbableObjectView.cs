@@ -1,4 +1,4 @@
-using Runtime.Service;
+using System.Collections;
 using Runtime.Services.Audio;
 using Runtime.Services.Game.GameContent.Actors.ActorControllers;
 using Runtime.Services.Game.GameContent.Actors.ActorInterfaces;
@@ -39,6 +39,24 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
 		
 		public bool Grabbed { get; set; }
 		
+		public bool Selectable
+		{
+			get => _selectable;
+			set
+			{
+				_selectable = value;
+
+				if (!_selectable)
+				{
+					indic.gameObject.SetActive(false);
+					return;
+				}
+				
+				indic.gameObject.SetActive(true);
+			}
+		}
+		
+		
 		#endregion
 		
 		#endregion
@@ -54,6 +72,7 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
 			_rb = GetComponent<Rigidbody>();
 			OriginPos = transform.position;
 			Active = true;
+			Selectable = false;
 		}
 
 		protected override void Update()
@@ -66,8 +85,9 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
 
 				if (_fireDestructionTimer > fireDestructionDuration)
 				{
+					StartCoroutine(SmokeParts());
 					Transform.position = _spawnerRef ? _spawnerRef.SpawnPos.position : OriginPos;
-
+					
 					if (Grabbed)
 					{
 						var p = GameManager.Instance.Player.PlayerModel;
@@ -88,6 +108,12 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
 		private void FixedUpdate()
 		{
 			SetSmoothPosition();
+
+			if (_selectable)
+			{
+				//indic.rotation = Quaternion.Lerp(indic.rotation, Quaternion.LookRotation(Vector3.forward), 0.1f);
+				indic.LookAt(GameManager.Instance.Player.UiOverLayCam);
+			}
 		}
 
 		#endregion
@@ -114,7 +140,8 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
 				return;
 
 			_alreadyExploded = true;
-			
+
+			StartCoroutine(SmokeParts());
 			impulseSource?.GenerateImpulseAt(Transform.position, Vector3.one);
 			var a = ServiceLocator.Instance.Get<AudioService>();
 			a.PlayOneShot(a.Atlas.sfx.effects.fire.bigExplosion, Transform.position);
@@ -161,6 +188,14 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
 			
 			Transform.position += Math.EasingFunction.SimpleQuadraticEase.V3SimpleQuadraticEaseOut(Transform.position, _targetPos, 0.05f);
 		}
+
+		private IEnumerator SmokeParts()
+		{
+			var s = Instantiate(smoke, Transform.position, Quaternion.identity, null);
+			s.Play();
+			yield return new WaitForSeconds(1f);
+			Destroy(s.gameObject);
+		}
 		
 		#endregion
 
@@ -170,6 +205,10 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
 
 		[SerializeField] private ElementFlag element;
 
+		[SerializeField] private ParticleSystem smoke;
+
+		[SerializeField] private Transform indic;
+		
 		[SerializeField] private float fireDestructionDuration;
 		
 		private Rigidbody _rb;
@@ -183,6 +222,8 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
 		private bool _returning;
 
 		private bool _alreadyExploded;
+
+		private bool _selectable;
 
 		#endregion
 	}

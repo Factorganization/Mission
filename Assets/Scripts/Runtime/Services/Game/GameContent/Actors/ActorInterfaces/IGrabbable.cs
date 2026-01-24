@@ -1,4 +1,5 @@
 using Runtime.Services.Game.GameContent.Logics.LogicInterfaces;
+using Runtime.Services.Game.GameContent.Logics.LogicModels.MissionModels;
 
 namespace Runtime.Services.Game.GameContent.Actors.ActorInterfaces
 {
@@ -18,11 +19,21 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorInterfaces
 		/// Spawn Position of the grabbable obj
 		/// </summary>
 		public Vector3 OriginPos { get; }
+		
+		/// <summary>
+		/// obj type used for sounds and effects
+		/// </summary>
+		public ObjectType ObjectType { get; }
 
 		/// <summary>
 		/// Return True if object is active
 		/// </summary>
 		public bool Active { get; } 
+		
+		/// <summary>
+		/// set to true if player will grab it
+		/// </summary>
+		public bool Selectable { get; set; }
 		
 		/// <summary>
 		/// Return true if object is being grabbed

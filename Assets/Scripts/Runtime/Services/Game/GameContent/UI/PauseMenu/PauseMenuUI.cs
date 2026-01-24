@@ -1,4 +1,3 @@
-using Runtime.Service;
 using Runtime.Services.Cursor;
 using Runtime.Services.Game.GameSystems;
 using Runtime.Services.Scene;
@@ -27,9 +26,16 @@ namespace Runtime.Services.Game.GameContent.UI.PauseMenu
 
         public void OpenPauseMenu()
         {
-            if (gameObject.activeSelf == false)
+            if (!_isOpen)
             {
                 base.Show();
+            }
+
+            if (_isOpen)
+            {
+                Hide();
+                _isOpen = false;
+                return;
             }
            
             StartCoroutine(AnimationExtensions.Play(_pauseMenuAnimator, "OpenPauseMenu", false, null));
@@ -55,6 +61,10 @@ namespace Runtime.Services.Game.GameContent.UI.PauseMenu
             _isOpen = false;
             ServiceLocator.Instance.Get<CursorService>().SetActive(false);
             Time.timeScale = 1f;
+            
+            var playerModel = GameManager.Instance.Player;
+            
+            playerModel.StateMachine.TrySwitchState(playerModel.PlayerModel.currentPossessedObject is not null ? "possess" : "idle", (int)playerModel.PlayerModel.data.activeStates);
         }
         
         #endregion

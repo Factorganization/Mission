@@ -1,3 +1,4 @@
+using Runtime.Services.Audio;
 using Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Model;
 using Runtime.Services.Game.GameSystems;
 using Shared.Utils.BaseMachine;
@@ -26,7 +27,13 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Contr
             playerModel.graph.gameObject.SetActive(false); 
             playerModel.currentPossessedObject.Transform.tag = "Player";
             playerModel.currentPossessedObject.Possessed = true;
-
+            playerModel.possessParticles.Play();
+            if (playerModel.possiblePossessedObject is not null)
+            {
+                playerModel.possiblePossessedObject.Possessable = false;
+                playerModel.possiblePossessedObject = null;
+            }
+            
             if (playerModel.currentGrabbedObject is null)
                 return;
             
@@ -100,6 +107,10 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Contr
             //playerModel.cam.SetParent(playerModel.rb.transform, true);
             playerModel.isVisible = true;
             playerModel.graph.gameObject.SetActive(true);
+            playerModel.possessParticles.Play();
+            
+            var a = ServiceLocator.Instance.Get<AudioService>();
+            a.PlayOneShot(a.Atlas.sfx.player.playerGetOutObject, playerModel.rb.position);
         }
 
         #endregion

@@ -1,5 +1,3 @@
-using Runtime.Services.Game.GameContent.UI;
-using UnityEngine;
 using UnityEngine.UI;
 
 namespace Runtime.Services.Game.GameContent.UI.MainMenu
@@ -29,6 +27,7 @@ namespace Runtime.Services.Game.GameContent.UI.MainMenu
             else
             {
                 StartCoroutine(AnimationExtensions.Play(_animator, "CloseCredits", true, Hide));
+                _isOpen = false;
             }
         }
 

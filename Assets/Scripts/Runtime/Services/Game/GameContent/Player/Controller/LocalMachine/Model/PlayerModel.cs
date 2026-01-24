@@ -6,7 +6,7 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Model
     {
         #region constuctors
 
-        public PlayerModel(PlayerDataSo data, Rigidbody rb, Collider col, Transform graph, Transform cam, Transform grab, Transform activeGrab, Animator animator)
+        public PlayerModel(PlayerDataSo data, Rigidbody rb, Collider col, Transform graph, Transform cam, Transform grab, Transform activeGrab, Animator animator, ParticleSystem possessParticles)
         {
             this.data = data;
             this.rb = rb;
@@ -16,6 +16,7 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Model
             this.grab = grab;
             this.activeGrab = activeGrab;
             this.animator = animator;
+            this.possessParticles = possessParticles;
         }
 
         #endregion
@@ -36,7 +37,11 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Model
 
         public readonly Transform activeGrab;
 
+        public IPossessable possiblePossessedObject = null;
+        
         public IPossessable currentPossessedObject = null;
+        
+        public IGrabbable possibleGrabbedObject = null;
         
         public IGrabbable currentGrabbedObject = null;
         
@@ -96,6 +101,8 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Model
 
         #region graphs
 
+        public readonly ParticleSystem possessParticles;
+        
         public readonly Transform graph;
                 
         public readonly Animator animator;
