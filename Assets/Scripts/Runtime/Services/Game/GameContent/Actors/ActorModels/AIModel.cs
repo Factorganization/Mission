@@ -9,7 +9,7 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorModels
     public class AIModel : ActorModel
     {
         #region methodes
-        public AIModel(AIMovementDataSo movementDataSo,AIDetectionDataSo detectionSo ,Animator animator, NavMeshAgent agent, Transform rcOrigin, PlayerStateMachine player, LayerMask excludedLayers, float repairTime, Transform[] waypoints)
+        public AIModel(AIMovementDataSo movementDataSo,AIDetectionDataSo detectionSo ,Animator animator, NavMeshAgent agent, Transform rcOrigin, PlayerStateMachine player, LayerMask excludedLayers, float repairTime, Transform[] waypoints, bool male)
         {
             movementData =  movementDataSo;
             detectionData = detectionSo;
@@ -41,6 +41,7 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorModels
             notImmediateRepeatCount = movementData.NotImmediateRepeatCount >= this.waypoints.Length
                 ? this.waypoints.Length - 1 : movementData.NotImmediateRepeatCount;
             _excludedWaypoints = new int[notImmediateRepeatCount];
+            _male = male;
         }
         #endregion
         
@@ -68,7 +69,7 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorModels
         public bool _isSuspicious;
         public bool _isRepairing;
         public bool _isPlayerDetected;
-        
+        public bool _male;
 
         #endregion
     }

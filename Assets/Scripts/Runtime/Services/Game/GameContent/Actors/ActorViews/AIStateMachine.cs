@@ -21,7 +21,7 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
 
         private void Awake()
         {
-            _aiModel = new AIModel(aiMovementDataSo ,aiDetectionDataSo ,refData.animator, refData.agent, rcOrigin, player, excludedLayers, repairTime, waypoints)
+            _aiModel = new AIModel(aiMovementDataSo ,aiDetectionDataSo ,refData.animator, refData.agent, rcOrigin, player, excludedLayers, repairTime, waypoints, refData.male)
             {
                 transform = transform
             };
@@ -108,6 +108,7 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
         {
             [SerializeField] internal NavMeshAgent agent;
             [SerializeField] internal Animator animator;
+            [SerializeField] internal bool male;
         }
         #endregion
     }
