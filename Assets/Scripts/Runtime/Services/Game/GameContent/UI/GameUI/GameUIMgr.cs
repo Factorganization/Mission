@@ -13,7 +13,6 @@ namespace Runtime.Services.Game.GameContent.UI.GameUI
         {
             _gameOverUI.Hide();
             _winUI.Hide();
-            _pauseMenuUI.Hide();
         }
 
         public async void ReturnToMainMenu()
