@@ -34,6 +34,7 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
            var chase = new AIChaseState(_stateMachine, gameObject, _aiModel, AIControllerState.Chase);
            var repair = new AIRepairState(_stateMachine, gameObject, _aiModel, AIControllerState.Repair);
            var bbgrabbable = new AIBBGrabbableState(_stateMachine, gameObject, _aiModel, AIControllerState.BBGrabbable);
+           var spotted = new AISpottedState(_stateMachine, gameObject, _aiModel, AIControllerState.Spotted);
            
            _stateMachine.SetCallBacks(SetId((int)AIControllerState.Idle), "idle", idle.OnInit, idle.OnEnterState,
                idle.OnUpdate, idle.OnFixedUpdate, idle.OnExitState, idle.OnCoroutine);
@@ -47,6 +48,8 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
                repair.OnUpdate, repair.OnFixedUpdate, repair.OnExitState, repair.OnCoroutine);
            _stateMachine.SetCallBacks(SetId((int)AIControllerState.BBGrabbable), "bbgrabbable", bbgrabbable.OnInit, bbgrabbable.OnEnterState, 
                bbgrabbable.OnUpdate, bbgrabbable.OnFixedUpdate, bbgrabbable.OnExitState, repair.OnCoroutine);
+           _stateMachine.SetCallBacks(SetId((int)AIControllerState.Spotted), "spotted", spotted.OnInit, spotted.OnEnterState, 
+               spotted.OnUpdate, spotted.OnFixedUpdate, spotted.OnExitState, spotted.OnCoroutine);
            
            //Set AI Position to first waypoint
            _aiModel._currentWaypoint = new mTransform();
