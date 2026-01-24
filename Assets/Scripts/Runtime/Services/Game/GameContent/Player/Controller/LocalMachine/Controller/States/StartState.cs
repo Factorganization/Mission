@@ -56,7 +56,6 @@ public class StartState : BasePlayerState
         yield return new WaitForSceneLoaded();
 
         yield return new WaitForSeconds(1f);
-        
         playerModel.possessParticles.Play();
         yield return new WaitForSeconds(0.75f);
         playerModel.graph.gameObject.SetActive(true);
