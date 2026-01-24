@@ -37,7 +37,11 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Model
 
         public readonly Transform activeGrab;
 
+        public IPossessable possiblePossessedObject = null;
+        
         public IPossessable currentPossessedObject = null;
+        
+        public IGrabbable possibleGrabbedObject = null;
         
         public IGrabbable currentGrabbedObject = null;
         

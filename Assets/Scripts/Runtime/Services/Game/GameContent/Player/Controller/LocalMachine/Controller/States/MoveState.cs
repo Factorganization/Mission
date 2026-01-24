@@ -31,6 +31,8 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Contr
         {
             playerModel.HandleContinuousInputGather();
             playerModel.HandleRotateInputGather();
+            playerModel.CheckGrab();
+            playerModel.CheckPossessable();
             var mono = playerModel.HandleMonoInputGather();
 
             switch (mono)

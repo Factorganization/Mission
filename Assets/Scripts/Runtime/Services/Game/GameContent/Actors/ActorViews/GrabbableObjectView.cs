@@ -39,6 +39,24 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
 		
 		public bool Grabbed { get; set; }
 		
+		public bool Selectable
+		{
+			get => _selectable;
+			set
+			{
+				_selectable = value;
+
+				if (!_selectable)
+				{
+					indic.gameObject.SetActive(false);
+					return;
+				}
+				
+				indic.gameObject.SetActive(true);
+			}
+		}
+		
+		
 		#endregion
 		
 		#endregion
@@ -54,6 +72,7 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
 			_rb = GetComponent<Rigidbody>();
 			OriginPos = transform.position;
 			Active = true;
+			Selectable = false;
 		}
 
 		protected override void Update()
@@ -89,6 +108,12 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
 		private void FixedUpdate()
 		{
 			SetSmoothPosition();
+
+			if (_selectable)
+			{
+				//indic.rotation = Quaternion.Lerp(indic.rotation, Quaternion.LookRotation(Vector3.forward), 0.1f);
+				indic.LookAt(GameManager.Instance.Player.UiOverLayCam);
+			}
 		}
 
 		#endregion
@@ -181,6 +206,8 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
 		[SerializeField] private ElementFlag element;
 
 		[SerializeField] private ParticleSystem smoke;
+
+		[SerializeField] private Transform indic;
 		
 		[SerializeField] private float fireDestructionDuration;
 		
@@ -195,6 +222,8 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
 		private bool _returning;
 
 		private bool _alreadyExploded;
+
+		private bool _selectable;
 
 		#endregion
 	}

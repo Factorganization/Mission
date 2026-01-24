@@ -94,7 +94,23 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
 			get => aiTargetPosition.position;
 			private set => aiTargetPosition.position = value;
 		}
-		
+
+		public bool Possessable
+		{
+			get => _possessable;
+			set
+			{
+				_possessable = value;
+
+				if (!_possessable)
+				{
+					indic.gameObject.SetActive(false);
+					return;
+				}
+				
+				indic.gameObject.SetActive(true);
+			}
+		}
 		
 		#endregion
 
@@ -117,6 +133,12 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
 
 			if (aiTargetPosition == null)
 				aiTargetPosition = Transform;
+		}
+
+		private void FixedUpdate()
+		{
+			if (_possessable)
+				indic.LookAt(GameManager.Instance.Player.UiOverLayCam);
 		}
 		
 		#endregion
@@ -236,6 +258,8 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
 		[SerializeField] private GameObject destroyedModel;
 
 		[SerializeField] private Transform aiTargetPosition;
+
+		[SerializeField] private Transform indic;
 			
 		[SerializeField] private bool destroyedAtStart;
 
@@ -246,6 +270,8 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
 		private bool _destroyed;
 		
 		private bool _alreadyExploded;
+
+		private bool _possessable;
 
 		#endregion
 	}

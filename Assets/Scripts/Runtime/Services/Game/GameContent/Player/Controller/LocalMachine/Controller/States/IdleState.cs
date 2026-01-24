@@ -28,6 +28,8 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Contr
         {
             playerModel.HandleContinuousInputGather();
             playerModel.HandleRotateInputGather();
+            playerModel.CheckGrab();
+            playerModel.CheckPossessable();
             var mono = playerModel.HandleMonoInputGather();
 
             switch (mono)
@@ -115,7 +117,7 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Contr
                     GameManager.Instance.GameUIMgr.PauseMenuUI.OpenPauseMenu();
                     return 1;
             }
-
+            
             if (playerModel.OnJump())
             {
                 stateMachine.TrySwitchState("jump", (int)playerModel.data.activeStates);

@@ -15,6 +15,8 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.View
         
         public bool IsVisible => _playerModel.isVisible;
 
+        public Transform UiOverLayCam => referenceData.uiOverlayCam;
+
         #endregion
 
         #region methodes
@@ -110,6 +112,8 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.View
             [SerializeField] internal Collider col;
                     
             [SerializeField] internal Transform cam;
+
+            [SerializeField] internal Transform uiOverlayCam;
             
             [SerializeField] internal Transform graph;
 

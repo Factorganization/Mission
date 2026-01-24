@@ -28,6 +28,11 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Contr
             playerModel.currentPossessedObject.Transform.tag = "Player";
             playerModel.currentPossessedObject.Possessed = true;
             playerModel.possessParticles.Play();
+            if (playerModel.possiblePossessedObject is not null)
+            {
+                playerModel.possiblePossessedObject.Possessable = false;
+                playerModel.possiblePossessedObject = null;
+            }
             
             if (playerModel.currentGrabbedObject is null)
                 return;
