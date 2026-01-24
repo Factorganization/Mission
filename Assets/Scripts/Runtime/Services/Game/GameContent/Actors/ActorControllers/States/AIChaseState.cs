@@ -1,4 +1,5 @@
 using System.Collections;
+using Runtime.Services.Audio;
 using Runtime.Services.Game.GameContent.Actors.ActorModels;
 using Runtime.Services.Game.GameSystems;
 using Shared.Utils.BaseMachine;
@@ -19,6 +20,8 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorControllers.States
         {
             aiModel._agentRef.speed = aiModel.movementData.chaseSpeed;
             aiModel._animatorRef.SetBool("ac_isRunning", true);
+            var a = ServiceLocator.Instance.Get<AudioService>();
+            a.PlayOneShot(aiModel._male ? a.Atlas.sfx.pnj.male.maleChase : a.Atlas.sfx.pnj.female.femaleChase, aiModel.transform.position);
         }
 
         public override sbyte OnUpdate()
