@@ -13,7 +13,6 @@ namespace Runtime.Services.Game.GameContent.UI.MainMenu
 
         private void Start()
         {
-            ServiceLocator.Instance.Get<DataService>().DevilDollars = 20;
             _closeButton.onClick.AddListener(Hide);
         }
         

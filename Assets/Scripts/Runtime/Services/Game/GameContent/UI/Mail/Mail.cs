@@ -16,6 +16,15 @@ namespace Runtime.Services.Game.GameContent.UI.Mail
         {
             _mailLevel = mailLevel;
             _mailSubject.text = mailLevel.Subject;
+
+            if (UnlockMail())
+            {
+                gameObject.SetActive(true);
+            }
+            else
+            {
+                gameObject.SetActive(false);
+            }
         }
 
         public void OnSelected()
@@ -23,13 +32,17 @@ namespace Runtime.Services.Game.GameContent.UI.Mail
             OnMailSelected.Invoke(_mailLevel);
         }
 
-		public void UnlockMail()
+		private bool UnlockMail()
         {
-            if (ServiceLocator.Instance.Get<DataService>().MalicePoints > _mailLevel.ThresholdScore)
+            if (ServiceLocator.Instance.Get<DataService>().MalicePoints >= _mailLevel.ThresholdScore)
             {
                 _mailLevel.isMailUnlocked = true;
                 _mailLevel.isMailNew = true;
+                
+                return true;
             }
+            
+            return false;
 		}	
 
         #endregion
