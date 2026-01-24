@@ -1,3 +1,4 @@
+using Runtime.Services.Audio;
 using Runtime.Services.Game.GameContent.Actors.ActorModels;
 using Runtime.Services.Game.GameContent.Actors.ActorModels.SO;
 using Runtime.Services.Game.GameSystems;
@@ -128,6 +129,8 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorControllers
             
             model._lastKnownPlayerPosition = model._player.transform.position;
             model._isSuspicious = true;
+            var a = ServiceLocator.Instance.Get<AudioService>();
+            a.PlayOneShot(model._male ? a.Atlas.sfx.pnj.male.maleSpotPlayer : a.Atlas.sfx.pnj.female.femaleSpotPlayer, model.transform.position);
             return true;
         }
 
