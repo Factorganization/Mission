@@ -2704,7 +2704,7 @@ Canvas:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1565290213}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_RenderMode: 0
   m_Camera: {fileID: 0}
@@ -3570,6 +3570,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Satanic.Runtime::Runtime.Services.AudioService.AudioService
   <Atlas>k__BackingField:
+    musics:
+      InGame:
+        InGameOST1:
+          Guid:
+            Data1: -1403088430
+            Data2: 1227978811
+            Data3: -518303586
+            Data4: -1757354096
+          Path: event:/Musics/Ingame/InGame Music
+      UIMusics:
+        MainMenu:
+          Guid:
+            Data1: -1311474120
+            Data2: 1214190973
+            Data3: 1188732301
+            Data4: -1145296883
+          Path: event:/Musics/UI/MainMenu Music
     sfx:
       effects:
         electricity:
@@ -3661,6 +3678,21 @@ MonoBehaviour:
               Data3: 763304833
               Data4: -1045648689
             Path: event:/SFX/Objects/Book/Book_Pick
+        candle:
+          CandleHit:
+            Guid:
+              Data1: 0
+              Data2: 0
+              Data3: 0
+              Data4: 0
+            Path: 
+          CandlePick:
+            Guid:
+              Data1: 0
+              Data2: 0
+              Data3: 0
+              Data4: 0
+            Path: 
         cutlery:
           cutleryHit:
             Guid:
@@ -3766,6 +3798,36 @@ MonoBehaviour:
               Data3: -261608015
               Data4: -1017678905
             Path: event:/SFX/Objects/Phone/Phone_Pick
+        radio:
+          radiolHit:
+            Guid:
+              Data1: 0
+              Data2: 0
+              Data3: 0
+              Data4: 0
+            Path: 
+          radioPickUp:
+            Guid:
+              Data1: 0
+              Data2: 0
+              Data3: 0
+              Data4: 0
+            Path: 
+        reveil:
+          reveilHit:
+            Guid:
+              Data1: -858281750
+              Data2: 1233357590
+              Data3: 686498231
+              Data4: 367248696
+            Path: event:/SFX/Objects/Reveil/Reveil_Hit
+          reveilPickUp:
+            Guid:
+              Data1: 285425182
+              Data2: 1087280827
+              Data3: -1870440292
+              Data4: 1188858125
+            Path: event:/SFX/Objects/Reveil/Reveil_PickUp
         tshirt:
           tshirtHit:
             Guid:
@@ -3811,6 +3873,87 @@ MonoBehaviour:
               Data3: -1907493994
               Data4: 583887505
             Path: event:/SFX/Objects/Wood/Wood_Pick
+      possessable:
+        WaterPossess:
+          PossessSink:
+            Guid:
+              Data1: 1534332069
+              Data2: 1189020896
+              Data3: -557505640
+              Data4: -890630630
+            Path: event:/SFX/Possessable/Sink
+          PossessBath:
+            Guid:
+              Data1: 482570069
+              Data2: 1127668589
+              Data3: 334176446
+              Data4: 999113058
+            Path: event:/SFX/Possessable/Bath
+          PossessToilets:
+            Guid:
+              Data1: 169137444
+              Data2: 1252915675
+              Data3: -1537309284
+              Data4: -1905874592
+            Path: event:/SFX/Possessable/Toilets
+          PossessShower:
+            Guid:
+              Data1: -539025621
+              Data2: 1219834229
+              Data3: -1817218931
+              Data4: -625671211
+            Path: event:/SFX/Possessable/Shower
+        FirePossess:
+          PossessRadiateur:
+            Guid:
+              Data1: -1460946766
+              Data2: 1100853660
+              Data3: 35517357
+              Data4: -2034362857
+            Path: event:/SFX/Possessable/Radiateur
+          PossessCar:
+            Guid:
+              Data1: -2146049193
+              Data2: 1263614834
+              Data3: -1528176996
+              Data4: 1781554351
+            Path: event:/SFX/Possessable/Car
+          PossessOven:
+            Guid:
+              Data1: -641644310
+              Data2: 1159364465
+              Data3: -795380089
+              Data4: 1495072031
+            Path: event:/SFX/Possessable/Oven
+        ElectricPossess:
+          PossessFridge:
+            Guid:
+              Data1: 330561605
+              Data2: 1127458410
+              Data3: 1861895082
+              Data4: -188610413
+            Path: event:/SFX/Possessable/Fridge
+          PossessElectricBox:
+            Guid:
+              Data1: -1213129800
+              Data2: 1086319253
+              Data3: 1221705399
+              Data4: 1360612505
+            Path: event:/SFX/Possessable/Electric Box
+          PossessTV:
+            Guid:
+              Data1: 1004119472
+              Data2: 1124759404
+              Data3: 452658827
+              Data4: 726745977
+            Path: event:/SFX/Possessable/TV
+          PossessPc:
+            Guid:
+              Data1: 513405579
+              Data2: 1177154848
+              Data3: -266909794
+              Data4: 16888875
+            Path: event:/SFX/Possessable/PC
       player:
         playerChargeThrow:
           Guid:

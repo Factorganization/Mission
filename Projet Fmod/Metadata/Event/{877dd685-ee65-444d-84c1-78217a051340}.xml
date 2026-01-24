@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <objects serializationModel="Studio.02.02.00">
 	<object class="Event" id="{877dd685-ee65-444d-84c1-78217a051340}">
+		<property name="color">
+			<value>Blue</value>
+		</property>
 		<property name="name">
 			<value>PlayerGetOutObject</value>
 		</property>
@@ -73,7 +76,7 @@
 	</object>
 	<object class="EventMixerMaster" id="{5ef9cbfa-8e09-4553-b826-765e4fa88ed3}">
 		<property name="volume">
-			<value>-10</value>
+			<value>-11</value>
 		</property>
 		<relationship name="effectChain">
 			<destination>{3f71478d-98c7-4cef-87da-6be41071e21b}</destination>
@@ -110,5 +113,9 @@
 	</object>
 	<object class="MixerBusFader" id="{b067b7f6-0970-4ed7-bb6f-99272eac78a3}" />
 	<object class="MixerBusFader" id="{9c1efb42-9668-4e03-93c2-993e42fb55bc}" />
-	<object class="SpatialiserEffect" id="{6581cab7-5075-4436-8bbc-2d690d0fcb45}" />
+	<object class="SpatialiserEffect" id="{6581cab7-5075-4436-8bbc-2d690d0fcb45}">
+		<property name="distanceRolloffType">
+			<value>3</value>
+		</property>
+	</object>
 </objects>
