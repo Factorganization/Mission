@@ -1,3 +1,4 @@
+using System.Collections;
 using Runtime.Services.Audio;
 using Runtime.Services.Game.GameContent.Actors.ActorControllers;
 using Runtime.Services.Game.GameContent.Actors.ActorInterfaces;
@@ -65,7 +66,7 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
 
 				if (_fireDestructionTimer > fireDestructionDuration)
 				{
-					smoke.Emit(10);
+					StartCoroutine(SmokeParts());
 					Transform.position = _spawnerRef ? _spawnerRef.SpawnPos.position : OriginPos;
 					
 					if (Grabbed)
@@ -107,7 +108,6 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
 				p.SetAnimParam(p.isInteracting, false);
 			}
 			
-			
 			Transform.position = _spawnerRef ? _spawnerRef.SpawnPos.position : OriginPos;
 			exploded = false;
 			
@@ -115,7 +115,8 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
 				return;
 
 			_alreadyExploded = true;
-			
+
+			StartCoroutine(SmokeParts());
 			impulseSource?.GenerateImpulseAt(Transform.position, Vector3.one);
 			var a = ServiceLocator.Instance.Get<AudioService>();
 			a.PlayOneShot(a.Atlas.sfx.effects.fire.bigExplosion, Transform.position);
@@ -161,6 +162,14 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
 			}
 			
 			Transform.position += Math.EasingFunction.SimpleQuadraticEase.V3SimpleQuadraticEaseOut(Transform.position, _targetPos, 0.05f);
+		}
+
+		private IEnumerator SmokeParts()
+		{
+			var s = Instantiate(smoke, Transform.position, Quaternion.identity, null);
+			s.Play();
+			yield return new WaitForSeconds(1f);
+			Destroy(s.gameObject);
 		}
 		
 		#endregion
