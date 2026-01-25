@@ -1,4 +1,4 @@
-using UnityEngine;
+using Shared.Utils.ReadOnlyCustom;
 
 namespace Runtime.Services.Data
 {
@@ -58,11 +58,11 @@ namespace Runtime.Services.Data
         
         #region fields
 
-        public int DevilDollars;
+        [ReadOnly] public int DevilDollars;
 
-        public int MalicePoints;
+        [ReadOnly] public int MalicePoints;
         
-        public string PlayerPrefsSave = "PlayerData";
+        [ReadOnly] public string PlayerPrefsSave = "PlayerData";
         
         #endregion
     }
