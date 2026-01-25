@@ -1,3 +1,4 @@
+using Runtime.Services.Audio;
 using Runtime.Services.Cursor;
 using Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.View;
 using Runtime.Services.Game.GameContent.UI;
@@ -33,6 +34,9 @@ namespace Runtime.Services.Game.GameSystems
             {
                 timer = FindAnyObjectByType<Timer>();
             }
+
+            var a = ServiceLocator.Instance.Get<AudioService>();
+            a.SetMusic(a.Atlas.musics.InGame.InGameOST1);
             Time.timeScale = 1;
         }
 
