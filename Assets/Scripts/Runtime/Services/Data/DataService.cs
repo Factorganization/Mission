@@ -1,3 +1,4 @@
+using Runtime.Services.Game.GameSystems;
 using Shared.Utils.ReadOnlyCustom;
 
 namespace Runtime.Services.Data
@@ -69,6 +70,11 @@ namespace Runtime.Services.Data
         public void AddMalicePointsSoft(int amount)
         {
             MalicePoints += amount;
+
+            if (GameManager.Instance.GameUIMgr != null)
+            {
+                GameManager.Instance.GameUIMgr.UpdateMalicePoints();
+            }
         }
         
         public void AddMalicePoints(int amount)

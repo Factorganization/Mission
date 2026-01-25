@@ -1,3 +1,4 @@
+using Runtime.Services.Audio;
 using Runtime.Services.Data;
 using Runtime.Services.Game.GameContent.UI.MainMenu;
 using UnityEngine.UI;
@@ -28,6 +29,9 @@ namespace Runtime.Services.Game.GameContent.UI
             Time.timeScale = 1.0f;
             
             UpdateDataInfo.UpdateData();
+
+            var a = ServiceLocator.Instance.Get<AudioService>();
+            a.SetMusic(a.Atlas.musics.UIMusics.MainMenu);
         }
 
         private void Update()
