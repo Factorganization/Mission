@@ -1,4 +1,5 @@
 using Runtime.Services.Audio;
+using Runtime.Services.Data;
 using UnityEngine.UI;
 
 namespace Runtime.Services.Game.GameContent.UI
@@ -32,17 +33,21 @@ namespace Runtime.Services.Game.GameContent.UI
         public void OnSliderValueChanged()
         {
             var s = ServiceLocator.Instance.Get<AudioService>();
+            var d = ServiceLocator.Instance.Get<DataService>();
             
             switch (volumeType)
             {
                 case VolumeType.Master:
                     s.MasterVolume = volumeSlider.value;
+                    d.masterVolume = volumeSlider.value;
                     break;
                 case VolumeType.Music:
                     s.MusicVolume = volumeSlider.value;
+                    d.musicVolume = volumeSlider.value;
                     break;
                 case VolumeType.SFX:
                     s.SfxVolume = volumeSlider.value;
+                    d.sfxVolume = volumeSlider.value;
                     break;
             }
         }

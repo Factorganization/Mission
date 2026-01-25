@@ -13,20 +13,24 @@ namespace Runtime.Services.Game.GameContent.UI.MainMenu
 
         private void Start()
         {
-            _closeButton.onClick.AddListener(Hide);
+            _closeButton.onClick.AddListener(Show);
         }
         
         public override void Show()
         {
             base.Show();
-            //StartCoroutine(AnimationExtensions.Play(_animator, "OpenConfirmPurchasePopup", true, null));
-        }
-
-        public override void Hide()
-        {
-            base.Hide();
-            // StartCoroutine(AnimationExtensions.Play(_animator, "CloseConfirmPurchasePopup", true, null));
-            _confirmButton.onClick.RemoveAllListeners();
+            if (!_isOpen)
+            {
+                StartCoroutine(AnimationExtensions.Play(_animator, "OpenPurchasePopup", true, null));
+                _isOpen = true;
+                _bg.raycastTarget = true;
+            }
+            else
+            {
+                StartCoroutine(AnimationExtensions.Play(_animator, "ClosePurchasePopup", true, null));
+                _isOpen = false;
+                _bg.raycastTarget = false;
+            }
         }
 
         #endregion
@@ -36,6 +40,7 @@ namespace Runtime.Services.Game.GameContent.UI.MainMenu
         // Add any fields specific to the ConfirmPurchasePopup here
         [SerializeField] private Button _confirmButton, _closeButton;
         [SerializeField] private Animation _animator;
+        [SerializeField] private Image _bg;
         
         public Button ConfirmButton => _confirmButton;
 

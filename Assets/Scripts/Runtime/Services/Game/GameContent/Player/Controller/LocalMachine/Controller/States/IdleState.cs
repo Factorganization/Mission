@@ -1,3 +1,4 @@
+using Runtime.Services.Data;
 using Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Model;
 using Runtime.Services.Game.GameSystems;
 using Shared.Utils.BaseMachine;
@@ -47,6 +48,7 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Contr
                 case 4:
                     if (playerModel.currentGrabbedObject is null && playerModel.canEndLevel)
                     {
+                        ServiceLocator.Instance.Get<DataService>().SaveData();
                         GameManager.Instance.GameUIMgr.WinGame();
                         return 1;
                     }
@@ -139,7 +141,7 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Contr
 
         public override sbyte OnFixedUpdate()
         {
-            playerModel.SetGrabbedObjectLocalPos(); //TODO cleanup callback plutot que verif a la frame
+            playerModel.SetGrabbedObjectLocalPos();
             playerModel.SetCameraPivotLocalPos(Vector3.zero);
             playerModel.HandleGravity(goRef);
             playerModel.Move(playerModel.currentMoveMultiplier);

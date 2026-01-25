@@ -75,7 +75,7 @@ public class ServiceManager : IDisposable, IAsyncDisposable
     
     private void ReleaseUnmanagedResources()
     {
-        // TODO release unmanaged resources here
+        
     }
 
     public void Dispose()

@@ -1,3 +1,4 @@
+using Runtime.Services.Data;
 using Runtime.Services.Game.GameContent.Logics.LogicInterfaces;
 
 namespace Runtime.Services.Game.GameSystems
@@ -7,6 +8,8 @@ namespace Runtime.Services.Game.GameSystems
         #region properties
 
         public static ElementManager Element { get; private set; }
+        
+        public static int CurrentCombo { get; set; }
 
         #endregion
         
@@ -71,6 +74,10 @@ namespace Runtime.Services.Game.GameSystems
             {
                 _lowerThreshold = 0;
                 _upperThreshold = _threshold;
+
+                var combo = CurrentCombo % 5;
+                ServiceLocator.Instance.Get<DataService>().AddMalicePointsSoft(combo * 50);
+                CurrentCombo = 0;
             }
         }
 
