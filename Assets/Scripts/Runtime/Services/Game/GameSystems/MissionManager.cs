@@ -115,6 +115,7 @@ namespace Runtime.Services.Game.GameSystems
                     var p = GetPercentage(t);
 
                     _tempDD += dd + (int)(dd * p);
+                    GameManager.Instance.GameUIMgr.UpdateDevilDollars();
                 }
 			}
 

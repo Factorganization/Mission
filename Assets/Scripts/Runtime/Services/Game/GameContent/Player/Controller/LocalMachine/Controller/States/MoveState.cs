@@ -31,7 +31,6 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Contr
         public override sbyte OnUpdate()
         {
             playerModel.HandleContinuousInputGather();
-            playerModel.HandleRotateInputGather();
             playerModel.CheckGrab();
             playerModel.CheckPossessable();
             var mono = playerModel.HandleMonoInputGather();
@@ -184,6 +183,7 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Contr
 
         public override sbyte OnFixedUpdate()
         {
+            playerModel.HandleRotateInputGather();
             playerModel.SetGrabbedObjectLocalPos();
             playerModel.SetCameraPivotLocalPos(Vector3.zero);
             playerModel.HandleGravity(goRef);

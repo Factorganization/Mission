@@ -17,7 +17,7 @@ namespace Runtime.Services.Game.GameContent.UI.PauseMenu
         private void Initialize()
         {
             if (_resumeButton != null)
-                _resumeButton.onClick.AddListener(Hide);
+                _resumeButton.onClick.AddListener(OpenPauseMenu);
             if (_settingsButton != null && _settingsUI != null)
                 _settingsButton.onClick.AddListener(() => _settingsUI.Show());
             if (_quitButton != null)
@@ -58,7 +58,6 @@ namespace Runtime.Services.Game.GameContent.UI.PauseMenu
         public override void Hide()
         {
             StartCoroutine(AnimationExtensions.Play(_pauseMenuAnimator, "ClosePauseMenu", false, null));
-            _isOpen = false;
             ServiceLocator.Instance.Get<CursorService>().SetActive(false);
             Time.timeScale = 1f;
             
