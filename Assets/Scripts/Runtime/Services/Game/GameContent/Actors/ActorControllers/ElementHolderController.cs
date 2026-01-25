@@ -1,3 +1,4 @@
+using Runtime.Services.Data;
 using Runtime.Services.Game.GameContent.Actors.ActorInterfaces;
 using Runtime.Services.Game.GameContent.Actors.ActorViews;
 using Runtime.Services.Game.GameContent.Logics.LogicInterfaces;
@@ -5,6 +6,7 @@ using Runtime.Services.Game.GameContent.Logics.LogicModels;
 using Runtime.Services.Game.GameContent.Logics.LogicModels.ElementModels;
 using Runtime.Services.Game.GameContent.Logics.LogicModels.MissionModels;
 using Runtime.Services.Game.GameSystems;
+using Shared.Utils.ReadOnlyCustom;
 using Unity.Cinemachine;
 
 namespace Runtime.Services.Game.GameContent.Actors.ActorControllers;
@@ -15,7 +17,7 @@ public abstract class ElementHolderController : ActorView, IElementHolder
 
     #region actorComparable
 
-    [field : SerializeField] public int Id { get; private set; }
+    [field : ReadOnly][field : SerializeField] public int Id { get; private set; }
 
     #endregion
     
@@ -319,12 +321,16 @@ public abstract class ElementHolderController : ActorView, IElementHolder
 		{
 			MissionManager.Manager.TryGetAndSetMission(new MissionModel(MissionType.ElementAffection, data.Holder1.ObjectType, ElementFlag.CanConduct, data.Holder1.RoomType));
 			data.Holder1.MissionDone[2] = true;
+			ServiceLocator.Instance.Get<DataService>().AddMalicePointsSoft(10);
+			ElementManager.CurrentCombo++;
 		}
 
 		if (!data.Holder2.MissionDone[2])
 		{
 			MissionManager.Manager.TryGetAndSetMission(new MissionModel(MissionType.ElementAffection, data.Holder2.ObjectType, ElementFlag.CanConduct, data.Holder2.RoomType));
 			data.Holder2.MissionDone[2] = true;
+			ServiceLocator.Instance.Get<DataService>().AddMalicePointsSoft(10);
+			ElementManager.CurrentCombo++;
 		}
 	}
 
@@ -334,13 +340,15 @@ public abstract class ElementHolderController : ActorView, IElementHolder
 
 	private void BurnToBurn(ElementInteractionData data)
 	{
-		data.Holder2.Durations.fireTimer = objectDefinition.durations.fireDuration; //TODO
+		data.Holder2.Durations.fireTimer = objectDefinition.durations.fireDuration; //TODO //je sais plus pk j'ai mis ce todo
 		data.Holder2.Flag3 |= ElementFlag.CanBurn;
 		
 		if (!data.Holder2.MissionDone[1])
 		{
 			MissionManager.Manager.TryGetAndSetMission(new MissionModel(MissionType.ElementAffection, data.Holder2.ObjectType, ElementFlag.CanBurn, data.Holder2.RoomType));
 			data.Holder2.MissionDone[1] = true;
+			ElementManager.Element.TempMalice += 10;
+			ElementManager.CurrentCombo++;
 		}
 	}
 
@@ -365,6 +373,8 @@ public abstract class ElementHolderController : ActorView, IElementHolder
 		{
 			MissionManager.Manager.TryGetAndSetMission(new MissionModel(MissionType.ElementAffection, data.Holder2.ObjectType, ElementFlag.CanBurn, data.Holder2.RoomType));
 			data.Holder2.MissionDone[1] = true;
+			ElementManager.Element.TempMalice += 10;
+			ElementManager.CurrentCombo++;
 		}
 	}
 
@@ -377,6 +387,8 @@ public abstract class ElementHolderController : ActorView, IElementHolder
 		{
 			MissionManager.Manager.TryGetAndSetMission(new MissionModel(MissionType.ElementAffection, data.Holder2.ObjectType, ElementFlag.CanConduct, data.Holder2.RoomType));
 			data.Holder2.MissionDone[2] = true;
+			ElementManager.Element.TempMalice += 10;
+			ElementManager.CurrentCombo++;
 		}
 	}
 
@@ -401,6 +413,8 @@ public abstract class ElementHolderController : ActorView, IElementHolder
 		{
 			MissionManager.Manager.TryGetAndSetMission(new MissionModel(MissionType.ElementAffection, data.Holder2.ObjectType, ElementFlag.CanBeWet, data.Holder2.RoomType));
 			data.Holder2.MissionDone[0] = true;
+			ElementManager.Element.TempMalice += 10;
+			ElementManager.CurrentCombo++;
 		}
 	}
 

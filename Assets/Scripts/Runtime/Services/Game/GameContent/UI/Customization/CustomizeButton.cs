@@ -53,13 +53,16 @@ namespace Runtime.Services.Game.GameContent.UI.Customization
                 _lockImage.gameObject.SetActive(_locked);
         }
 
-        public void SetDataMat(Material mat, Sprite icon, bool locked, int index)
+        public void SetDataMat(CustomizeItem item, Material mat, Sprite icon, bool locked, int index, int price)
         {
-            _customizeItem = null;
+            _customizeItem = item;
             ItemIndex = index;
             _locked = locked;
             SelectedMaterial = mat;
 
+            if (_price != null)
+                _price.text = price.ToString();
+            
             if (_image != null)
                 _image.sprite = icon;
 
@@ -80,6 +83,7 @@ namespace Runtime.Services.Game.GameContent.UI.Customization
             if (_lockImage != null)
                 _lockImage.gameObject.SetActive(false);
             MainMenuUI.Instance.PurchaseContainer.Hide();
+            MainMenuUI.Instance.PurchaseContainer.ConfirmButton.onClick.RemoveAllListeners();
             ServiceLocator.Instance.Get<DataService>().SubtractMoney(_customizeItem.ItemPrice);
             MainMenuUI.Instance.UpdateDataInfo.UpdateData();
         }

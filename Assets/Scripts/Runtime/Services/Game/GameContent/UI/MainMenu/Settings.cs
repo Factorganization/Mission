@@ -70,12 +70,12 @@ namespace Runtime.Services.Game.GameContent.UI
             base.Show();
             if (!_isOpen)
             {
-                StartCoroutine(AnimationExtensions.Play(_animator, "SettingsOpen", true, null));
+                StartCoroutine(AnimationExtensions.Play(_animator, "SettingsOpen", false, null));
                 _isOpen = true;
             }
             else
             {
-                StartCoroutine(AnimationExtensions.Play(_animator, "SettingsClose", true, Hide));
+                StartCoroutine(AnimationExtensions.Play(_animator, "SettingsClose", false, Hide));
                 _isOpen = false;
             }
         }

@@ -20,15 +20,11 @@ namespace Runtime.Services.Game.GameContent.UI.Customization
             
              _hornsButton.onClick.AddListener( () =>
              {
-                 if (_customizationColors != null)
-                     _customizationColors.SetCurrentBodyPart(CustomizationPlayer.BodyPartType.Horns);
                  CustomizationEvent(CustomizationPlayer.BodyPartType.Horns);
              });
             
              _hairButton.onClick.AddListener(() =>
              {
-                 if (_customizationColors != null)
-                     _customizationColors.SetCurrentBodyPart(CustomizationPlayer.BodyPartType.Hair);
                  CustomizationEvent(CustomizationPlayer.BodyPartType.Hair);
              });
              
@@ -37,32 +33,40 @@ namespace Runtime.Services.Game.GameContent.UI.Customization
                  if (_customizationColors != null)
                      _customizationColors.SetCurrentBodyPart(CustomizationPlayer.BodyPartType.Eyes);
 
-                 var mats = _customizationColors.GetMaterialsForBodyPart(CustomizationPlayer.BodyPartType.Eyes);
+                 var mats= _characterPreview.GetItem(CustomizationPlayer.BodyPartType.Eyes);
                  _customizationPooler.PopulateMaterials(mats, (btn) =>
                  {
                      var mat = btn.SelectedMaterial;
-                     if (mat != null)
+                     
+                     if (!btn.CustomizeItem.Locked)
+                     {
                          _characterPreview.ApplyMaterialToBodyPart(CustomizationPlayer.BodyPartType.Eyes, mat);
+                     }
+                     else
+                     {
+                         MainMenuUI.Instance.PurchaseContainer.Show();
+                         MainMenuUI.Instance.PurchaseContainer.ConfirmButton.onClick.AddListener(btn.UnlockItem);
+                         MainMenuUI.Instance.PurchaseContainer.ConfirmButton.onClick.AddListener(Initialize);
+                     }
                  });
              });
 
              _bodyButton.onClick.AddListener(() =>
              {
-                 if (_customizationColors != null)
-                     _customizationColors.SetCurrentBodyPart(CustomizationPlayer.BodyPartType.Body);
                  CustomizationEvent(CustomizationPlayer.BodyPartType.Body);
              });
             
              _tailButton.onClick.AddListener(() =>
              {
-                 if (_customizationColors != null)
-                     _customizationColors.SetCurrentBodyPart(CustomizationPlayer.BodyPartType.Tail);
                  CustomizationEvent(CustomizationPlayer.BodyPartType.Tail);
              });
         }
 
         private void CustomizationEvent(CustomizationPlayer.BodyPartType bodyPart)
         {
+            if (_customizationColors != null)
+                _customizationColors.SetCurrentBodyPart(bodyPart);
+            
             _customizationColors.SetCurrentBodyPart(bodyPart);
             var meshes= _characterPreview.GetItem(bodyPart);
             _customizationPooler.Populate(meshes, (btn) =>

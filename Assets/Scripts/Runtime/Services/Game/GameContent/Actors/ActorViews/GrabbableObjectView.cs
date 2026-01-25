@@ -1,5 +1,6 @@
 using System.Collections;
 using Runtime.Services.Audio;
+using Runtime.Services.Data;
 using Runtime.Services.Game.GameContent.Actors.ActorControllers;
 using Runtime.Services.Game.GameContent.Actors.ActorInterfaces;
 using Runtime.Services.Game.GameContent.Logics.LogicInterfaces;
@@ -140,7 +141,8 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
 				return;
 
 			_alreadyExploded = true;
-
+			
+			ElementManager.Element.TempMalice += 20;
 			StartCoroutine(SmokeParts());
 			impulseSource?.GenerateImpulseAt(Transform.position, Vector3.one);
 			var a = ServiceLocator.Instance.Get<AudioService>();

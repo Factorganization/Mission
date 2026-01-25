@@ -2,6 +2,8 @@ using System.Collections.Generic;
 using FMOD.Studio;
 using FMODUnity;
 using Runtime.Services.Audio.AudioContent;
+using Runtime.Services.Data;
+using Shared.Utils.ReadOnlyCustom;
 using STOP_MODE = FMOD.Studio.STOP_MODE;
 
 namespace Runtime.Services.Audio
@@ -12,11 +14,11 @@ namespace Runtime.Services.Audio
 
         [field : SerializeField] public AudioAtlas Atlas { get; private set; }
         
-        public float MasterVolume { get; set; }
+        [field : ReadOnly][field : SerializeField] public float MasterVolume { get; set; }
         
-        public float MusicVolume { get; set; }
+        [field : ReadOnly][field : SerializeField] public float MusicVolume { get; set; }
         
-        public float SfxVolume { get; set; }
+        [field : ReadOnly][field : SerializeField] public float SfxVolume { get; set; }
 
         #endregion
 
@@ -35,15 +37,18 @@ namespace Runtime.Services.Audio
 
         public override void Begin() //TODO setup musics
         {
-            //SetMusic();
+            MasterVolume = ServiceLocator.Instance.Get<DataService>().masterVolume;
+            MusicVolume = ServiceLocator.Instance.Get<DataService>().musicVolume;
+            SfxVolume = ServiceLocator.Instance.Get<DataService>().sfxVolume;
+
             //SetAmbience();
         }
 
         public override void Tick()
         {
-            _masterBus.setVolume(1);
-            _musicBus.setVolume(1);
-            _sfxBus.setVolume(1);
+            _masterBus.setVolume(MasterVolume);
+            _musicBus.setVolume(MusicVolume);
+            _sfxBus.setVolume(SfxVolume);
         }
 
         public override void Delete()
@@ -82,7 +87,7 @@ namespace Runtime.Services.Audio
         
         #region music
         
-        private void SetMusic(EventReference path)
+        public void SetMusic(EventReference path)
         {
             _musicEventInstance = CreateInstance(path);
             _musicEventInstance.start();

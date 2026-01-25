@@ -42,7 +42,7 @@ namespace Runtime.Services.Game.GameContent.Logics.LogicModels.MissionModels
                  (Enum.GetName(typeof(ObjectType), a.objectType)!.StartsWith('P') && b.objectType is ObjectType.Possessable) ||
                  a.objectType is ObjectType.All || b.objectType is ObjectType.All) &&
                 (a.room == b.room || a.room is RoomType.House || b.room is RoomType.House) &&
-                ((int)a.toApply & (int)b.toApply) != 0; //TODO a revoir
+                ((int)a.toApply & (int)b.toApply) != 0;
         }
 
         public static bool operator !=(MissionModel a, MissionModel b) => !(a == b);

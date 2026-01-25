@@ -1,3 +1,4 @@
+using Runtime.Services.Data;
 using Runtime.Services.Game.GameContent.Actors.ActorViews;
 using Runtime.Services.Game.GameSystems;
 using Runtime.Services.Scene;
@@ -66,6 +67,24 @@ namespace Runtime.Services.Analysis.AnalysisSystem
                 return;
         
             MissionManager.Manager.ResetMissions();
+        }
+
+        public void WinAllMissions()
+        {
+            if (MissionManager.Manager is null)
+                return;
+        
+            MissionManager.Manager.WinAllMissions();
+        }
+
+        public void AddMoney()
+        {
+            ServiceLocator.Instance.Get<DataService>().AddMoney(666666);
+        }
+
+        public void AddMalice()
+        {
+            ServiceLocator.Instance.Get<DataService>().AddMalicePoints(666666);
         }
 
         #endregion
