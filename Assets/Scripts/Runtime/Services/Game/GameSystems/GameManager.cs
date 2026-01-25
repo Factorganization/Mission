@@ -1,5 +1,6 @@
 using Runtime.Services.Cursor;
 using Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.View;
+using Runtime.Services.Game.GameContent.UI;
 using Runtime.Services.Game.GameContent.UI.GameUI;
 using Runtime.Services.Scene;
 
@@ -13,6 +14,8 @@ namespace Runtime.Services.Game.GameSystems
 
         public PlayerStateMachine Player => player;
         public GameUIMgr GameUIMgr => gameUIMgr;
+        
+        public Timer Timer => timer;
 
         #endregion
 
@@ -26,6 +29,10 @@ namespace Runtime.Services.Game.GameSystems
         private void Start()
         {
             ServiceLocator.Instance.Get<CursorService>().SetActive(false);
+            if (timer is null)
+            {
+                timer = FindAnyObjectByType<Timer>();
+            }
             Time.timeScale = 1;
         }
 
@@ -41,6 +48,9 @@ namespace Runtime.Services.Game.GameSystems
 
         [SerializeField] private PlayerStateMachine player;
         [SerializeField] private GameUIMgr gameUIMgr;
+
+        [SerializeField] private Timer timer;
+
         #endregion
     }
 }

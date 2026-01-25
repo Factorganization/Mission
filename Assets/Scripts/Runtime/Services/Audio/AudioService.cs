@@ -41,7 +41,7 @@ namespace Runtime.Services.Audio
             MusicVolume = ServiceLocator.Instance.Get<DataService>().musicVolume;
             SfxVolume = ServiceLocator.Instance.Get<DataService>().sfxVolume;
 
-            //SetMusic();
+            SetMusic(Atlas.musics.UIMusics.MainMenu);
             //SetAmbience();
         }
 

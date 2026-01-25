@@ -1,4 +1,5 @@
 using Runtime.Services.Cursor;
+using Runtime.Services.Data;
 using Runtime.Services.Game.GameContent.UI.PauseMenu;
 using Runtime.Services.Game.GameSystems;
 using Runtime.Services.Scene;
@@ -18,6 +19,15 @@ namespace Runtime.Services.Game.GameContent.UI.GameUI
         public async void ReturnToMainMenu()
         {
             Time.timeScale = 1f;
+            ServiceLocator.Instance.Get<CursorService>().SetActive(true);
+            await ServiceLocator.Instance.Get<SceneService>().LoadSceneGroup(0);
+        }
+
+        public async void ReturnAfterWin()
+        {
+            Time.timeScale = 1f;
+            ServiceLocator.Instance.Get<DataService>().AddMoney(MissionManager.Manager.TempDD);
+            ServiceLocator.Instance.Get<DataService>().AddMalicePoints(ElementManager.Element.TempMalice);
             ServiceLocator.Instance.Get<CursorService>().SetActive(true);
             await ServiceLocator.Instance.Get<SceneService>().LoadSceneGroup(0);
         }
