@@ -7,6 +7,7 @@ namespace Runtime.Services.Game.GameContent.UI.Mail
 
         public string Subject;
         public string LevelName;
+        public string LevelSceneName;
         public string Sender;
         
         [TextArea]
