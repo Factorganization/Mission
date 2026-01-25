@@ -6,8 +6,13 @@ namespace Runtime.Services.Game.GameContent.UI.GameUI
         
         public override void Show()
         {
-            base.Show();
+            if (!_isOpen)
+            {
+                base.Show();
+            }
+            
             StartCoroutine(AnimationExtensions.Play(_winScreenAnimator, "OpenWinScreen", false, null));
+            _isOpen = true;
         }
 
         #endregion
