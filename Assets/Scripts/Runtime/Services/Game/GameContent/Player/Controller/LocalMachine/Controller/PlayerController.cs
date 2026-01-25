@@ -336,6 +336,9 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Contr
         /// <param name="playerModel">self</param>
         internal static void ResetGrabbedObjectState(this PlayerModel playerModel)
         {
+            if (playerModel.currentGrabbedObject is null)
+                return;
+            
             playerModel.currentGrabbedObject.Grabbed = false;
             playerModel.currentGrabbedObject.Rigidbody.isKinematic = false;
             playerModel.currentGrabbedObject.Transform.SetParent(null, true);
