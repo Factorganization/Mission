@@ -83,6 +83,7 @@ namespace Runtime.Services.Game.GameContent.UI.Customization
             if (_lockImage != null)
                 _lockImage.gameObject.SetActive(false);
             MainMenuUI.Instance.PurchaseContainer.Hide();
+            MainMenuUI.Instance.PurchaseContainer.ConfirmButton.onClick.RemoveAllListeners();
             ServiceLocator.Instance.Get<DataService>().SubtractMoney(_customizeItem.ItemPrice);
             MainMenuUI.Instance.UpdateDataInfo.UpdateData();
         }

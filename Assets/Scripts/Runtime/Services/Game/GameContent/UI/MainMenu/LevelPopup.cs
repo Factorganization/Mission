@@ -21,7 +21,7 @@ namespace Runtime.Services.Game.GameContent.UI
 
         private async void OpenLevel()
         {
-            await ServiceLocator.Instance.Get<SceneService>().LoadSceneGroup(_levelData.LevelName);
+            await ServiceLocator.Instance.Get<SceneService>().LoadSceneGroup(_levelData.LevelSceneName);
             //TODO
             //juste pour rappeler que c'est la
         }

@@ -54,6 +54,12 @@ namespace Runtime
                 s.Delete();
         }
 
+        private void OnApplicationQuit()
+        {
+            foreach (var s in services)
+                s.Delete();
+        }
+
         #endregion
 
         #region fields

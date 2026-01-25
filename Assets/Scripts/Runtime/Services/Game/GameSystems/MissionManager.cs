@@ -135,9 +135,6 @@ namespace Runtime.Services.Game.GameSystems
                     return;
             }
             
-            //TODO
-            //GameManager.Instance.GameUIMgr.WinGame();
-            //en fait c'est réglé
             endGame.OnActivate();
         }
 
@@ -166,15 +163,15 @@ namespace Runtime.Services.Game.GameSystems
                 else
                     text.text += "<color=green>";
                 
-                if (m.mission is MissionType.Action)
+                /*if (m.mission is MissionType.Action)
                 {
                     text.text += "Destroy ";
                     text.text += $"{m.number} ";
                     text.text += $"{Enum.GetName(typeof(ObjectType), m.objectType)!.Split('_')[^1]} ";
                     text.text += $"in the {Enum.GetName(typeof(RoomType), m.room)} ";
                     text.text += $": {m.number - _currentMissionsCount[i]}/{m.number}";
-                }
-                else if (m.mission is MissionType.ElementAffection)
+                }*/
+                /*else if (m.mission is MissionType.ElementAffection)
                 {
                     text.text += "Set ";
                     text.text += $"{m.number} ";
@@ -205,8 +202,8 @@ namespace Runtime.Services.Game.GameSystems
                     text.text += $"{s} ";
                     text.text += $"in the {Enum.GetName(typeof(RoomType), m.room)} ";
                     text.text += $": {m.number - _currentMissionsCount[i]}/{m.number}";
-                }
-				else if (m.mission is MissionType.ElementPresence)
+                }*/
+				/*else if (m.mission is MissionType.ElementPresence)
                 {
                     text.text += "Have ";
                     text.text += $"{m.number} ";
@@ -237,8 +234,8 @@ namespace Runtime.Services.Game.GameSystems
                     text.text += $"{s} ";
                     text.text += $"in the {Enum.GetName(typeof(RoomType), m.room)} ";
                     text.text += $": {m.number - _currentMissionsCount[i]}/{m.number}";
-                }
-                
+                }*/
+                text.text += $": {m.number - _currentMissionsCount[i]}/{m.number}";
                 text.text += "</color>";
                 text.text += "\n";
             }
