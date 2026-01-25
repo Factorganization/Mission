@@ -1,4 +1,5 @@
 using Runtime.Services.Audio;
+using Runtime.Services.Data;
 using Runtime.Services.Game.GameContent.Logics.LogicModels.MissionModels;
 using Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Model;
 using Runtime.Services.Game.GameSystems;
@@ -50,6 +51,7 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Contr
                 case 4:
                     if (playerModel.currentGrabbedObject is null && playerModel.canEndLevel)
                     {
+                        ServiceLocator.Instance.Get<DataService>().SaveData();
                         GameManager.Instance.GameUIMgr.WinGame();
                         return 1;
                     }
@@ -159,8 +161,6 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Contr
                     stateMachine.TrySwitchState("menu", (int)playerModel.data.activeStates);
                     GameManager.Instance.GameUIMgr.PauseMenuUI.OpenPauseMenu();
                     return 1;
-                
-                //TODO
             }
 
             if (playerModel.OnJump())
@@ -184,12 +184,11 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Contr
 
         public override sbyte OnFixedUpdate()
         {
-            playerModel.SetGrabbedObjectLocalPos(); //TODO cleanup callback plutot que verif a la frame
+            playerModel.SetGrabbedObjectLocalPos();
             playerModel.SetCameraPivotLocalPos(Vector3.zero);
             playerModel.HandleGravity(goRef);
             playerModel.Move(playerModel.currentMoveMultiplier);
             
-            //TODO maybe ranger ca dans une Func d'update graph
             playerModel.graph.transform.rotation = Quaternion.Slerp(playerModel.graph.transform.rotation, Quaternion.LookRotation(playerModel.lastLookDir), playerModel.data.moveData.graphRotationSpeed * Time.fixedDeltaTime);
             
             playerModel.Look();

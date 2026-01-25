@@ -27,7 +27,6 @@ namespace Runtime.Services.Game.GameContent.UI
             Initialize();
             Time.timeScale = 1.0f;
             
-            ServiceLocator.Instance.Get<DataService>().LoadData();
             UpdateDataInfo.UpdateData();
         }
 
