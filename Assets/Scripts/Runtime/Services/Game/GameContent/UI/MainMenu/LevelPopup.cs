@@ -1,3 +1,4 @@
+using Runtime.Services.Audio;
 using Runtime.Services.Game.GameContent.UI.Mail;
 using Runtime.Services.Scene;
 using TMPro;
@@ -21,6 +22,8 @@ namespace Runtime.Services.Game.GameContent.UI
 
         private async void OpenLevel()
         {
+            ServiceLocator.Instance.Get<AudioService>().StopMusicSmooth();
+            
             await ServiceLocator.Instance.Get<SceneService>().LoadSceneGroup(_levelData.LevelSceneName);
             //TODO
             //juste pour rappeler que c'est la

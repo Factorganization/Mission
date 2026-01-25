@@ -88,7 +88,7 @@ namespace Runtime.Services.Audio
         
         #region music
         
-        private void SetMusic(EventReference path)
+        public void SetMusic(EventReference path)
         {
             _musicEventInstance = CreateInstance(path);
             _musicEventInstance.start();
