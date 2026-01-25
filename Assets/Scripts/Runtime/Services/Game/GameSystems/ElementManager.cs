@@ -49,7 +49,10 @@ namespace Runtime.Services.Game.GameSystems
 
                     var ei = LevelGenerator.Generator.ElementHolders[i];
                     var ej = LevelGenerator.Generator.ElementHolders[j];
-                    
+
+                    if (ei.Transform is null || ej.Transform is null)
+                        continue;
+
                     if (Vector3.Distance(ei.Transform.position + ei.Collider.center, ej.Transform.position + ej.Collider.center) > ei.ElementApplicationDistance + ej.ElementApplicationDistance)
                         continue;
                     
