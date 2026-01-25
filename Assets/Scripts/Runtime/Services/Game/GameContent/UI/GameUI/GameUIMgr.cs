@@ -1,8 +1,10 @@
+using Runtime.Services.Audio;
 using Runtime.Services.Cursor;
 using Runtime.Services.Data;
 using Runtime.Services.Game.GameContent.UI.PauseMenu;
 using Runtime.Services.Game.GameSystems;
 using Runtime.Services.Scene;
+using TMPro;
 
 namespace Runtime.Services.Game.GameContent.UI.GameUI
 {
@@ -14,10 +16,13 @@ namespace Runtime.Services.Game.GameContent.UI.GameUI
         {
             _gameOverUI.Hide();
             _winUI.Hide();
+            UpdateDevilDollars();
+            UpdateMalicePoints();
         }
 
         public async void ReturnToMainMenu()
         {
+            ServiceLocator.Instance.Get<AudioService>().StopMusicSmooth();
             Time.timeScale = 1f;
             ServiceLocator.Instance.Get<CursorService>().SetActive(true);
             await ServiceLocator.Instance.Get<SceneService>().LoadSceneGroup(0);
@@ -25,6 +30,7 @@ namespace Runtime.Services.Game.GameContent.UI.GameUI
 
         public async void ReturnAfterWin()
         {
+            ServiceLocator.Instance.Get<AudioService>().StopMusicSmooth();
             Time.timeScale = 1f;
             ServiceLocator.Instance.Get<DataService>().AddMoney(MissionManager.Manager.TempDD);
             ServiceLocator.Instance.Get<DataService>().AddMalicePoints(ElementManager.Element.TempMalice);
@@ -53,6 +59,16 @@ namespace Runtime.Services.Game.GameContent.UI.GameUI
             Time.timeScale = 0f;
         }
 
+        public void UpdateDevilDollars()
+        {
+            _devildollarsText.text = MissionManager.Manager.TempDD.ToString();
+        }
+        
+        public void UpdateMalicePoints()
+        {
+            _malicePointsText.text = ElementManager.Element.TempMalice.ToString();
+        }
+
         public void SetMissionPos(int i)
         {
             QuestPage.SetMissionPos(i);
@@ -66,6 +82,7 @@ namespace Runtime.Services.Game.GameContent.UI.GameUI
         [SerializeField] private WinScreen _winUI;
         [SerializeField] private QuestPage _questPage;
         [SerializeField] private PauseMenuUI _pauseMenuUI;
+        [SerializeField] private TextMeshProUGUI _devildollarsText, _malicePointsText;
 
         public QuestPage QuestPage => _questPage;
         public PauseMenuUI PauseMenuUI => _pauseMenuUI;
