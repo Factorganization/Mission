@@ -142,7 +142,7 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
 
 			_alreadyExploded = true;
 			
-			ServiceLocator.Instance.Get<DataService>().AddMalicePointsSoft(20);
+			ElementManager.Element.TempMalice += 20;
 			StartCoroutine(SmokeParts());
 			impulseSource?.GenerateImpulseAt(Transform.position, Vector3.one);
 			var a = ServiceLocator.Instance.Get<AudioService>();
