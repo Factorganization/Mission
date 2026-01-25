@@ -47,7 +47,7 @@ public class AISuspiciousState : BaseAiState
             _detectionTimer = 0;
             _forgetTimer = 0;
             AIController.DropObject(aiModel);
-            stateMachine.SwitchState("chase");
+            stateMachine.SwitchState("spotted");
             return 0;
         }
         
