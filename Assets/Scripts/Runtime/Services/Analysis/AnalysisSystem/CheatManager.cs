@@ -68,6 +68,14 @@ namespace Runtime.Services.Analysis.AnalysisSystem
             MissionManager.Manager.ResetMissions();
         }
 
+        public void WinAllMissions()
+        {
+            if (MissionManager.Manager is null)
+                return;
+        
+            MissionManager.Manager.WinAllMissions();
+        }
+
         #endregion
 
         #region fields

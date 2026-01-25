@@ -1,4 +1,3 @@
-using Runtime.Services.Data;
 using Runtime.Services.Game.GameContent.Logics.LogicInterfaces;
 
 namespace Runtime.Services.Game.GameSystems
@@ -10,6 +9,8 @@ namespace Runtime.Services.Game.GameSystems
         public static ElementManager Element { get; private set; }
         
         public static int CurrentCombo { get; set; }
+        
+        public int TempMalice { get; set; }
 
         #endregion
         
@@ -21,6 +22,11 @@ namespace Runtime.Services.Game.GameSystems
                 Debug.LogWarning("LevelGenerator already instantiated");
             
             Element = this;
+        }
+
+        private void Start()
+        {
+            CurrentCombo = 0;
         }
 
         private void FixedUpdate()
@@ -76,7 +82,7 @@ namespace Runtime.Services.Game.GameSystems
                 _upperThreshold = _threshold;
 
                 var combo = CurrentCombo % 5;
-                ServiceLocator.Instance.Get<DataService>().AddMalicePointsSoft(combo * 50);
+                TempMalice += combo * 50;
                 CurrentCombo = 0;
             }
         }

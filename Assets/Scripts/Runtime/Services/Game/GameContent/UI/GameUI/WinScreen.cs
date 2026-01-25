@@ -11,7 +11,7 @@ namespace Runtime.Services.Game.GameContent.UI.GameUI
                 base.Show();
             }
             
-            StartCoroutine(AnimationExtensions.Play(_winScreenAnimator, "OpenWinScreen", false, null));
+            //StartCoroutine(AnimationExtensions.Play(_winScreenAnimator, _winScreenAnimator.clip.name, false, null));
             _isOpen = true;
         }
 
