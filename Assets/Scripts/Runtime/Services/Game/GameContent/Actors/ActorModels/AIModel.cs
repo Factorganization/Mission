@@ -9,7 +9,7 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorModels
     public class AIModel : ActorModel
     {
         #region methodes
-        public AIModel(AIMovementDataSo movementDataSo,AIDetectionDataSo detectionSo ,Animator animator, NavMeshAgent agent, Transform rcOrigin, PlayerStateMachine player, LayerMask excludedLayers, float repairTime, Transform[] waypoints, bool male)
+        public AIModel(AIMovementDataSo movementDataSo,AIDetectionDataSo detectionSo ,Animator animator, NavMeshAgent agent, Transform rcOrigin, PlayerStateMachine player, LayerMask excludedLayers, float repairTime, Transform[] waypoints, bool male, ParticleSystem spottedPart, ParticleSystem suspiciousPart)
         {
             movementData =  movementDataSo;
             detectionData = detectionSo;
@@ -19,7 +19,8 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorModels
             _player = player;
             _excludedLayers = excludedLayers;
             _repairTime = repairTime;
-            
+            _spottedPart = spottedPart;
+            _suspiciousPart = suspiciousPart;
 
             _isSuspicious = false;
             _isPlayerDetected = false; 
@@ -49,6 +50,8 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorModels
         
         public NavMeshAgent _agentRef;
         public Animator _animatorRef;
+        public ParticleSystem _suspiciousPart;
+        public ParticleSystem _spottedPart;
         public PlayerStateMachine _player;
         public Transform _rcOrigin;
         public AIMovementDataSo movementData;

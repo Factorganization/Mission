@@ -9,7 +9,7 @@ public class AISpottedState : BaseAiState
 {
     public AISpottedState(GenericStateMachine machine, GameObject go, AIModel model, AIControllerState state) : base(machine, go, model, state)
     {
-       
+        
     }
 
     public override void OnInit(GenericStateMachine machine)
@@ -18,14 +18,17 @@ public class AISpottedState : BaseAiState
 
     public override void OnEnterState()
     {
+        aiModel._spottedPart.Play();
         aiModel._agentRef.isStopped = true;
         var a = ServiceLocator.Instance.Get<AudioService>();
         a.PlayOneShot(aiModel._male ? a.Atlas.sfx.pnj.male.maleSpotPlayer : a.Atlas.sfx.pnj.female.femaleSpotPlayer, aiModel.transform.position);
+        aiModel._animatorRef.SetTrigger("Spotted");
     }
 
     public override sbyte OnUpdate()
     {
         AIController.DetectPlayer(aiModel);
+        Debug.Log(aiModel._animatorRef.GetCurrentAnimatorStateInfo(0).IsName("Spotted"));
         if (!aiModel._animatorRef.GetCurrentAnimatorStateInfo(0).IsName("Spotted"))
             stateMachine.SwitchState("chase");
         
@@ -39,6 +42,7 @@ public class AISpottedState : BaseAiState
 
     public override void OnExitState()
     {
+        aiModel._spottedPart.Stop();
         aiModel._agentRef.isStopped = false;
     }
 

@@ -20,6 +20,7 @@ public class AIBBGrabbableState : BaseAiState
         aiModel._currentGrabbable.Rigidbody.isKinematic = true;
         aiModel._currentGrabbable.Rigidbody.useGravity = false;
         aiModel._currentGrabbable.Transform.SetParent(aiModel.transform);
+        aiModel._animatorRef.SetBool("ac_isGrabing", true);
         aiModel._animatorRef.SetBool("ac_isWalking", true);
 
     }
@@ -53,7 +54,7 @@ public class AIBBGrabbableState : BaseAiState
             
         aiModel._currentGrabbable.Transform.localPosition += Math.EasingFunction.SimpleQuadraticEase.V3SimpleQuadraticEaseOut(aiModel._currentGrabbable.Transform.localPosition, Vector3.zero, 0.1f);
         if (aiModel._currentGrabbable.Transform.localPosition.sqrMagnitude < 0.005f)
-            aiModel._currentGrabbable.Transform.localPosition = Vector3.zero;
+            aiModel._currentGrabbable.Transform.localPosition = Vector3.zero; //Change for hand position
         return 0;
     }
 
@@ -65,6 +66,7 @@ public class AIBBGrabbableState : BaseAiState
     public override void OnExitState()
     {
         AIController.DropObject(aiModel);
+        aiModel._animatorRef.SetBool("ac_isGrabing", false);
         aiModel._animatorRef.SetBool("ac_isWalking", false);
     }
 
