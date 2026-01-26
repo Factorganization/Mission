@@ -42,6 +42,17 @@ namespace Runtime.Services.Game.GameSystems
             CurrentCombo = 0;
         }
 
+        private void Update()
+        {
+            _delay += Time.deltaTime;
+
+            if (_delay > 3)
+            {
+                _delay = 0;
+                CurrentCombo = 0;
+            }
+        }
+
         private void FixedUpdate()
         {
             var c = LevelGenerator.Generator.ElementHolders.Count;
