@@ -87,9 +87,19 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
 				if (_fireDestructionTimer > fireDestructionDuration)
 				{
 					StartCoroutine(SmokeParts());
-					Transform.position = _spawnerRef ? _spawnerRef.SpawnPos.position : OriginPos;
-					
-					if (Grabbed)
+
+                    if (_spawnerRef is null)
+                    {
+                        Active = false;
+                        gameObject.SetActive(false);
+                        return;
+                    }
+                    else
+                    {
+                        Transform.position = _spawnerRef.SpawnPos.position;
+                    }
+
+                    if (Grabbed)
 					{
 						var p = GameManager.Instance.Player.PlayerModel;
 						p.ResetGrabbedObjectState();
@@ -135,8 +145,18 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
 				p.SetAnimParam(p.isHolding, false);
 				p.SetAnimParam(p.isInteracting, false);
 			}
-			
-			Transform.position = _spawnerRef ? _spawnerRef.SpawnPos.position : OriginPos;
+
+			if (_spawnerRef is null)
+			{
+				Active = false;
+				gameObject.SetActive(false);
+				return;
+			}
+			else
+			{
+				Transform.position = _spawnerRef.SpawnPos.position;
+			}
+
 			exploded = false;
 			
 			if (_alreadyExploded)

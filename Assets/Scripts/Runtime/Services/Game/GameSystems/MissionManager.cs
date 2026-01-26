@@ -75,8 +75,18 @@ namespace Runtime.Services.Game.GameSystems
 				}
 
 				_currentMissionsCount[m.Key] -= i;
-				if (_currentMissionsCount[m.Key] < 0)
-					_currentMissionsCount[m.Key] = 0;
+                if (_currentMissionsCount[m.Key] <= 0)
+                {
+                    _currentMissionsCount[m.Key] = 0;
+                    _doneMissions++;
+                    var t = GameManager.Instance.Timer.RemainingTime;
+
+                    var dd = GetDD(_doneMissions);
+                    var p = GetPercentage(t);
+
+                    _tempDD += dd + (int)(dd * p);
+                    GameManager.Instance.GameUIMgr.UpdateDevilDollars();
+                }
 			}
 
 			SetText();
