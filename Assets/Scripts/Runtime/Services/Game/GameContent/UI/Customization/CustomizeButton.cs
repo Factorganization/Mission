@@ -74,8 +74,7 @@ namespace Runtime.Services.Game.GameContent.UI.Customization
         {
             if (ServiceLocator.Instance.Get<DataService>().DevilDollars < _customizeItem.ItemPrice)
             {
-                // Play can't buy anim
-                Debug.Log("Not enough Devil Dollars!");
+                MainMenuUI.Instance.PurchaseContainer.PurchaseText.text = "Not enough Devil Dollars!";
                 return;
             }
             
