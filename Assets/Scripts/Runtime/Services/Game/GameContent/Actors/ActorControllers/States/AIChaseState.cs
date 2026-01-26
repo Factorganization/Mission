@@ -23,7 +23,7 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorControllers.States
             
             var a = ServiceLocator.Instance.Get<AudioService>();
             if (aiModel._old)
-                a.PlayOneShot(a.Atlas.sfx.pnj.demon.demonChase, aiModel.transform.position);
+                a.PlayOneShot(a.Atlas.sfx.pnj.vieux.vieuxChase, aiModel.transform.position);
             else if (aiModel._demon)
                 a.PlayOneShot(a.Atlas.sfx.pnj.demon.demonChase, aiModel.transform.position);
             else

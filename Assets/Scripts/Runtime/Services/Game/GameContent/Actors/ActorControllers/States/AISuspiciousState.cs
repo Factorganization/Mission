@@ -24,7 +24,7 @@ public class AISuspiciousState : BaseAiState
         
         var a = ServiceLocator.Instance.Get<AudioService>();
         if (aiModel._old)
-            a.PlayOneShot(a.Atlas.sfx.pnj.demon.demonSuspicious, aiModel.transform.position);
+            a.PlayOneShot(a.Atlas.sfx.pnj.vieux.vieuxSuspicious, aiModel.transform.position);
         else if (aiModel._demon)
             a.PlayOneShot(a.Atlas.sfx.pnj.demon.demonSuspicious, aiModel.transform.position);
         else
