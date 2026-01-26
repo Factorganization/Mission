@@ -1,4 +1,5 @@
 using Runtime.Services.Game.GameContent.Logics.LogicInterfaces;
+using Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.View;
 
 namespace Runtime.Services.Game.GameSystems
 {
@@ -60,9 +61,19 @@ namespace Runtime.Services.Game.GameSystems
                     
                     if (hit.transform is null)
                         continue;
-                    
+
                     if (!hit.transform.root.TryGetComponent<IElementHolder>(out var h))
-                        continue;
+                    {
+                        if (!TryGetComponent<PlayerStateMachine>(out var p))
+                            continue;
+                        
+                        var pcg = p.PlayerModel.currentGrabbedObject;
+                        
+                        if (pcg is null)
+                            continue;
+
+                        h = pcg as IElementHolder;
+                    }
 
                     if (h.Id != ej.Id)
                         continue;

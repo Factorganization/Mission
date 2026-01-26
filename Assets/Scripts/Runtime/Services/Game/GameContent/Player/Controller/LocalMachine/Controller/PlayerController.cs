@@ -253,6 +253,8 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Contr
             if (playerModel.currentGrabbedObject is null)
                 return;
 
+            var targetPos = Vector3.zero;
+            
             if (playerModel.currentGrabbedObject.Active && playerModel.currentGrabbedObject.Transform.parent != playerModel.activeGrab)
                 playerModel.currentGrabbedObject.Transform.SetParent(playerModel.activeGrab);
             
@@ -262,9 +264,10 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Contr
             if (playerModel.currentGrabbedObject.Transform.localPosition.sqrMagnitude < 0.005f)
                 return;
             
-            playerModel.currentGrabbedObject.Transform.localPosition += Math.EasingFunction.SimpleQuadraticEase.V3SimpleQuadraticEaseOut(playerModel.currentGrabbedObject.Transform.localPosition, Vector3.zero, 0.1f);
-            if (playerModel.currentGrabbedObject.Transform.localPosition.sqrMagnitude < 0.005f)
-                playerModel.currentGrabbedObject.Transform.localPosition = Vector3.zero;
+            if (Vector3.Distance(playerModel.currentGrabbedObject.Transform.localPosition, targetPos) <= 0.1f)
+                            playerModel.currentGrabbedObject.Transform.localPosition = targetPos;
+            
+            playerModel.currentGrabbedObject.Transform.localPosition += Math.EasingFunction.SimpleQuadraticEase.V3SimpleQuadraticEaseOut(playerModel.currentGrabbedObject.Transform.localPosition, targetPos, 0.15f);
         }
         
         /// <summary>
