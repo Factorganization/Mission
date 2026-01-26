@@ -85,11 +85,17 @@ namespace Runtime.Services.Data
             SaveData();
         }
         
-        public void AddPurchaseItem(string itemID)
+        public void SetUnlockedItems(List<CustomizeItemData> items)
         {
-            if (!PurchasedItems.ContainsKey(itemID))
+            PurchasedItems = items;
+            SaveData();
+        }
+        
+        public void AddPurchaseItem(CustomizeItemData itemID)
+        {
+            if (!PurchasedItems.Contains(itemID))
             {
-                PurchasedItems.Add(itemID, true);
+                PurchasedItems.Add(itemID);
                 SaveData();
             }
         }
@@ -102,7 +108,8 @@ namespace Runtime.Services.Data
                 {
                     if (part.ItemName == itemID)
                     {
-                        part.Locked = false;
+                        PurchasedItems[PurchasedItems.FindIndex(x => x.ItemName == itemID)].Locked = false;
+                        Debug.Log(PurchasedItems[PurchasedItems.FindIndex(x => x.ItemName == itemID)]);
                         SaveData();
                         return;
                     }
@@ -165,7 +172,7 @@ namespace Runtime.Services.Data
         
         [ReadOnly] public string PlayerPrefsSave = "PlayerData";
         
-        public Dictionary<string, bool> PurchasedItems = new Dictionary<string, bool>();
+        public List<CustomizeItemData> PurchasedItems = new List<CustomizeItemData>();
         
         #endregion
     }

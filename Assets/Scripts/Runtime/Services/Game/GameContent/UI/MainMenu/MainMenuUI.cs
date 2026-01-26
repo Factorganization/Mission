@@ -33,6 +33,8 @@ namespace Runtime.Services.Game.GameContent.UI
 
             var a = ServiceLocator.Instance.Get<AudioService>();
             a.SetMusic(a.Atlas.musics.UIMusics.MainMenu);
+            
+            var b = ServiceLocator.Instance.Get<DataService>();
         }
 
         private void Update()

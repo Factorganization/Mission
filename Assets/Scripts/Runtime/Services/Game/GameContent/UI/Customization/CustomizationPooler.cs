@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Runtime.Services.Data;
 using UnityEngine.Events;
 
 namespace Runtime.Services.Game.GameContent.UI.Customization
@@ -40,6 +41,8 @@ namespace Runtime.Services.Game.GameContent.UI.Customization
 
             for (int i = _pool.Count; i < customItems.Length; i++)
                 CreatePooledButton(false);
+            
+            var a = ServiceLocator.Instance.Get<DataService>();
 
             for (int i = 0; i < customItems.Length; i++)
             {
@@ -49,7 +52,12 @@ namespace Runtime.Services.Game.GameContent.UI.Customization
                 Sprite icon = (customItems[i].ItemIcon != null && i < customItems.Length) ? customItems[i].ItemIcon : null;
                 
                 if (customItems[i].ItemMesh != null)
-                    btn.SetDataMesh(customItems[i], customItems[i].ItemMesh, icon, customItems[i].Locked, i, customItems[i].ItemPrice);
+                    btn.SetDataMesh(customItems[i], 
+                                    customItems[i].ItemMesh, 
+                                    icon, 
+                                    a.PurchasedItems[a.PurchasedItems.FindIndex(x => x.ItemName == customItems[i].ItemName)].Locked, 
+                                    i, 
+                                    customItems[i].ItemPrice);
 
                 if (onSelected != null)
                 {
@@ -73,6 +81,8 @@ namespace Runtime.Services.Game.GameContent.UI.Customization
 
             for (int i = _pool.Count; i < customItems.Length; i++)
                 CreatePooledButton(false);
+            
+            var a = ServiceLocator.Instance.Get<DataService>();
 
             for (int i = 0; i < customItems.Length; i++)
             {
@@ -81,7 +91,13 @@ namespace Runtime.Services.Game.GameContent.UI.Customization
                 btn.ResetForPool();
 
                 Sprite icon = (customItems[i].ItemIcon != null && i < customItems.Length) ? customItems[i].ItemIcon : null;
-                btn.SetDataMat(customItems[i], customItems[i].ItemMaterial, icon, customItems[i].Locked, i, customItems[i].ItemPrice);
+                
+                btn.SetDataMat(customItems[i], 
+                               customItems[i].ItemMaterial, 
+                               icon, 
+                               a.PurchasedItems[a.PurchasedItems.FindIndex(x => x.ItemName == customItems[i].ItemName)].Locked, 
+                            i, 
+                               customItems[i].ItemPrice);
 
                 if (onSelected != null)
                     btn.OnChangeSkin.AddListener(onSelected);
