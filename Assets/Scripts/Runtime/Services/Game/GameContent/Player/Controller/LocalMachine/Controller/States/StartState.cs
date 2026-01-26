@@ -27,7 +27,6 @@ public class StartState : BasePlayerState
     public override sbyte OnUpdate()
     {
         playerModel.HandleContinuousInputGather();
-        playerModel.HandleRotateInputGather();
         var mono = playerModel.HandleMonoInputGather();
 
         switch (mono)
@@ -46,6 +45,7 @@ public class StartState : BasePlayerState
 
     public override sbyte OnFixedUpdate()
     {
+        playerModel.HandleRotateInputGather();
         playerModel.Look();
         
         return 0;

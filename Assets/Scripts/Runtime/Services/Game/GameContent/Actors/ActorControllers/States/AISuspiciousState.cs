@@ -39,7 +39,7 @@ public class AISuspiciousState : BaseAiState
         {
             _detectionTimer = 0;
             _forgetTimer = 0;
-            stateMachine.SwitchState("idle");
+            stateMachine.SwitchState("move");
             return 0;
         }
 
