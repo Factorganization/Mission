@@ -23,7 +23,7 @@ public class AISpottedState : BaseAiState
         
         var a = ServiceLocator.Instance.Get<AudioService>();
         if (aiModel._old)
-            a.PlayOneShot(a.Atlas.sfx.pnj.demon.demonSpotPlayer, aiModel.transform.position);
+            a.PlayOneShot(a.Atlas.sfx.pnj.vieux.vieuxSpotPlayer, aiModel.transform.position);
         else if (aiModel._demon)
             a.PlayOneShot(a.Atlas.sfx.pnj.demon.demonSpotPlayer, aiModel.transform.position);
         else

@@ -50,7 +50,7 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorControllers.States
             if (_timer >= _waitTime)
             {
                 if (aiModel._old)
-                    _audioService.PlayOneShot(_audioService.Atlas.sfx.pnj.demon.demonSearch, aiModel.transform.position);
+                    _audioService.PlayOneShot(_audioService.Atlas.sfx.pnj.vieux.vieuxSearch, aiModel.transform.position);
                 else if (aiModel._demon)
                     _audioService.PlayOneShot(_audioService.Atlas.sfx.pnj.demon.demonSearch, aiModel.transform.position);
                 else
