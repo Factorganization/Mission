@@ -49,7 +49,7 @@ public class AIBBGrabbableState : BaseAiState
             return 0;
         }
         
-        if (aiModel._currentGrabbable.Transform.localPosition.sqrMagnitude < 0.005f)
+        if (aiModel._currentGrabbable.Transform.localPosition.sqrMagnitude < 1)
             return 0;
             
         aiModel._currentGrabbable.Transform.localPosition += Math.EasingFunction.SimpleQuadraticEase.V3SimpleQuadraticEaseOut(aiModel._currentGrabbable.Transform.localPosition, Vector3.zero, 0.1f);
