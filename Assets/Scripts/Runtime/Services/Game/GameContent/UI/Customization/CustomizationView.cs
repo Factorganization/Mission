@@ -11,6 +11,13 @@ namespace Runtime.Services.Game.GameContent.UI.Customization
         {
             Initialize();
             
+            var b = ServiceLocator.Instance.Get<DataService>();
+            
+            if (b.PurchasedItems == null)
+                return;
+            
+            b.PurchasedItems = _characterPreview.CustomItems;
+            
             CustomizationEvent(CustomizationPlayer.BodyPartType.Hair);
         }
 
