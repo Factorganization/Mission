@@ -5,7 +5,7 @@
 			<value>T-Shirt_Pick</value>
 		</property>
 		<property name="outputFormat">
-			<value>2</value>
+			<value>1</value>
 		</property>
 		<relationship name="folder">
 			<destination>{e0d325fc-b1c0-4f16-a196-f8196b17ac0a}</destination>
@@ -72,6 +72,9 @@
 		</relationship>
 	</object>
 	<object class="EventMixerMaster" id="{65b22a96-e62c-4840-9ea2-ca1bd19d92b0}">
+		<property name="volume">
+			<value>-9</value>
+		</property>
 		<relationship name="effectChain">
 			<destination>{bb5aa8d4-373a-4ff7-85c3-b0a25eeb200f}</destination>
 		</relationship>
@@ -96,7 +99,6 @@
 	<object class="MixerBusEffectChain" id="{bb5aa8d4-373a-4ff7-85c3-b0a25eeb200f}">
 		<relationship name="effects">
 			<destination>{634bb221-d1b7-4755-b81d-8353299f8b7b}</destination>
-			<destination>{9882958b-47d6-4c22-bd48-7d209fcd53c1}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{2237c42c-d942-45cc-81a2-20cf09d44a1a}" />
@@ -107,5 +109,4 @@
 	</object>
 	<object class="MixerBusFader" id="{fabebf15-a7c8-421a-bbd4-6dcd13c74476}" />
 	<object class="MixerBusFader" id="{634bb221-d1b7-4755-b81d-8353299f8b7b}" />
-	<object class="SpatialiserEffect" id="{9882958b-47d6-4c22-bd48-7d209fcd53c1}" />
 </objects>

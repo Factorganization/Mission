@@ -20,8 +20,13 @@ public class AISpottedState : BaseAiState
     {
         aiModel._spottedPart.Play();
         aiModel._agentRef.isStopped = true;
+        
         var a = ServiceLocator.Instance.Get<AudioService>();
-        a.PlayOneShot(aiModel._male ? a.Atlas.sfx.pnj.male.maleSpotPlayer : a.Atlas.sfx.pnj.female.femaleSpotPlayer, aiModel.transform.position);
+        if (aiModel._demon)
+            a.PlayOneShot(a.Atlas.sfx.pnj.demon.demonSpotPlayer, aiModel.transform.position);
+        else
+            a.PlayOneShot(aiModel._male ? a.Atlas.sfx.pnj.male.maleSpotPlayer : a.Atlas.sfx.pnj.female.femaleSpotPlayer, aiModel.transform.position);
+        
         aiModel._animatorRef.SetTrigger("Spotted");
         isEntered = false;
     }

@@ -1,4 +1,5 @@
 using System.Collections;
+using Runtime.Services.Audio;
 using Runtime.Services.Game.GameContent.Actors.ActorModels;
 using Shared.Utils.BaseMachine;
 
@@ -20,6 +21,13 @@ public class AISuspiciousState : BaseAiState
         aiModel._suspiciousPart.Play();
         aiModel._agentRef.isStopped = true;
         aiModel._animatorRef.SetBool("ac_isSus", true);
+        
+        var a = ServiceLocator.Instance.Get<AudioService>();
+        if (aiModel._demon)
+            a.PlayOneShot(a.Atlas.sfx.pnj.demon.demonSuspicious, aiModel.transform.position);
+        else
+            a.PlayOneShot(aiModel._male ? a.Atlas.sfx.pnj.male.maleSuspicious : a.Atlas.sfx.pnj.female.femaleSuspicious, aiModel.transform.position);
+
     }
 
     public override sbyte OnUpdate()

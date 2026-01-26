@@ -40,8 +40,8 @@ namespace Runtime.Services.Game.GameContent.UI.Customization
         {
             _customizeItem = item;
             ItemIndex = index;
-            _locked = locked;
             SelectedMesh = mesh;
+            _locked = locked;
             
             if (_price != null)
                 _price.text = price.ToString();
@@ -57,8 +57,8 @@ namespace Runtime.Services.Game.GameContent.UI.Customization
         {
             _customizeItem = item;
             ItemIndex = index;
-            _locked = locked;
             SelectedMaterial = mat;
+            _locked = locked;
 
             if (_price != null)
                 _price.text = price.ToString();
@@ -78,18 +78,25 @@ namespace Runtime.Services.Game.GameContent.UI.Customization
                 Debug.Log("Not enough Devil Dollars!");
                 return;
             }
-
-            _customizeItem.Locked = false;
+            
             _locked = false;
             
             if (_lockImage != null)
                 _lockImage.gameObject.SetActive(false);
             
+            var a = ServiceLocator.Instance.Get<DataService>();
+            
+            CustomizeItemData data = new CustomizeItemData
+            {
+                ItemName = _customizeItem.ItemName,
+                Locked = false
+            };
+            
             MainMenuUI.Instance.PurchaseContainer.Hide();
             MainMenuUI.Instance.PurchaseContainer.ConfirmButton.onClick.RemoveAllListeners();
-            ServiceLocator.Instance.Get<DataService>().SubtractMoney(_customizeItem.ItemPrice);
-            ServiceLocator.Instance.Get<DataService>().AddPurchaseItem(_customizeItem.ItemName);
-            ServiceLocator.Instance.Get<DataService>().UpdatePurchaseItem(_customizeItem.ItemName, MainMenuUI.Instance.PlayerPreview);
+            a.SubtractMoney(_customizeItem.ItemPrice);
+            a.AddPurchaseItem(data);
+            a.UpdatePurchaseItem(_customizeItem.ItemName, MainMenuUI.Instance.PlayerPreview);
             MainMenuUI.Instance.UpdateDataInfo.UpdateData();
         }
 

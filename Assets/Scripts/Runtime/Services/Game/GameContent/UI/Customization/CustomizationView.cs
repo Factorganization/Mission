@@ -1,3 +1,4 @@
+using Runtime.Services.Data;
 using UnityEngine.UI;
 
 namespace Runtime.Services.Game.GameContent.UI.Customization
@@ -69,9 +70,10 @@ namespace Runtime.Services.Game.GameContent.UI.Customization
             
             _customizationColors.SetCurrentBodyPart(bodyPart);
             var meshes= _characterPreview.GetItem(bodyPart);
+            var a = ServiceLocator.Instance.Get<DataService>();
             _customizationPooler.Populate(meshes, (btn) =>
             {
-                if (!btn.CustomizeItem.Locked)
+                if (!a.PurchasedItems[a.PurchasedItems.FindIndex(x => x.ItemName == btn.CustomizeItem.ItemName)].Locked)
                 {
                     _characterPreview.SetBodyPartMesh(bodyPart, btn.ItemIndex);
                     if (_customizationColors != null)

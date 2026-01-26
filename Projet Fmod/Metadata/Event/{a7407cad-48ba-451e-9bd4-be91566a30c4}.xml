@@ -8,7 +8,7 @@
 			<value>PlayerChargeThrow</value>
 		</property>
 		<property name="outputFormat">
-			<value>2</value>
+			<value>1</value>
 		</property>
 		<relationship name="folder">
 			<destination>{8bde3e2c-1a4a-4385-af72-e0870a0ae94e}</destination>
@@ -76,7 +76,7 @@
 	</object>
 	<object class="EventMixerMaster" id="{cfea62dc-848b-47df-8581-db841a3ecc92}">
 		<property name="volume">
-			<value>-11</value>
+			<value>-7</value>
 		</property>
 		<relationship name="effectChain">
 			<destination>{7f783905-e2fa-46a4-b7e1-2bca362300ac}</destination>
@@ -102,7 +102,6 @@
 	<object class="MixerBusEffectChain" id="{7f783905-e2fa-46a4-b7e1-2bca362300ac}">
 		<relationship name="effects">
 			<destination>{8516e761-e725-4b11-8fac-bb076e06d0a1}</destination>
-			<destination>{c954a886-0472-439c-a007-83f65dcc1981}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{a57c3d49-f06a-4bbb-94a1-9789bf760d64}" />
@@ -113,5 +112,4 @@
 	</object>
 	<object class="MixerBusFader" id="{4f172a09-5a7f-424b-b79c-42af80c56be9}" />
 	<object class="MixerBusFader" id="{8516e761-e725-4b11-8fac-bb076e06d0a1}" />
-	<object class="SpatialiserEffect" id="{c954a886-0472-439c-a007-83f65dcc1981}" />
 </objects>

@@ -1,4 +1,5 @@
 using System.Collections;
+using Runtime.Services.Audio;
 using Runtime.Services.Game.GameContent.Actors.ActorModels;
 using Shared.Utils.BaseMachine;
 
@@ -19,6 +20,7 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorControllers.States
         
         public override void OnInit(GenericStateMachine machine)
         {
+            _audioService = ServiceLocator.Instance.Get<AudioService>();
         }
 
         public override void OnEnterState()
@@ -44,6 +46,17 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorControllers.States
             }
             
             AIController.UpdateAgent(aiModel);
+
+            if (_timer >= _waitTime)
+            {
+                if (aiModel._demon)
+                    _audioService.PlayOneShot(_audioService.Atlas.sfx.pnj.demon.demonSuspicious, aiModel.transform.position);
+                else
+                    _audioService.PlayOneShot(aiModel._male ? _audioService.Atlas.sfx.pnj.male.maleSuspicious : _audioService.Atlas.sfx.pnj.female.femaleSuspicious, aiModel.transform.position);
+                
+                _timer = 0;
+            }
+                
             
             return 0;
         }
@@ -66,7 +79,10 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorControllers.States
 
         #region fields
         
+        protected AudioService _audioService;
         protected readonly AIModel aiModel;
+        protected float _timer;
+        protected float _waitTime = 20f;
         
         #endregion
     }
