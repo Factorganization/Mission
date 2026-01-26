@@ -22,15 +22,22 @@ public class AISpottedState : BaseAiState
         var a = ServiceLocator.Instance.Get<AudioService>();
         a.PlayOneShot(aiModel._male ? a.Atlas.sfx.pnj.male.maleSpotPlayer : a.Atlas.sfx.pnj.female.femaleSpotPlayer, aiModel.transform.position);
         aiModel._animatorRef.SetTrigger("Spotted");
+        isEntered = false;
     }
 
     public override sbyte OnUpdate()
     {
-        AIController.DetectPlayer(aiModel);
-        Debug.Log(aiModel._animatorRef.GetCurrentAnimatorStateInfo(0).IsName("Spotted"));
-        if (!aiModel._animatorRef.GetCurrentAnimatorStateInfo(0).IsName("Spotted"))
+        if (!isEntered)
+        {
+            isEntered = aiModel._animatorRef.GetCurrentAnimatorStateInfo(0).IsName("Spotted");
+        }
+        else if (!aiModel._animatorRef.GetCurrentAnimatorStateInfo(0).IsName("Spotted"))
+        {
+            if (AIController.DetectPlayer(aiModel))
+                aiModel._currentWaypoint.position = aiModel._lastKnownPlayerPosition;
+            AIController.UpdateAgent(aiModel);
             stateMachine.SwitchState("chase");
-        
+        }
         return 0;
     }
 
@@ -48,4 +55,10 @@ public class AISpottedState : BaseAiState
     {
         yield return null;
     }
+
+    #region fields
+
+    private bool isEntered = false;
+
+    #endregion
 }
