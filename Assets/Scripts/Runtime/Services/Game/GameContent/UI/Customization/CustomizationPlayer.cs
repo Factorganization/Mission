@@ -34,6 +34,20 @@ namespace Runtime.Services.Game.GameContent.UI.Customization
             {
                 Load();
             }
+
+            foreach (var item in bodyPartMeshDataArray)
+            {
+                foreach (var b in item.meshArray)
+                {
+                    CustomizeItemData data = new CustomizeItemData
+                    {
+                        ItemName = b.ItemName,
+                        Locked = b.Locked
+                    };
+                    
+                    CustomItems.Add(data);
+                }
+            }
         }
 
         // Set a specific mesh by index for a body part
@@ -449,6 +463,8 @@ namespace Runtime.Services.Game.GameContent.UI.Customization
         public SkinnedMeshRenderer Tail => tail;
         
         public BodyPartData[] BodyPartMeshDataArray => bodyPartMeshDataArray;
+        
+        public List<CustomizeItemData> CustomItems = new List<CustomizeItemData>();
         
         #endregion
         
