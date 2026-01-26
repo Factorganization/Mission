@@ -119,7 +119,7 @@ namespace Runtime.Services.Game.GameSystems
                 _upperThreshold = _threshold;
 
                 var combo = CurrentCombo % 5;
-                TempMalice += combo * 5;
+                TempMalice += combo * 50;
                 CurrentCombo = 0;
             }
         }
