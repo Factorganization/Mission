@@ -343,6 +343,8 @@ public class SFX
         public MaleSfx male;
 
         public DemonSfx demon;
+
+        public VieuxSfx vieux;
         
         [Serializable]
         public class FemaleSfx
@@ -390,7 +392,23 @@ public class SFX
 
             [Tooltip("A jouer quand le joueur quitte le champ de vision du PNJ pendant le <Spot> ou apres avoir fini une chase")]
             public EventReference demonSuspicious;
-        }        
+        }
+
+        [Serializable]
+        public class VieuxSfx
+        {
+            [Header("Quand le PNJ se met à courser le joueur")]
+            public EventReference vieuxChase;
+
+            [Header("A jouer quand le PNJ se balade toutes les 20 secondes")]
+            public EventReference vieuxSearch;
+
+            [Header("Quand le joueur entre dans le champ de vision du PNJ")]
+            public EventReference vieuxSpotPlayer;
+
+            [Tooltip("A jouer quand le joueur quitte le champ de vision du PNJ pendant le <Spot> ou apres avoir fini une chase")]
+            public EventReference vieuxSuspicious;
+        }
     }
 
     [Serializable]

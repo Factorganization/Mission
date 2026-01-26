@@ -178,7 +178,11 @@ namespace Runtime.Services.Game.GameSystems
 
         private void SetText()
         {
-            text.text = "";
+	        foreach (var t in missionTexts)
+	        {
+		        t.text = "";
+	        }
+	        
             for (var i = 0; i < missions.Length; i++)
             {
                 var m = missions[i];
@@ -186,85 +190,13 @@ namespace Runtime.Services.Game.GameSystems
                     continue;
                 
                 if (_currentMissionsCount[i] > 0)
-                    text.text += "<color=red>";
+                    missionTexts[i].text += "<color=red>";
                 else
-                    text.text += "<color=green>";
+	                missionTexts[i].text += "<color=green>";
                 
-                /*if (m.mission is MissionType.Action)
-                {
-                    text.text += "Destroy ";
-                    text.text += $"{m.number} ";
-                    text.text += $"{Enum.GetName(typeof(ObjectType), m.objectType)!.Split('_')[^1]} ";
-                    text.text += $"in the {Enum.GetName(typeof(RoomType), m.room)} ";
-                    text.text += $": {m.number - _currentMissionsCount[i]}/{m.number}";
-                }*/
-                /*else if (m.mission is MissionType.ElementAffection)
-                {
-                    text.text += "Set ";
-                    text.text += $"{m.number} ";
-                    text.text += $"{Enum.GetName(typeof(ObjectType), m.objectType)!.Split('_')[^1]} ";
-                    var s = "";
-                    if ((m.toApply & ElementFlag.CanBeWet) != 0)
-                        s += "under water";
-                    if ((m.toApply & ElementFlag.CanBurn) != 0)
-                    {
-                        if (s != "")
-                            s += " or ";
-                        s += "under fire";
-                    }
-                    if ((m.toApply & ElementFlag.CanConduct) != 0)
-                    {
-                        if (s != "")
-                            s += " or ";
-                        s += "in electricity";
-                    }
-
-                    if ((m.toApply & ElementFlag.CanExplode) != 0)
-                    {
-                        if (s != "")
-                            s += " or ";
-                        s += "in explosion (wtf is this sentence)";
-                    }
-
-                    text.text += $"{s} ";
-                    text.text += $"in the {Enum.GetName(typeof(RoomType), m.room)} ";
-                    text.text += $": {m.number - _currentMissionsCount[i]}/{m.number}";
-                }*/
-				/*else if (m.mission is MissionType.ElementPresence)
-                {
-                    text.text += "Have ";
-                    text.text += $"{m.number} ";
-                    text.text += $"{Enum.GetName(typeof(ObjectType), m.objectType)!.Split('_')[^1]} ";
-                    var s = "";
-                    if ((m.toApply & ElementFlag.CanBeWet) != 0)
-                        s += "under water";
-                    if ((m.toApply & ElementFlag.CanBurn) != 0)
-                    {
-                        if (s != "")
-                            s += " or ";
-                        s += "under fire";
-                    }
-                    if ((m.toApply & ElementFlag.CanConduct) != 0)
-                    {
-                        if (s != "")
-                            s += " or ";
-                        s += "in electricity";
-                    }
-
-                    if ((m.toApply & ElementFlag.CanExplode) != 0)
-                    {
-                        if (s != "")
-                            s += " or ";
-                        s += "in explosion (still not a good sentence)";
-                    }
-
-                    text.text += $"{s} ";
-                    text.text += $"in the {Enum.GetName(typeof(RoomType), m.room)} ";
-                    text.text += $": {m.number - _currentMissionsCount[i]}/{m.number}";
-                }*/
-                text.text += $": {m.number - _currentMissionsCount[i]}/{m.number}";
-                text.text += "</color>";
-                text.text += "\n";
+                missionTexts[i].text += $" {m.number - _currentMissionsCount[i]}/{m.number}";
+                missionTexts[i].text += "</color>";
+                //missionTexts[i].text += "\n";
             }
         }
 
