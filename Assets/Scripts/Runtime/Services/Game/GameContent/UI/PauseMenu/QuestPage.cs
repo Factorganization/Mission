@@ -1,3 +1,4 @@
+using Runtime.Services.Audio;
 using UnityEngine.UI;
 
 namespace Runtime.Services.Game.GameContent.UI.PauseMenu
@@ -14,6 +15,14 @@ namespace Runtime.Services.Game.GameContent.UI.PauseMenu
         public void SetMissionPos(int i)
         {
             _missionTargetPosition = new Vector2(-347.13f + i * 728.13f, 0);
+
+
+            if (_currentI != i)
+            {
+                _currentI = i;
+                var a = ServiceLocator.Instance.Get<AudioService>();
+                a.PlayOneShot(a.Atlas.sfx.ui.uiPaperOpen, default);
+            }
         }
 
         #endregion
@@ -23,6 +32,8 @@ namespace Runtime.Services.Game.GameContent.UI.PauseMenu
         [SerializeField] private Image holder;
         
         private Vector2 _missionTargetPosition;
+
+        private int _currentI;
 
         #endregion
     }
