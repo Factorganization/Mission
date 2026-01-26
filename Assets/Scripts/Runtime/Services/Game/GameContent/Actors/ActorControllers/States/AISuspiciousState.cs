@@ -23,7 +23,9 @@ public class AISuspiciousState : BaseAiState
         aiModel._animatorRef.SetBool("ac_isSus", true);
         
         var a = ServiceLocator.Instance.Get<AudioService>();
-        if (aiModel._demon)
+        if (aiModel._old)
+            a.PlayOneShot(a.Atlas.sfx.pnj.demon.demonSuspicious, aiModel.transform.position);
+        else if (aiModel._demon)
             a.PlayOneShot(a.Atlas.sfx.pnj.demon.demonSuspicious, aiModel.transform.position);
         else
             a.PlayOneShot(aiModel._male ? a.Atlas.sfx.pnj.male.maleSuspicious : a.Atlas.sfx.pnj.female.femaleSuspicious, aiModel.transform.position);

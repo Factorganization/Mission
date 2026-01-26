@@ -49,10 +49,12 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorControllers.States
 
             if (_timer >= _waitTime)
             {
-                if (aiModel._demon)
-                    _audioService.PlayOneShot(_audioService.Atlas.sfx.pnj.demon.demonSuspicious, aiModel.transform.position);
+                if (aiModel._old)
+                    _audioService.PlayOneShot(_audioService.Atlas.sfx.pnj.demon.demonSearch, aiModel.transform.position);
+                else if (aiModel._demon)
+                    _audioService.PlayOneShot(_audioService.Atlas.sfx.pnj.demon.demonSearch, aiModel.transform.position);
                 else
-                    _audioService.PlayOneShot(aiModel._male ? _audioService.Atlas.sfx.pnj.male.maleSuspicious : _audioService.Atlas.sfx.pnj.female.femaleSuspicious, aiModel.transform.position);
+                    _audioService.PlayOneShot(aiModel._male ? _audioService.Atlas.sfx.pnj.male.maleChase : _audioService.Atlas.sfx.pnj.female.femaleSearch, aiModel.transform.position);
                 
                 _timer = 0;
             }
