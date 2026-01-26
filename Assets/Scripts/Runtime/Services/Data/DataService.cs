@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using Runtime.Services.Game.GameContent.UI.Customization;
 using Runtime.Services.Game.GameSystems;
 using Shared.Utils.ReadOnlyCustom;
 
@@ -83,6 +85,31 @@ namespace Runtime.Services.Data
             SaveData();
         }
         
+        public void AddPurchaseItem(string itemID)
+        {
+            if (!PurchasedItems.ContainsKey(itemID))
+            {
+                PurchasedItems.Add(itemID, true);
+                SaveData();
+            }
+        }
+
+        public void UpdatePurchaseItem(string itemID, CustomizationPlayer player)
+        {
+            foreach (var item in player.BodyPartMeshDataArray)
+            {
+                foreach (var part in item.meshArray)
+                {
+                    if (part.ItemName == itemID)
+                    {
+                        part.Locked = false;
+                        SaveData();
+                        return;
+                    }
+                }
+            }
+        }
+        
         public void SaveData()
         {
             string data = JsonUtility.ToJson(this);
@@ -109,6 +136,17 @@ namespace Runtime.Services.Data
             }
         }
         
+        public void ResetData()
+        {
+            masterVolume = 1f;
+            musicVolume = 1f;
+            sfxVolume = 1f;
+            DevilDollars = 0;
+            MalicePoints = 0;
+            PurchasedItems.Clear();
+            SaveData();
+        }
+        
         #endregion
         
         #endregion
@@ -126,6 +164,8 @@ namespace Runtime.Services.Data
         [ReadOnly] public int MalicePoints;
         
         [ReadOnly] public string PlayerPrefsSave = "PlayerData";
+        
+        public Dictionary<string, bool> PurchasedItems = new Dictionary<string, bool>();
         
         #endregion
     }

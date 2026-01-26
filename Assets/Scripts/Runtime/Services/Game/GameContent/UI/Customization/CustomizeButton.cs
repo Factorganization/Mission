@@ -78,13 +78,18 @@ namespace Runtime.Services.Game.GameContent.UI.Customization
                 Debug.Log("Not enough Devil Dollars!");
                 return;
             }
-            
+
             _customizeItem.Locked = false;
+            _locked = false;
+            
             if (_lockImage != null)
                 _lockImage.gameObject.SetActive(false);
+            
             MainMenuUI.Instance.PurchaseContainer.Hide();
             MainMenuUI.Instance.PurchaseContainer.ConfirmButton.onClick.RemoveAllListeners();
             ServiceLocator.Instance.Get<DataService>().SubtractMoney(_customizeItem.ItemPrice);
+            ServiceLocator.Instance.Get<DataService>().AddPurchaseItem(_customizeItem.ItemName);
+            ServiceLocator.Instance.Get<DataService>().UpdatePurchaseItem(_customizeItem.ItemName, MainMenuUI.Instance.PlayerPreview);
             MainMenuUI.Instance.UpdateDataInfo.UpdateData();
         }
 
