@@ -1,4 +1,5 @@
 using Runtime.Services.Game.GameContent.Logics.LogicInterfaces;
+using Runtime.Services.Game.GameContent.Logics.LogicModels.MissionModels;
 
 namespace Runtime.Services.Game.GameContent.Actors.ActorInterfaces
 {
@@ -19,6 +20,11 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorInterfaces
 		/// </summary>
 		public Vector3 TargetPosition { get; }
         
+		/// <summary>
+		/// type of the possessed object, same as the element holder 
+		/// </summary>
+		public ObjectType ObjectType { get; }
+		
 		/// <summary>
 		/// set true if possible to possess
 		/// </summary>
