@@ -21,7 +21,7 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
 
         private void Awake()
         {
-            _aiModel = new AIModel(aiMovementDataSo ,aiDetectionDataSo ,refData.animator, refData.agent, rcOrigin, player, excludedLayers, repairTime, waypoints, refData.male, refData.spottedPart, refData.suspiciousPart)
+            _aiModel = new AIModel(aiMovementDataSo ,aiDetectionDataSo ,refData.animator, refData.agent, rcOrigin, player, excludedLayers, repairTime, waypoints, refData.male, refData.spottedPart, refData.suspiciousPart, refData.demon)
             {
                 transform = transform
             };
@@ -117,6 +117,7 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
             [SerializeField] internal ParticleSystem spottedPart;
             [SerializeField] internal ParticleSystem suspiciousPart;
             [SerializeField] internal bool male;
+            [SerializeField] internal bool demon;
         }
         #endregion
     }
