@@ -7,11 +7,6 @@ namespace Runtime.Services.Game.GameContent.UI
     {
         #region Functions
 
-        private void Start()
-        {
-            remainingTime = 600; // 10 minutes
-        }
-
         void Update()
         {
             if (remainingTime > 0)
@@ -35,7 +30,7 @@ namespace Runtime.Services.Game.GameContent.UI
         #region Fields
         
         [SerializeField] private TextMeshProUGUI timerText;
-        [SerializeField] private float remainingTime = 600;
+        [SerializeField] private float remainingTime;
         
         public float RemainingTime => remainingTime;
         
