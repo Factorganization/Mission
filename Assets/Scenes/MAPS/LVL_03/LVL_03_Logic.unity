@@ -10406,6 +10406,50 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 375215268450755755, guid: 10ce2058a27ca0142a0c1b3f0befdb66, type: 3}
+      propertyPath: missionTexts.Array.size
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 375215268450755755, guid: 10ce2058a27ca0142a0c1b3f0befdb66, type: 3}
+      propertyPath: 'missionTexts.Array.data[0]'
+      value: 
+      objectReference: {fileID: 1915303439}
+    - target: {fileID: 375215268450755755, guid: 10ce2058a27ca0142a0c1b3f0befdb66, type: 3}
+      propertyPath: 'missionTexts.Array.data[1]'
+      value: 
+      objectReference: {fileID: 1915303448}
+    - target: {fileID: 375215268450755755, guid: 10ce2058a27ca0142a0c1b3f0befdb66, type: 3}
+      propertyPath: 'missionTexts.Array.data[2]'
+      value: 
+      objectReference: {fileID: 1915303447}
+    - target: {fileID: 375215268450755755, guid: 10ce2058a27ca0142a0c1b3f0befdb66, type: 3}
+      propertyPath: 'missionTexts.Array.data[3]'
+      value: 
+      objectReference: {fileID: 1915303446}
+    - target: {fileID: 375215268450755755, guid: 10ce2058a27ca0142a0c1b3f0befdb66, type: 3}
+      propertyPath: 'missionTexts.Array.data[4]'
+      value: 
+      objectReference: {fileID: 1915303445}
+    - target: {fileID: 375215268450755755, guid: 10ce2058a27ca0142a0c1b3f0befdb66, type: 3}
+      propertyPath: 'missionTexts.Array.data[5]'
+      value: 
+      objectReference: {fileID: 1915303444}
+    - target: {fileID: 375215268450755755, guid: 10ce2058a27ca0142a0c1b3f0befdb66, type: 3}
+      propertyPath: 'missionTexts.Array.data[6]'
+      value: 
+      objectReference: {fileID: 1915303443}
+    - target: {fileID: 375215268450755755, guid: 10ce2058a27ca0142a0c1b3f0befdb66, type: 3}
+      propertyPath: 'missionTexts.Array.data[7]'
+      value: 
+      objectReference: {fileID: 1915303442}
+    - target: {fileID: 375215268450755755, guid: 10ce2058a27ca0142a0c1b3f0befdb66, type: 3}
+      propertyPath: 'missionTexts.Array.data[8]'
+      value: 
+      objectReference: {fileID: 1915303441}
+    - target: {fileID: 375215268450755755, guid: 10ce2058a27ca0142a0c1b3f0befdb66, type: 3}
+      propertyPath: 'missionTexts.Array.data[9]'
+      value: 
+      objectReference: {fileID: 1915303440}
+    - target: {fileID: 375215268450755755, guid: 10ce2058a27ca0142a0c1b3f0befdb66, type: 3}
       propertyPath: missions.Array.data[0].room
       value: 1
       objectReference: {fileID: 0}
@@ -15809,14 +15853,26 @@ PrefabInstance:
       propertyPath: m_text
       value: 'Destroy the car
 
+
+
         Burn at least 80 boxes
 
-        Explode an
-        item in the office'
+
+
+        Explode
+        an item in the office'
+      objectReference: {fileID: 0}
+    - target: {fileID: 3517210260059841916, guid: 099f317009acacd4ea572e5a95a9527d, type: 3}
+      propertyPath: remainingTime
+      value: 300
       objectReference: {fileID: 0}
     - target: {fileID: 5513559842891304464, guid: 099f317009acacd4ea572e5a95a9527d, type: 3}
       propertyPath: m_Name
       value: GameCanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 5913177911686703756, guid: 099f317009acacd4ea572e5a95a9527d, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -150.46219
       objectReference: {fileID: 0}
     - target: {fileID: 7735246561309391666, guid: 099f317009acacd4ea572e5a95a9527d, type: 3}
       propertyPath: m_Pivot.x
@@ -15898,6 +15954,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9057741337584194071, guid: 099f317009acacd4ea572e5a95a9527d, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -280.4342
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -15917,6 +15977,105 @@ MonoBehaviour:
 --- !u!114 &1915303439 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7449044920806835502, guid: 099f317009acacd4ea572e5a95a9527d, type: 3}
+  m_PrefabInstance: {fileID: 1915303437}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+--- !u!114 &1915303440 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1797430241939903528, guid: 099f317009acacd4ea572e5a95a9527d, type: 3}
+  m_PrefabInstance: {fileID: 1915303437}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+--- !u!114 &1915303441 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6333123359887273965, guid: 099f317009acacd4ea572e5a95a9527d, type: 3}
+  m_PrefabInstance: {fileID: 1915303437}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+--- !u!114 &1915303442 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8158813638325998752, guid: 099f317009acacd4ea572e5a95a9527d, type: 3}
+  m_PrefabInstance: {fileID: 1915303437}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+--- !u!114 &1915303443 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8222977315059120499, guid: 099f317009acacd4ea572e5a95a9527d, type: 3}
+  m_PrefabInstance: {fileID: 1915303437}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+--- !u!114 &1915303444 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4171952865359107836, guid: 099f317009acacd4ea572e5a95a9527d, type: 3}
+  m_PrefabInstance: {fileID: 1915303437}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+--- !u!114 &1915303445 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8189642818386361530, guid: 099f317009acacd4ea572e5a95a9527d, type: 3}
+  m_PrefabInstance: {fileID: 1915303437}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+--- !u!114 &1915303446 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8537103302101188612, guid: 099f317009acacd4ea572e5a95a9527d, type: 3}
+  m_PrefabInstance: {fileID: 1915303437}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+--- !u!114 &1915303447 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4235302776583040842, guid: 099f317009acacd4ea572e5a95a9527d, type: 3}
+  m_PrefabInstance: {fileID: 1915303437}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+--- !u!114 &1915303448 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1059737050531478443, guid: 099f317009acacd4ea572e5a95a9527d, type: 3}
   m_PrefabInstance: {fileID: 1915303437}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
