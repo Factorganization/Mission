@@ -67,21 +67,21 @@ namespace Runtime.Services.Game.GameContent.UI.Customization
             }
         }
         
-        public void PopulateMaterials(List<Material> materials, UnityAction<CustomizeButton> onSelected = null)
+        public void PopulateMaterials(CustomizeItem[] customItems, UnityAction<CustomizeButton> onSelected = null)
         {
-            if (_customizeButtonPrefab == null || _contentArea == null || materials == null) return;
+            if (_customizeButtonPrefab == null || _contentArea == null || customItems == null) return;
 
-            for (int i = _pool.Count; i < materials.Count; i++)
+            for (int i = _pool.Count; i < customItems.Length; i++)
                 CreatePooledButton(false);
 
-            for (int i = 0; i < materials.Count; i++)
+            for (int i = 0; i < customItems.Length; i++)
             {
                 var btn = _pool[i];
                 btn.gameObject.SetActive(true);
                 btn.ResetForPool();
 
-                Sprite icon = null;
-                btn.SetDataMat(materials[i], icon, false, i);
+                Sprite icon = (customItems[i].ItemIcon != null && i < customItems.Length) ? customItems[i].ItemIcon : null;
+                btn.SetDataMat(customItems[i], customItems[i].ItemMaterial, icon, customItems[i].Locked, i, customItems[i].ItemPrice);
 
                 if (onSelected != null)
                     btn.OnChangeSkin.AddListener(onSelected);
@@ -89,7 +89,7 @@ namespace Runtime.Services.Game.GameContent.UI.Customization
                     btn.OnChangeSkin.RemoveAllListeners();
             }
 
-            for (int i = materials.Count; i < _pool.Count; i++)
+            for (int i = customItems.Length; i < _pool.Count; i++)
             {
                 var btn = _pool[i];
                 btn.ResetForPool();

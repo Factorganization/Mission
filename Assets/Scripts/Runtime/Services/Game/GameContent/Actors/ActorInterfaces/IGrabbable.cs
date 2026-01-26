@@ -31,6 +31,11 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorInterfaces
 		public bool Active { get; } 
 		
 		/// <summary>
+		/// set to true if player will grab it
+		/// </summary>
+		public bool Selectable { get; set; }
+		
+		/// <summary>
 		/// Return true if object is being grabbed
 		/// </summary>
 		public bool Grabbed { get; set; }

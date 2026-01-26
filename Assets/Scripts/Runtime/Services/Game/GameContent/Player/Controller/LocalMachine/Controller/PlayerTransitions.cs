@@ -41,6 +41,60 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Contr
             playerModel.currentPossessedObject.DestructiveAction();
         }
 
+        internal static sbyte CheckPossessable(this PlayerModel playerModel)
+        {
+            if (LevelGenerator.Generator is null)
+                return 0;
+
+            IPossessable tp = null;
+            var minDist = 100f;
+            var minAngle = 45f;
+            
+            foreach (var p in LevelGenerator.Generator.Possessables)
+            {
+                if (p.Destroyed)
+                    continue;
+                
+                var d = Vector3.Distance(p.Transform.position + p.Collider.center, playerModel.rb.position);
+                var a = Vector3.Angle(playerModel.graph.forward, ((p.Transform.position + p.Collider.center - playerModel.rb.position) * GameConstants.VectorUpFilter).normalized);
+                Physics.Raycast(playerModel.rb.position, 
+                    (p.Transform.position + p.Collider.center - playerModel.rb.position).normalized,
+                    out var hit,
+                    playerModel.data.interactData.possessDistance,
+                    playerModel.data.interactData.possessedBlockLayer);
+
+                if (hit.transform is null)
+                    continue;
+                
+                if (d >= playerModel.data.interactData.possessDistance || a > GameConstants.MaxInteractionAngle || d > minDist || a > minAngle || !hit.transform.root.TryGetComponent<IPossessable>(out var h))
+                    continue;
+                
+                if (h.Id != p.Id)
+                    continue;
+                
+                minDist = d;
+                minAngle = a;
+                tp = p;
+            }
+
+            if (tp is null)
+            {
+                if (playerModel.possiblePossessedObject is not null)
+                {
+                    playerModel.possiblePossessedObject.Possessable = false;
+                    playerModel.possiblePossessedObject = null;
+                }
+                return 0;
+            }
+
+            if (playerModel.possiblePossessedObject is not null)
+                playerModel.possiblePossessedObject.Possessable = false;
+            
+            playerModel.possiblePossessedObject = tp;
+            tp.Possessable = true;
+            return 1;
+        }
+        
         /// <summary>
         /// Object dependant output int
         /// </summary>
@@ -95,6 +149,77 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Contr
             return 1;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="playerModel"></param>
+        /// <returns></returns>
+        internal static sbyte CheckGrab(this PlayerModel playerModel)
+        {
+            if (LevelGenerator.Generator is null)
+                return 0;
+
+            if (playerModel.currentGrabbedObject is not null)
+                return 0;
+            
+            IGrabbable gb = null;
+            var minDist = 100f;
+            var minAngle = 45f;
+
+            foreach (var g in LevelGenerator.Generator.Grabbables)
+            {
+                if (playerModel.currentGrabbedObject is not null && playerModel.currentGrabbedObject == g)
+                    continue;
+                
+                var d = Vector3.Distance(g.Transform.position, playerModel.rb.position);
+                var a = Vector3.Angle(playerModel.graph.forward, ((g.Transform.position - playerModel.rb.position) * GameConstants.VectorUpFilter).normalized);
+                Physics.Raycast(playerModel.rb.position, 
+                    (g.Transform.position - playerModel.rb.position).normalized,
+                    out var hit,
+                    playerModel.data.interactData.grabDistance,
+                    playerModel.data.interactData.grabbableBlockLayer);
+                
+                if (hit.transform is null)
+                    continue;
+                
+                var b = hit.transform.root.TryGetComponent<IGrabbable>(out var h);
+                
+                if (d <= playerModel.data.interactData.securityMinGrabDistance && b && d < minDist)
+                {
+                    minDist = d;
+                    gb = g;
+                    continue;
+                }
+                
+                if (d >= playerModel.data.interactData.grabDistance || a > GameConstants.MaxInteractionAngle || d > minDist || a > minAngle || !b)
+                    continue;
+                
+                if (h.Id != g.Id)
+                    continue;
+                
+                minDist = d;
+                minAngle = a;
+                gb = g;
+            }
+
+            if (gb is null)
+            {
+                if (playerModel.possibleGrabbedObject is not null)
+                {
+                    playerModel.possibleGrabbedObject.Selectable = false;
+                    playerModel.possibleGrabbedObject = null;
+                }
+                return 0;
+            }
+            
+            if (playerModel.possibleGrabbedObject is not null)
+                playerModel.possibleGrabbedObject.Selectable = false;
+                
+            playerModel.possibleGrabbedObject = gb;
+            gb.Selectable = true;
+            return 1;
+        }
+        
         /// <summary>
         /// Object dependant output int
         /// </summary>
@@ -152,6 +277,12 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Contr
                 gb = g;
             }
 
+            if (gb is not null && playerModel.possibleGrabbedObject is not null)
+            {
+                playerModel.possibleGrabbedObject.Selectable = false;
+                playerModel.possibleGrabbedObject = null;
+            }
+            
             return gb is null ? (sbyte)0 : (sbyte)1;
         }
     }

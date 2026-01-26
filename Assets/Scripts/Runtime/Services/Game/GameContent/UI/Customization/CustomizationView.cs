@@ -37,12 +37,21 @@ namespace Runtime.Services.Game.GameContent.UI.Customization
                  if (_customizationColors != null)
                      _customizationColors.SetCurrentBodyPart(CustomizationPlayer.BodyPartType.Eyes);
 
-                 var mats = _customizationColors.GetMaterialsForBodyPart(CustomizationPlayer.BodyPartType.Eyes);
+                 var mats= _characterPreview.GetItem(CustomizationPlayer.BodyPartType.Eyes);
                  _customizationPooler.PopulateMaterials(mats, (btn) =>
                  {
                      var mat = btn.SelectedMaterial;
-                     if (mat != null)
+                     
+                     if (!btn.CustomizeItem.Locked)
+                     {
                          _characterPreview.ApplyMaterialToBodyPart(CustomizationPlayer.BodyPartType.Eyes, mat);
+                     }
+                     else
+                     {
+                         MainMenuUI.Instance.PurchaseContainer.Show();
+                         MainMenuUI.Instance.PurchaseContainer.ConfirmButton.onClick.AddListener(btn.UnlockItem);
+                         MainMenuUI.Instance.PurchaseContainer.ConfirmButton.onClick.AddListener(Initialize);
+                     }
                  });
              });
 

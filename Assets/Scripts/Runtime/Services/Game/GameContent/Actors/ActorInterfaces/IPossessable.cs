@@ -20,6 +20,11 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorInterfaces
 		public Vector3 TargetPosition { get; }
         
 		/// <summary>
+		/// set true if possible to possess
+		/// </summary>
+		public bool Possessable { get; set; }
+		
+		/// <summary>
 		/// True if the object is being possessed, False otherwise 
 		/// </summary>
 		public bool Possessed { get; set; }

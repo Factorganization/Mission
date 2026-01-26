@@ -1,3 +1,4 @@
+using Runtime.Services.Data;
 using Runtime.Services.Game.GameContent.UI.MainMenu;
 using UnityEngine.UI;
 
@@ -25,6 +26,9 @@ namespace Runtime.Services.Game.GameContent.UI
         {
             Initialize();
             Time.timeScale = 1.0f;
+            
+            ServiceLocator.Instance.Get<DataService>().LoadData();
+            UpdateDataInfo.UpdateData();
         }
 
         private void Update()
@@ -61,15 +65,22 @@ namespace Runtime.Services.Game.GameContent.UI
 
         #region Fields
 
+        [Header("Apps Buttons")]
         [SerializeField] private Button _mailApp, _settingsApp, _customizeApp, _creditsApp, _quitApp;
     
+        [Header("Containers")]
         [SerializeField] private UIParent _mailContainer, _settingsContainer, _customizeContainer, _creditsContainer, _quitContainer;
-            
+        
+        [Header("Background")]
         [SerializeField] private RawImage _backgroundImage;
+        
+        [SerializeField] private UpdateDataInfo _updateDataInfo;
         
         [SerializeField] ConfirmPurchasePopup _purchaseContainer;
         
         public ConfirmPurchasePopup PurchaseContainer => _purchaseContainer;
+        
+        public UpdateDataInfo UpdateDataInfo => _updateDataInfo;
     
         #endregion
     }

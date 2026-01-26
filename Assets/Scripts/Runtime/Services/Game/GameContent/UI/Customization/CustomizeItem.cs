@@ -9,7 +9,7 @@ namespace Runtime.Services.Game.GameContent.UI.Customization
         public Sprite ItemIcon;
         public Mesh ItemMesh;
         public int ItemPrice;
-        public CustomizationPlayer.BodyPartType ItemBodyPart;
+        public Material ItemMaterial;
         public bool Locked;
 
         #endregion

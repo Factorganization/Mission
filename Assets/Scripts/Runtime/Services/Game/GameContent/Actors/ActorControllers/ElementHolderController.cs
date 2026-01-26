@@ -5,6 +5,7 @@ using Runtime.Services.Game.GameContent.Logics.LogicModels;
 using Runtime.Services.Game.GameContent.Logics.LogicModels.ElementModels;
 using Runtime.Services.Game.GameContent.Logics.LogicModels.MissionModels;
 using Runtime.Services.Game.GameSystems;
+using Shared.Utils.ReadOnlyCustom;
 using Unity.Cinemachine;
 
 namespace Runtime.Services.Game.GameContent.Actors.ActorControllers;
@@ -15,7 +16,7 @@ public abstract class ElementHolderController : ActorView, IElementHolder
 
     #region actorComparable
 
-    [field : SerializeField] public int Id { get; private set; }
+    [field : ReadOnly][field : SerializeField] public int Id { get; private set; }
 
     #endregion
     

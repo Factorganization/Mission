@@ -15,13 +15,15 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.View
         
         public bool IsVisible => _playerModel.isVisible;
 
+        public Transform UiOverLayCam => referenceData.uiOverlayCam;
+
         #endregion
 
         #region methodes
 
         private void Awake()
         {
-            _playerModel = new PlayerModel(dataSo, referenceData.rb, referenceData.col, referenceData.graph, referenceData.cam, referenceData.grab, referenceData.activeGrab, referenceData.animator);
+            _playerModel = new PlayerModel(dataSo, referenceData.rb, referenceData.col, referenceData.graph, referenceData.cam, referenceData.grab, referenceData.activeGrab, referenceData.animator, referenceData.possessParticles);
             _stateMachine = new GenericStateMachine(Enum.GetNames(typeof(ControllerState)).Length);
 
             var start = new StartState(_stateMachine, gameObject, _playerModel, ControllerState.Start);
@@ -110,6 +112,8 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.View
             [SerializeField] internal Collider col;
                     
             [SerializeField] internal Transform cam;
+
+            [SerializeField] internal Transform uiOverlayCam;
             
             [SerializeField] internal Transform graph;
 
@@ -118,6 +122,8 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.View
             [SerializeField] internal Transform activeGrab;
                     
             [SerializeField] internal Animator animator;
+            
+            [SerializeField] internal ParticleSystem possessParticles;
         }
         
         #endregion
