@@ -1,4 +1,5 @@
 using Runtime.Services.Audio;
+using Runtime.Services.Game.GameContent.Logics.LogicModels.MissionModels;
 using Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Model;
 using Runtime.Services.Game.GameSystems;
 using Shared.Utils.BaseMachine;
@@ -39,6 +40,22 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Contr
                 playerModel.possibleGrabbedObject.Selectable = false;
                 playerModel.possibleGrabbedObject = null;
             }
+            
+            var a = ServiceLocator.Instance.Get<AudioService>();
+            var ac = playerModel.currentPossessedObject.ObjectType switch
+            {
+                ObjectType.P_Bathtub => a.Atlas.sfx.possessable.WaterPossess.PossessBath,
+                ObjectType.P_Car => a.Atlas.sfx.possessable.FirePossess.PossessCar,
+                ObjectType.P_Electrical => a.Atlas.sfx.possessable.ElectricPossess.PossessElectricBox,
+                ObjectType.P_Oven => a.Atlas.sfx.possessable.FirePossess.PossessOven,
+                ObjectType.P_Radiator => a.Atlas.sfx.possessable.FirePossess.PossessRadiateur,
+                ObjectType.P_Screen => a.Atlas.sfx.possessable.ElectricPossess.PossessTV,
+                ObjectType.P_Sink => a.Atlas.sfx.possessable.WaterPossess.PossessSink,
+                ObjectType.P_Toilet => a.Atlas.sfx.possessable.WaterPossess.PossessToilets,
+                _ => throw new ArgumentOutOfRangeException()
+            };
+            
+            a.PlayOneShot(ac, goRef.transform.position);
             
             if (playerModel.currentGrabbedObject is null)
                 return;

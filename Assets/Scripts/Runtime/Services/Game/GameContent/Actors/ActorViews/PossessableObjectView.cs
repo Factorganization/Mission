@@ -1,5 +1,4 @@
 using Runtime.Services.Audio;
-using Runtime.Services.Data;
 using Runtime.Services.Game.GameContent.Actors.ActorControllers;
 using Runtime.Services.Game.GameContent.Actors.ActorInterfaces;
 using Runtime.Services.Game.GameContent.Logics.LogicInterfaces;
@@ -215,6 +214,25 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
             
 			if ((Flag3 & ElementFlag.CanExplode) != 0)
 				Explode(this);
+
+			var a = ServiceLocator.Instance.Get<AudioService>();
+			
+			switch (objectDefinition.@object)
+			{
+				case ObjectType.P_Screen:
+				case ObjectType.P_Electrical:
+					a.PlayOneShot(a.Atlas.sfx.effects.electricity.electricStart, Transform.position);
+					break;
+				
+				case ObjectType.P_Bathtub:
+				case ObjectType.P_Sink:
+				case ObjectType.P_Toilet:
+					a.PlayOneShot(a.Atlas.sfx.effects.water.explosionWater, Transform.position);
+					break;
+				
+				default:
+					break;
+			}
 		}
 
 		private void SetModel(int i)
@@ -274,6 +292,7 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
 		private bool _alreadyExploded;
 
 		private bool _possessable;
+		private IPossessable _possessableImplementation;
 
 		#endregion
 	}

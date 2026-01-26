@@ -55,6 +55,11 @@ namespace Runtime.Services.Game.GameContent.Logics.LogicInterfaces
         /// array of element length to indicate if object has done its presence mission for a specific element
         /// </summary>
         public bool[] MissionDone { get; }
+        
+        /// <summary>
+        /// sound of a specific element already played
+        /// </summary>
+        public bool[] SoundPlayed { get; }
 
         /// <summary>
         /// Element application durations
