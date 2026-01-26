@@ -17,6 +17,7 @@ public class AISuspiciousState : BaseAiState
 
     public override void OnEnterState()
     {
+        aiModel._suspiciousPart.Play();
         aiModel._agentRef.isStopped = true;
         aiModel._animatorRef.SetBool("ac_isSus", true);
     }
@@ -38,7 +39,7 @@ public class AISuspiciousState : BaseAiState
         {
             _detectionTimer = 0;
             _forgetTimer = 0;
-            stateMachine.SwitchState("idle");
+            stateMachine.SwitchState("move");
             return 0;
         }
 
@@ -61,6 +62,7 @@ public class AISuspiciousState : BaseAiState
 
     public override void OnExitState()
     {
+        aiModel._suspiciousPart.Stop();
         aiModel._agentRef.isStopped = false;
         aiModel._animatorRef.SetBool("ac_isSus", false);
     }
