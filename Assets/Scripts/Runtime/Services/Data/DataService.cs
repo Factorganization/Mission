@@ -109,12 +109,24 @@ namespace Runtime.Services.Data
                     if (part.ItemName == itemID)
                     {
                         PurchasedItems[PurchasedItems.FindIndex(x => x.ItemName == itemID)].Locked = false;
-                        Debug.Log(PurchasedItems[PurchasedItems.FindIndex(x => x.ItemName == itemID)]);
                         SaveData();
                         return;
                     }
                 }
             }
+        }
+
+        public void UpdateList(string itemID)
+        {
+            int index = PurchasedItems.FindIndex(x => x.ItemName == itemID);
+            
+            if (index == 1) 
+                return;
+            
+            bool locked = PurchasedItems[index].Locked;
+            
+            Debug.Log("Updating Item: " + itemID + " Locked: " + locked);
+            SaveData();
         }
         
         public void SaveData()
