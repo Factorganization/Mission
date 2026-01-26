@@ -800,14 +800,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1262308143}
     m_Modifications:
-    - target: {fileID: 124403921564820048, guid: 612e84181f88267409a27a7c53b976a1, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
-      value: 
-      objectReference: {fileID: 2100000, guid: d1a9de5113d8c1f468f30f87d39db4ef, type: 2}
-    - target: {fileID: 6357699959093481745, guid: 612e84181f88267409a27a7c53b976a1, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
-      value: 
-      objectReference: {fileID: 2100000, guid: 7785236f755946c4ca7d951d354a823d, type: 2}
     - target: {fileID: 2390630210048099876, guid: 4c4a337b53bafac4cb36ddeaee3e0f64, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
@@ -860,6 +852,14 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: afbfa81b6ebb8d8419e261f881f3ade2, type: 2}
+    - target: {fileID: 124403921564820048, guid: 612e84181f88267409a27a7c53b976a1, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: d1a9de5113d8c1f468f30f87d39db4ef, type: 2}
+    - target: {fileID: 6357699959093481745, guid: 612e84181f88267409a27a7c53b976a1, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 7785236f755946c4ca7d951d354a823d, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -8299,6 +8299,50 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 375215268450755755, guid: 10ce2058a27ca0142a0c1b3f0befdb66, type: 3}
+      propertyPath: missionTexts.Array.size
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 375215268450755755, guid: 10ce2058a27ca0142a0c1b3f0befdb66, type: 3}
+      propertyPath: 'missionTexts.Array.data[0]'
+      value: 
+      objectReference: {fileID: 1551755141}
+    - target: {fileID: 375215268450755755, guid: 10ce2058a27ca0142a0c1b3f0befdb66, type: 3}
+      propertyPath: 'missionTexts.Array.data[1]'
+      value: 
+      objectReference: {fileID: 1551755150}
+    - target: {fileID: 375215268450755755, guid: 10ce2058a27ca0142a0c1b3f0befdb66, type: 3}
+      propertyPath: 'missionTexts.Array.data[2]'
+      value: 
+      objectReference: {fileID: 1551755149}
+    - target: {fileID: 375215268450755755, guid: 10ce2058a27ca0142a0c1b3f0befdb66, type: 3}
+      propertyPath: 'missionTexts.Array.data[3]'
+      value: 
+      objectReference: {fileID: 1551755148}
+    - target: {fileID: 375215268450755755, guid: 10ce2058a27ca0142a0c1b3f0befdb66, type: 3}
+      propertyPath: 'missionTexts.Array.data[4]'
+      value: 
+      objectReference: {fileID: 1551755147}
+    - target: {fileID: 375215268450755755, guid: 10ce2058a27ca0142a0c1b3f0befdb66, type: 3}
+      propertyPath: 'missionTexts.Array.data[5]'
+      value: 
+      objectReference: {fileID: 1551755146}
+    - target: {fileID: 375215268450755755, guid: 10ce2058a27ca0142a0c1b3f0befdb66, type: 3}
+      propertyPath: 'missionTexts.Array.data[6]'
+      value: 
+      objectReference: {fileID: 1551755145}
+    - target: {fileID: 375215268450755755, guid: 10ce2058a27ca0142a0c1b3f0befdb66, type: 3}
+      propertyPath: 'missionTexts.Array.data[7]'
+      value: 
+      objectReference: {fileID: 1551755144}
+    - target: {fileID: 375215268450755755, guid: 10ce2058a27ca0142a0c1b3f0befdb66, type: 3}
+      propertyPath: 'missionTexts.Array.data[8]'
+      value: 
+      objectReference: {fileID: 1551755143}
+    - target: {fileID: 375215268450755755, guid: 10ce2058a27ca0142a0c1b3f0befdb66, type: 3}
+      propertyPath: 'missionTexts.Array.data[9]'
+      value: 
+      objectReference: {fileID: 1551755142}
+    - target: {fileID: 375215268450755755, guid: 10ce2058a27ca0142a0c1b3f0befdb66, type: 3}
       propertyPath: missions.Array.data[0].room
       value: 5
       objectReference: {fileID: 0}
@@ -9889,14 +9933,26 @@ PrefabInstance:
       propertyPath: m_text
       value: 'Electrocute the bed
 
+
+
         Explode 2 different items in the kitchen
+
+
 
         Have
         three wet towels in the living room'
       objectReference: {fileID: 0}
+    - target: {fileID: 3517210260059841916, guid: 099f317009acacd4ea572e5a95a9527d, type: 3}
+      propertyPath: remainingTime
+      value: 300
+      objectReference: {fileID: 0}
     - target: {fileID: 5513559842891304464, guid: 099f317009acacd4ea572e5a95a9527d, type: 3}
       propertyPath: m_Name
       value: GameCanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 5913177911686703756, guid: 099f317009acacd4ea572e5a95a9527d, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -152.03082
       objectReference: {fileID: 0}
     - target: {fileID: 7735246561309391666, guid: 099f317009acacd4ea572e5a95a9527d, type: 3}
       propertyPath: m_Pivot.x
@@ -9978,6 +10034,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9057741337584194071, guid: 099f317009acacd4ea572e5a95a9527d, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -325.92438
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -9997,6 +10057,105 @@ MonoBehaviour:
 --- !u!114 &1551755141 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7449044920806835502, guid: 099f317009acacd4ea572e5a95a9527d, type: 3}
+  m_PrefabInstance: {fileID: 1551755139}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+--- !u!114 &1551755142 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1797430241939903528, guid: 099f317009acacd4ea572e5a95a9527d, type: 3}
+  m_PrefabInstance: {fileID: 1551755139}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+--- !u!114 &1551755143 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6333123359887273965, guid: 099f317009acacd4ea572e5a95a9527d, type: 3}
+  m_PrefabInstance: {fileID: 1551755139}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+--- !u!114 &1551755144 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8158813638325998752, guid: 099f317009acacd4ea572e5a95a9527d, type: 3}
+  m_PrefabInstance: {fileID: 1551755139}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+--- !u!114 &1551755145 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8222977315059120499, guid: 099f317009acacd4ea572e5a95a9527d, type: 3}
+  m_PrefabInstance: {fileID: 1551755139}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+--- !u!114 &1551755146 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4171952865359107836, guid: 099f317009acacd4ea572e5a95a9527d, type: 3}
+  m_PrefabInstance: {fileID: 1551755139}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+--- !u!114 &1551755147 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8189642818386361530, guid: 099f317009acacd4ea572e5a95a9527d, type: 3}
+  m_PrefabInstance: {fileID: 1551755139}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+--- !u!114 &1551755148 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8537103302101188612, guid: 099f317009acacd4ea572e5a95a9527d, type: 3}
+  m_PrefabInstance: {fileID: 1551755139}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+--- !u!114 &1551755149 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4235302776583040842, guid: 099f317009acacd4ea572e5a95a9527d, type: 3}
+  m_PrefabInstance: {fileID: 1551755139}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+--- !u!114 &1551755150 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1059737050531478443, guid: 099f317009acacd4ea572e5a95a9527d, type: 3}
   m_PrefabInstance: {fileID: 1551755139}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
