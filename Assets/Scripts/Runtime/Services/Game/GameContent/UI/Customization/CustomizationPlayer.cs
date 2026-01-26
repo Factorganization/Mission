@@ -448,6 +448,8 @@ namespace Runtime.Services.Game.GameContent.UI.Customization
         public SkinnedMeshRenderer Head => head;
         public SkinnedMeshRenderer Tail => tail;
         
+        public BodyPartData[] BodyPartMeshDataArray => bodyPartMeshDataArray;
+        
         #endregion
         
         private static string NormalizeMaterialName(Material m)

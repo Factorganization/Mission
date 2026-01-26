@@ -11,7 +11,11 @@ namespace Runtime.Services.Game.GameSystems
 
         public static MissionManager Manager { get; private set; }
 
-        public int TempDD => _tempDD;
+        public int TempDD
+        {
+            get => _tempDD;
+            set => _tempDD = value;
+        }
 
         #endregion
 
