@@ -1,4 +1,6 @@
+using System.Data;
 using System.Runtime.CompilerServices;
+using Runtime.Services.Data;
 using Runtime.Services.Game.GameContent.Actors.ActorInterfaces;
 using Runtime.Services.Game.GameContent.Logics.LogicInterfaces;
 using Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Model;
@@ -43,7 +45,8 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Contr
         /// <param name="playerModel"></param>
         internal static void HandleRotateInputGather(this  PlayerModel playerModel)
         {
-            playerModel.lookDir = playerModel.data.inputData.lookInput.action.ReadValue<Vector2>() / Time.deltaTime;
+            //TODO placer le service locator pas la ptn
+            playerModel.lookDir = playerModel.data.inputData.lookInput.action.ReadValue<Vector2>() * ServiceLocator.Instance.Get<DataService>().sensi / Time.deltaTime;
             playerModel.isUsingMouse = playerModel.data.inputData.lookInput.action.activeControl?.name == "delta";
         }
 

@@ -1,4 +1,6 @@
 using Runtime.Services.Cursor;
+using Runtime.Services.Data;
+using Runtime.Services.Game.GameContent.UI.Customization;
 using Runtime.Services.Game.GameSystems;
 using Runtime.Services.Scene;
 using UnityEngine.UI;
@@ -22,6 +24,7 @@ namespace Runtime.Services.Game.GameContent.UI.PauseMenu
                 _settingsButton.onClick.AddListener(() => _settingsUI.Show());
             if (_quitButton != null)
                 _quitButton.onClick.AddListener(ReturnToMainMenu);
+            
         }
 
         public void OpenPauseMenu()
