@@ -33,6 +33,12 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Contr
                 playerModel.possiblePossessedObject.Possessable = false;
                 playerModel.possiblePossessedObject = null;
             }
+
+            if (playerModel.possibleGrabbedObject is not null)
+            {
+                playerModel.possibleGrabbedObject.Selectable = false;
+                playerModel.possibleGrabbedObject = null;
+            }
             
             if (playerModel.currentGrabbedObject is null)
                 return;
