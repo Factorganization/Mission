@@ -9,7 +9,7 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorModels
     public class AIModel : ActorModel
     {
         #region methodes
-        public AIModel(AIMovementDataSo movementDataSo,AIDetectionDataSo detectionSo ,Animator animator, NavMeshAgent agent, Transform rcOrigin, PlayerStateMachine player, LayerMask excludedLayers, float repairTime, Transform[] waypoints, bool male, ParticleSystem spottedPart, ParticleSystem suspiciousPart, bool _demon)
+        public AIModel(AIMovementDataSo movementDataSo,AIDetectionDataSo detectionSo ,Animator animator, NavMeshAgent agent, Transform rcOrigin, PlayerStateMachine player, LayerMask excludedLayers, float repairTime, Transform[] waypoints, bool male, ParticleSystem spottedPart, ParticleSystem suspiciousPart, bool demon, bool old)
         {
             movementData =  movementDataSo;
             detectionData = detectionSo;
@@ -21,6 +21,8 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorModels
             _repairTime = repairTime;
             _spottedPart = spottedPart;
             _suspiciousPart = suspiciousPart;
+            _demon = demon;
+            _old = old; 
 
             _isSuspicious = false;
             _isPlayerDetected = false; 
@@ -65,15 +67,11 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorModels
         public int[] _excludedWaypoints;
         public int notImmediateRepeatCount;
         public float _repairTime; 
-        //To Remove
-        public float _waitTimer;
-        //To Remove
-        public float _repairTimer;
         public bool _isSuspicious;
-        public bool _isRepairing;
         public bool _isPlayerDetected;
         public bool _male;
         public bool _demon;
+        public bool _old;
 
         #endregion
     }
