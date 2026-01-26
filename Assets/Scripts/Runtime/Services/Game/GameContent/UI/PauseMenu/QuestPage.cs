@@ -13,7 +13,7 @@ namespace Runtime.Services.Game.GameContent.UI.PauseMenu
 
         public void SetMissionPos(int i)
         {
-            _missionTargetPosition = new Vector2(-363.13f + i * 728.13f, 0);
+            _missionTargetPosition = new Vector2(-347.13f + i * 728.13f, 0);
         }
 
         #endregion

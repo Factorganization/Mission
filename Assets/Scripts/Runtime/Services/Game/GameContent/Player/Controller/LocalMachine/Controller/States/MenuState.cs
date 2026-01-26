@@ -20,7 +20,7 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Contr
         {
             if (playerModel.data.inputData.menuInput.action.WasPressedThisFrame())
             {
-                GameManager.Instance.GameUIMgr.PauseMenuUI.Hide();
+                GameManager.Instance.GameUIMgr.PauseMenuUI.OpenPauseMenu();
                 stateMachine.TrySwitchState(playerModel.currentPossessedObject is not null ? "possess" : "idle", (int)playerModel.data.activeStates);
             }
             

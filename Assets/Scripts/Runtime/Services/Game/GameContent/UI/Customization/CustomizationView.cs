@@ -20,15 +20,11 @@ namespace Runtime.Services.Game.GameContent.UI.Customization
             
              _hornsButton.onClick.AddListener( () =>
              {
-                 if (_customizationColors != null)
-                     _customizationColors.SetCurrentBodyPart(CustomizationPlayer.BodyPartType.Horns);
                  CustomizationEvent(CustomizationPlayer.BodyPartType.Horns);
              });
             
              _hairButton.onClick.AddListener(() =>
              {
-                 if (_customizationColors != null)
-                     _customizationColors.SetCurrentBodyPart(CustomizationPlayer.BodyPartType.Hair);
                  CustomizationEvent(CustomizationPlayer.BodyPartType.Hair);
              });
              
@@ -57,21 +53,20 @@ namespace Runtime.Services.Game.GameContent.UI.Customization
 
              _bodyButton.onClick.AddListener(() =>
              {
-                 if (_customizationColors != null)
-                     _customizationColors.SetCurrentBodyPart(CustomizationPlayer.BodyPartType.Body);
                  CustomizationEvent(CustomizationPlayer.BodyPartType.Body);
              });
             
              _tailButton.onClick.AddListener(() =>
              {
-                 if (_customizationColors != null)
-                     _customizationColors.SetCurrentBodyPart(CustomizationPlayer.BodyPartType.Tail);
                  CustomizationEvent(CustomizationPlayer.BodyPartType.Tail);
              });
         }
 
         private void CustomizationEvent(CustomizationPlayer.BodyPartType bodyPart)
         {
+            if (_customizationColors != null)
+                _customizationColors.SetCurrentBodyPart(bodyPart);
+            
             _customizationColors.SetCurrentBodyPart(bodyPart);
             var meshes= _characterPreview.GetItem(bodyPart);
             _customizationPooler.Populate(meshes, (btn) =>

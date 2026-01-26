@@ -82,7 +82,7 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Contr
         public override sbyte OnFixedUpdate()
         {
             playerModel.HandleRotateInputGather();
-            playerModel.SetGrabbedObjectLocalPos(); //TODO cleanup callback plutot que verif a la frame
+            playerModel.SetGrabbedObjectLocalPos();
             playerModel.SetCameraPivotLocalPos(Vector3.zero);
 
             if (playerModel.CheckGround(goRef))
@@ -94,7 +94,6 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Contr
             playerModel.HandleGravity(goRef);
             playerModel.Move(playerModel.currentMoveMultiplier);
             
-            //TODO maybe ranger ca dans une Func d'update graph
             playerModel.graph.transform.rotation = Quaternion.Slerp(playerModel.graph.transform.rotation, Quaternion.LookRotation(playerModel.lastLookDir), playerModel.data.moveData.graphRotationSpeed * Time.fixedDeltaTime);
             
             playerModel.Look();

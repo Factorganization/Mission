@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using Runtime.Services.Game.GameContent.Actors.ActorViews;
-using Runtime.Services.Game.GameContent.Logics.LogicModels.ElementModels;
 using Runtime.Services.Game.GameContent.Logics.LogicModels.MissionModels;
 using TMPro;
 
@@ -11,6 +10,8 @@ namespace Runtime.Services.Game.GameSystems
         #region properties
 
         public static MissionManager Manager { get; private set; }
+
+        public int TempDD => _tempDD;
 
         #endregion
 
@@ -37,7 +38,8 @@ namespace Runtime.Services.Game.GameSystems
 					_presenceMissions.Add(i, missions[i]);
 			}
 			SetText();
-		}
+            _tempDD = 0;
+        }
 
 		private void Update()
         {
@@ -82,6 +84,15 @@ namespace Runtime.Services.Game.GameSystems
                 _currentMissionsCount[i] = missions[i].number;
             }
         }
+
+        public void WinAllMissions()
+        {
+            for (var i = 0; i < missions.Length; i++)
+            {
+                _currentMissionsCount[i] = 0;
+            }
+            CheckEndGame();
+        }
         
         public bool TryGetAndSetMission(MissionModel mission)
         {
@@ -94,6 +105,18 @@ namespace Runtime.Services.Game.GameSystems
 			{
 				if (_currentMissionsCount[i] > 0)
 					_currentMissionsCount[i]--;
+
+                else
+                {
+                    _doneMissions++;
+                    var t = GameManager.Instance.Timer.RemainingTime;
+
+                    var dd = GetDD(_doneMissions);
+                    var p = GetPercentage(t);
+
+                    _tempDD += dd + (int)(dd * p);
+                    GameManager.Instance.GameUIMgr.UpdateDevilDollars();
+                }
 			}
 
 			if (onBoardingMode)
@@ -135,9 +158,6 @@ namespace Runtime.Services.Game.GameSystems
                     return;
             }
             
-            //TODO
-            //GameManager.Instance.GameUIMgr.WinGame();
-            //en fait c'est réglé
             endGame.OnActivate();
         }
 
@@ -166,15 +186,15 @@ namespace Runtime.Services.Game.GameSystems
                 else
                     text.text += "<color=green>";
                 
-                if (m.mission is MissionType.Action)
+                /*if (m.mission is MissionType.Action)
                 {
                     text.text += "Destroy ";
                     text.text += $"{m.number} ";
                     text.text += $"{Enum.GetName(typeof(ObjectType), m.objectType)!.Split('_')[^1]} ";
                     text.text += $"in the {Enum.GetName(typeof(RoomType), m.room)} ";
                     text.text += $": {m.number - _currentMissionsCount[i]}/{m.number}";
-                }
-                else if (m.mission is MissionType.ElementAffection)
+                }*/
+                /*else if (m.mission is MissionType.ElementAffection)
                 {
                     text.text += "Set ";
                     text.text += $"{m.number} ";
@@ -205,8 +225,8 @@ namespace Runtime.Services.Game.GameSystems
                     text.text += $"{s} ";
                     text.text += $"in the {Enum.GetName(typeof(RoomType), m.room)} ";
                     text.text += $": {m.number - _currentMissionsCount[i]}/{m.number}";
-                }
-				else if (m.mission is MissionType.ElementPresence)
+                }*/
+				/*else if (m.mission is MissionType.ElementPresence)
                 {
                     text.text += "Have ";
                     text.text += $"{m.number} ";
@@ -237,13 +257,43 @@ namespace Runtime.Services.Game.GameSystems
                     text.text += $"{s} ";
                     text.text += $"in the {Enum.GetName(typeof(RoomType), m.room)} ";
                     text.text += $": {m.number - _currentMissionsCount[i]}/{m.number}";
-                }
-                
+                }*/
+                text.text += $": {m.number - _currentMissionsCount[i]}/{m.number}";
                 text.text += "</color>";
                 text.text += "\n";
             }
         }
 
+        private static int GetDD(int missions) => missions switch
+        {
+            1 => 100,
+            2 => 200,
+            3 => 200,
+            4 => 300,
+            5 => 250,
+            6 => 300,
+            7 => 250,
+            8 => 400,
+            9 => 450,
+            10 => 500,
+            > 10 => 500,
+            _ => 0
+        };
+
+        private static float GetPercentage(float time) => time switch
+        {
+            > 300 => 1f,
+            > 270 => 0.9f,
+            > 240 => 0.8f,
+            > 210 => 0.7f,
+            > 180 => 0.6f,
+            > 150 => 0.5f,
+            > 120 => 0.4f,
+            > 90 => 0.3f,
+            > 60 => 0.2f,
+            _ => 0,
+        };
+        
 		#endregion
 
         #endregion
@@ -265,6 +315,10 @@ namespace Runtime.Services.Game.GameSystems
         private int[] _currentMissionsCount;
 
 		private float _missionTimer;
+
+        private int _doneMissions;
+
+        private int _tempDD;
 
         #endregion
     }
