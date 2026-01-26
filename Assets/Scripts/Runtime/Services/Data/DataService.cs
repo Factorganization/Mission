@@ -153,11 +153,13 @@ namespace Runtime.Services.Data
         
         #region fields
 
-        [ReadOnly] public float masterVolume;
+        [ReadOnly] public float masterVolume = 0.5f;
         
-        [ReadOnly] public float musicVolume;
+        [ReadOnly] public float musicVolume = 0.5f;
         
-        [ReadOnly] public float sfxVolume;
+        [ReadOnly] public float sfxVolume = 0.5f;
+
+        [ReadOnly] public float sensi = 1f;
         
         [ReadOnly] public int DevilDollars;
 
