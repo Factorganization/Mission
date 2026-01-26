@@ -180,7 +180,7 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorControllers
                     if (hit.transform != grabbable.Transform)
                         continue;
                     
-                    if ((Vector3.Distance(grabbable.OriginPos, grabbable.Transform.position) > 0.5f) && !grabbable.Grabbed)
+                    if ((Vector3.Distance(grabbable.OriginPos, grabbable.Transform.position) > 2) && !grabbable.Grabbed)
                     {
                         model._currentGrabbable = grabbable;
                         return true;
