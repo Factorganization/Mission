@@ -1,3 +1,4 @@
+using Runtime.Services.Data;
 using Runtime.Utils.Singleton;
 
 namespace Runtime
@@ -34,6 +35,8 @@ namespace Runtime
             {
                 throw new Exception("Bootstrapper failed to load scene", e);
             }
+            
+            serviceLocator.Get<DataService>().LoadData();
         }
 
         private void Start()

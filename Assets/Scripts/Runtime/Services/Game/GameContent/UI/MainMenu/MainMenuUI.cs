@@ -35,6 +35,16 @@ namespace Runtime.Services.Game.GameContent.UI
             a.SetMusic(a.Atlas.musics.UIMusics.MainMenu);
             
             var b = ServiceLocator.Instance.Get<DataService>();
+
+            if (b.PurchasedItems == null || b.PurchasedItems.Count == 0)
+            {
+                b.PurchasedItems = _playerPreview.CustomItems;
+
+                foreach (var item in _playerPreview.CustomItems)
+                {
+                    b.UpdateList(item.ItemName);
+                }
+            }
         }
 
         private void Update()

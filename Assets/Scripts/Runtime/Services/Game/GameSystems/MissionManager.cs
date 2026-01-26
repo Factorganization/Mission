@@ -14,7 +14,13 @@ namespace Runtime.Services.Game.GameSystems
         public int TempDD
         {
             get => _tempDD;
-            set => _tempDD = value;
+            set
+            {
+	            _tempDD = value; 
+	            
+	            if (GameManager.Instance.GameUIMgr is not null)
+		            GameManager.Instance.GameUIMgr.UpdateDevilDollars();
+            }
         }
 
         #endregion
@@ -108,19 +114,21 @@ namespace Runtime.Services.Game.GameSystems
 			foreach (var i in l)
 			{
 				if (_currentMissionsCount[i] > 0)
+				{
 					_currentMissionsCount[i]--;
 
-                else
-                {
-                    _doneMissions++;
-                    var t = GameManager.Instance.Timer.RemainingTime;
-
-                    var dd = GetDD(_doneMissions);
-                    var p = GetPercentage(t);
-
-                    _tempDD += dd + (int)(dd * p);
-                    GameManager.Instance.GameUIMgr.UpdateDevilDollars();
-                }
+					if (_currentMissionsCount[i] == 0)
+					{
+						_doneMissions++;
+						var t = GameManager.Instance.Timer.RemainingTime;
+						
+						var dd = GetDD(_doneMissions);
+						var p = GetPercentage(t);
+						
+						_tempDD += dd + (int)(dd * p);
+						GameManager.Instance.GameUIMgr.UpdateDevilDollars();
+					}
+				}
 			}
 
 			if (onBoardingMode)

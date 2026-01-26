@@ -1,3 +1,4 @@
+using Runtime.Services.Audio;
 using Runtime.Services.Data;
 using Runtime.Services.Game.GameContent.Actors.ActorInterfaces;
 using Runtime.Services.Game.GameContent.Actors.ActorViews;
@@ -34,6 +35,8 @@ public abstract class ElementHolderController : ActorView, IElementHolder
 	public VFXReferences VFX => objectDefinition.vfxReferences;
 
 	public bool[] MissionDone => _missionDone;
+	
+	public bool[] SoundPlayed => soundPlayed;
     
 	public float ElementApplicationDistance => objectDefinition.elementApplicationDistance;
 
@@ -65,6 +68,7 @@ public abstract class ElementHolderController : ActorView, IElementHolder
 	
 	protected virtual void Start()
 	{
+		soundPlayed = new bool[3];
 		_missionDone = new bool[Enum.GetValues(typeof(ElementFlag)).Length + 1];
 		
 		_resolveInteractions = new[]
@@ -100,10 +104,10 @@ public abstract class ElementHolderController : ActorView, IElementHolder
 	
 	protected virtual void Update()
 	{
-//#if UNITY_EDITOR
+#if UNITY_EDITOR
 		if (objectDefinition.debugInfo.debug)
 			objectDefinition.debugInfo.text.text = $"{(Active ? "<color=green>Active</color>" : "<color=red>Inactive</color>")}\n {Convert.ToString((int)Flag1, 2).PadLeft(4, '0')} \n {Convert.ToString((int)Flag2, 2).PadLeft(4, '0')}";
-//#endif
+#endif
 		
 		//checkup
 		/*if (((int)Flag3 & 0b0011) == 0b0011)
@@ -122,6 +126,7 @@ public abstract class ElementHolderController : ActorView, IElementHolder
 
 			if (objectDefinition.durations.waterTimer < 0)
 			{
+				soundPlayed[0] = false;
 				Flag3 &= ~ElementFlag.CanBeWet;
 				SetParticleOverride(this, ElementFlag.CanBeWet, false);
 			}
@@ -132,6 +137,7 @@ public abstract class ElementHolderController : ActorView, IElementHolder
 
 			if (objectDefinition.durations.fireTimer < 0)
 			{
+				soundPlayed[1] = false;
 				Flag3 &= ~ElementFlag.CanBurn;
 				SetParticleOverride(this, ElementFlag.CanBurn, false);
 			}
@@ -142,6 +148,7 @@ public abstract class ElementHolderController : ActorView, IElementHolder
 
 			if (objectDefinition.durations.electricityTimer < 0)
 			{
+				soundPlayed[2] = false;
 				Flag3 &= ~ElementFlag.CanConduct;
 				SetParticleOverride(this, ElementFlag.CanConduct, false);
 			}
@@ -321,16 +328,30 @@ public abstract class ElementHolderController : ActorView, IElementHolder
 		{
 			MissionManager.Manager.TryGetAndSetMission(new MissionModel(MissionType.ElementAffection, data.Holder1.ObjectType, ElementFlag.CanConduct, data.Holder1.RoomType));
 			data.Holder1.MissionDone[2] = true;
-			ServiceLocator.Instance.Get<DataService>().AddMalicePointsSoft(10);
+			ElementManager.Element.TempMalice += 10;
 			ElementManager.CurrentCombo++;
+		}
+		
+		if (!data.Holder2.SoundPlayed[2])
+		{
+			data.Holder2.SoundPlayed[2] = true;
+			var a = ServiceLocator.Instance.Get<AudioService>();
+			a.PlayOneShot(a.Atlas.sfx.effects.electricity.electricStart, data.Holder2.Transform.position);
 		}
 
 		if (!data.Holder2.MissionDone[2])
 		{
 			MissionManager.Manager.TryGetAndSetMission(new MissionModel(MissionType.ElementAffection, data.Holder2.ObjectType, ElementFlag.CanConduct, data.Holder2.RoomType));
 			data.Holder2.MissionDone[2] = true;
-			ServiceLocator.Instance.Get<DataService>().AddMalicePointsSoft(10);
+			ElementManager.Element.TempMalice += 10;
 			ElementManager.CurrentCombo++;
+		}
+		
+		if (!data.Holder2.SoundPlayed[2])
+		{
+			data.Holder2.SoundPlayed[2] = true;
+			var a = ServiceLocator.Instance.Get<AudioService>();
+			a.PlayOneShot(a.Atlas.sfx.effects.electricity.electricStart, data.Holder2.Transform.position);
 		}
 	}
 
@@ -349,6 +370,13 @@ public abstract class ElementHolderController : ActorView, IElementHolder
 			data.Holder2.MissionDone[1] = true;
 			ElementManager.Element.TempMalice += 10;
 			ElementManager.CurrentCombo++;
+		}
+		
+		if (!data.Holder2.SoundPlayed[1])
+		{
+			data.Holder2.SoundPlayed[1] = true;
+			var a = ServiceLocator.Instance.Get<AudioService>();
+			a.PlayOneShot(a.Atlas.sfx.effects.fire.takingFire, data.Holder2.Transform.position);
 		}
 	}
 
@@ -376,6 +404,13 @@ public abstract class ElementHolderController : ActorView, IElementHolder
 			ElementManager.Element.TempMalice += 10;
 			ElementManager.CurrentCombo++;
 		}
+		
+		if (!data.Holder2.SoundPlayed[1])
+		{
+			data.Holder2.SoundPlayed[1] = true;
+			var a = ServiceLocator.Instance.Get<AudioService>();
+			a.PlayOneShot(a.Atlas.sfx.effects.fire.takingFire, data.Holder2.Transform.position);
+		}
 	}
 
 	private void ElectricToElectric(ElementInteractionData data)
@@ -389,6 +424,13 @@ public abstract class ElementHolderController : ActorView, IElementHolder
 			data.Holder2.MissionDone[2] = true;
 			ElementManager.Element.TempMalice += 10;
 			ElementManager.CurrentCombo++;
+		}
+		
+		if (!data.Holder2.SoundPlayed[2])
+		{
+			data.Holder2.SoundPlayed[2] = true;
+			var a = ServiceLocator.Instance.Get<AudioService>();
+			a.PlayOneShot(a.Atlas.sfx.effects.electricity.electricStart, data.Holder2.Transform.position);
 		}
 	}
 
@@ -415,6 +457,13 @@ public abstract class ElementHolderController : ActorView, IElementHolder
 			data.Holder2.MissionDone[0] = true;
 			ElementManager.Element.TempMalice += 10;
 			ElementManager.CurrentCombo++;
+		}
+
+		if (!data.Holder2.SoundPlayed[0])
+		{
+			data.Holder2.SoundPlayed[0] = true;
+			var a = ServiceLocator.Instance.Get<AudioService>();
+			a.PlayOneShot(a.Atlas.sfx.effects.water.WettingWater, data.Holder2.Transform.position);
 		}
 	}
 
@@ -452,6 +501,13 @@ public abstract class ElementHolderController : ActorView, IElementHolder
 			SetParticleOverride(e, ElementFlag.CanBurn, true);
 			e.Durations.fireTimer = e.Durations.fireDuration;
 
+			if (!e.SoundPlayed[1])
+			{
+				e.SoundPlayed[1] = true;
+				var a = ServiceLocator.Instance.Get<AudioService>();
+				a.PlayOneShot(a.Atlas.sfx.effects.fire.takingFire, e.Transform.position);
+			}
+
 			if (!e.MissionDone[1])
 			{
 				MissionManager.Manager.TryGetAndSetMission(new MissionModel(MissionType.ElementAffection, objectDefinition.@object, ElementFlag.CanBurn, RoomType));
@@ -475,6 +531,8 @@ public abstract class ElementHolderController : ActorView, IElementHolder
 	protected CinemachineImpulseSource impulseSource;
 	
 	private bool[] _missionDone;
+
+	protected bool[] soundPlayed;
 
 	protected bool exploded;
 

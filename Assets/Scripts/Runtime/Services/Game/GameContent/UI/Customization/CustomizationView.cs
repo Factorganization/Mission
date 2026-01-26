@@ -35,11 +35,12 @@ namespace Runtime.Services.Game.GameContent.UI.Customization
                      _customizationColors.SetCurrentBodyPart(CustomizationPlayer.BodyPartType.Eyes);
 
                  var mats= _characterPreview.GetItem(CustomizationPlayer.BodyPartType.Eyes);
+                 var a = ServiceLocator.Instance.Get<DataService>();
                  _customizationPooler.PopulateMaterials(mats, (btn) =>
                  {
                      var mat = btn.SelectedMaterial;
                      
-                     if (!btn.CustomizeItem.Locked)
+                     if (!a.PurchasedItems[a.PurchasedItems.FindIndex(x => x.ItemName == btn.CustomizeItem.ItemName)].Locked)
                      {
                          _characterPreview.ApplyMaterialToBodyPart(CustomizationPlayer.BodyPartType.Eyes, mat);
                      }

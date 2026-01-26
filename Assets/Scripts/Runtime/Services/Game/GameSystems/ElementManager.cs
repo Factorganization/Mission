@@ -10,8 +10,20 @@ namespace Runtime.Services.Game.GameSystems
         public static ElementManager Element { get; private set; }
         
         public static int CurrentCombo { get; set; }
-        
-        public int TempMalice { get; set; }
+
+        public int TempMalice
+        {
+            get => _tempMalice;
+            set
+            {
+                _tempMalice = value;
+
+                if (GameManager.Instance.GameUIMgr is not null)
+                {
+                    GameManager.Instance.GameUIMgr.UpdateMalicePoints();
+                }
+            }
+        }
 
         #endregion
         
@@ -28,6 +40,17 @@ namespace Runtime.Services.Game.GameSystems
         private void Start()
         {
             CurrentCombo = 0;
+        }
+
+        private void Update()
+        {
+            _delay += Time.deltaTime;
+
+            if (_delay > 3)
+            {
+                _delay = 0;
+                CurrentCombo = 0;
+            }
         }
 
         private void FixedUpdate()
@@ -96,7 +119,7 @@ namespace Runtime.Services.Game.GameSystems
                 _upperThreshold = _threshold;
 
                 var combo = CurrentCombo % 5;
-                TempMalice += combo * 50;
+                TempMalice += combo * 5;
                 CurrentCombo = 0;
             }
         }
@@ -125,6 +148,8 @@ namespace Runtime.Services.Game.GameSystems
         private int _lowerThreshold;
         
         private int _upperThreshold;
+
+        private int _tempMalice;
 
         #endregion
     }
