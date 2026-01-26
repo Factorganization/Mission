@@ -22,6 +22,8 @@ namespace Runtime.Services.Game.GameContent.UI.GameUI
 
         public async void ReturnToMainMenu()
         {
+            ElementManager.Element.TempMalice = 0;
+            MissionManager.Manager.TempDD = 0;
             ServiceLocator.Instance.Get<AudioService>().StopMusicSmooth();
             Time.timeScale = 1f;
             ServiceLocator.Instance.Get<CursorService>().SetActive(true);
@@ -40,6 +42,8 @@ namespace Runtime.Services.Game.GameContent.UI.GameUI
         
         public void RestartLevel()
         {
+            ElementManager.Element.TempMalice = 0;
+            MissionManager.Manager.TempDD = 0;
             GameManager.Instance.ReloadScene();
         }
         

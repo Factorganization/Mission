@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using Runtime.Services.Game.GameContent.UI.Customization;
 using Runtime.Services.Game.GameSystems;
 using Shared.Utils.ReadOnlyCustom;
 
@@ -83,6 +85,38 @@ namespace Runtime.Services.Data
             SaveData();
         }
         
+        public void SetUnlockedItems(List<CustomizeItemData> items)
+        {
+            PurchasedItems = items;
+            SaveData();
+        }
+        
+        public void AddPurchaseItem(CustomizeItemData itemID)
+        {
+            if (!PurchasedItems.Contains(itemID))
+            {
+                PurchasedItems.Add(itemID);
+                SaveData();
+            }
+        }
+
+        public void UpdatePurchaseItem(string itemID, CustomizationPlayer player)
+        {
+            foreach (var item in player.BodyPartMeshDataArray)
+            {
+                foreach (var part in item.meshArray)
+                {
+                    if (part.ItemName == itemID)
+                    {
+                        PurchasedItems[PurchasedItems.FindIndex(x => x.ItemName == itemID)].Locked = false;
+                        Debug.Log(PurchasedItems[PurchasedItems.FindIndex(x => x.ItemName == itemID)]);
+                        SaveData();
+                        return;
+                    }
+                }
+            }
+        }
+        
         public void SaveData()
         {
             string data = JsonUtility.ToJson(this);
@@ -109,23 +143,38 @@ namespace Runtime.Services.Data
             }
         }
         
+        public void ResetData()
+        {
+            masterVolume = 1f;
+            musicVolume = 1f;
+            sfxVolume = 1f;
+            DevilDollars = 0;
+            MalicePoints = 0;
+            PurchasedItems.Clear();
+            SaveData();
+        }
+        
         #endregion
         
         #endregion
         
         #region fields
 
-        [ReadOnly] public float masterVolume;
+        [ReadOnly] public float masterVolume = 0.5f;
         
-        [ReadOnly] public float musicVolume;
+        [ReadOnly] public float musicVolume = 0.5f;
         
-        [ReadOnly] public float sfxVolume;
+        [ReadOnly] public float sfxVolume = 0.5f;
+
+        [ReadOnly] public float sensi = 1f;
         
         [ReadOnly] public int DevilDollars;
 
         [ReadOnly] public int MalicePoints;
         
         [ReadOnly] public string PlayerPrefsSave = "PlayerData";
+        
+        public List<CustomizeItemData> PurchasedItems = new List<CustomizeItemData>();
         
         #endregion
     }
