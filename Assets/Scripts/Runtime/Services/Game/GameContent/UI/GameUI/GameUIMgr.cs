@@ -42,6 +42,7 @@ namespace Runtime.Services.Game.GameContent.UI.GameUI
         
         public void RestartLevel()
         {
+            ServiceLocator.Instance.Get<AudioService>().StopMusicSmooth();
             ElementManager.Element.TempMalice = 0;
             MissionManager.Manager.TempDD = 0;
             GameManager.Instance.ReloadScene();
