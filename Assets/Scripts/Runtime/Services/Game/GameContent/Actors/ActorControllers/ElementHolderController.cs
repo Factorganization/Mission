@@ -328,7 +328,7 @@ public abstract class ElementHolderController : ActorView, IElementHolder
 		{
 			MissionManager.Manager.TryGetAndSetMission(new MissionModel(MissionType.ElementAffection, data.Holder1.ObjectType, ElementFlag.CanConduct, data.Holder1.RoomType));
 			data.Holder1.MissionDone[2] = true;
-			ServiceLocator.Instance.Get<DataService>().AddMalicePointsSoft(10);
+			ElementManager.Element.TempMalice += 10;
 			ElementManager.CurrentCombo++;
 		}
 		
@@ -343,7 +343,7 @@ public abstract class ElementHolderController : ActorView, IElementHolder
 		{
 			MissionManager.Manager.TryGetAndSetMission(new MissionModel(MissionType.ElementAffection, data.Holder2.ObjectType, ElementFlag.CanConduct, data.Holder2.RoomType));
 			data.Holder2.MissionDone[2] = true;
-			ServiceLocator.Instance.Get<DataService>().AddMalicePointsSoft(10);
+			ElementManager.Element.TempMalice += 10;
 			ElementManager.CurrentCombo++;
 		}
 		
