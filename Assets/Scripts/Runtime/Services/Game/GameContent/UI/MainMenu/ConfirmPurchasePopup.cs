@@ -2,6 +2,7 @@ using Runtime.Service;
 using Runtime.Services.Data;
 using Runtime.Services.Game.GameContent.UI;
 using Runtime.Services.Game.GameContent.UI.Customization;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -22,6 +23,7 @@ namespace Runtime.Services.Game.GameContent.UI.MainMenu
             if (!_isOpen)
             {
                 StartCoroutine(AnimationExtensions.Play(_animator, "OpenPurchasePopup", true, null));
+                _purchaseText.text = "Are you sure ?";
                 _isOpen = true;
                 _bg.raycastTarget = true;
             }
@@ -41,8 +43,11 @@ namespace Runtime.Services.Game.GameContent.UI.MainMenu
         [SerializeField] private Button _confirmButton, _closeButton;
         [SerializeField] private Animation _animator;
         [SerializeField] private Image _bg;
+        [SerializeField] private TextMeshProUGUI _purchaseText;
         
         public Button ConfirmButton => _confirmButton;
+        
+        public TextMeshProUGUI PurchaseText => _purchaseText;
 
         #endregion
     }
