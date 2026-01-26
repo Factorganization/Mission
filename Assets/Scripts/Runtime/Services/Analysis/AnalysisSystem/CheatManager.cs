@@ -87,6 +87,18 @@ namespace Runtime.Services.Analysis.AnalysisSystem
             ServiceLocator.Instance.Get<DataService>().AddMalicePoints(666666);
         }
 
+        public void ResetMalice()
+        {
+            ServiceLocator.Instance.Get<DataService>().MalicePoints = 0;
+            ServiceLocator.Instance.Get<DataService>().SaveData();
+        }
+
+        public void ResetDD()
+        {
+            ServiceLocator.Instance.Get<DataService>().DevilDollars = 0;
+            ServiceLocator.Instance.Get<DataService>().SaveData();
+        }
+
         #endregion
 
         #region fields
