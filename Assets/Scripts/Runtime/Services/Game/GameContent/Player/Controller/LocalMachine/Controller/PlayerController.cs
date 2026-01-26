@@ -1,4 +1,6 @@
+using System.Data;
 using System.Runtime.CompilerServices;
+using Runtime.Services.Data;
 using Runtime.Services.Game.GameContent.Actors.ActorInterfaces;
 using Runtime.Services.Game.GameContent.Logics.LogicInterfaces;
 using Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Model;
@@ -43,7 +45,8 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Contr
         /// <param name="playerModel"></param>
         internal static void HandleRotateInputGather(this  PlayerModel playerModel)
         {
-            playerModel.lookDir = playerModel.data.inputData.lookInput.action.ReadValue<Vector2>() / Time.deltaTime;
+            //TODO placer le service locator pas la ptn
+            playerModel.lookDir = playerModel.data.inputData.lookInput.action.ReadValue<Vector2>() * ServiceLocator.Instance.Get<DataService>().sensi / Time.deltaTime;
             playerModel.isUsingMouse = playerModel.data.inputData.lookInput.action.activeControl?.name == "delta";
         }
 
@@ -250,6 +253,8 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Contr
             if (playerModel.currentGrabbedObject is null)
                 return;
 
+            var targetPos = Vector3.zero;
+            
             if (playerModel.currentGrabbedObject.Active && playerModel.currentGrabbedObject.Transform.parent != playerModel.activeGrab)
                 playerModel.currentGrabbedObject.Transform.SetParent(playerModel.activeGrab);
             
@@ -259,9 +264,10 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Contr
             if (playerModel.currentGrabbedObject.Transform.localPosition.sqrMagnitude < 0.005f)
                 return;
             
-            playerModel.currentGrabbedObject.Transform.localPosition += Math.EasingFunction.SimpleQuadraticEase.V3SimpleQuadraticEaseOut(playerModel.currentGrabbedObject.Transform.localPosition, Vector3.zero, 0.1f);
-            if (playerModel.currentGrabbedObject.Transform.localPosition.sqrMagnitude < 0.005f)
-                playerModel.currentGrabbedObject.Transform.localPosition = Vector3.zero;
+            if (Vector3.Distance(playerModel.currentGrabbedObject.Transform.localPosition, targetPos) <= 0.1f)
+                            playerModel.currentGrabbedObject.Transform.localPosition = targetPos;
+            
+            playerModel.currentGrabbedObject.Transform.localPosition += Math.EasingFunction.SimpleQuadraticEase.V3SimpleQuadraticEaseOut(playerModel.currentGrabbedObject.Transform.localPosition, targetPos, 0.15f);
         }
         
         /// <summary>

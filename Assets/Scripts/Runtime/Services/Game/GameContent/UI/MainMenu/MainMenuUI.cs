@@ -1,5 +1,6 @@
 using Runtime.Services.Audio;
 using Runtime.Services.Data;
+using Runtime.Services.Game.GameContent.UI.Customization;
 using Runtime.Services.Game.GameContent.UI.MainMenu;
 using UnityEngine.UI;
 
@@ -32,6 +33,8 @@ namespace Runtime.Services.Game.GameContent.UI
 
             var a = ServiceLocator.Instance.Get<AudioService>();
             a.SetMusic(a.Atlas.musics.UIMusics.MainMenu);
+            
+            var b = ServiceLocator.Instance.Get<DataService>();
         }
 
         private void Update()
@@ -67,11 +70,9 @@ namespace Runtime.Services.Game.GameContent.UI
         #endregion
 
         #region Fields
-
-        [Header("Apps Buttons")]
+        
         [SerializeField] private Button _mailApp, _settingsApp, _customizeApp, _creditsApp, _quitApp;
-    
-        [Header("Containers")]
+        
         [SerializeField] private UIParent _mailContainer, _settingsContainer, _customizeContainer, _creditsContainer, _quitContainer;
         
         [Header("Background")]
@@ -80,11 +81,15 @@ namespace Runtime.Services.Game.GameContent.UI
         [SerializeField] private UpdateDataInfo _updateDataInfo;
         
         [SerializeField] ConfirmPurchasePopup _purchaseContainer;
+
+        [SerializeField] private CustomizationPlayer _playerPreview;
         
         public ConfirmPurchasePopup PurchaseContainer => _purchaseContainer;
         
         public UpdateDataInfo UpdateDataInfo => _updateDataInfo;
     
+        public CustomizationPlayer PlayerPreview => _playerPreview;
+        
         #endregion
     }
 }
