@@ -94,10 +94,8 @@ namespace Runtime.Services.Game.GameContent.Actors.ActorViews
                         gameObject.SetActive(false);
                         return;
                     }
-                    else
-                    {
-                        Transform.position = _spawnerRef.SpawnPos.position;
-                    }
+
+                    Transform.position = _spawnerRef.SpawnPos.position;
 
                     if (Grabbed)
 					{

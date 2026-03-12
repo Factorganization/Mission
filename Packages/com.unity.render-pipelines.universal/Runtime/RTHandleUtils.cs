@@ -55,7 +55,7 @@ namespace UnityEngine.Rendering.Universal
                 m_ResourcePool.Add(hashCode, list);
             }
 
-            list.Add(resource.GetInstanceID(), (resource, currentFrameIndex));
+            list.Add((int)resource.GetUniqueID(), (resource, currentFrameIndex));
             s_CurrentStaleResourceCount++;
 
             return true;
