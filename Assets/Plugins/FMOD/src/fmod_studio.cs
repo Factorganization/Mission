@@ -1,13 +1,15 @@
 /* ======================================================================================== */
 /* FMOD Studio API - C# wrapper.                                                            */
-/* Copyright (c), Firelight Technologies Pty, Ltd. 2004-2025.                               */
+/* Copyright (c), Firelight Technologies Pty, Ltd. 2004-2026.                               */
 /*                                                                                          */
 /* For more detail visit:                                                                   */
 /* https://fmod.com/docs/2.02/api/studio-api.html                                           */
 /* ======================================================================================== */
 
 using System;
+using System.Text;
 using System.Runtime.InteropServices;
+using System.Collections;
 
 namespace FMOD.Studio
 {

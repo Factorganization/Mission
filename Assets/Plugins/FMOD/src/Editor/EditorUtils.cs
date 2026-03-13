@@ -704,7 +704,7 @@ namespace FMODUnity
             CheckResult(lowlevel.getVersion(out version));
 
             string text = string.Format(
-                "Version: {0}\n\nCopyright \u00A9 Firelight Technologies Pty, Ltd. 2014-2025 \n\n" +
+                "Version: {0}\n\nCopyright \u00A9 Firelight Technologies Pty, Ltd. 2014-2026 \n\n" +
                 "See LICENSE.TXT for additional license information.",
                 VersionString(version));
 
@@ -1336,7 +1336,7 @@ namespace FMODUnity
             new LibInfo() {cpu = "x86", os = "Windows",  lib = "fmodstudioL.dll", platform = "win", setPlatformCPU = false, buildTarget = BuildTarget.StandaloneWindows},
             new LibInfo() {cpu = "x86_64", os = "Windows", lib = "fmodstudioL.dll", platform = "win", setPlatformCPU = false, buildTarget = BuildTarget.StandaloneWindows64},
             new LibInfo() {cpu = "x86_64", os = "Linux", lib = "libfmodstudioL.so", platform = "linux", setPlatformCPU = false, buildTarget = BuildTarget.StandaloneLinux64},
-            new LibInfo() {cpu = AnyCPU, os = "OSX", lib = "fmodstudioL.bundle", platform = "mac", setPlatformCPU = false, buildTarget = BuildTarget.StandaloneOSX},
+            new LibInfo() {cpu = AnyCPU, os = "OSX", lib = "fmodstudioL.bundle", platform = "mac", setPlatformCPU = true, buildTarget = BuildTarget.StandaloneOSX},
 #if UNITY_2023_1_OR_NEWER
             new LibInfo() {cpu = "ARM64", os = "Windows", lib = "fmodstudioL.dll", platform = "win", setPlatformCPU = true, buildTarget = BuildTarget.StandaloneWindows64},
 #endif

@@ -2,6 +2,7 @@ using System.Runtime.CompilerServices;
 using Runtime.Services.Game.GameContent.Actors.ActorInterfaces;
 using Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Model;
 using Runtime.Services.Game.GameSystems;
+using Shared.Utils.MathExtension;
 
 namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Controller
 {
@@ -56,7 +57,7 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Contr
                     continue;
                 
                 var d = Vector3.Distance(p.Transform.position + p.Collider.center, playerModel.rb.position);
-                var a = Vector3.Angle(playerModel.graph.forward, ((p.Transform.position + p.Collider.center - playerModel.rb.position) * GameConstants.VectorUpFilter).normalized);
+                var a = Vector3.Angle(playerModel.graph.forward, Vector3Extension.LinearMultiply(p.Transform.position + p.Collider.center - playerModel.rb.position, GameConstants.VectorUpFilter).normalized);
                 Physics.Raycast(playerModel.rb.position, 
                     (p.Transform.position + p.Collider.center - playerModel.rb.position).normalized,
                     out var hit,
@@ -121,7 +122,7 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Contr
                     continue;
                 
                 var d = Vector3.Distance(p.Transform.position + p.Collider.center, playerModel.rb.position);
-                var a = Vector3.Angle(playerModel.graph.forward, ((p.Transform.position + p.Collider.center - playerModel.rb.position) * GameConstants.VectorUpFilter).normalized);
+                var a = Vector3.Angle(playerModel.graph.forward, Vector3Extension.LinearMultiply(p.Transform.position + p.Collider.center - playerModel.rb.position, GameConstants.VectorUpFilter).normalized);
                 Physics.Raycast(playerModel.rb.position, 
                     (p.Transform.position + p.Collider.center - playerModel.rb.position).normalized,
                     out var hit,
@@ -172,7 +173,7 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Contr
                     continue;
                 
                 var d = Vector3.Distance(g.Transform.position, playerModel.rb.position);
-                var a = Vector3.Angle(playerModel.graph.forward, ((g.Transform.position - playerModel.rb.position) * GameConstants.VectorUpFilter).normalized);
+                var a = Vector3.Angle(playerModel.graph.forward, Vector3Extension.LinearMultiply(g.Transform.position - playerModel.rb.position, GameConstants.VectorUpFilter).normalized);
                 Physics.Raycast(playerModel.rb.position, 
                     (g.Transform.position - playerModel.rb.position).normalized,
                     out var hit,
@@ -247,7 +248,7 @@ namespace Runtime.Services.Game.GameContent.Player.Controller.LocalMachine.Contr
                     continue;
                 
                 var d = Vector3.Distance(g.Transform.position, playerModel.rb.position);
-                var a = Vector3.Angle(playerModel.graph.forward, ((g.Transform.position - playerModel.rb.position) * GameConstants.VectorUpFilter).normalized);
+                var a = Vector3.Angle(playerModel.graph.forward, Vector3Extension.LinearMultiply(g.Transform.position - playerModel.rb.position, GameConstants.VectorUpFilter).normalized);
                 Physics.Raycast(playerModel.rb.position, 
                     (g.Transform.position - playerModel.rb.position).normalized,
                     out var hit,
